@@ -21,7 +21,7 @@
   <developers>
     <developer>
       <name>Regis Medina</name>
-      <id>regismed</id>
+      <id>rmedina</id>
       <email>regis DOT medina AT design-up DOT com</email>
       <timezone>+1</timezone>
     </developer>
@@ -32,12 +32,17 @@
     </developer>
     <developer>
       <name>Pascal Pratmarty</name>
-      <id>ppratmar</id>
+      <id>ppratmarty</id>
       <timezone>+1</timezone>
     </developer>
     <developer>
       <name>Sebastien Crego</name>
       <id>scrego</id>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Sylvain Rousseau</name>
+      <id>sroussea</id>
       <timezone>+1</timezone>
     </developer>
   </developers>
