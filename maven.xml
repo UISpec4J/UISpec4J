@@ -1,0 +1,11 @@
+<project>
+  <postGoal name="xdoc:register-reports">
+    <attainGoal name="maven-checkstyle-plugin:deregister"/>
+    <attainGoal name="maven-changelog-plugin:deregister"/>
+    <attainGoal name="maven-jdepend-plugin:deregister"/>
+    <attainGoal name="maven-developer-activity-plugin:deregister"/>
+    <attainGoal name="maven-file-activity-plugin:deregister"/>
+    <attainGoal name="maven-tasklist-plugin:deregister"/>
+    <attainGoal name="maven-jxr-plugin:deregister"/>
+  </postGoal>
+</project>
