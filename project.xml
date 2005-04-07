@@ -9,7 +9,8 @@
   <inceptionYear>2004</inceptionYear>
   <siteDirectory>D:\UISpec4J_publication</siteDirectory>
   <logo>/uispec4j.png</logo>
-
+  <issueTrackingUrl>https://uispec4j.dev.java.net/servlets/ProjectIssues</issueTrackingUrl>
+  
   <licenses>
     <license>
       <name>Common Public License</name>
