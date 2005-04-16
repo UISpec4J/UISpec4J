@@ -4,7 +4,7 @@
   <id>uispec4j</id>
   <name>UISpec4J</name>
   <url>http://www.uispec4j.org</url>
-  <currentVersion>0.7</currentVersion>
+  <currentVersion>0.8</currentVersion>
   <package>org.uispec4j</package>
   <inceptionYear>2004</inceptionYear>
   <siteDirectory>D:\UISpec4J_publication</siteDirectory>
@@ -28,7 +28,7 @@
     </developer>
     <developer>
       <name>Boris Gonnot</name>
-      <id>bobo</id>
+      <id>gonnot</id>
       <timezone>+1</timezone>
     </developer>
     <developer>
