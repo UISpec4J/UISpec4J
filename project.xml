@@ -76,6 +76,13 @@
       <type>jar</type>
       <url>http://asm.objectweb.org</url>
     </dependency>
+    <dependency>
+      <groupId>asm</groupId>
+      <artifactId>asm-attrs</artifactId>
+      <version>1.5.1</version>
+      <type>jar</type>
+      <url>http://asm.objectweb.org</url>
+    </dependency>
   </dependencies>
 
   <build>
