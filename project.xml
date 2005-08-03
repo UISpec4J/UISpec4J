@@ -7,7 +7,7 @@
   <currentVersion>0.11</currentVersion>
   <package>org.uispec4j</package>
   <inceptionYear>2004</inceptionYear>
-  <siteDirectory>D:\UISpec4J_publication</siteDirectory>
+  <siteDirectory>${basedir}/publication</siteDirectory>
   <logo>/uispec4j.png</logo>
   <issueTrackingUrl>https://uispec4j.dev.java.net/servlets/ProjectIssues</issueTrackingUrl>
   
