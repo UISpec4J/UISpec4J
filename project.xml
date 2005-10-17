@@ -4,7 +4,7 @@
   <id>uispec4j</id>
   <name>UISpec4J</name>
   <url>http://www.uispec4j.org</url>
-  <currentVersion>0.13</currentVersion>
+  <currentVersion>0.14</currentVersion>
   <package>org.uispec4j</package>
   <inceptionYear>2004</inceptionYear>
   <siteDirectory>${basedir}/publication</siteDirectory>
