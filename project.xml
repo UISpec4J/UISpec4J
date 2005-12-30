@@ -4,9 +4,13 @@
   <id>uispec4j</id>
   <name>UISpec4J</name>
   <url>http://www.uispec4j.org</url>
-  <currentVersion>0.14</currentVersion>
+  <currentVersion>0.15</currentVersion>
   <package>org.uispec4j</package>
   <inceptionYear>2004</inceptionYear>
+  <organization>
+    <name>Design-up</name>
+    <url>http://www.design-up.com</url>
+  </organization>
   <siteDirectory>${basedir}/publication</siteDirectory>
   <logo>/uispec4j.png</logo>
   <issueTrackingUrl>https://uispec4j.dev.java.net/servlets/ProjectIssues</issueTrackingUrl>
@@ -95,9 +99,16 @@
       </includes>
       <excludes>
         <exclude>**/*TestCase.java</exclude>
-        <exclude>**/PopupInterceptionTest.java</exclude>
       </excludes>
     </unitTest>
   </build>
+
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-clover-plugin</report>
+  </reports>
 
 </project>
