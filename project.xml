@@ -4,7 +4,7 @@
   <id>uispec4j</id>
   <name>UISpec4J</name>
   <url>http://www.uispec4j.org</url>
-  <currentVersion>0.15</currentVersion>
+  <currentVersion>0.16</currentVersion>
   <package>org.uispec4j</package>
   <inceptionYear>2004</inceptionYear>
   <organization>
@@ -15,7 +15,7 @@
   <logo>/uispec4j.png</logo>
   <issueTrackingUrl>https://uispec4j.dev.java.net/servlets/ProjectIssues</issueTrackingUrl>
   <shortDescription>Java/Swing GUI testing made simple!</shortDescription>
-  
+
   <licenses>
     <license>
       <name>Common Public License</name>
