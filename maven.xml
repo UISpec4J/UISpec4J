@@ -6,6 +6,5 @@
     <attainGoal name="maven-developer-activity-plugin:deregister"/>
     <attainGoal name="maven-file-activity-plugin:deregister"/>
     <attainGoal name="maven-tasklist-plugin:deregister"/>
-    <attainGoal name="maven-jxr-plugin:deregister"/>
   </postGoal>
 </project>
