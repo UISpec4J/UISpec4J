@@ -51,6 +51,11 @@
       <id>sroussea</id>
       <timezone>+1</timezone>
     </developer>
+    <developer>
+      <name>Marc Guiot</name>
+      <id>mguiot</id>
+      <timezone>+1</timezone>
+    </developer>
   </developers>
 
   <mailingLists>
