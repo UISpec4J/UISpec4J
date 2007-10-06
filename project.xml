@@ -69,8 +69,18 @@
   <dependencies>
     <dependency>
       <id>junit</id>
-      <version>3.8.1</version>
+      <version>4.4</version>
       <url>http://www.junit.org</url>
+    </dependency>
+    <dependency>
+      <id>uispec4j</id>
+      <version>1.4</version>
+      <url>http://www.ibiblio.org/maven/uispec4j</url>
+    </dependency>
+    <dependency>
+      <id>testng</id>
+      <version>5.5</version>
+      <url>http://www.ibiblio.org/maven/org.testng</url>
     </dependency>
     <dependency>
       <groupId>asm</groupId>
