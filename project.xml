@@ -73,14 +73,19 @@
       <url>http://www.junit.org</url>
     </dependency>
     <dependency>
-      <id>uispec4j</id>
-      <version>1.4</version>
-      <url>http://www.ibiblio.org/maven/uispec4j</url>
+      <id>testng</id>
+      <version>5.5</version>
+      <url>http://www.ibiblio.org/maven/org.testng</url>
     </dependency>
     <dependency>
       <id>testng</id>
       <version>5.5</version>
       <url>http://www.ibiblio.org/maven/org.testng</url>
+    </dependency>
+    <dependency>
+      <id>ant-contrib</id>
+      <version>1.0b2</version>
+      <url>http://www.ibiblio.org/maven/ant-contrib</url>
     </dependency>
     <dependency>
       <groupId>asm</groupId>
