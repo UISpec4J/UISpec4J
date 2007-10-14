@@ -73,8 +73,9 @@
       <url>http://www.junit.org</url>
     </dependency>
     <dependency>
-      <id>testng</id>
-      <version>5.0</version>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId >
+      <version>5.5</version>
       <url>http://www.ibiblio.org/maven/org.testng</url>
     </dependency>
     <dependency>
