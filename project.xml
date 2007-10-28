@@ -5,7 +5,7 @@
   <name>UISpec4J</name>
   <url>http://www.uispec4j.org</url>
   <currentVersion>2.0</currentVersion>
-  <package>org.uispec4j</package>
+  <package>org.crossbowlabs.uispec</package>
   <inceptionYear>2004</inceptionYear>
   <organization>
     <name>Design-up</name>
