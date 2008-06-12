@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Using assertions</title>
+  </properties>
+
+  <body>
+    <section name="Using assertions">
+      <subsection name="UIComponent assertion methods">
+        <p>All the UISpec4J component wrappers provide methods for checking the underlying
+          component state. These methods return
+          <a href="apidocs/org/uispec4j/assertion/Assertion.html">Assertion</a>
+          objects
+          responsible for performing the check. They are meant to be used with the
+          <a href="apidocs/org/uispec4j/assertion/UISpecAssert.html#assertTrue">UISpecAssert.assertTrue()</a>
+          method, which is also available as an instance method in
+          <a href="apidocs/org/uispec4j/UISpecTestCase.html">UISpecTestCase</a>
+          .
+        </p>
+        <p>
+          For instance, when checking the text displayed on a button, you will write:
+        </p>
+        <source><![CDATA[
+  assertTrue(button.textEquals("OK"));]]>
+        </source>
+        <p>
+          In order to check the contents of a tree, you will write:
+        </p>
+        <source><![CDATA[
+  assertTrue(tree.contentEquals("root\n" +
+                                "  element1\n" +
+                                "  element2"));]]>
+        </source>
+      </subsection>
+
+      <subsection name="Management of delays">
+        <p>The
+          <a href="apidocs/org/uispec4j/assertion/UISpecAssert.html#assertTrue">UISpecAssert.assertTrue()</a>
+          method retries checking the assertion when the first check fails, in order to
+          abstract the tests from the fact that sometimes the user interface needs a
+          little delay before being refreshed, especially in multi-threaded applications.
+          This delay is set with
+          <a href="apidocs/org/uispec4j/UISpec4J.html#setAssertionTimeLimit">UISpec4J.setAssertionTimeLimit()</a>
+          .
+        </p>
+        <p>
+          The default retry delay is meant to be used for most actions. In cases where your application
+          provides some actions that take longer than average, you can use the
+          <a href="apidocs/org/uispec4j/UISpecAssert.html#waitUntil">UISpecAssert.waitUntil()</a>
+          or
+          <a href="apidocs/org/uispec4j/UISpecTestCase.html#waitUntil">UISpecTestCase.waitUntil()</a>
+          methods:
+        </p>
+        <source><![CDATA[
+  waitUntil(button.isEnabled(), 10000);]]>
+        </source>
+      </subsection>
+
+      <subsection name="Composing assertions">
+        <p>The
+          <a href="apidocs/org/uispec4j/assertion/UISpecAssert.html">UISpecAssert</a>
+          class
+          provides a number of boolean operators for managing assertions: not, or, and.
+        </p>
+        <p>These methods are also implemented in UISpecTestCase, so that you don't have to use
+          the UISpec4J prefix in your tests. You can then write something like:</p>
+        <source><![CDATA[
+  assertTrue(and(button.isEnabled(true), button.textEquals("OK")));]]>
+        </source>
+      </subsection>
+
+    </section>
+  </body>
+</document>

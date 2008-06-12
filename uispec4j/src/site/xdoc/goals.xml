@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Goals</title>
+  </properties>
+
+  <meta name="keyword" content="java, junit"/>
+
+  <body>
+    <section name="Project goals">
+      <subsection name="Ease the testing of Swing-based GUIs">
+        <p>UISpec4j's main goal is to provide a support for writing unit and functional
+          test cases based on the application's user interface.</p>
+        <p>UISpec4J was conceived in an Extreme Programming environment, where automated testing takes
+           a central place. The existing Swing-based testing frameworks did expose too much of
+           the Swing APIs, resulting in arcane and unmaintainable scripts.
+           This is why we decided to implement a set of wrappers, trying to make our
+           test scripts as close as possible to human-readable text.</p>
+      </subsection>
+
+      <subsection name="Provide a code-oriented tool">
+        <p>Some GUI testing tools capture low-level Swing events, allowing testers to
+           manually record sequences of user interactions with the user interface. This makes tests
+           scenarios quite easy to create, but on a moderately large application the maintenance of these
+           scenarios can become a nightmare, discouraging the team from making any change in the
+           user interface.</p>
+        <p>We believe that the functional tests suite of an application must be <i>designed</i> as
+           any significant piece of code: variables, methods, classes, everything a programming language
+           might offer must be used to create a readable, maintainable whole.</p>
+        <p>By making UISpec4J available as a Java library, we can let its users benefit from the
+           features of the Java language and platform. This makes it also available for writing unit
+           tests for GUI classes based on Swing. <br/>
+           Users wanting a script-like interface can also simply wrap our library using tools such as
+           <a href="http://groovy.codehaus.org/">Groovy</a> or
+           <a href="http://www.beanshell.org/">BeanShell</a>.</p>
+      </subsection>
+
+      <subsection name="Promote the use of functional testing as advocated by XP">
+        <p>In the Extreme Programming process, functional test cases <i>are</i> the detailed
+          specifications of the product. This is what UI<b><i>Spec</i></b>4J is made for:
+          providing a language as simple as possible for writing these specifications.</p>
+      </subsection>
+    </section>
+  </body>
+</document>

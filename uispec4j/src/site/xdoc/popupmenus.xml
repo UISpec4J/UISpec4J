@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Intercepting pop-up menus</title>
+  </properties>
+
+  <body>
+    <section name="Intercepting popup menus">
+      <p>
+        Popup menus are managed using
+        <a href="apidocs/org/uispec4j/MenuItem.html">MenuItem</a>
+        components.
+        The
+        <a href="apidocs/org/uispec4j/interception/PopupMenuInterceptor.html">PopupMenuInterceptor</a>
+        class
+        offers a single
+        <code>run()</code>
+        method which launches a given Trigger and returns the
+        displayed MenuItem.
+      </p>
+      <p>For instance:</p>
+      <source><![CDATA[
+  MenuItem menu = PopupMenuInterceptor.run(table.triggerRightClick(2, 4));
+  assertTrue(menu.contentEquals("Cut", "Copy", "Paste", "Delete"));]]>
+      </source>
+      <p>You can also use a more compact formatting:</p>
+      <source><![CDATA[
+  PopupMenuInterceptor
+    .run(table.triggerRightClick(2, 4))
+    .getSubMenu("Copy")
+    .click();]]>
+      </source>
+
+    </section>
+
+  </body>
+</document>

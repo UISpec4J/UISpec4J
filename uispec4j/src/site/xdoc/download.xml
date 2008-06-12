@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Download</title>
+  </properties>
+  <body>
+    <section name="Download">
+
+      <subsection name="Licensing">
+        <p>
+          UISpec4J is an open source software released under the terms of the
+          <a href="license.html">Common Public License</a>
+          (version 1.0).
+        </p>
+      </subsection>
+
+      <subsection name="Binaries">
+        <p>
+          UISpec4J is available as a JAR file:
+          <a href="./uispec4j-2.0.jar">uispec4j-2.0.jar</a>
+          .
+        </p>
+
+        <p>Please note that
+          <strong>this JAR does not work with Java 6</strong>
+          . Support for Java 6 is planned for this autumn. In the meantime, you can try this unsupported JAR:
+          <a href="tmp/uispec4j-java6.jar">uispec4j-java6.jar</a>
+        </p>
+
+
+        <p>We strongly encourage newcomers to download the
+          <a href="./uispec4j-addressbook.jar">Zip Archive</a>
+          that bundles UISpec4J resources with the Address Book sample application code.
+        </p>
+        <p>You can find more information on this release in our
+          <a href="changes-report.html">change log</a>
+          page.
+        </p>
+        <p>
+          Please do not hesitate to
+          <a href="contact.html">contact us</a>
+          if you encounter
+          any problem when using UISpec4J - we need your input to make this library
+          as easy to use and powerful as possible, and we are always glad to hear from
+          our users!
+        </p>
+      </subsection>
+
+      <subsection name="Dependencies">
+        <p>UISpec4J is being developed and validated with Sun's JDK 5
+          (
+          <a href="http://java.sun.com/j2se/1.4.2/download.html">download</a>
+          ).
+          It also works with JDK 5.0.
+        </p>
+        <p>
+          In order to use UISpec4J, you will need the
+          <a href="http://prdownloads.sourceforge.net/junit/junit3.8.1.zip?download">JUnit JAR</a>
+          available from
+          <a href="http://www.junit.org">http://www.junit.org</a>
+          .
+        </p>
+        <p>
+          When using the
+          <a href="extension.html">extension</a>
+          mechanism, you will need the ASM
+          JARs (see the
+          <a href="dependencies.html">dependencies</a>
+          page for details).
+        </p>
+      </subsection>
+
+      <subsection name="Sources">
+        <p>You can download the sources here:
+          <a href="uispec4j-2.0-src.zip">uispec4j-2.0-src.zip</a>
+          and
+          <a href="uispec4j-2.0-src.tar.gz">uispec4j-2.0-src.tar.gz</a>
+        </p>
+      </subsection>
+
+      <subsection name="Documentation">
+        <p>You can download the Javadoc API documentation here:
+          <a href="uispec4j-2.0-doc.zip">uispec4j-2.0-doc.zip</a>
+        </p>
+      </subsection>
+
+    </section>
+  </body>
+</document>

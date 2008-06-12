@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <bannerRight>
+        <name>UISpec</name>
+        <src>uispec4j.png</src>
+        <href>http://uispec4j.org/</href>
+    </bannerRight>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-classic-skin</artifactId>
+        <version>1.0</version>
+    </skin>
+
+    <publishDate format="dd/MM/yyyy HH:mm:ss"/>
+    <version position="left"/>
+
+    <body>
+        <links>
+          <item name="Home" href="/index.html"/>
+          <item name="JUnit" href="http://www.junit.org"/>
+          <item name="Extreme Programming" href="http://www.extremeprogramming.org"/>
+        </links>
+
+        <menu name="Overview">
+          <item name="Home" href="/index.html"/>
+          <item name="Goals" href="/goals.html"/>
+          <item name="Features" href="/features.html"/>
+          <item name="Example" href="/example.html"/>
+          <item name="Getting started" href="/gettingstarted.html"/>
+          <item name="Download" href="/download.html"/>
+          <item name="Contact" href="/contact.html"/>
+        </menu>
+
+        <menu name="Reference">
+          <item name="Javadoc API specification" href="apidocs/index.html"/>
+          <item name="Finding components" href="/findingcomponents.html"/>
+          <item name="Using assertions" href="/assertions.html"/>
+          <item name="Intercepting windows" href="/interception.html"/>
+          <item name="Intercepting pop-up menus" href="/popupmenus.html"/>
+          <item name="Using colors" href="/usingcolors.html"/>
+          <item name="Extending UISpec4J" href="/extension.html"/>
+          <item name="Properties" href="/properties.html"/>
+          <item name="Troubleshooting" href="/troubleshooting.html"/>
+        </menu>
+
+        <menu name="Developers">
+          <item name="Contributing" href="/contributing.html"/>
+          <item name="Checkout &amp; build" href="/developing.html"/>
+          <item name="Coding rules" href="/codingrules.html"/>
+        </menu>
+
+        <menu ref="reports" inherit="bottom"/>
+    </body>
+
+  <poweredBy>
+    <logo name="CrossbowLabs" href="http://www.crossbowlabs.com/"
+          img="images/logos/poweredbycrossbowlabs.jpg"/>
+  </poweredBy>
+</project>

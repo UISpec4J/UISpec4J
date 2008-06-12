@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Finding components</title>
+  </properties>
+  <body>
+
+    <section name="Finding components">
+      <p>
+        Most of the time, you will start with a
+        <a href="apidocs/org/uispec4j/Panel.html">Panel</a> or a
+        <a href="apidocs/org/uispec4j/Window.html">Window</a> instance representing
+        a given panel or the whole application. In order to test your system, you will
+        first need to retrieve the UISpec4J components representing the
+        displayed buttons, tables or trees that let you interact with the application
+        and check its status.
+      </p>
+      <p>
+        To this end, the Panel class provides a set of getXxx() methods, for instance getButton(),
+        getTree(), etc.:
+      </p>
+      <source><![CDATA[
+      public void MyFunctionalTestCase extends UISpecTestCase {
+        public void test() {
+          Window mainWindow = getMainWindow();
+          mainWindow.getMenuBar().getMenu("File").getSubMenu("Open...").click();
+          ...
+          assertTrue(mainWindow.getTree().contentEquals(...));
+          ...
+          mainWindow.getButton("Apply").click();
+        }
+      }]]>
+      </source>
+      <p>
+        Each getXxx() method comes in three flavors:
+        <ul>
+          <li><b>getXxx()</b> can be used when there is only one instance of this
+              component type in the panel - for instance when you know there is a single
+              Tree in the panel, or a single List in a small selection dialog</li>
+          <li><b>getXxx(String name)</b> lets you specify the name of the component to
+              be found. For most components, this name will be an internal name assigned
+              by the developers. For some components such as Buttons, CheckBoxes or RadioButtons,
+              the name will be the text displayed on the component. When searching for components
+              this way, the system will use the following priorities:
+              <ol>
+                <li>Exact match for the displayed text, if the component supports them</li>
+                <li>Substring for the displayed text, if the component supports them</li>
+                <li>Substring for the displayed text of the bound JLabel component, if it exists</li>
+                <li>Exact match for the internal name</li>
+                <li>Substring for the internal name</li>
+              </ol>
+          </li>
+          <li><b>getXxx(ComponentMatcher matcher)</b> lets you define your own matching
+            policy.</li>
+        </ul>
+        For all three signatures, two exceptions will be thrown: ComponentNotFoundException if
+        nothing was found, and ComponentAmbiguityException if several matches were found.
+      </p>
+      <p>
+        NB: It is possible to add getXxx() methods for other components than those shipped with
+        UISpec4J. Please refer to the <a href="extension.html">extension mechanism</a>
+        documentation for further details.
+      </p>
+    </section>
+  </body>
+</document>

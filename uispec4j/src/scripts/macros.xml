@@ -1,0 +1,52 @@
+<project name="macros" basedir="..">
+  <property file="scripts/ant.properties"/>
+
+  <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" classpath="${junit.path}"/>
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${classpath.antcontrib}"/>
+  
+  <macrodef name="runJUnitTests">
+    <attribute name="testLibs"/>
+    <attribute name="systemLibrary" default=""/>
+    <sequential>
+      <delete failonerror="false">
+        <fileset dir="${reports.tests}" includes="**/*"/>
+      </delete>
+      <mkdir dir="${reports.tests}"/>
+      <junit fork="yes" printsummary="yes" haltonfailure="yes">
+        <sysproperty key="uispec4j.test.library" value="@{systemLibrary}"/>
+        <batchtest todir="${reports.tests}">
+          <fileset dir="addressbook/src/test">
+            <include name="**/*Test*.java"/>
+            <exclude name="**/*TestCase.java"/>
+          </fileset>
+        </batchtest>
+        <formatter type="plain"/>
+        <classpath>
+          <pathelement path="${classpath.common};${classes.addressbook};${classes.test}"/>
+          <pathelement path="@{testLibs}"/>
+        </classpath>
+      </junit>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="checkFails">
+    <attribute name="description"/>
+    <element name="call"/>
+    <sequential>
+      <trycatch property="failure">
+        <try>
+          <call/>
+          <fail message="call passed"/>
+        </try>
+        <catch>
+          <if>
+            <equals arg1="${failure}" arg2="call passed"/>
+            <then>
+              <fail message="@{description}"/>
+            </then>
+          </if>
+        </catch>
+      </trycatch>
+    </sequential>
+  </macrodef>
+</project>

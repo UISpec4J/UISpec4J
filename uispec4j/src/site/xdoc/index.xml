@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Java GUI testing made simple!</title>
+  </properties>
+  <meta name="keyword" content="Java,GUI,Swing,testing,JUnit"/>
+
+  <body>
+    <section name="UISpec4J: Java GUI testing made simple!">
+      <p>
+        UISpec4J is an Open Source functional and/or unit testing library for Swing-based Java applications,
+        built on top of the
+        <a href="http://www.junit.org">JUnit</a>
+        test harness.
+        <br/>
+        If you are writing a Swing application, you will appreciate UISpec4J above all
+        for its simplicity: UISpec4J's APIs are designed to hide as much as possible the complexity
+        of Swing, resulting in easy to write and easy to read test scripts. This is especially true when comparing
+        UISpec4J tests with those produced using Swing or low-level, event-based testing
+        libraries.
+        <br/>
+        Here is for example how a JTable content is tested with UISpec4J.
+        This table:
+        <p>
+          <center>
+            <image src="contacts.png"/>
+          </center>
+        </p>
+        <p>
+          can be checked using this test:
+        </p>
+        <source>
+          <![CDATA[
+  public void testContacts() {
+    Table contacts = getMainWindow().getTable();
+    assertTrue(contacts.contentEquals(new Object[][]{
+      {"John", "12", Boolean.FALSE},
+      {"Sylvia", "43", Boolean.TRUE},
+      {"Bill", "31", Boolean.FALSE}}));
+   }]]>
+        </source>
+      </p>
+      <p>
+        This code is shorter than what would be needed using the Swing APIs, but there is more:
+        it checks the values actually
+        <i>displayed</i>
+        by the underlying JTable component, not just its
+        internal model values. Achieving this with Swing would require checking the values computed by the
+        renderers, resulting in several times as many lines of code.
+      </p>
+
+      <subsection name="Current release">
+        <p>
+          The current release is 1.4 (see
+          <a href="changes-report.html">change log</a>
+          ).
+        </p>
+        <p>
+          You can retrieve it from our
+          <a href="download.html">download</a>
+          page.
+        </p>
+      </subsection>
+
+      <subsection name="A java.net project">
+        <p>
+          <a href="http://www.java.net">
+            <img src="images/logos/javanet_button_170.gif" width="170" height="47" border="0"
+                 align="right" alt="java.net member"/>
+          </a>
+          UISpec4J is hosted on java.net as a full fledged project of the JavaDesktop community.
+          You can find our project page with CVS access, issue tracking, etc. at the following
+          address:
+          <a href="http://uispec4j.dev.java.net">uispec4j.dev.java.net</a>
+        </p>
+      </subsection>
+
+      <subsection name="Acknowledgements">
+        <p>
+          <table border="0" style="background-color:white">
+            <tr class="">
+              <td class="">We would like to thank JetBrains for providing us with licences for
+                their excellent IDE, IntelliJ/IDEA.</td>
+              <td class="" width="5%">
+                <a href="http://www.jetbrains.com/idea/">
+                  <img src="images/logos/idea.gif" width="234" height="60" border="0"
+                       align="right" alt="Intellij/IDEA"/>
+                </a>
+              </td>
+            </tr>
+
+            <tr class="" style="background-color:white">
+              <td class="">
+                We would also like to thank YourKit, who is also kindly supporting open source projects
+                with its full-featured Java Profiler. YourKit, LLC is creator of innovative and intelligent tools for
+                profiling Java and .NET applications. They provided us with licenses for the
+                <a href="http://www.yourkit.com/java/profiler/index.jsp">YourKit Java Profiler</a>
+                (there is also a
+                <a href="http://www.yourkit.com/.net/profiler/index.jsp">YourKit .NET Profiler</a>
+                ).
+              </td>
+
+              <td class="" width="5%">
+                <a href="http://www.yourkit.com/java/profiler/index.jsp" class="externalLink" title="External Link">
+                  <img src="images/logos/yjp.gif" width="200" height="51" border="0" align="right"
+                       alt="Yourkit Java Profiler"></img>
+                </a>
+              </td>
+            </tr>
+
+            <tr class="" style="background-color:white">
+              <td class="">
+                We would also like to thank Cenqua for providing us with licences for Clover,
+                an excellent code coverage analysis tool.</td>
+              <td class="" width="5%">
+                <a href="http://www.cenqua.com/clover/">
+                  <img src="images/logos/clover_logo_small.gif" width="143" height="40" border="0"
+                       align="right" alt="Clover"/>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

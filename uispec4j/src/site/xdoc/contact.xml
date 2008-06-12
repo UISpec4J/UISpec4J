@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Contacting us</title>
+  </properties>
+  <body>
+
+    <section name="Contacting us">
+      <p>
+        Depending on your needs, you can:
+        <ul>
+          <li>Write us at <a href="mailto:contact@uispec4j.org">contact@uispec4j.org</a> </li>
+          <li>Join our <a href="mail-lists.html">mailing list</a> </li>
+          <li>Submit a bug or an evolution request to our
+              <a href="https://uispec4j.dev.java.net/servlets/ProjectIssues">issue tracker</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+  </body>
+</document>

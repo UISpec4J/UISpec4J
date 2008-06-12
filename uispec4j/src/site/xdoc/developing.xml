@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Checkout and build</title>
+  </properties>
+  <body>
+
+    <section name="Checkout and build">
+      <subsection name="Retrieving the source code">
+        <p>
+          There are two means for getting the source code:
+          <ul>
+            <li>Retrieve it as a zipped archive from our
+              <a href="download.html">download</a> page.
+            </li>
+            <li>Retrieve it through
+              <a href="http://www.cvshome.org">CVS</a> from the
+              <a href="https://uispec4j.dev.java.net/source/browse/uispec4j/">java.net</a> server.
+              Please note that in this case you will need to register to java.net in order to get
+              a login.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="Building UISpec4J">
+        <p>
+          The simplest way to build UISpec4J is to use the
+          <a href="http://maven.apache.org/">Maven</a>
+          build system. Once Maven is installed on your system and available in your path, open
+          a shell window, go to UISpec4J's top directory (the one where you will find the
+          <code>project.xml</code> file), and then enter the following command:
+          <source>
+            maven test
+          </source>
+          Maven will then retrieve the needed JARs from its repository, build the tool, and run the
+          unit tests of the library. You are now ready to add tests and make changes to the
+          source code.
+        </p>
+        </subsection>
+
+        <subsection name="Configuring your IDE">
+        <p>
+          If you use IntelliJ/IDEA or Eclipse, you can generate the corresponding project files
+          using:
+          <source>
+            maven idea
+          </source>
+          or
+          <source>
+            maven eclipse
+          </source>
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

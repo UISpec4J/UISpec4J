@@ -1,0 +1,542 @@
+<document>
+  <properties>
+    <title>Change log</title>
+  </properties>
+
+  <body>
+    <release version="2.0" date="???">
+      <action dev="ppratmarty" type="add">
+        Added Window.titleContains(String).
+      </action>
+      <action dev="ppratmarty" type="fix">
+        Added 'MouseEvent.MOUSE_CLICKED' to the list of dispatched events for simulating a mouse click on a component.
+      </action>
+      <action dev="pratmarty" type="add">
+        When searching components from a name, the Panel now also looks for components bound to matching JLabels.
+      </action>
+      <action dev="pratmarty" type="add">
+        Added a means to choose between JUnit and TestNG as the underlying testing framework.
+      </action>
+      <action dev="pratmarty" type="add">
+        Added Table.containsRow (Thanks to Luke Sleeman).
+      </action>
+      <action dev="pratmarty" type="add">
+        Added Table.startsWith and endsWith for checking part of the content (Thanks to Luke Sleeman).
+      </action>
+      <action dev="rmedina,sroussea" type="fix">
+        Migration to JDK 1.5.
+      </action>
+      <action dev="rmedina" type="add">
+        Added assertThat() assertions to UISpecAssert and UISpecTestCase, as a more "human readable"
+        alternative to assertTrue().
+      </action>
+      <action dev="rmedina" type="add">
+        Added Table.cellEquals for checking a single cell value (Thanks to Luke Sleeman).
+      </action>
+      <action dev="rmedina" type="add">
+        Added Table.rowCountEquals / columnCountEquals (Thanks to Luke Sleeman).
+      </action>
+      <action dev="rmedina" type="add">
+        Added Mouse.click for simulating single clicks on a component.
+      </action>
+      <action dev="rmedina" type="add">
+        Added UIComponent.isVisible (was only available on AbstractUIComponent).
+      </action>
+      <action dev="rmedina" type="add">
+        Added ComponentMatchers.add()/or() instead of intersection()/union() which are now deprecated.
+      </action>
+      <action dev="sroussea" type="fix">
+        Applied the retry strategy when selecting a tab in GroupTab. This avoids accessing a component in the selected
+        tab when it is not yet shown (for instance popup-menu).
+      </action>
+      <action dev="rmedina" type="add">
+        Added TextBox.clear() and TextBox.appendText() for changing a text field content without triggering
+        the action listeners.
+      </action>
+    </release>
+
+    <release version="1.4" date="2007-05-15">
+      <action dev="rmedina" type="add">
+        Added Table.contentEquals(String[], Object[][]) and Table.rowEquals(int, Object[])
+        to check only a set of columns in a table. This is useful for making tests less dependent
+        on the whole contents of a given table, or the order of the columns.
+      </action>
+      <action dev="rmedina" type="add">
+        Added ComboBox.contains(String) and ComboBox.contains(String[]) to check only part of a ComboBox
+        content.
+      </action>
+      <action dev="rmedina" type="add">
+        Added ListBox.contains(String) and ListBox.contains(String[]) to check only part of a ListBox
+        content.
+      </action>
+      <action dev="sroussea" type="fix" issue="62">
+        Handle cell selection when using Table.contentEquals(String[]).
+      </action>
+      <action dev="scrego" type="fix">
+        Enhanced 'pressKey' management on TextBox components (caret is better handled).
+      </action>
+      <action dev="rmedina" type="add">
+        Added Table.getContentAt(row,column,converter) and ModelTableCellValueConverter to be 
+        used in cases where a direct access to the underlying model is handy.
+      </action>
+    </release>
+
+    <release version="1.3" date="2007-01-20">
+      <action dev="scrego" type="fix">
+        Made the UISpecToolkit initialization work with Maven 2 (the Surefire plugin was preventing UISpec from setting
+        UISpecToolkit as the Swing toolkit singleton)
+      </action>
+      <action dev="rmedina" type="add">
+        Added the MainClassAdapter class to ease the implementation of functional tests.
+      </action>
+      <action dev="rmedina" type="fix">
+        Made our Toolkit implementation return dummy Graphics2D objects instead of just Graphics objects,
+        to prevent ClassCastExceptions in components where paint() is overriden and expects to be provided a
+        Graphics2D.
+      </action>
+    </release>
+
+    <release version="1.2" date="2006-11-19">
+      <action dev="ppratmarty" type="fix">
+        TextBox.clickOnHyperLink() service reattempts to find the hyperlink when the page has not yet been loaded.
+      </action>
+      <action dev="pratmarty" type="fix">
+        TextBox.clickOnHyperLink() service attempts to fix malformed URL by prepending 'file:' to href.
+        UISpecAssert.checkAssertion() waits for AWT pending events before proceeding.
+      </action>
+      <action dev="sroussea" type="fix" issue="60">
+        Manage HTML attributes in a-href for TextBox.clickOnHyperlink(String anchor).
+      </action>
+      <action dev="scrego" type="add">
+        Did some clean-up in Mouse class especially to offer methods to Swing components (not only UIComponents).
+      </action>
+      <action dev="ppratmarty" type="fix">
+        TextBox.textEquals() with empty string is now properly working.
+      </action>
+      <action dev="rmedina" type="fix">
+        The multi-selection methods in ListBox and Table now set the "value is adjusting" flag on the
+        selection model during the selection, so that the corresponding listeners can wait for the
+        whole selection to be finished.
+      </action>
+    </release>
+
+    <release version="1.1" date="2006-06-11">
+      <action dev="ppratmarty" type="add" issue="1">
+        Added support for JSlider components.
+      </action>
+      <action dev="sroussea" type="add" issue="3">
+        Provided support for JSpinner components with DateSpinner,
+        ListSpinner and NumberSpinner.
+      </action>
+      <action dev="rmedina" type="add" issue="2">
+        Provided support for JPasswordField components.
+      </action>
+      <action dev="scrego" type="add" issue="9">
+        Provided a means for customizing the ComboBox renderer analysis.
+      </action>
+      <action dev="rmedina" type="add">
+        Improved the reporting of unexpected failures in UISpecAssert, by throwing
+        a RuntimeException chained with the initial Exception.
+      </action>
+      <action dev="sroussea" type="add">
+        Provided better failure report for Table.Header.contentEquals(String[]).
+        Changed Table.hasNoHeader() to Table.hasHeader().
+      </action>
+      <action dev="rmedina" type="add">
+        Added Panel.containsLabel.
+      </action>
+    </release>
+
+    <release version="1.0" date="2006-04-17">
+      <action dev="rmedina" type="remove">
+        Removed all deprecated methods.
+      </action>
+      <action dev="ppratmarty" type="add">
+        Added Panel.containsXXX() methods, to be used with the UISpecTestCase/UISpecAssert
+        assertXxx and waitUntil methods.
+      </action>
+      <action dev="rmedina" type="add">
+        Added Javadoc comments in many places.
+      </action>
+      <action dev="rmedina" type="update">
+        PopupMenuInterceptor.run() now waits for the popup to be shown, up to a time limit set by
+        UISpec4J.setWindowInterceptionTimeLimit().
+      </action>
+      <action dev="rmedina" type="fix">
+        Made Table.getContentAt() use the table's TableCellValueConverter.
+      </action>
+      <action dev="rmedina" type="fix">
+        Made UISpecTestCase/UISpecAssert.waitUntilEnabled(message, assertion, timeout) use the
+        supplied message when an exception other than AssertionFailedError is thrown
+        by the Assertion object.
+      </action>
+      <action dev="rmedina" type="fix">
+        Bugfix: UISpec4J.setAssertionTimeLimit had no effect.
+      </action>
+      <action dev="rmedina" type="update">
+        Renamed UISpec4J.setWaitTimeLimit into setWindowInterceptionTimeLimit.
+      </action>
+    </release>
+
+    <release version="0.16" date="2006-03-05">
+      <action dev="rmedina, ppratmarty, scrego" type="update">
+        Changed all "assertXxx" methods into "xxx" methods that return Assertion objects to be used
+        with UISpecAssert.assertTrue(). Please refer to the
+        <a href="/assertions.html">Using assertions</a>
+        page for further details on the new assertions
+        mechanism.
+        The main motivation behind this evolution is that the UISpecAssert.assertTrue() method
+        now performs automatic retries when the first assertion check fails, so that
+        the tests are less dependent on slight delays in multithreaded applications.
+        Please note that the compatibility with previous versions of the API is maintained temporarily
+        - the "assertXxx" methods have been deprecated, they will be removed in the next release.
+      </action>
+      <action dev="ppratmarty" type="add">
+        Made 'Table.toString()' dump the content of the table.
+      </action>
+      <action dev="ppratmarty,sroussea" type="add">
+        Added ProgressBar.isCompleted() to check the completion of the progress bar.
+      </action>
+      <action dev="sroussea" type="add">
+        Added in FileChooseHandler.select(String[] fileNames) to select files using their names and
+        FileChooserHandler.cancelSelection() to choose the Cancel button.
+      </action>
+      <action dev="ppratmarty,sroussea" type="fix">
+        Set the 'awt.toolkit' property with a default one when it is not set (best-effort)
+        depending on Operating Systems.
+        Try first to set the property with the default Windows one 'sun.awt.windows.WToolkit', then with
+        the default SUN one 'sun.awt.motif.MToolkit'.
+        If none works, a AWTError will be thrown.
+      </action>
+      <action dev="rmedina" type="update">
+        Moved the default timeout value from WindowInterceptor to UISpec4J - this is now a
+        global parameter used in both the assertion and window interception mechanisms. As a consequence,
+        the WindowInterceptor.setWaitWindowTimeLimit/getWaitTimeLimit methods are not available anymore.
+      </action>
+      <action dev="rmedina" type="update">
+        Changed the default timeout value to 10s (was 30s)
+      </action>
+      <action dev="rmedina" type="add">
+        Added a new Desktop component for managing Multiple-Document Interface (MDI) desktops
+        implemented as JDesktopPane/JInternalFrame components.
+      </action>
+      <action dev="ppratmarty,sroussea" type="add">
+        Added WindowInterceptor.getModelDialog() to intercept a modal dialog by running a trigger
+        and returning the displayed window. This is for specific usages only,
+        modal dialogs should rather be intercepted using WindowInterceptor.init(Trigger).
+      </action>
+      <action dev="rmedina" type="fix">
+        Made ListBox work with any ListCellRenderer implementation - it is now independent from
+        the DefaultListCellRenderer class.
+      </action>
+    </release>
+
+    <release version="0.15" date="2005-12-29">
+      <action dev="rmedina" type="add">
+        Introduced UISpec4J.init() as a main entry point for initializing the library. This method
+        replaces UISpecToolkit.setUp(), and is now responsible for both initializing the toolkit
+        and setting up our own look&amp;feel classes.
+      </action>
+      <action dev="scrego" type="fix">
+        Removed the retrieval of a MSWindows-specific toolkit in UISpecToolkit that
+        raised problems in other Operating Systems.
+        Please note that the 'awt.toolkit' property must not be used anymore for setting up
+        the UISpecToolkit (only UISpec4J.init() is supported now).
+      </action>
+      <action dev="ppratmarty" type="add">
+        Introduced the ComponentMatcher interface and added a number of methods
+        in Panel to let users specify their own component searching policies
+      </action>
+      <action dev="ppratmarty" type="add">
+        Provided predefined component matchers in the ComponentMatchers utility class:
+        name-based matchers (identity/substring/regexp on inner/displayed name),
+        and collection matchers (intersection, union and negation)
+      </action>
+      <action dev="ppratmarty" type="update">
+        Renamed Panel.getComponent() into getUIComponent()
+      </action>
+      <action dev="rmedina" type="add">
+        Improved the message displayed when Panel.getXxx() throws ComponentNotFoundException -
+        the message now displays a list of available names
+      </action>
+      <action dev="rmedina" type="remove">
+        Removed the "swingClass" argument in the ExtensionGenerator.main() command line parameters
+      </action>
+      <action dev="rmedina" type="add">
+        Made major evolutions in WindowInterceptor to improve the support of modal dialogs,
+        and in particular sequences of modal dialogs. Please check the WindowInterceptor Javadoc
+        and the "Intercepting windows" reference documentation for further details on the new
+        signatures.
+      </action>
+      <action dev="rmedina" type="update">
+        Moved all interception-related classes into an "org.uispec4j.interception" package.
+      </action>
+      <action dev="rmedina" type="update">
+        Transformed FileChooserInterceptor into FileChooserHandler, to fit into the new
+        WindowInterceptor approach.
+      </action>
+      <action dev="rmedina" type="remove">
+        Removed MenuItem.clickAndIntercept - the interception is now managed only with WindowInterceptor
+      </action>
+      <action dev="rmedina" type="add">
+        Removed the MessageBoxInterceptor class, which was too dependent on the production code using
+        the JOptionPane class. This class is replaced with a more generic WindowHandler implementation,
+        named BasicHandler - please refer to the Javadoc for further details.
+      </action>
+      <action dev="rmedina" type="add">
+        Added Table.Header.triggerClick()/triggerRightClick()
+      </action>
+      <action dev="rmedina" type="add" issue="37">
+        Added TextBox.triggerClickOnHyperlink()
+      </action>
+      <action dev="rmedina" type="add">
+        Added a Trigger.DO_NOTHING constant, representing a "no op" trigger
+      </action>
+      <action dev="rmedina" type="add">
+        Added Window.getTitle()
+      </action>
+      <action dev="ppratmarty" type="fix">
+        Fixed problem with ColorUtils: "white" and "black" are not considered
+        similar to "gray" anymore, by relying more upon the brightness when computing
+        the HSB distance.
+      </action>
+      <action dev="rmedina" type="fix">
+        Display the contents of the menu when MenuItem.getSubMenu() fails
+      </action>
+      <action dev="rmedina" type="update">
+        Updated the reference documentation and the javadoc
+      </action>
+      <action dev="rmedina" type="add">
+        Added Clover code coverage report.
+      </action>
+    </release>
+
+    <release version="0.14" date="2005-10-17">
+      <action dev="scrego, rmedina" type="fix">
+        Improved the interception of windows in a multi-threaded environment.
+      </action>
+    </release>
+
+    <release version="0.13" date="2005-09-06">
+      <action dev="rmedina" type="fix">
+        Fixed an infinite loop error in Window.getSubDescription()
+      </action>
+    </release>
+
+    <release version="0.12" date="2005-08-31">
+      <action dev="sroussea,ppratmarty,rmedina" type="add" issue="41">
+        Added UIspecTestCase.setAdapter() and deprecated UISpecTestCase(UISpecAdapter adapter)
+      </action>
+      <action dev="rmedina" type="add">
+        Modified the Clipboard class to make its methods static (got rid of getInstance()) and
+        added a putText() method which allows the MIME type to be defined
+      </action>
+      <action dev="rmedina" type="remove">
+        Removed the Clipboard.contentEquals() method (to be reintroduced later
+        with a proper handling of MIME types)
+      </action>
+      <action dev="scrego, rmedina" type="fix">
+        Fixed a cyclic initialization error that occured in certain situations
+        when the extension mechanism was used
+      </action>
+      <action dev="scrego, rmedina" type="add">
+        Added TextBox.assertTextContains(String[]) for checking that a number
+        of items are displayed in a given order
+      </action>
+      <action dev="scrego, rmedina" type="add">
+        Improved the interception of windows in a multi-threaded environment.
+      </action>
+      <action dev="rmedina" type="fix">
+        Made UISpec4J work with JDK 5.0. Please note however that the official
+        platform remains JDK 1.4.2
+      </action>
+    </release>
+
+    <release version="0.11" date="2005-07-27">
+      <action dev="scrego, sroussea" type="add">
+        Modified documentation about extension generator mechanism
+      </action>
+      <action dev="rmedina" type="add">
+        Added AbstractButton.waitUntilEnabled()
+      </action>
+      <action dev="rmedina" type="add">
+        The window description is now displayed when an "Unexpected window shown" exception
+        is raised by the interception mechanism
+      </action>
+      <action dev="rmedina" type="add">
+        Added MenuItem.clickAndIntercept to avoid the imbrication of WindowInterceptor
+        and PopupMenuInterceptor (see Javadoc)
+      </action>
+      <action dev="rmedina" type="add">
+        Added Tree.triggerClick(), triggerRightClick() and triggerRightClickInSelection()
+      </action>
+      <action dev="ppratmarty, rmedina, scrego" type="add" issue="28">
+        Added Panel.findComponents() and Panel.findComponent() methods.
+      </action>
+      <action dev="sroussea, rmedina" type="fix">
+        Fixed deadlock that occured when an handler tried to close a dialog during an interception
+        (the triggers in WindowInterceptor are now run from the Swing thread).
+      </action>
+      <action dev="rmedina" type="add">
+        The interception mechanism now catches lightweight popup menus.
+      </action>
+      <action dev="rmedina" type="add">
+        Calling MenuItem.click() when the item is a list (a JPopupMenu) raises an exception
+        displaying the subitems that can be selected.
+      </action>
+      <action dev="rmedina" type="add">
+        Made the interception mechanism work with JDK 5.0. Please note however that the official
+        platform remains JDK 1.4.2.
+      </action>
+    </release>
+
+    <release version="0.10" date="2005-06-18">
+      <action dev="sroussea, rmedina" type="fix">
+        Panel.getPanel() does not raise ambiguity errors when other Container objects are present
+        in the panel - only JPanel, JInternalFrame, etc. are searched for.
+      </action>
+      <action dev="rmedina" type="add" issue="30">
+        Added Panel.getInputTextBox() and Panel.getInputTextBox(String name) to avoid ambiguity
+        exceptions when searching for a text field placed near a simple label.
+      </action>
+      <action dev="sroussea, rmedina" type="fix">
+        Fixed Window.assertVisible().
+      </action>
+      <action dev="scrego, rmedina" type="add">
+        Added MessageBoxInterceptor.setInput for input dialogs.
+      </action>
+      <action dev="rmedina" type="fix" issue="34">
+        Fixed exceptions thrown during the execution of tests when working with a frame
+        that was intercepted after having been packed and shown.
+      </action>
+      <action dev="gonnot" type="fix" issue="24">
+        Fixed the color matching algorithm (using HSB color space).
+        Now "FFC8C8" is accepted as "red".
+      </action>
+    </release>
+
+    <release version="0.9" date="2005-05-21">
+      <action dev="scrego, rmedina" type="add">
+        Added TextBox.insertText(text, position)
+      </action>
+      <action dev="scrego" type="add" issue="29">
+        Added Table.Header.getColumnNames() and Table.Header.findColumnIndex(String columnName)
+      </action>
+      <action dev="ppratmarty" type="fix" issue="27">
+        Made the search strategy process all components in a container instead of stopping at a given
+        level as soon as a result is found
+      </action>
+      <action dev="scrego" type="add" issue="25">
+        Added Table.assertColumnEquals(int columnIndex, Object[] expectedColumn) to test the
+        contents of a given table column.
+      </action>
+      <action dev="sroussea" type="update">
+        Use the customisation mechanism for the list box selection
+      </action>
+      <action dev="sroussea" type="add" issue="10">
+        Implemented a list box analysis customisation mechanism, available
+        with ListBox.setCellValueConverter
+      </action>
+      <action dev="ppratmarty,rmedina" type="add">
+        Updated the TYPE_NAME fields of ListBox and TextBox to reflect the class names
+      </action>
+    </release>
+
+    <release version="0.8" date="2005-04-15">
+      <action dev="rmedina" type="add" issue="26">
+        Added missing getters in Panel for CheckBox, ToggleButton, RadioButton, etc.
+      </action>
+      <action dev="sroussea" type="add" issue="19">
+        Added table content in error message when Table.assertEmpty fails
+      </action>
+      <action dev="rmedina" type="add" issue="8">
+        Implemented a tree analysis customisation mechanism, available
+        with Tree.setCellValueConverter
+      </action>
+      <action dev="sroussea,scrego" type="add" issue="11">
+        Added TabGroup.getSelectedTab() that returns a Panel allowing to find components easily in the selected tab.
+        Fails if the component managed by the selected tab is not a JPanel
+      </action>
+      <action dev="rmedina" type="add" issue="18">
+        Added some XDoc pages to the documentation: Contact, Contributing and Coding Rules
+      </action>
+      <action dev="rmedina" type="remove">
+        Removed the TODO page from our XDoc documentation, since we now use
+        a better issue tracking tool.
+      </action>
+      <action dev="ppratmarty" type="add" issue="6">
+        Added ComboBox.setText(String) for editable ComboBoxes
+      </action>
+    </release>
+
+    <release version="0.7" date="2005-03-06">
+      <action dev="rmedina" type="add">
+        Added two XDoc pages to the Reference section: Properties &amp; Troubleshooting
+      </action>
+      <action dev="srousseau,rmedina" type="add">
+        Added ProgressBar.assertDisplayedValueEquals()
+      </action>
+      <action dev="ppratmarty,rmedina" type="update">
+        Renamed RadioButton.assertSelected() into assertSelectionEquals()
+      </action>
+      <action dev="ppratmarty,rmedina" type="update">
+        Renamed CheckBox.assertSelected() into assertSelectionEquals()
+      </action>
+      <action dev="ppratmarty,rmedina" type="add">
+        Added ComboBox.assertEmpty(String displayedValue)
+      </action>
+      <action dev="rmedina" type="update">
+        Renamed TabGroup.clickOnTab() into selectTab()
+      </action>
+      <action dev="rmedina" type="update">
+        Added links to documentation pages in the Javadoc
+      </action>
+      <action dev="ppratmarty" type="fix">
+        Panel.getTextBox: detect ambiguity between JLabel and JTextComponent
+      </action>
+      <action dev="ppratmarty" type="add">
+        Panel.getxxx: 'throws AmbiguityException' displayed on method signatures
+      </action>
+      <action dev="ppratmarty" type="add">
+        Added ComboBox.assertEditable(boolean)
+      </action>
+      <action dev="rmedina" type="add">
+        Added ProgressBar.waitForCompletion(int timeout) and ProgressBar.assertIndeterminate(boolean)
+      </action>
+      <action dev="rmedina" type="update">
+        ProgressBar now checks the current value as a percentage of the available range,
+        with a user-defined precision
+      </action>
+      <action dev="ppratmarty" type="add">
+        ListBox.select(String) uses [Identity, Substring, Regexp] strategy to identify the item,
+        and throws an Ambiguity exception when more than one Component were found
+      </action>
+      <action dev="rmedina,scrego,ppratmarty" type="fix">
+        WindowInterceptor now waits a little before declaring that no window was shown - this
+        is useful in cases where the window is shown from another thread
+      </action>
+      <action dev="ppratmarty" type="add">
+        Renamed ComboBox.assertSelected(String) to ComboBox.assertSelectionEquals(String) for symetry with ListBox
+      </action>
+      <action dev="ppratmarty" type="add">
+        ComboBox.select(String) uses the strategy [Identity, Substring, Regexp] for finding an item
+      </action>
+      <action dev="ppratmarty" type="fix">
+        Table: Support for moved columns
+      </action>
+      <action dev="ppratmarty" type="add">
+        Table.setCellValueConverter for a specific column
+      </action>
+      <action dev="ppratmarty" type="add">
+        Table extension mechanism: one can provide a custom TableCellValueConverter by default
+      </action>
+    </release>
+
+    <release version="0.6" date="2004-12-25">
+      <action dev="all" type="add">
+        (this change log started just after release 0.7)
+      </action>
+    </release>
+
+  </body>
+</document>

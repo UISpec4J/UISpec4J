@@ -1,0 +1,48 @@
+<project name="dependency test" default="all" basedir="..">
+  <property file="scripts/ant.properties"/>
+  <import file="macros.xml"/>
+
+  <target name="all" depends="compile">
+    <antcall target="testItWorksWithJUnitLibraryAlone"/>
+    <antcall target="testItFailsWhenAmbiguityBetweenJUnitAndTestNGLibraries"/>
+    <antcall target="testSystemPropertyCanBreakTheAmbiguityBetweenJUnitAndTestNG"/>
+  </target>
+
+  <target name="compile">
+    <delete dir="${classes.addressbook}" failonerror="false"/>
+    <mkdir dir="${classes.addressbook}"/>
+    <delete dir="${classes.test}" failonerror="false"/>
+    <mkdir dir="${classes.test}"/>
+    <delete dir="${classes.src}" failonerror="false"/>
+    <mkdir dir="${classes.src}"/>
+
+    <javac srcdir="src/java"
+           destdir="${classes.src}"
+           classpath="${classpath.all}"
+      />
+    <javac srcdir="addressbook/src/java"
+           destdir="${classes.addressbook}"
+           classpath="${classpath.all}"
+      />
+    <javac srcdir="addressbook/src/test"
+           destdir="${classes.test}"
+           classpath="${classpath.all};${classes.addressbook}"
+      />
+  </target>
+
+  <target name="testItWorksWithJUnitLibraryAlone">
+    <runJUnitTests testLibs="${junit.path}"/>
+  </target>
+
+  <target name="testItFailsWhenAmbiguityBetweenJUnitAndTestNGLibraries">
+    <checkFails description="The ambiguity between JUnit and TestNG should have break the tests.">
+      <call>
+        <runJUnitTests testLibs="${junit.path};${testng.path}"/>
+      </call>
+    </checkFails>
+  </target>
+
+  <target name="testSystemPropertyCanBreakTheAmbiguityBetweenJUnitAndTestNG">
+    <runJUnitTests testLibs="${junit.path};${testng.path}" systemLibrary="junit"/>
+  </target>
+</project>

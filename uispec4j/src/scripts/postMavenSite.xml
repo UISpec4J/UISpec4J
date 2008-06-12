@@ -1,0 +1,65 @@
+<project name="postMavenSite" default="all" basedir="..">
+  <property name="version" value="2.0"/>
+  <property name="libName" value="uispec4j-${version}"/>
+
+  <target name="all" depends="createApiDocsZip, buildMavenBundle, buildSampleAddressBook"/>
+
+  <target name="buildMavenBundle">
+    <jar destfile="target/${libName}-bundle.jar">
+      <fileset dir=".">
+        <include name="project.xml"/>
+      </fileset>
+      <fileset  dir="target">
+        <include name="${libName}.jar"/>
+      </fileset>
+      <fileset dir="target/distributions">
+        <include name="${libName}-src.zip"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="buildSampleAddressBook">
+    <property name="samplename" value="${libName}-addressbook"/>
+    <property name="dest" value="tmp/${samplename}"/>
+    <delete dir="${dest}"/>
+    <copy todir="${dest}/api">
+      <fileset dir="target/docs/apidocs"/>
+    </copy>
+    <copy todir="${dest}/src">
+      <fileset dir="addressbook/src"/>
+    </copy>
+    <copy todir="${dest}/lib">
+      <fileset file="target/${libName}.jar"/>
+      <fileset file="target/distributions/${libName}-src.zip"/>
+    </copy>
+    <mkdir dir="${dest}/bin"/>
+    <delete dir="addressbook/classes"/>
+    <mkdir dir="addressbook/classes"/>
+    <javac srcdir="addressbook/src/java" destdir="addressbook/classes">
+      <classpath>
+        <fileset file="target/${libName}.jar"/>
+      </classpath>
+    </javac>
+    <jar destfile="${dest}/bin/addressbook.jar" >
+      <fileset dir="addressbook/classes">
+        <include name="samples/utils/**"/>
+        <include name="samples/addressbook/**"/>
+      </fileset>
+      <manifest>
+        <attribute name="Class-Path" value="../lib/${libName}.jar"/>
+        <attribute name="Main-Class" value="samples.addressbook.main.Main"/>
+      </manifest>
+    </jar>
+    <zip destfile="target/uispec4j-addressbook.zip">
+      <fileset dir="tmp">
+        <include name="${samplename}/**"/>
+      </fileset>
+    </zip>
+  </target>
+
+  <target name="createApiDocsZip">
+    <zip destfile="target/${libName}-doc.zip">
+      <fileset dir="target/docs/apidocs"/>
+    </zip>
+  </target>
+</project>

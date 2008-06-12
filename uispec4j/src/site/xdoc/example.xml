@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Calculator example</title>
+  </properties>
+
+  <meta name="keyword" content="java, junit"/>
+
+  <body>
+    <section name="Example">
+      <subsection name="Overview">
+        <p>
+          To illustrate UISpec4J's usage, let's consider a very simple application:
+          a "calculator" utility looking like this:
+        </p>
+        <center>
+          <image src="calculator.png"/>
+        </center>
+        <p>
+          In this page, we use this simple application to explore three different UISpec4J usage
+          strategies, or rather three maturity stages of a functional tests suite:
+          <ul>
+            <li>
+              <a href="#Stage 1: Fine-grained tests">Fine-grained tests</a> reproducing interactions
+              with the individual GUI components.
+            </li>
+            <li>
+              <a href="#Stage 2: Business scripts">Business scripts</a> where higher-level APIs are
+              built on top of UISpec4J to produce a kind of domain-specific language.
+            </li>
+            <li>
+              <a href="#Stage 3: Data sheets">Data sheets</a> representing the inputs and outputs
+              of the application, bound to the user interface with a custom engine based on UISpec4J.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+
+      <subsection name="Stage 1: Fine-grained tests">
+        <p>
+          This is the direct approach: in a JUnit test, a fine-grained sequence of interactions is
+          reproduced using the UISpec4J APIs:
+        </p>
+        <source>
+            <![CDATA[
+  public void testSimpleAddition() {
+    Panel calculatorPanel = getMainWindow();
+    calculatorPanel.getButton("2").click();
+    calculatorPanel.getButton("+").click();
+    calculatorPanel.getButton("3").click();
+    calculatorPanel.getButton("=").click();
+    assertTrue(calculatorPanel.getTextBox().textEquals("5"));
+  }]]>
+        </source>
+        <p>
+          This approach is suited to very simple applications. However, as the application matures and
+          the number of tests increases, the test suite becomes less and less readable and maintainable.
+          It is then time to consider switching to stage 2.
+        </p>
+      </subsection>
+
+      <subsection name="Stage 2: Business scripts">
+        <p>
+          In this approach, the basic tests of stage 1 are progressively refactored, resulting in the
+          emergence of testing utilities which make the tests themselves more compact:
+        </p>
+        <source>
+          <![CDATA[
+  public void testDisplay() {
+    Calculator calc = new Calculator(this);
+    calc.checkSequence("1", "1");
+    calc.checkSequence("123", "123");
+    calc.checkSequence("123+", "123");
+    calc.checkSequence("123+4", "4");
+    calc.checkSequence("123+456", "456");
+  }
+
+  public void testSimpleAddition() {
+    Calculator calculator = new Calculator(this);
+    calc.checkAddition("2", "3", "5");
+    calc.checkAddition("12", "34", "46");
+  }]]>
+        </source>
+        <p>
+          The tests themselves are not written with UISpecJ anymore: they are based on high-level
+          abstractions. At this stage, UISpec4J is no longuer used as a testing framework
+          per se: it is used instead as a tool for binding business-level tests to a specific
+          GUI implementation.
+        </p>
+        <p>
+          Here is the corresponding Calculator implementation:
+        </p>
+        <source><![CDATA[
+  private class Calculator {
+    private Window window;
+
+    public Calculator(UISpecTestCase test) {
+      this.window = test.getMainWindow();
+    }
+
+    public void checkSequence(String keySequence, String resultingDisplay) {
+      for (int i = 0, max = keySequence.length(); i < max; i++) {
+        window.getButton(keySequence.substring(i, i + 1)).click();
+      }
+      assertTrue(window.getTextBox().textEquals(resultingDisplay));
+      window.getButton("C").click();
+    }
+
+    public void checkAddition(String operand1, String operand2, String result) {
+      check(operand1 + "+" + operand2 + "=", result);
+    }
+  }]]>
+        </source>
+        <p>
+          Even though it is a significant improvement over stage 1, this stage still produces
+          <i>scripts</i>, which are suited to complex interactions but might be a little hard
+          to implement for people in charge of the specifications of the product. That is where
+          stage 3 comes into play.
+        </p>
+      </subsection>
+
+      <subsection name="Stage 3: Data sheets">
+        <p>
+          At this stage, the test data may be produced by the customer team itself, using data files
+          such as this one:
+        </p>
+        <source><![CDATA[
+  1+1=,2
+  1,1
+  123,123
+  123+,123
+  123+4,4
+  123+456,456
+  2+3=,5
+  12+34=,46]]>
+        </source>
+        <p>
+          UISpec4J is then used for writing a piece of code which reads the data from the file
+          and performs the corresponding actions on the GUI. <br/>
+          Since you are writing the interpreting code, you can choose any file format: CSV, XML, etc.
+          You can also use third party testing frameworks such as
+          <a href="http://www.fitnesse.org">Fitnesse</a> to let the customer team
+          write their own tests and run them in a Wiki.
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>
