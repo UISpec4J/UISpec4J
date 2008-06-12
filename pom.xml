@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- POM's layout - http://www.javaworld.com/javaworld/jw-05-2006/jw-0529-maven.html -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- POM Relationships -->
+    <groupId>org.uispec4j</groupId>
+    <artifactId>uispec4j-root</artifactId>
+    <version>2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>uispec4j</module>
+        <module>addressbook</module>
+        <module>calculator</module>
+    </modules>
+
+    <!-- Project Information -->
+    <name>uispec4j - root</name>
+    <description>uispec4j - root</description>
+    <url>http://www.uispec4j.org</url>
+    <inceptionYear>2004</inceptionYear>
+
+
+  <repositories>
+    <repository>
+      <id>codehaus</id>
+      <url>http://http://repository.codehaus.org/</url>
+    </repository>
+  </repositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <argLine>-Dfile.encoding=MacRoman</argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <encoding>x-MacRoman</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-idea-plugin</artifactId>
+                    <configuration>
+                        <downloadSources>true</downloadSources>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
