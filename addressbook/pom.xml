@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- POM Relationships -->
-    <parent>
-        <groupId>org.uispec4j</groupId>
-        <artifactId>uispec4j-root</artifactId>
-        <version>2.0-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>org.uispec4j</groupId>
+    <artifactId>uispec4j-root</artifactId>
+    <version>2.0-SNAPSHOT</version>
+  </parent>
   <groupId>org.uispec4j</groupId>
   <artifactId>addressbook</artifactId>
   <dependencies>
@@ -59,51 +59,10 @@
               <name>uispec4j.test.library</name>
               <value>junit</value>
             </property>
-            <property>
-              <name>awt.toolkit</name>
-              <value>${Toolkit}</value>
-            </property>
           </systemProperties>
         </configuration>
       </plugin>
     </plugins>
   </build>
 
- <profiles>
-    <profile>
-      <id>windows</id>
-      <activation>
-        <os>
-          <family>windows</family>
-        </os>
-      </activation>
-      <properties>
-        <Toolkit>sun.awt.windows.WToolkit</Toolkit>
-      </properties>
-    </profile>
-    <profile>
-      <id>linux</id>
-      <activation>
-        <os>
-          <family>unix</family>
-          <name>Linux</name>
-        </os>
-      </activation>
-      <properties>
-	    <Toolkit>sun.awt.motif.MToolkit</Toolkit>
-      </properties>
-    </profile>
-   <profile>
-     <id>mac</id>
-     <activation>
-       <os>
-         <family>unix</family>
-         <name>Mac OS X</name>
-       </os>
-     </activation>
-     <properties>
-     <Toolkit>apple.awt.CToolkit</Toolkit>
-     </properties>
-   </profile>
-  </profiles>
 </project>

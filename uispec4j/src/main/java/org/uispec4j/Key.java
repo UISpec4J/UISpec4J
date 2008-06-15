@@ -106,6 +106,7 @@ public class Key {
     public static final Modifier CONTROL = new Modifier(InputEvent.CTRL_MASK);
     public static final Modifier SHIFT = new Modifier(InputEvent.SHIFT_MASK);
     public static final Modifier ALT = new Modifier(InputEvent.ALT_MASK);
+    public static final Modifier META = new Modifier(InputEvent.META_MASK);
     public static final Modifier NONE = new Modifier(0);
 
     private int code;

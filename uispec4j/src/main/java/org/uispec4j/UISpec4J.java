@@ -20,6 +20,10 @@ public class UISpec4J {
    * Initializes UISpec4J, for instance by setting up the interception mechanism.
    */
   public static void init() {
+    // Black magic - do not touch this (system.setProperty seem to load dynamic libraries)
+    if ("Linux".equalsIgnoreCase(System.getProperty("os.name"))) {
+      System.setProperty("awt.toolkit", "sun.awt.motif.MToolkit");
+    }
     initToolkit();
     UISpecLF.init();
   }

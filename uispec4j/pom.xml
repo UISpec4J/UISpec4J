@@ -121,10 +121,6 @@
               <name>uispec4j.test.library</name>
               <value>junit</value>
             </property>
-            <property>
-              <name>awt.toolkit</name>
-              <value>${Toolkit}</value>
-            </property>
           </systemProperties>
           <redirectTestOutputToFile>true</redirectTestOutputToFile>
           <forkMode>once</forkMode>
@@ -206,100 +202,65 @@
       <profiles>...</profiles>
   -->
 
- <profiles>
+  <profiles>
     <profile>
-      <id>windows</id>
+      <id>jdk15</id>
       <activation>
-        <os>
-          <family>windows</family>
-        </os>
+        <jdk>1.5</jdk>
       </activation>
-      <properties>
-        <Toolkit>sun.awt.windows.WToolkit</Toolkit>
-      </properties>
+      <build>
+        <finalName>uispec4j-jdk15-${pom.version}</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+              <execution>
+                <id>add-specific-source</id>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${basedir}/src/main/java-jdk15</source>
+                  </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
-      <id>linux</id>
+      <id>jdk16</id>
       <activation>
-        <os>
-          <family>unix</family>
-          <name>Linux</name>
-        </os>
+        <jdk>1.6</jdk>
       </activation>
-      <properties>
-	    <Toolkit>sun.awt.motif.MToolkit</Toolkit>
-      </properties>
+      <build>
+        <finalName>uispec4j-jdk16-${pom.version}</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+              <execution>
+                <id>add-specific-source</id>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${basedir}/src/main/java-jdk16</source>
+                  </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
-   <profile>
-     <id>mac</id>
-     <activation>
-       <os>
-         <family>unix</family>
-         <name>Mac OS X</name>
-       </os>
-     </activation>
-     <properties>
-     <Toolkit>apple.awt.CToolkit</Toolkit>
-     </properties>
-   </profile>
-   <profile>
-     <id>jdk15</id>
-    <activation>
-      <jdk>1.5</jdk>
-    </activation>
-       <build>
-           <finalName>uispec4j-jdk15-${pom.version}</finalName>
-           <plugins>
-               <plugin>
-                   <groupId>org.codehaus.mojo</groupId>
-                   <artifactId>build-helper-maven-plugin</artifactId>
-                   <version>1.1</version> 
-                   <executions>
-                       <execution>
-                           <id>add-specific-source</id>
-                           <goals>
-                               <goal>add-source</goal>
-                           </goals>
-                           <configuration>
-                               <sources>
-                                   <source>${basedir}/src/main/java-jdk15</source>
-                               </sources>
-                           </configuration>
-                       </execution>
-                   </executions>
-               </plugin>
-           </plugins>
-       </build>
-   </profile>
-   <profile>
-     <id>jdk16</id>
-    <activation>
-      <jdk>1.6</jdk>
-    </activation>
-       <build>
-           <finalName>uispec4j-jdk16-${pom.version}</finalName>
-           <plugins>
-               <plugin>
-                   <groupId>org.codehaus.mojo</groupId>
-                   <artifactId>build-helper-maven-plugin</artifactId>
-                   <version>1.1</version> 
-                   <executions>
-                       <execution>
-                           <id>add-specific-source</id>
-                           <goals>
-                               <goal>add-source</goal>
-                           </goals>
-                           <configuration>
-                               <sources>
-                                   <source>${basedir}/src/main/java-jdk16</source>
-                               </sources>
-                           </configuration>
-                       </execution>
-                   </executions>
-               </plugin>
-           </plugins>
-       </build>
-   </profile>
   </profiles>
 
 </project>
