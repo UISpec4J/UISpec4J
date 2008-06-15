@@ -23,11 +23,20 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
   }
 
   public final void testGetDescription() throws Exception {
-    XmlAssert.assertEquivalent("<spinner name='marcel'>" +
-                               "  <button name='Spinner.nextButton'/>" +
-                               "  <button name='Spinner.previousButton'/>" +
-                               "  <textBox name='Spinner.formattedTextField' text='" +  getText() + "'/>" +
-                               "</spinner>", spinner.getDescription());
+    if ("".equals(System.getProperty("java.specification.version"))) {
+      XmlAssert.assertEquivalent("<spinner name='marcel'>" +
+                                 "  <button name='Spinner.nextButton'/>" +
+                                 "  <button name='Spinner.previousButton'/>" +
+                                 "  <textBox name='Spinner.formattedTextField' text='" + getText() + "'/>" +
+                                 "</spinner>", spinner.getDescription());
+    }
+    else {
+      XmlAssert.assertEquivalent("<spinner name='marcel'>" +
+                                 "  <button/>" +
+                                 "  <button/>" +
+                                 "  <textBox name='Spinner.formattedTextField' text='" + getText() + "'/>" +
+                                 "</spinner>", spinner.getDescription());
+    }
   }
 
   protected final UIComponent createComponent() {
