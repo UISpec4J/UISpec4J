@@ -49,30 +49,30 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
   }
 
   public void testGetComponentWithClassAndName() throws Exception {
-    for (int i = 0; i < COMPONENT_CLASSES.length; i++) {
-      checkGetComponentWithClassAndName(COMPONENT_CLASSES[i]);
+    for (Class componentClass : COMPONENT_CLASSES) {
+      checkGetComponentWithClassAndName(componentClass);
     }
   }
 
   public void testGetComponentWithClass() throws Exception {
-    for (int i = 0; i < COMPONENT_CLASSES.length; i++) {
-      if (COMPONENT_CLASSES[i] != Panel.class) {
-        checkGetComponentWithClass(COMPONENT_CLASSES[i]);
+    for (Class componentClass : COMPONENT_CLASSES) {
+      if (componentClass != Panel.class) {
+        checkGetComponentWithClass(componentClass);
       }
     }
   }
 
   public void testGetComponentWithCustomMatcher() throws Exception {
-    for (int i = 0; i < COMPONENT_CLASSES.length; i++) {
-      if (COMPONENT_CLASSES[i] != Panel.class) {
-        checkGetComponentWithCustomMatcher(COMPONENT_CLASSES[i]);
+    for (Class componentClass : COMPONENT_CLASSES) {
+      if (componentClass != Panel.class) {
+        checkGetComponentWithCustomMatcher(componentClass);
       }
     }
   }
 
   public void testComponentNotFoundErrors() throws Exception {
-    for (int i = 0; i < COMPONENT_CLASSES.length; i++) {
-      checkComponentNotFound(UIComponentAnalyzer.getTypeName(COMPONENT_CLASSES[i]));
+    for (Class componentClass : COMPONENT_CLASSES) {
+      checkComponentNotFound(UIComponentAnalyzer.getTypeName(componentClass));
     }
   }
 
@@ -532,8 +532,8 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
   private void checkGetComponentWithClassAndName(Class uiComponentClass) throws Exception {
     String typeName = UIComponentAnalyzer.getTypeName(uiComponentClass);
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
-    for (int i = 0; i < swingClasses.length; i++) {
-      checkGetComponentWithName(swingClasses[i], typeName);
+    for (Class swingClass : swingClasses) {
+      checkGetComponentWithName(swingClass, typeName);
     }
   }
 
@@ -550,15 +550,16 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
       fail();
     }
     catch (Throwable e) {
+      // OK
     }
   }
 
   private void checkGetComponentWithClass(Class uiComponentClass) throws Exception {
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
     String uiComponentType = UIComponentAnalyzer.getTypeName(uiComponentClass);
-    for (int i = 0; i < swingClasses.length; i++) {
+    for (Class swingClass : swingClasses) {
       jPanel.removeAll();
-      Component component = createSwingInstance(swingClasses[i]);
+      Component component = createSwingInstance(swingClass);
       jPanel.add(component);
       TestUtils.assertUIComponentRefersTo(component, getAccessor(uiComponentType).getComponent());
     }
@@ -567,9 +568,9 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
   private void checkGetComponentWithCustomMatcher(Class uiComponentClass) throws Exception {
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
     String uiComponentType = UIComponentAnalyzer.getTypeName(uiComponentClass);
-    for (int i = 0; i < swingClasses.length; i++) {
+    for (Class swingClass : swingClasses) {
       jPanel.removeAll();
-      Component component = createSwingInstance(swingClasses[i]);
+      Component component = createSwingInstance(swingClass);
       jPanel.add(component);
       ComponentMatcher matcher = new ComponentMatcher() {
         public boolean matches(Component component) {
@@ -581,8 +582,8 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
   }
 
   private Component createComponentWithText(Class componentClass, String componentName) throws Exception {
-    Constructor componentConstructor = componentClass.getConstructor(new Class[]{String.class});
-    return (Component)componentConstructor.newInstance(new Object[]{componentName});
+    Constructor componentConstructor = componentClass.getConstructor(String.class);
+    return (Component)componentConstructor.newInstance(componentName);
   }
 
   private TypedComponentAccessor getAccessor(String typeName) {
@@ -590,7 +591,7 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
   }
 
   private static Map createAccessors(final Panel panel) {
-    HashMap map = new HashMap();
+    Map<String, ComponentAccessorAdapter> map = new HashMap<String, ComponentAccessorAdapter>();
     map.put(Button.TYPE_NAME, new ComponentAccessorAdapter() {
       public UIComponent getComponent(ComponentMatcher matcher) throws Exception {
         return panel.getButton(matcher);

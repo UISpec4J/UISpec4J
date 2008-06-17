@@ -126,8 +126,8 @@ public final class WindowInterceptor {
    * @see #process(WindowHandler)
    */
   public WindowInterceptor process(WindowHandler[] handlers) {
-    for (int i = 0; i < handlers.length; i++) {
-      process(handlers[i]);
+    for (WindowHandler handler : handlers) {
+      process(handler);
     }
     return this;
   }
@@ -197,7 +197,11 @@ public final class WindowInterceptor {
     }
     initStackReference();
     try {
-      run(trigger, new InterceptionHandlerAdapter(handlers.iterator()));
+      run(new TriggerAccessor() {
+        public Trigger getTrigger() {
+          return trigger;
+        }
+      }, new InterceptionHandlerAdapter(handlers.iterator()));
     }
     catch (Throwable e) {
       storeException(e, handlers.size() > 1 ? "Error in first handler: " : "");
@@ -236,15 +240,19 @@ public final class WindowInterceptor {
       this.handlersIterator = handlersIterator;
     }
 
-    public void process(Window window) {
+    public void process(final Window window) {
       handler = getNextHandler();
       String name = handler.getName();
       try {
-        Trigger trigger = handler.process(window);
         if (handlersIterator.hasNext()) {
-          WindowInterceptor.run(trigger, this);
+          WindowInterceptor.run(new TriggerAccessor() {
+            public Trigger getTrigger() throws Exception {
+              return handler.process(window);
+            }
+          }, this);
         }
         else {
+          Trigger trigger = handler.process(window);
           TriggerRunner.runInCurrentThread(trigger);
         }
       }
@@ -323,13 +331,17 @@ public final class WindowInterceptor {
     }
   }
 
-  private static void run(Trigger trigger, InterceptionHandler handler) {
+  interface TriggerAccessor {
+    Trigger getTrigger() throws Exception;
+  }
+
+  private static void run(TriggerAccessor triggerAccessor, InterceptionHandler handler) throws Exception {
     ShownInterceptionDetectionHandler showDetector = new ShownInterceptionDetectionHandler(handler, UISpec4J.getWindowInterceptionTimeLimit());
     ClosedInterceptionDetectionHandler closeDetector = new ClosedInterceptionDetectionHandler(showDetector, UISpec4J.getWindowInterceptionTimeLimit());
     NewThreadInterceptionHandlerDecorator newThreadHandler = new NewThreadInterceptionHandlerDecorator(closeDetector);
     UISpecDisplay.instance().add(newThreadHandler);
     try {
-      TriggerRunner.runInCurrentThread(trigger);
+      TriggerRunner.runInCurrentThread(triggerAccessor.getTrigger());
       showDetector.waitWindow();
       newThreadHandler.complete();
       closeDetector.checkWindowWasClosed();

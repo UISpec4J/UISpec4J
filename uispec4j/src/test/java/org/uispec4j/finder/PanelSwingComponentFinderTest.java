@@ -51,7 +51,7 @@ public class PanelSwingComponentFinderTest extends PanelComponentFinderTestCase 
   }
 
   public void testFindComponentsWithCustomComponentMatcher() throws Exception {
-    TestUtils.assertSwingComponentsEquals(new Component[]{button1},
+    TestUtils.assertSwingComponentsEquals(new JButton[]{button1},
                                           panel.getSwingComponents(new ComponentMatcher() {
                                             public boolean matches(Component component) {
                                               return component.isEnabled();
@@ -65,7 +65,7 @@ public class PanelSwingComponentFinderTest extends PanelComponentFinderTestCase 
                                             }
                                           }));
 
-    TestUtils.assertSwingComponentsEquals(new Component[]{button1, button2},
+    TestUtils.assertSwingComponentsEquals(new JButton[]{button1, button2},
                                           panel.getSwingComponents(new ComponentMatcher() {
                                             public boolean matches(Component component) {
                                               return component instanceof JButton;

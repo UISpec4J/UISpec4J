@@ -25,7 +25,7 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
   }
 
   public void testClassComponentMatcher() throws Exception {
-    TestUtils.assertSwingComponentsEquals(new Component[]{textField},
+    TestUtils.assertSwingComponentsEquals(new JTextField[]{textField},
                                           panel.getSwingComponents(ComponentMatchers.fromClass(JTextField.class)));
   }
 

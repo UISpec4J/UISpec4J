@@ -28,9 +28,6 @@ public class PanelContainsComponentTest extends PanelComponentFinderTestCase {
     assertTrue(panel.containsUIComponent(Button.class));
     assertTrue(panel.containsSwingComponent(JButton.class));
 
-    assertFalse(panel.containsUIComponent(JButton.class));
-    assertFalse(panel.containsSwingComponent(Button.class));
-
     addComponent(JButton.class, "button2");
     assertTrue(panel.containsUIComponent(Button.class));
     assertTrue(panel.containsSwingComponent(JButton.class));

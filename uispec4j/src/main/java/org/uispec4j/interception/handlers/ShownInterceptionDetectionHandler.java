@@ -2,7 +2,6 @@ package org.uispec4j.interception.handlers;
 
 import org.uispec4j.Window;
 import org.uispec4j.assertion.dependency.InternalAssert;
-import org.uispec4j.utils.Utils;
 
 public class ShownInterceptionDetectionHandler extends AbstractInterceptionHandlerDecorator {
   public static final String NO_WINDOW_WAS_SHOWN_ERROR_MESSAGE = "No window was shown (timeout expired)";
@@ -16,18 +15,28 @@ public class ShownInterceptionDetectionHandler extends AbstractInterceptionHandl
   }
 
   public void process(Window window) {
-    windowWasShown = true;
-    super.process(window);
+    synchronized (this) {
+      windowWasShown = true;
+      notify();
+      super.process(window);
+    }
   }
 
   public void waitWindow() {
-    long step = waitTimeLimit / 100;
-    for (int i = 0; i < 100; i++) {
-      if (windowWasShown) {
-        return;
+    long end = System.currentTimeMillis() + waitTimeLimit;
+    long still = waitTimeLimit;
+    synchronized (this) {
+      while (!windowWasShown && still > 0) {
+        try {
+          wait(still);
+          still = end - System.currentTimeMillis();
+        }
+        catch (InterruptedException e) {
+        }
       }
-      Utils.sleep(step);
     }
-    InternalAssert.fail(NO_WINDOW_WAS_SHOWN_ERROR_MESSAGE);
+    if (!windowWasShown) {
+      InternalAssert.fail(NO_WINDOW_WAS_SHOWN_ERROR_MESSAGE);
+    }
   }
 }

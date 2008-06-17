@@ -17,13 +17,14 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
 
   protected void setUp() throws Exception {
     super.setUp();
-    button = (JButton) addComponent(JButton.class, "button1");
+    button = addComponent(JButton.class, "button1");
   }
 
   public void testFindUIComponentByClass() throws Exception {
     assertNull(panel.findUIComponent(TextBox.class));
 
-    TestUtils.assertUIComponentRefersTo(button, panel.findUIComponent(Button.class));
+    Button uispecButton = panel.findUIComponent(Button.class);
+    TestUtils.assertUIComponentRefersTo(this.button, uispecButton);
 
     addComponent(JButton.class, "button2");
     try {
@@ -74,14 +75,12 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
   }
 
   public void testGetUIComponentsByClass() throws Exception {
-    JLabel label1 = (JLabel) addComponent(JLabel.class, "label1");
-    JLabel label2 = (JLabel) addComponent(JLabel.class, "label2");
-    JTextField jTextfield = (JTextField) addComponent(JTextField.class, "textField");
+    JLabel label1 = addComponent(JLabel.class, "label1");
+    JLabel label2 = addComponent(JLabel.class, "label2");
+    JTextField jTextfield = addComponent(JTextField.class, "textField");
 
     TestUtils.assertUIComponentsReferTo(new Component[]{label2, jTextfield, label1},
                                         panel.getUIComponents(TextBox.class));
-    TestUtils.assertSwingComponentsEquals(new Component[]{label2, label1},
-                                          panel.getSwingComponents(JLabel.class));
 
     TestUtils.assertUIComponentsReferTo(new Component[0],
                                         panel.getUIComponents(Table.class));
@@ -91,20 +90,20 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
   }
 
   public void testGetUIComponentsByName() throws Exception {
-    JLabel label1 = (JLabel) addComponent(JLabel.class, "name1");
-    JLabel label2 = (JLabel) addComponent(JLabel.class, "name2");
-    JTextField jTextfield = (JTextField) addComponent(JTextField.class, "name2");
+    JLabel label1 = addComponent(JLabel.class, "name1");
+    JLabel label2 = addComponent(JLabel.class, "name2");
+    JTextField jTextfield = addComponent(JTextField.class, "name2");
     addComponent(JLabel.class, "other label");
     addComponent(JTable.class, "table");
 
     TestUtils.assertUIComponentsReferTo(new Component[]{label1, label2, jTextfield},
                                         panel.getUIComponents(TextBox.class, "name"));
-    TestUtils.assertSwingComponentsEquals(new Component[]{label1, label2},
+    TestUtils.assertSwingComponentsEquals(new JLabel[]{label1, label2},
                                           panel.getSwingComponents(JLabel.class, "name"));
 
     TestUtils.assertUIComponentsReferTo(new Component[0],
                                         panel.getUIComponents(Table.class, "name"));
-    TestUtils.assertSwingComponentsEquals(new Component[0],
+    TestUtils.assertSwingComponentsEquals(new JTable[0],
                                           panel.getSwingComponents(JTable.class, "name"));
   }
 

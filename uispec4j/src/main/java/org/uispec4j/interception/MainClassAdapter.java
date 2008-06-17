@@ -20,9 +20,7 @@ public class MainClassAdapter implements UISpecAdapter {
   public MainClassAdapter(Class mainClass, String... args) {
     this.args = args;
     try {
-      main = mainClass.getMethod("main", new Class[]{
-        args.getClass()
-      });
+      main = mainClass.getMethod("main", args.getClass());
     }
     catch (NoSuchMethodException e) {
       throw new RuntimeException("Class " + mainClass.getName() + " has no method: public static void main(String[])");

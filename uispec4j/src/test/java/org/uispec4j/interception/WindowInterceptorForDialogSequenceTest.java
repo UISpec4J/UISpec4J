@@ -519,7 +519,7 @@ public class WindowInterceptorForDialogSequenceTest extends WindowInterceptorTes
 
   private Trigger createTriggerWithThreeModalDialogsSequence() {
     final JFrame frame = new JFrame();
-    Trigger trigger = new Trigger() {
+    return new Trigger() {
       public void run() throws Exception {
         for (int i = 1; i < 4; i++) {
           final JDialog dialog = new JDialog(frame, "dialog " + i, true);
@@ -528,7 +528,6 @@ public class WindowInterceptorForDialogSequenceTest extends WindowInterceptorTes
         }
       }
     };
-    return trigger;
   }
 
   private void showModalDialogInThread(int waitWindowTimeLimit, final int waitTimeInThread) {

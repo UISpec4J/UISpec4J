@@ -7,10 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CollectionComponentMatchersTest extends PanelComponentFinderTestCase {
-  private Component component1;
-  private Component component2;
-  private Component component3;
-  private Component component4;
+  private JButton component1;
+  private JButton component2;
+  private JButton component3;
+  private JTextField component4;
 
   protected void setUp() throws Exception {
     super.setUp();
@@ -21,22 +21,14 @@ public class CollectionComponentMatchersTest extends PanelComponentFinderTestCas
   }
 
   public void testIntersectionMatcher() throws Exception {
-    ComponentMatcher matcher = and(
-      new ComponentMatcher[]{
-        displayedNameSubstring("text"),
-        fromClass(JButton.class)
-      });
+    ComponentMatcher matcher = and(displayedNameSubstring("text"), fromClass(JButton.class));
 
-    TestUtils.assertSwingComponentsEquals(new Component[]{component1, component2},
+    TestUtils.assertSwingComponentsEquals(new JButton[]{component1, component2},
                                           panel.getSwingComponents(matcher));
   }
 
   public void testUnionComponentMatcher() throws Exception {
-    ComponentMatcher matcher = or(
-      new ComponentMatcher[]{
-        displayedNameSubstring("text"),
-        fromClass(JButton.class)
-      });
+    ComponentMatcher matcher = or(displayedNameSubstring("text"), fromClass(JButton.class));
 
     TestUtils.assertSwingComponentsEquals(new Component[]{component1, component2, component3, component4},
                                           panel.getSwingComponents(matcher));

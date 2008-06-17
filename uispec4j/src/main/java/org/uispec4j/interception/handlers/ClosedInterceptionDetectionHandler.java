@@ -51,6 +51,7 @@ public class ClosedInterceptionDetectionHandler extends AbstractInterceptionHand
       }
     };
     thread.setName(thread.getName() + " [WindowInterceptor.CloseHandler]");
+    thread.setDaemon(true);
     thread.start();
     try {
       super.process(window);

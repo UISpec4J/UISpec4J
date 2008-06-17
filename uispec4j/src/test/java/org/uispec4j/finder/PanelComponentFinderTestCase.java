@@ -21,14 +21,14 @@ public abstract class PanelComponentFinderTestCase extends UnitTestCase {
     panel = new Panel(jPanel);
   }
 
-  protected Component addComponent(Class awtComponentclass, String name) throws Exception {
-    Component component = createComponent(awtComponentclass, name);
+  protected <T extends Component> T addComponent(Class<T> awtComponentclass, String name) throws Exception {
+    T component = createComponent(awtComponentclass, name);
     components.add(component);
     jPanel.add(component);
     return component;
   }
 
-  private Component createComponent(Class awtComponentclass, String name) throws Exception {
+  private <T extends Component> T createComponent(Class<T> awtComponentclass, String name) throws Exception {
     Component component;
     try {
       Constructor constructor = awtComponentclass.getConstructor(new Class[]{String.class});
@@ -38,6 +38,6 @@ public abstract class PanelComponentFinderTestCase extends UnitTestCase {
       component = (Component) awtComponentclass.newInstance();
     }
     component.setName(name);
-    return component;
+    return (T)component;
   }
 }

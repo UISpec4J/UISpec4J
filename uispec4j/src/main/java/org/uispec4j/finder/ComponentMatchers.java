@@ -55,7 +55,7 @@ public class ComponentMatchers {
   /**
    * Matches components that are instances of the class.
    */
-  public static ComponentMatcher fromClass(final Class swingClass) {
+  public static <T extends Component> ComponentMatcher fromClass(final Class<T> swingClass) {
     return new ComponentMatcher() {
       public boolean matches(Component component) {
         return swingClass.isInstance(component);

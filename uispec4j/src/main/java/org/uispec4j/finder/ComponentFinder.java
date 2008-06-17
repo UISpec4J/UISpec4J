@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,9 +31,8 @@ public class ComponentFinder {
     }
     catch (ItemNotFoundException e) {
       Component[] components = findComponents(ComponentMatcher.ALL, swingClasses);
-      List names = new ArrayList();
-      for (int i = 0; i < components.length; i++) {
-        Component component = components[i];
+      List<String> names = new ArrayList<String>();
+      for (Component component : components) {
         UIComponent uiComponent = UIComponentFactory.createUIComponent(component);
         String componentLabel = uiComponent.getLabel();
         String componentName = uiComponent.getName();
@@ -85,8 +83,8 @@ public class ComponentFinder {
   }
 
   private Component[] getComponents(ComponentMatcher[] matchers, Class[] swingClasses) {
-    for (int i = 0; i < matchers.length; i++) {
-      Component[] foundComponents = findComponents(matchers[i], swingClasses);
+    for (ComponentMatcher matcher : matchers) {
+      Component[] foundComponents = findComponents(matcher, swingClasses);
       if (foundComponents.length > 0) {
         return foundComponents;
       }
@@ -95,12 +93,15 @@ public class ComponentFinder {
   }
 
   private Component[] findComponents(ComponentMatcher matcher, Class[] swingClasses) {
-    List foundComponents = new ArrayList();
+    List<Component> foundComponents = new ArrayList<Component>();
     retrieveComponents(container, foundComponents, matcher, swingClasses);
-    return (Component[])foundComponents.toArray(new Component[foundComponents.size()]);
+    return foundComponents.toArray(new Component[foundComponents.size()]);
   }
 
-  private static void retrieveComponents(Container container, List components, ComponentMatcher matcher, Class[] swingClasses) {
+  private static void retrieveComponents(Container container,
+                                         List<Component> components,
+                                         ComponentMatcher matcher,
+                                         Class[] swingClasses) {
     if (container instanceof JScrollPane) {
       JScrollPane scroll = (JScrollPane)container;
       retrieveComponents(scroll.getViewport(), components, matcher, swingClasses);
@@ -109,7 +110,7 @@ public class ComponentFinder {
     if (container == null) {
       return;
     }
-    List containers = new ArrayList();
+    List<Container> containers = new ArrayList<Container>();
     boolean isCardLayout = (container.getLayout() instanceof CardLayout);
     for (int i = 0, max = container.getComponentCount(); i < max; i++) {
       Component component = container.getComponent(i);
@@ -120,11 +121,11 @@ public class ComponentFinder {
         components.add(component);
       }
       if (component instanceof Container) {
-        containers.add(component);
+        containers.add((Container)component);
       }
     }
-    for (Iterator iterator = containers.iterator(); iterator.hasNext();) {
-      retrieveComponents((Container)iterator.next(), components, matcher, swingClasses);
+    for (Container innerContainer : containers) {
+      retrieveComponents(innerContainer, components, matcher, swingClasses);
     }
   }
 
@@ -132,8 +133,7 @@ public class ComponentFinder {
     if (swingClasses.length == 0) {
       return true;
     }
-    for (int i = 0; i < swingClasses.length; i++) {
-      Class expectedClass = swingClasses[i];
+    for (Class expectedClass : swingClasses) {
       if (expectedClass.isAssignableFrom(component.getClass())) {
         return true;
       }

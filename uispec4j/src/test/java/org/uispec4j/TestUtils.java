@@ -24,7 +24,7 @@ public class TestUtils {
     }
   }
 
-  public static void assertSwingComponentsEquals(Object[] expected, Object[] actual) {
+  public static <T extends Component> void assertSwingComponentsEquals (T[] expected, T[] actual) {
     Utils.assertSetEquals(expected, actual, SwingComponentStringifier.instance());
   }
 
