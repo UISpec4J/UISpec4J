@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ArrayUtils;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ public class MenuBar extends AbstractUIComponent {
   private JMenuBar jMenuBar;
 
   public MenuBar(JMenuBar menuBar) {
-    InternalAssert.assertNotNull("The menu bar should not be null", menuBar);
+    AssertAdapter.assertNotNull("The menu bar should not be null", menuBar);
     this.jMenuBar = menuBar;
   }
 
@@ -35,7 +35,7 @@ public class MenuBar extends AbstractUIComponent {
    */
   public MenuItem getMenu(String menuName) {
     int menuIndex = getMenuIndex(menuName);
-    InternalAssert.assertFalse("Menu '" + menuName + "' does not exist", menuIndex == -1);
+    AssertAdapter.assertFalse("Menu '" + menuName + "' does not exist", menuIndex == -1);
     JMenu menu = jMenuBar.getMenu(menuIndex);
     return new MenuItem(menu);
   }

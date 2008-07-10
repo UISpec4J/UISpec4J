@@ -4,7 +4,7 @@ import org.uispec4j.TextBox;
 import org.uispec4j.Trigger;
 import org.uispec4j.UIComponent;
 import org.uispec4j.Window;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.interception.handlers.InterceptionHandler;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class BasicHandler {
       public void process(Window window) {
         UIComponent component = window.findUIComponent(TextBox.class, text);
         if (component == null) {
-          InternalAssert.fail("Text not found: " + text);
+          AssertAdapter.fail("Text not found: " + text);
         }
       }
     });

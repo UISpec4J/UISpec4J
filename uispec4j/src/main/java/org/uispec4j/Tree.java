@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.Utils;
@@ -185,7 +185,7 @@ public class Tree extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         String trimmedExpected = expectedContents.trim();
-        InternalAssert.assertTrue("Expected tree description should not be empty",
+        AssertAdapter.assertTrue("Expected tree description should not be empty",
                                   (trimmedExpected != null) && (trimmedExpected.length() > 0));
         checkContents(trimmedExpected);
       }
@@ -283,7 +283,7 @@ public class Tree extends AbstractUIComponent {
       }
     }
     if (subPaths.isEmpty()) {
-      InternalAssert.fail("No children found");
+      AssertAdapter.fail("No children found");
     }
 
     TreePath[] result = subPaths.toArray(new TreePath[subPaths.size()]);
@@ -320,7 +320,7 @@ public class Tree extends AbstractUIComponent {
    */
   public void rightClickInSelection() {
     TreePath selectionPath = jTree.getSelectionPath();
-    InternalAssert.assertNotNull("There is no current selection", selectionPath);
+    AssertAdapter.assertNotNull("There is no current selection", selectionPath);
     clickOnTreePath(selectionPath, true, Key.Modifier.NONE);
   }
 
@@ -363,10 +363,10 @@ public class Tree extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         TreePath selectionPath = jTree.getSelectionPath();
-        InternalAssert.assertNotNull("The current tree selection is null.", selectionPath);
+        AssertAdapter.assertNotNull("The current tree selection is null.", selectionPath);
         TreePath expectedPath = getTreePath(path);
-        InternalAssert.assertNotNull("The expected path is not valid.", expectedPath);
-        InternalAssert.assertEquals(path, pathToString(selectionPath, separator));
+        AssertAdapter.assertNotNull("The expected path is not valid.", expectedPath);
+        AssertAdapter.assertEquals(path, pathToString(selectionPath, separator));
       }
     };
   }
@@ -385,7 +385,7 @@ public class Tree extends AbstractUIComponent {
         String[] actual = new String[selectionPaths.length];
         for (int i = 0; i < selectionPaths.length; i++) {
           TreePath selectionPath = selectionPaths[i];
-          InternalAssert.assertNotNull("The tree has an unexpectedly null selection path.", selectionPath);
+          AssertAdapter.assertNotNull("The tree has an unexpectedly null selection path.", selectionPath);
           TreePath expectedPath = getTreePath(paths[i]);
           actual[i] = pathToString(expectedPath, separator);
         }
@@ -401,7 +401,7 @@ public class Tree extends AbstractUIComponent {
   public Assertion selectionIsEmpty() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(0, jTree.getSelectionCount());
+        AssertAdapter.assertEquals(0, jTree.getSelectionCount());
       }
     };
   }
@@ -426,7 +426,7 @@ public class Tree extends AbstractUIComponent {
   public Assertion pathIsExpanded(final String path) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(jTree.isExpanded(getTreePath(path)));
+        AssertAdapter.assertTrue(jTree.isExpanded(getTreePath(path)));
       }
     };
   }
@@ -495,7 +495,7 @@ public class Tree extends AbstractUIComponent {
   private TreePath getTreePath(String path) {
     TreePath jTreePath = findTreePath(path);
     if (jTreePath == null) {
-      InternalAssert.fail(badTreePath(path));
+      AssertAdapter.fail(badTreePath(path));
     }
     return jTreePath;
   }
@@ -515,7 +515,7 @@ public class Tree extends AbstractUIComponent {
         String shownText = getShownText(child);
         if (pathArray[i].equals(shownText)) {
           if (exactMatch != null) {
-            InternalAssert.fail("Naming ambiguity: there are several '" +
+            AssertAdapter.fail("Naming ambiguity: there are several '" +
                                 pathArray[i] + "' under '" +
                                 getShownText(node) + "'");
           }
@@ -533,7 +533,7 @@ public class Tree extends AbstractUIComponent {
         result = exactMatch;
       }
       else if (substringAmbiguity) {
-        InternalAssert.fail("Naming ambiguity: there are several '" +
+        AssertAdapter.fail("Naming ambiguity: there are several '" +
                                        pathArray[i] + "' under '" +
                                        getShownText(node) + "'");
       }
@@ -608,7 +608,7 @@ public class Tree extends AbstractUIComponent {
       return;
     }
     if (!areLinesEqual(toLines(expected), toLines(actual))) {
-      InternalAssert.assertEquals(expected, actual);
+      AssertAdapter.assertEquals(expected, actual);
     }
   }
 

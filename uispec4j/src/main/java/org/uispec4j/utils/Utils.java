@@ -1,6 +1,6 @@
 package org.uispec4j.utils;
 
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -57,7 +57,7 @@ public class Utils {
     assertSetEquals(expected, actual, stringifier);
 
     for (int i = 0; i < actual.length; i++) {
-      InternalAssert.assertTrue("Unexpected order in the collection" + getMessage(expected, actual, stringifier),
+      AssertAdapter.assertTrue("Unexpected order in the collection" + getMessage(expected, actual, stringifier),
                                 expected[i].equals(actual[i]));
     }
   }
@@ -65,13 +65,13 @@ public class Utils {
   public static void assertSetEquals(Object[] expected, Object[] actual, Stringifier stringifier) {
     int expectedLength = expected.length;
     int actualLength = actual.length;
-    InternalAssert.assertTrue(expectedLength + " elements instead of " + actualLength + getMessage(expected, actual, stringifier),
+    AssertAdapter.assertTrue(expectedLength + " elements instead of " + actualLength + getMessage(expected, actual, stringifier),
                               expectedLength == actualLength);
 
     List list = Arrays.asList(expected);
     for (int i = 0; i < actual.length; i++) {
       Object element = actual[i];
-      InternalAssert.assertTrue("Unexpected element '" + stringifier.toString(element) + "'" + getMessage(expected, actual, stringifier),
+      AssertAdapter.assertTrue("Unexpected element '" + stringifier.toString(element) + "'" + getMessage(expected, actual, stringifier),
                                 list.contains(element));
     }
   }

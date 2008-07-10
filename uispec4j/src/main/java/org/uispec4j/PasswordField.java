@@ -1,10 +1,9 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Wrapper for JPasswordField components.
@@ -30,7 +29,7 @@ public class PasswordField extends AbstractUIComponent {
   public Assertion passwordEquals(final String hiddenPassword) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(hiddenPassword, new String(jPasswordField.getPassword()));
+        AssertAdapter.assertEquals(hiddenPassword, new String(jPasswordField.getPassword()));
       }
     };
   }

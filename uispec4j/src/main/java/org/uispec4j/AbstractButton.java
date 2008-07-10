@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 
@@ -16,7 +16,7 @@ public abstract class AbstractButton extends AbstractUIComponent {
   }
 
   public void click() {
-    InternalAssert.assertTrue("The button is not enabled, it cannot be activated",
+    AssertAdapter.assertTrue("The button is not enabled, it cannot be activated",
                               abstractButton.isEnabled());
     doClick(abstractButton);
   }
@@ -32,7 +32,7 @@ public abstract class AbstractButton extends AbstractUIComponent {
   public Assertion textEquals(final String text) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(text, abstractButton.getText().trim());
+        AssertAdapter.assertEquals(text, abstractButton.getText().trim());
       }
     };
   }
@@ -48,9 +48,9 @@ public abstract class AbstractButton extends AbstractUIComponent {
       public void check() throws Exception {
         Icon actual = abstractButton.getIcon();
         if (expected != null) {
-          InternalAssert.assertNotNull("The component contains no icon.", actual);
+          AssertAdapter.assertNotNull("The component contains no icon.", actual);
         }
-        InternalAssert.assertSame("The icon ", expected, actual);
+        AssertAdapter.assertSame("The icon ", expected, actual);
       }
     };
   }

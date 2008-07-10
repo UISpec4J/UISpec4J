@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.Utils;
 import org.uispec4j.xml.XmlAssert;
 import org.uispec4j.xml.XmlEscape;
@@ -50,7 +50,7 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
           return;
         }
 
-        InternalAssert.fail("Text should be empty but contains: " + actualText);
+        AssertAdapter.fail("Text should be empty but contains: " + actualText);
       }
     };
   }
@@ -77,7 +77,7 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
           .replaceAll(Utils.LINE_SEPARATOR, "")
           .replaceAll("[ ]+", " ")
           .trim();
-        InternalAssert.assertEquals(text, XmlEscape.convertXmlEntitiesToText(actual));
+        AssertAdapter.assertEquals(text, XmlEscape.convertXmlEntitiesToText(actual));
       }
     };
   }
@@ -91,7 +91,7 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
         }
         JTextPane dummyPane = createHtmlTextPane();
         dummyPane.setText(html);
-        InternalAssert.assertEquals(dummyPane.getText(), jTextComponent.getText());
+        AssertAdapter.assertEquals(dummyPane.getText(), jTextComponent.getText());
       }
     };
   }
@@ -175,10 +175,10 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
         }
       }
       if ((exactResults.isEmpty()) && (approximativeResults.isEmpty())) {
-        InternalAssert.fail("Hyperlink '" + link + "' not found");
+        AssertAdapter.fail("Hyperlink '" + link + "' not found");
       }
       if ((exactResults.size() > 1) || (approximativeResults.size() > 1)) {
-        InternalAssert.fail("Ambiguous command - found several hyperlinks matching '" + link + "'");
+        AssertAdapter.fail("Ambiguous command - found several hyperlinks matching '" + link + "'");
       }
       return (String)((exactResults.size() == 1) ? exactResults.get(0) : approximativeResults.get(0));
     }

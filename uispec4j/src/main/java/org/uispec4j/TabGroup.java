@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.StringMatcher;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.xml.XmlWriter;
@@ -34,18 +34,18 @@ public class TabGroup extends AbstractUIComponent {
   public Panel getSelectedTab() {
     Component selectedComponent = jTabbedPane.getSelectedComponent();
     if (!JPanel.class.isInstance(selectedComponent)) {
-      InternalAssert.fail("tabGroup.getSelectedTab() only supports JPanel components inside a JTabbedPane");
+      AssertAdapter.fail("tabGroup.getSelectedTab() only supports JPanel components inside a JTabbedPane");
     }
     return new Panel((JPanel)selectedComponent);
   }
 
   public void selectTab(String tabLabel) {
     final int index = getTabIndex(tabLabel);
-    InternalAssert.assertTrue(tabNotFound(tabLabel), index >= 0);
+    AssertAdapter.assertTrue(tabNotFound(tabLabel), index >= 0);
     jTabbedPane.setSelectedIndex(index);
     UISpecAssert.assertTrue(new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertTrue(jTabbedPane.getSelectedIndex() == index);
+        AssertAdapter.assertTrue(jTabbedPane.getSelectedIndex() == index);
       }
     });
   }
@@ -54,13 +54,13 @@ public class TabGroup extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         int tabCount = jTabbedPane.getTabCount();
-        InternalAssert.assertEquals("You specified " + colors.length + " colors but there are " +
+        AssertAdapter.assertEquals("You specified " + colors.length + " colors but there are " +
                                     tabCount + " tabs -",
                                     colors.length, tabCount);
         for (int i = 0; i < colors.length; i++) {
           String color = colors[i];
           if (!ColorUtils.equals(color, jTabbedPane.getForegroundAt(i))) {
-            InternalAssert.fail("Unexpected color for tab '" + jTabbedPane.getTitleAt(i) +
+            AssertAdapter.fail("Unexpected color for tab '" + jTabbedPane.getTitleAt(i) +
                                 "' (index " + i + ") - expected " + ColorUtils.getColorDescription(color) +
                                 " but was " + ColorUtils.getColorDescription(jTabbedPane.getForegroundAt(i)));
           }
@@ -72,7 +72,7 @@ public class TabGroup extends AbstractUIComponent {
   public Assertion selectedTabEquals(final String tabLabel) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(tabLabel, jTabbedPane.getTitleAt(jTabbedPane.getSelectedIndex()));
+        AssertAdapter.assertEquals(tabLabel, jTabbedPane.getTitleAt(jTabbedPane.getSelectedIndex()));
       }
     };
   }
@@ -80,9 +80,9 @@ public class TabGroup extends AbstractUIComponent {
   public Assertion tabNamesEquals(final String[] tabLabels) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(tabLabels.length, jTabbedPane.getTabCount());
+        AssertAdapter.assertEquals(tabLabels.length, jTabbedPane.getTabCount());
         for (int i = 0; i < tabLabels.length; i++) {
-          InternalAssert.assertEquals(tabLabels[i], jTabbedPane.getTitleAt(i));
+          AssertAdapter.assertEquals(tabLabels[i], jTabbedPane.getTitleAt(i));
         }
       }
     };

@@ -2,7 +2,7 @@ package org.uispec4j.interception;
 
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ComponentUtils;
 import org.uispec4j.utils.Utils;
 
@@ -51,7 +51,7 @@ public class FileChooserHandler {
   public FileChooserHandler assertCurrentDirEquals(final File currentDir) {
     handler.add(new FileChooserInternalHandler() {
       public void process(JFileChooser fileChooser) {
-        InternalAssert.assertEquals("Unexpected current directory -",
+        AssertAdapter.assertEquals("Unexpected current directory -",
                                     currentDir, fileChooser.getCurrentDirectory());
       }
     });
@@ -61,7 +61,7 @@ public class FileChooserHandler {
   public FileChooserHandler titleEquals(final String title) {
     handler.add(new FileChooserInternalHandler() {
       public void process(JFileChooser fileChooser) {
-        InternalAssert.assertEquals("Unexpected title -",
+        AssertAdapter.assertEquals("Unexpected title -",
                                     title, fileChooser.getDialogTitle());
       }
     });
@@ -71,7 +71,7 @@ public class FileChooserHandler {
   public FileChooserHandler assertApplyButtonTextEquals(final String text) {
     handler.add(new FileChooserInternalHandler() {
       public void process(JFileChooser fileChooser) {
-        InternalAssert.assertEquals("Unexpected apply button text -",
+        AssertAdapter.assertEquals("Unexpected apply button text -",
                                     text, fileChooser.getApproveButtonText());
       }
     });
@@ -98,7 +98,7 @@ public class FileChooserHandler {
       public void process(JFileChooser fileChooser) {
         boolean actual = fileChooser.isMultiSelectionEnabled();
         if (actual != enabled) {
-          InternalAssert.fail(actual ? "Multi selection is enabled." : "Multi selection is not enabled.");
+          AssertAdapter.fail(actual ? "Multi selection is enabled." : "Multi selection is not enabled.");
         }
       }
     });
@@ -161,7 +161,7 @@ public class FileChooserHandler {
     public Trigger process(final Window window) {
       Component[] components = window.getSwingComponents(JFileChooser.class);
       if (components.length != 1) {
-        InternalAssert.fail("The shown window is not a file chooser - window content:" +
+        AssertAdapter.fail("The shown window is not a file chooser - window content:" +
                             Utils.LINE_SEPARATOR + window.getDescription());
       }
       JFileChooser fileChooser = (JFileChooser)components[0];
@@ -191,7 +191,7 @@ public class FileChooserHandler {
 
     public void process(JFileChooser fileChooser) {
       if (fileChooser.getDialogType() != expectedType) {
-        InternalAssert.fail(getChooserType(fileChooser));
+        AssertAdapter.fail(getChooserType(fileChooser));
       }
     }
 
@@ -222,7 +222,7 @@ public class FileChooserHandler {
     public void process(JFileChooser fileChooser) {
       int actualMode = fileChooser.getFileSelectionMode();
       if (actualMode != expectedMode) {
-        InternalAssert.fail(getMessage(actualMode));
+        AssertAdapter.fail(getMessage(actualMode));
       }
     }
 

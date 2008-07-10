@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.xml.XmlWriter;
 
 import javax.swing.*;
@@ -65,7 +65,7 @@ public class Window extends Panel {
   public Assertion titleEquals(final String expected) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(expected, getTitle());
+        AssertAdapter.assertEquals(expected, getTitle());
       }
     };
   }
@@ -73,7 +73,7 @@ public class Window extends Panel {
   public Assertion titleContains(final String expected) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue("expected to contain:<" + expected + "> but was:<" + getTitle() + ">",
+        AssertAdapter.assertTrue("expected to contain:<" + expected + "> but was:<" + getTitle() + ">",
                                   getTitle().contains(expected));
       }
     };
@@ -104,7 +104,7 @@ public class Window extends Panel {
   public Assertion isModal() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(adapter.isModal());
+        AssertAdapter.assertTrue(adapter.isModal());
       }
     };
   }
@@ -219,7 +219,7 @@ public class Window extends Panel {
     }
 
     public JMenuBar getJMenuBar() {
-      InternalAssert.fail("This component has no menu bar");
+      AssertAdapter.fail("This component has no menu bar");
       return null;
     }
 
@@ -249,7 +249,7 @@ public class Window extends Panel {
     }
 
     public JMenuBar getJMenuBar() {
-      InternalAssert.fail("This component has no menu bar");
+      AssertAdapter.fail("This component has no menu bar");
       return null;
     }
 

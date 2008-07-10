@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.FinderUtils;
 import org.uispec4j.finder.StringMatcher;
 import org.uispec4j.utils.ArrayUtils;
@@ -83,7 +83,7 @@ public class ComboBox extends AbstractUIComponent {
         throw new ItemAmbiguityException(value, items);
       }
     }
-    InternalAssert.fail(value + " not found in ComboBox");
+    AssertAdapter.fail(value + " not found in ComboBox");
   }
 
   /**
@@ -113,7 +113,7 @@ public class ComboBox extends AbstractUIComponent {
         List content = Arrays.asList(getContent());
         for (String item : items) {
           if (!content.contains(item)) {
-            InternalAssert.fail("Item '" + item + "' not found - actual content:" + content);
+            AssertAdapter.fail("Item '" + item + "' not found - actual content:" + content);
           }
         }
       }
@@ -127,9 +127,9 @@ public class ComboBox extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (jComboBox.getItemCount() != 0) {
-          InternalAssert.fail("Unexpected content: " + ArrayUtils.toString(getContent()));
+          AssertAdapter.fail("Unexpected content: " + ArrayUtils.toString(getContent()));
         }
-        InternalAssert.assertEquals(displayedValue, getRenderedValue(-1));
+        AssertAdapter.assertEquals(displayedValue, getRenderedValue(-1));
       }
     };
   }
@@ -138,10 +138,10 @@ public class ComboBox extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (jComboBox.getSelectedItem() == null) {
-          InternalAssert.assertNull("The combo box has no selected item", selection);
+          AssertAdapter.assertNull("The combo box has no selected item", selection);
         }
         else {
-          InternalAssert.assertEquals(selection, getRenderedValue(jComboBox.getSelectedItem(), -1));
+          AssertAdapter.assertEquals(selection, getRenderedValue(jComboBox.getSelectedItem(), -1));
         }
       }
     };
@@ -151,7 +151,7 @@ public class ComboBox extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (!jComboBox.isEditable()) {
-          InternalAssert.fail("The combo box is not editable");
+          AssertAdapter.fail("The combo box is not editable");
         }
       }
     };

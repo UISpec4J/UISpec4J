@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 
@@ -42,7 +42,7 @@ public class CheckBox extends AbstractButton {
   public Assertion isSelected() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(jCheckBox.isSelected());
+        AssertAdapter.assertTrue(jCheckBox.isSelected());
       }
     };
   }

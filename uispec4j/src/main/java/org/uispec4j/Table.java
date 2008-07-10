@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.Utils;
@@ -129,7 +129,7 @@ public class Table extends AbstractUIComponent {
   public Assertion rowCountEquals(final int count) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals("Unexpected number of rows -", count, getRowCount());
+        AssertAdapter.assertEquals("Unexpected number of rows -", count, getRowCount());
       }
     };
   }
@@ -141,7 +141,7 @@ public class Table extends AbstractUIComponent {
   public Assertion columnCountEquals(final int count) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals("Unexpected number of columns -", count, getColumnCount());
+        AssertAdapter.assertEquals("Unexpected number of columns -", count, getColumnCount());
       }
     };
   }
@@ -177,7 +177,7 @@ public class Table extends AbstractUIComponent {
    * </code></pre>
    */
   public Cell editCell(int row, int column) {
-    InternalAssert.assertTrue("Cell (" + row + "," + column + ") is not editable",
+    AssertAdapter.assertTrue("Cell (" + row + "," + column + ") is not editable",
                               jTable.isCellEditable(row, column));
     Component cellEditor = getSwingEditorComponentAt(row, column);
     JPanel cellPanel = new JPanel();
@@ -234,7 +234,7 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (jTable.getTableHeader() == null) {
-          InternalAssert.fail("The table contains an header");
+          AssertAdapter.fail("The table contains an header");
         }
       }
     };
@@ -258,14 +258,14 @@ public class Table extends AbstractUIComponent {
       public void check() {
         try {
           int expectedLength = expected.length;
-          InternalAssert.assertEquals(lengthErrorMessage(expectedLength),
+          AssertAdapter.assertEquals(lengthErrorMessage(expectedLength),
                                       expectedLength, getRowCount());
           for (int i = 0; i < expectedLength; i++) {
             checkRow(i, expected[i]);
           }
         }
         catch (Error e) {
-          InternalAssert.assertEquals(ArrayUtils.toString(expected), getContent());
+          AssertAdapter.assertEquals(ArrayUtils.toString(expected), getContent());
           throw e;
         }
       }
@@ -289,7 +289,7 @@ public class Table extends AbstractUIComponent {
         for (int rowIndex = 0; rowIndex < expected.length; rowIndex++) {
           Object[] row = expected[rowIndex];
           if (columnNames.length != row.length) {
-            InternalAssert.fail("Expected array should have " + columnNames.length + " elements for each row " +
+            AssertAdapter.fail("Expected array should have " + columnNames.length + " elements for each row " +
                                 "- invalid row " + rowIndex + ": " + ArrayUtils.toString(row));
           }
 
@@ -306,8 +306,8 @@ public class Table extends AbstractUIComponent {
 
   private void throwError(String message, String[] columnNames, Object[][] expected) {
     String actualContent = getContent(columnNames);
-    InternalAssert.assertEquals(message, ArrayUtils.toString(expected), actualContent);
-    InternalAssert.fail("Actual: " + actualContent);// in case the string comparison didn't fail
+    AssertAdapter.assertEquals(message, ArrayUtils.toString(expected), actualContent);
+    AssertAdapter.fail("Actual: " + actualContent);// in case the string comparison didn't fail
   }
 
   /**
@@ -335,7 +335,7 @@ public class Table extends AbstractUIComponent {
                               final TableCellValueConverter converter) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals("Error at (" + row + "," + column + ") -",
+        AssertAdapter.assertEquals("Error at (" + row + "," + column + ") -",
                                     expectedValue, getContentAt(row, column, converter));
       }
     };
@@ -345,10 +345,10 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (rowIndex < 0) {
-          InternalAssert.fail("Row index should be positive");
+          AssertAdapter.fail("Row index should be positive");
         }
         if (rowIndex >= jTable.getRowCount()) {
-          InternalAssert.fail("Table contains only " + jTable.getRowCount() + " rows, unable to access row " + rowIndex);
+          AssertAdapter.fail("Table contains only " + jTable.getRowCount() + " rows, unable to access row " + rowIndex);
         }
         try {
           checkRow(rowIndex, expectedRow);
@@ -356,7 +356,7 @@ public class Table extends AbstractUIComponent {
         catch (Error e) {
           StringBuffer buffer = new StringBuffer();
           dumpRow(jTable, rowIndex, buffer, ",");
-          InternalAssert.assertEquals(ArrayUtils.toString(expectedRow), buffer);
+          AssertAdapter.assertEquals(ArrayUtils.toString(expectedRow), buffer);
         }
       }
     };
@@ -366,13 +366,13 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         if (rowIndex < 0) {
-          InternalAssert.fail("Row index should be positive");
+          AssertAdapter.fail("Row index should be positive");
         }
         if (rowIndex >= jTable.getRowCount()) {
-          InternalAssert.fail("Table contains only " + jTable.getRowCount() + " rows, unable to access row " + rowIndex);
+          AssertAdapter.fail("Table contains only " + jTable.getRowCount() + " rows, unable to access row " + rowIndex);
         }
         if (columnNames.length != expected.length) {
-          InternalAssert.fail("Expected array should have " + columnNames.length + " elements for each row " +
+          AssertAdapter.fail("Expected array should have " + columnNames.length + " elements for each row " +
                               "- invalid row " + rowIndex + ": " + ArrayUtils.toString(expected));
         }
         Object[] actual = new Object[expected.length];
@@ -389,10 +389,10 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (columnIndex < 0) {
-          InternalAssert.fail("Column index should be positive");
+          AssertAdapter.fail("Column index should be positive");
         }
         if (columnIndex >= jTable.getColumnCount()) {
-          InternalAssert.fail("Table contains only " + jTable.getColumnCount() + " columns, unable to access column " + columnIndex);
+          AssertAdapter.fail("Table contains only " + jTable.getColumnCount() + " columns, unable to access column " + columnIndex);
         }
         try {
           checkColumn(columnIndex, expectedColumn);
@@ -400,7 +400,7 @@ public class Table extends AbstractUIComponent {
         catch (Error e) {
           StringBuffer buffer = new StringBuffer();
           dumpColumn(jTable, columnIndex, buffer, ",");
-          InternalAssert.assertEquals(ArrayUtils.toString(expectedColumn), buffer);
+          AssertAdapter.assertEquals(ArrayUtils.toString(expectedColumn), buffer);
         }
       }
     };
@@ -410,10 +410,10 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         try {
-          InternalAssert.assertEquals(0, jTable.getRowCount());
+          AssertAdapter.assertEquals(0, jTable.getRowCount());
         }
         catch (Error e) {
-          InternalAssert.fail("Expected: empty table but was:" + getContent());
+          AssertAdapter.fail("Expected: empty table but was:" + getContent());
         }
       }
     };
@@ -478,7 +478,7 @@ public class Table extends AbstractUIComponent {
         return columnIndex;
       }
     }
-    InternalAssert.fail("Column '" + columnName + "' not found");
+    AssertAdapter.fail("Column '" + columnName + "' not found");
     return -1;
   }
 
@@ -503,10 +503,10 @@ public class Table extends AbstractUIComponent {
         for (int i = 0; i < jTable.getRowCount(); i++) {
           if (jTable.isCellEditable(i, columnIndex) != isEditable) {
             if (isEditable) {
-              InternalAssert.fail("Cell at row " + i + " is not editable");
+              AssertAdapter.fail("Cell at row " + i + " is not editable");
             }
             else {
-              InternalAssert.fail("Cell at row " + i + " is editable");
+              AssertAdapter.fail("Cell at row " + i + " is editable");
             }
           }
         }
@@ -517,7 +517,7 @@ public class Table extends AbstractUIComponent {
   public Assertion cellIsEditable(final int rowIndex, final int columnIndex) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(jTable.isCellEditable(rowIndex, columnIndex));
+        AssertAdapter.assertTrue(jTable.isCellEditable(rowIndex, columnIndex));
       }
     };
   }
@@ -533,7 +533,7 @@ public class Table extends AbstractUIComponent {
   public Assertion selectionIsEmpty() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue("Selection is not empty", jTable.getSelectionModel().isSelectionEmpty());
+        AssertAdapter.assertTrue("Selection is not empty", jTable.getSelectionModel().isSelectionEmpty());
       }
     };
   }
@@ -570,7 +570,7 @@ public class Table extends AbstractUIComponent {
   public Assertion rowIsSelected(final int rowIndex) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(jTable.isRowSelected(rowIndex));
+        AssertAdapter.assertTrue(jTable.isRowSelected(rowIndex));
       }
     };
   }
@@ -579,9 +579,9 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (!jTable.getCellSelectionEnabled()) {
-          InternalAssert.fail("Cell-level selection is not supported on this table");
+          AssertAdapter.fail("Cell-level selection is not supported on this table");
         }
-        InternalAssert.assertTrue(jTable.isCellSelected(rowIndex, columnIndex));
+        AssertAdapter.assertTrue(jTable.isCellSelected(rowIndex, columnIndex));
       }
     };
   }
@@ -647,7 +647,7 @@ public class Table extends AbstractUIComponent {
   public Assertion columnSizeEquals(final String columnName, final int expectedWidth) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(expectedWidth, findColumn(columnName).getPreferredWidth());
+        AssertAdapter.assertEquals(expectedWidth, findColumn(columnName).getPreferredWidth());
       }
     };
   }
@@ -655,7 +655,7 @@ public class Table extends AbstractUIComponent {
   public Assertion columnSizeEquals(final int columnIndex, final int expectedWidth) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(expectedWidth,
+        AssertAdapter.assertEquals(expectedWidth,
                                     jTable.getColumnModel().getColumn(columnIndex).getPreferredWidth());
       }
     };
@@ -675,7 +675,7 @@ public class Table extends AbstractUIComponent {
 
   public void selectCell(int row, int column) {
     if (!jTable.getCellSelectionEnabled()) {
-      InternalAssert.fail("Individual cell selection is not allowed on this table");
+      AssertAdapter.fail("Individual cell selection is not allowed on this table");
     }
     jTable.setRowSelectionInterval(row, row);
     jTable.setColumnSelectionInterval(column, column);
@@ -713,7 +713,7 @@ public class Table extends AbstractUIComponent {
   }
 
   public void selectBlock(int top, int left, int bottom, int right) {
-    InternalAssert.assertTrue("Only row-level selection is allowed on this table",
+    AssertAdapter.assertTrue("Only row-level selection is allowed on this table",
                               jTable.getCellSelectionEnabled());
     if ((top > bottom) && (left > right)) {
       throw new IllegalArgumentException("Invalid block definition - expected top <= bottom and left <= right");
@@ -730,7 +730,7 @@ public class Table extends AbstractUIComponent {
   }
 
   public void removeRowFromSelection(int row) {
-    InternalAssert.assertTrue("Row " + row + " is not selected", jTable.isRowSelected(row));
+    AssertAdapter.assertTrue("Row " + row + " is not selected", jTable.isRowSelected(row));
     jTable.removeRowSelectionInterval(row, row);
   }
 
@@ -792,7 +792,7 @@ public class Table extends AbstractUIComponent {
             return;
           }
         }
-        InternalAssert.fail("row " + ArrayUtils.toString(expectedRow) + " not found in table.");
+        AssertAdapter.fail("row " + ArrayUtils.toString(expectedRow) + " not found in table.");
       }
     };
   }
@@ -825,13 +825,13 @@ public class Table extends AbstractUIComponent {
         public void check() {
           checkHeader();
           try {
-            InternalAssert.assertEquals(expectedHeaders.length, jTable.getColumnCount());
+            AssertAdapter.assertEquals(expectedHeaders.length, jTable.getColumnCount());
             for (int i = 0; i < expectedHeaders.length; i++) {
-              InternalAssert.assertEquals(expectedHeaders[i], jTable.getColumnName(i));
+              AssertAdapter.assertEquals(expectedHeaders[i], jTable.getColumnName(i));
             }
           }
           catch (Error e) {
-            InternalAssert.assertEquals(ArrayUtils.toString(expectedHeaders), ArrayUtils.toString(getColumnNames()));
+            AssertAdapter.assertEquals(ArrayUtils.toString(expectedHeaders), ArrayUtils.toString(getColumnNames()));
             throw e;
           }
         }
@@ -929,12 +929,12 @@ public class Table extends AbstractUIComponent {
     }
 
     private void checkHeader() {
-      InternalAssert.assertNotNull("The table contains no header", jTable.getTableHeader());
+      AssertAdapter.assertNotNull("The table contains no header", jTable.getTableHeader());
     }
   }
 
   private void checkColors(Object[][] colors, ComponentColorAccessor accessor) {
-    InternalAssert.assertEquals(colors.length, jTable.getRowCount());
+    AssertAdapter.assertEquals(colors.length, jTable.getRowCount());
     for (int row = 0; row < colors.length; row++) {
       for (int col = 0; col < colors[row].length; col++) {
         TableCellRenderer cellRenderer = jTable.getCellRenderer(row, col);
@@ -976,21 +976,21 @@ public class Table extends AbstractUIComponent {
   }
 
   private void checkRow(int rowIndex, Object[] expectedRow) {
-    InternalAssert.assertEquals(expectedRow.length, jTable.getColumnCount());
+    AssertAdapter.assertEquals(expectedRow.length, jTable.getColumnCount());
     for (int columnIndex = 0; columnIndex < expectedRow.length; columnIndex++) {
       checkValueAt(rowIndex, columnIndex, expectedRow[columnIndex]);
     }
   }
 
   private void checkColumn(int columnIndex, Object[] expectedColumn) {
-    InternalAssert.assertEquals(expectedColumn.length, jTable.getRowCount());
+    AssertAdapter.assertEquals(expectedColumn.length, jTable.getRowCount());
     for (int rowIndex = 0; rowIndex < expectedColumn.length; rowIndex++) {
       checkValueAt(rowIndex, columnIndex, expectedColumn[rowIndex]);
     }
   }
 
   private void checkValueAt(int rowIndex, int columnIndex, Object expectedValue) {
-    InternalAssert.assertEquals("Element at (" + rowIndex + ", " + columnIndex + ") does not match",
+    AssertAdapter.assertEquals("Element at (" + rowIndex + ", " + columnIndex + ") does not match",
                                 expectedValue,
                                 getValueAt(rowIndex, columnIndex));
   }
@@ -1010,7 +1010,7 @@ public class Table extends AbstractUIComponent {
   }
 
   private void assertCellPropertyEquals(Object[][] properties, ComponentPropertyAccessor accessor) {
-    InternalAssert.assertEquals(properties.length, jTable.getRowCount());
+    AssertAdapter.assertEquals(properties.length, jTable.getRowCount());
     for (int row = 0; row < properties.length; row++) {
       for (int col = 0; col < properties[row].length; col++) {
         TableCellRenderer cellRenderer = jTable.getCellRenderer(row, col);
@@ -1018,14 +1018,14 @@ public class Table extends AbstractUIComponent {
           cellRenderer.getTableCellRendererComponent(jTable,
                                                      jTable.getModel().getValueAt(row, col),
                                                      jTable.isCellSelected(row, col), false, row, col);
-        InternalAssert.assertEquals("Error at (" + row + ", " + col + ") -",
+        AssertAdapter.assertEquals("Error at (" + row + ", " + col + ") -",
                                     properties[row][col], accessor.getProperty(component));
       }
     }
   }
 
   private void checkLengthGreaterThan(int expectedLength) {
-    InternalAssert.assertTrue(lengthErrorMessage(expectedLength), getRowCount() > expectedLength);
+    AssertAdapter.assertTrue(lengthErrorMessage(expectedLength), getRowCount() > expectedLength);
   }
 
   private String lengthErrorMessage(int expectedLength) {

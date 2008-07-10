@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.Utils;
 
 import javax.swing.*;
@@ -49,7 +49,7 @@ public class Desktop extends AbstractUIComponent {
             return;
           }
         }
-        InternalAssert.fail("No window with title '" + title + "' found");
+        AssertAdapter.fail("No window with title '" + title + "' found");
       }
     };
   }

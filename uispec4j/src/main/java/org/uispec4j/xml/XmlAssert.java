@@ -1,6 +1,6 @@
 package org.uispec4j.xml;
 
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.xml.sax.Attributes;
 
 import java.io.Reader;
@@ -17,7 +17,7 @@ public class XmlAssert {
     ComparableNode aNode = createXmlEquivalentComparableNode(new StringReader(xmlA));
     ComparableNode bNode = createXmlEquivalentComparableNode(new StringReader(xmlB));
     if (!aNode.equals(bNode)) {
-      InternalAssert.assertEquals(prepareXmlString(xmlA), prepareXmlString(xmlB));
+      AssertAdapter.assertEquals(prepareXmlString(xmlA), prepareXmlString(xmlB));
     }
   }
 
@@ -29,7 +29,7 @@ public class XmlAssert {
     ComparableNode aNode = createXmlEqualComparableNode(new StringReader(xmlA));
     ComparableNode bNode = createXmlEqualComparableNode(new StringReader(xmlB));
     if (!aNode.equals(bNode)) {
-      InternalAssert.assertEquals(prepareXmlString(xmlA), prepareXmlString(xmlB));
+      AssertAdapter.assertEquals(prepareXmlString(xmlA), prepareXmlString(xmlB));
     }
   }
 

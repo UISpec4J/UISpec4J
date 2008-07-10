@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -102,11 +102,11 @@ public class TextBox extends AbstractUIComponent {
           index = actual.indexOf(text, index);
           if (index < 0) {
             if (actual.indexOf(text) < 0) {
-              InternalAssert.fail("The component text does not contain '" + text + "' " +
+              AssertAdapter.fail("The component text does not contain '" + text + "' " +
                                   "- actual content is:" + actual);
             }
             else {
-              InternalAssert.fail("The component text does not contain '" + text + "' at the expected position " +
+              AssertAdapter.fail("The component text does not contain '" + text + "' at the expected position " +
                                   "- actual content is:" + actual);
             }
           }

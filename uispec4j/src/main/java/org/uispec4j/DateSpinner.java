@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.DateUtils;
 
 import javax.swing.*;
@@ -29,7 +29,7 @@ public class DateSpinner extends Spinner {
   public Assertion startDateEquals(final String expectedStartDate) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(DateUtils.getDate(expectedStartDate), model.getStart());
+        AssertAdapter.assertEquals(DateUtils.getDate(expectedStartDate), model.getStart());
       }
     };
   }
@@ -42,7 +42,7 @@ public class DateSpinner extends Spinner {
   public Assertion endDateEquals(final String expectedEndDate) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(DateUtils.getDate(expectedEndDate), model.getEnd());
+        AssertAdapter.assertEquals(DateUtils.getDate(expectedEndDate), model.getEnd());
       }
     };
   }
@@ -54,7 +54,7 @@ public class DateSpinner extends Spinner {
   public Assertion calendarFieldsEquals(final int expectedCalendarFields) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(expectedCalendarFields, model.getCalendarField());
+        AssertAdapter.assertEquals(expectedCalendarFields, model.getCalendarField());
       }
     };
   }

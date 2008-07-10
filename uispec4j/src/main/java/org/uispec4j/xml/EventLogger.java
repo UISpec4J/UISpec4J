@@ -1,6 +1,6 @@
 package org.uispec4j.xml;
 
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.Utils;
 
 public class EventLogger {
@@ -17,7 +17,7 @@ public class EventLogger {
   }
 
   public void assertEquals(EventLogger expected) {
-    InternalAssert.assertEquals(expected.closeStream(), closeStream());
+    AssertAdapter.assertEquals(expected.closeStream(), closeStream());
   }
 
   public void assertEquivalent(String expected) {
@@ -85,14 +85,14 @@ public class EventLogger {
       }
     }
     catch (Error e) {
-      InternalAssert.assertEquals(expected.replace('\'', '"'), actual.replaceAll("'", ""));
+      AssertAdapter.assertEquals(expected.replace('\'', '"'), actual.replaceAll("'", ""));
       fail(expected, actual);
     }
     reset();
   }
 
   private void fail(String expected, String actual) {
-    InternalAssert.fail(new StringBuffer()
+    AssertAdapter.fail(new StringBuffer()
       .append("Expected:").append(Utils.LINE_SEPARATOR)
       .append(expected).append(Utils.LINE_SEPARATOR)
       .append("...but was:").append(Utils.LINE_SEPARATOR)

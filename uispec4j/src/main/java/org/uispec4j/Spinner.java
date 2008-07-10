@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.ComponentMatcher;
 
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class Spinner extends AbstractUIComponent {
   public Assertion valueEquals(final Object expectedValue) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(expectedValue, jSpinner.getValue());
+        AssertAdapter.assertEquals(expectedValue, jSpinner.getValue());
       }
     };
   }
@@ -47,9 +47,9 @@ public class Spinner extends AbstractUIComponent {
       public void check() throws Exception {
         Object previousValue = jSpinner.getPreviousValue();
         if (previousValue == null) {
-          InternalAssert.fail("No previous value from the start");
+          AssertAdapter.fail("No previous value from the start");
         }
-        InternalAssert.assertEquals(expectedPreviousValue, previousValue);
+        AssertAdapter.assertEquals(expectedPreviousValue, previousValue);
       }
     };
   }
@@ -62,9 +62,9 @@ public class Spinner extends AbstractUIComponent {
       public void check() throws Exception {
         Object nextValue = jSpinner.getNextValue();
         if (nextValue == null) {
-          InternalAssert.fail("No previous value from the end");
+          AssertAdapter.fail("No previous value from the end");
         }
-        InternalAssert.assertEquals(expectedNextValue, nextValue);
+        AssertAdapter.assertEquals(expectedNextValue, nextValue);
       }
     };
   }

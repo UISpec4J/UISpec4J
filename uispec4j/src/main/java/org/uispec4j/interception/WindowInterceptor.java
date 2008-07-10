@@ -4,7 +4,7 @@ import org.uispec4j.Trigger;
 import org.uispec4j.UISpec4J;
 import org.uispec4j.Window;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.interception.handlers.*;
 import org.uispec4j.interception.toolkit.UISpecDisplay;
 import org.uispec4j.utils.ComponentUtils;
@@ -193,7 +193,7 @@ public final class WindowInterceptor {
    */
   public void run() {
     if (handlers.isEmpty()) {
-      InternalAssert.fail("You must add at least one handler");
+      AssertAdapter.fail("You must add at least one handler");
     }
     initStackReference();
     try {
@@ -211,7 +211,7 @@ public final class WindowInterceptor {
   }
 
   private void checkTitle(Window window, final String title) {
-    InternalAssert.assertEquals("Invalid window title -", title, window.getTitle());
+    AssertAdapter.assertEquals("Invalid window title -", title, window.getTitle());
   }
 
   private void initStackReference() {

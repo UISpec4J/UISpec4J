@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
@@ -37,7 +37,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
       document.insertString(position, text, document.getDefaultRootElement().getAttributes());
     }
     catch (BadLocationException e) {
-      InternalAssert.fail("Position should be between 0 and " + document.getLength());
+      AssertAdapter.fail("Position should be between 0 and " + document.getLength());
     }
   }
 
@@ -52,7 +52,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
       document.remove(0, document.getLength());
     }
     catch (BadLocationException e) {
-      InternalAssert.fail("Clear failed: " + e.getMessage());
+      AssertAdapter.fail("Clear failed: " + e.getMessage());
     }
   }
 
@@ -64,7 +64,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
     return new Assertion() {
       public void check() {
         String actual = jTextComponent.getText().replaceAll("\n    ", "").replaceAll("\n  </body>", "</body>");
-        InternalAssert.assertTrue("The component text does not contain '" + text + "' - actual content is:" + actual,
+        AssertAdapter.assertTrue("The component text does not contain '" + text + "' - actual content is:" + actual,
                                   actual.indexOf(text.trim()) >= 0);
       }
     };
@@ -74,7 +74,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
     return new Assertion() {
       public void check() {
         String actual = jTextComponent.getText();
-        InternalAssert.assertTrue("The component text should not contain '" + text +
+        AssertAdapter.assertTrue("The component text should not contain '" + text +
                                   "' - actual content is:" + actual,
                                   actual.indexOf(text) < 0);
       }
@@ -84,7 +84,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
   public Assertion isEditable() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue("The text box is not editable", jTextComponent.isEditable());
+        AssertAdapter.assertTrue("The text box is not editable", jTextComponent.isEditable());
       }
     };
   }
@@ -102,7 +102,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
 //        jTextComponent.moveCaretPosition(position + 1);
       }
       catch (BadLocationException e) {
-        InternalAssert.fail(e.getMessage());
+        AssertAdapter.fail(e.getMessage());
       }
     }
   }

@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.util.regex.Pattern;
 
 public class TableHeaderTest extends TableTestCase {
   public void test() throws Exception {
@@ -19,13 +20,16 @@ public class TableHeaderTest extends TableTestCase {
   }
 
   public void testContent() throws Exception {
-    assertTrue(table.getHeader().contentEquals(new String[]{"0", "1", "2"}));
+    assertTrue(table.getHeader().contentEquals("0", "1", "2"));
     try {
-      assertTrue(table.getHeader().contentEquals(new String[]{}));
+      assertTrue(table.getHeader().contentEquals());
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("expected:<[]> but was:<[0,1,2]>", e.getMessage());
+      Pattern pattern = Pattern.compile("expected:<.*> but was:<.*0,1,2.*>");
+      if (!pattern.matcher(e.getMessage()).matches()) {
+        fail("Unexpected message: " + e.getMessage());
+      }
     }
   }
 
@@ -72,7 +76,7 @@ public class TableHeaderTest extends TableTestCase {
     });
     checkNoHeaderException(new Functor() {
       public void run() {
-        assertTrue(table.getHeader().contentEquals(new String[]{}));
+        assertTrue(table.getHeader().contentEquals());
       }
     });
     checkNoHeaderException(new Functor() {

@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ComponentUtils;
 import org.uispec4j.utils.Utils;
 
@@ -63,7 +63,7 @@ public class Slider extends AbstractUIComponent {
   public Assertion positionEquals(final String expectedLabel) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(expectedLabel, getCurrentLabel());
+        AssertAdapter.assertEquals(expectedLabel, getCurrentLabel());
       }
     };
   }
@@ -79,7 +79,7 @@ public class Slider extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         int relativePosition = getRelativePosition();
-        InternalAssert.assertTrue("Expected " + expectedValue + " but was " + relativePosition,
+        AssertAdapter.assertTrue("Expected " + expectedValue + " but was " + relativePosition,
                                   isRoughlyEqual(expectedValue, relativePosition));
       }
     };

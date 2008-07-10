@@ -1,6 +1,6 @@
 package org.uispec4j.utils;
 
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import java.util.*;
 
@@ -110,11 +110,11 @@ public class ArrayUtils {
   private static void fail(String message, Object[] expected, Object[] actual) {
     boolean verticalDisplay = expected.length > 5 || actual.length > 5;
     if (verticalDisplay) {
-      InternalAssert.assertEquals(message, toVerticalString(expected), toVerticalString(actual));
+      AssertAdapter.assertEquals(message, toVerticalString(expected), toVerticalString(actual));
     }
     else {
       String prefix = message != null ? message + "\n" : "";
-      InternalAssert.fail(prefix +
+      AssertAdapter.fail(prefix +
                           "Expected: " + toString(expected) +
                           "\nActual:   " + toString(actual));
     }
@@ -122,7 +122,7 @@ public class ArrayUtils {
 
   public static void assertEquals(Object[] expected, Object[] actual) {
     if (actual == null) {
-      InternalAssert.assertNull("Actual array is not null", expected);
+      AssertAdapter.assertNull("Actual array is not null", expected);
     }
     if (!Arrays.equals(expected, actual)) {
       fail(null, expected, actual);
@@ -130,7 +130,7 @@ public class ArrayUtils {
   }
 
   public static void assertEquals(Object[][] expected, Object[][] actual) {
-    InternalAssert.assertEquals(expected.length, actual.length);
+    AssertAdapter.assertEquals(expected.length, actual.length);
     for (int i = 0; i < expected.length; i++) {
       assertEquals("Error at row " + i + ":", expected[i], actual[i]);
     }
@@ -154,13 +154,13 @@ public class ArrayUtils {
         for (Iterator iterator = actualIterator; iterator.hasNext();) {
           actualList.add(iterator.next());
         }
-        InternalAssert.fail("The iterator contains too many elements: expected: " +
+        AssertAdapter.fail("The iterator contains too many elements: expected: " +
                             toString(expectedArray) + " but was: " + actualList);
       }
       Object obj = actualIterator.next();
       actualList.add(obj);
       if (!obj.equals(expectedArray[index])) {
-        InternalAssert.fail("Mismatch at index " + index + ". expected: " + expectedArray[index] +
+        AssertAdapter.fail("Mismatch at index " + index + ". expected: " + expectedArray[index] +
                             " but was: " + obj);
       }
       index++;
@@ -193,18 +193,18 @@ public class ArrayUtils {
     for (int i = 0; i < expectedData.length; i++) {
       expected.add(toString(expectedData[i]));
     }
-    InternalAssert.assertEquals(expected, actual);
+    AssertAdapter.assertEquals(expected, actual);
   }
 
   public static void assertEmpty(Object[] array) {
     if ((array != null) && (array.length > 0)) {
-      InternalAssert.fail("Array should be empty but is " + toString(array));
+      AssertAdapter.fail("Array should be empty but is " + toString(array));
     }
   }
 
   public static void assertEmpty(List list) {
     if ((list != null) && (!list.isEmpty())) {
-      InternalAssert.fail("List should be empty but is " + toString(list));
+      AssertAdapter.fail("List should be empty but is " + toString(list));
     }
   }
 }

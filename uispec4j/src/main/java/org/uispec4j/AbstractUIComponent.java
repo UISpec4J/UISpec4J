@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlWriter;
@@ -99,7 +99,7 @@ public abstract class AbstractUIComponent implements UIComponent {
   public Assertion isVisible() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(getAwtComponent().isVisible());
+        AssertAdapter.assertTrue(getAwtComponent().isVisible());
       }
     };
   }
@@ -107,7 +107,7 @@ public abstract class AbstractUIComponent implements UIComponent {
   public Assertion isEnabled() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue(getAwtComponent().isEnabled());
+        AssertAdapter.assertTrue(getAwtComponent().isEnabled());
       }
     };
   }

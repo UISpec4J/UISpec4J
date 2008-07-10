@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.FinderUtils;
 import org.uispec4j.finder.StringMatcher;
 import org.uispec4j.utils.ArrayUtils;
@@ -49,7 +49,7 @@ public class ListBox extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (getSize() != 0) {
-          InternalAssert.fail("List should be empty but contains: " + ArrayUtils.toString(getContent()));
+          AssertAdapter.fail("List should be empty but contains: " + ArrayUtils.toString(getContent()));
         }
       }
     };
@@ -73,7 +73,7 @@ public class ListBox extends AbstractUIComponent {
         List content = Arrays.asList(getContent());
         for (String item : items) {
           if (!content.contains(item)) {
-            InternalAssert.fail("Item '" + item + "' not found - actual content:" + content);
+            AssertAdapter.fail("Item '" + item + "' not found - actual content:" + content);
           }
         }
       }
@@ -95,7 +95,7 @@ public class ListBox extends AbstractUIComponent {
     for (int i = 0; i < values.length; i++) {
       indices[i] = getIndexForString(values[i]);
       if (indices[i] == -1) {
-        InternalAssert.fail("Item '" + values[i] + "' not found in " +
+        AssertAdapter.fail("Item '" + values[i] + "' not found in " +
                             ArrayUtils.toString(getContent()));
       }
     }
@@ -119,7 +119,7 @@ public class ListBox extends AbstractUIComponent {
       public void check() {
         if (jList.getSelectedIndices().length != 0) {
           String[] names = getSelectedItemNames();
-          InternalAssert.fail("Selection should be empty but is: " + ArrayUtils.toString(names));
+          AssertAdapter.fail("Selection should be empty but is: " + ArrayUtils.toString(names));
         }
       }
     };

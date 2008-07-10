@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.StringMatcher;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.xml.XmlAssert;
@@ -61,7 +61,7 @@ public class MenuItem extends AbstractUIComponent {
       menuItem = retrieveMatchingSubMenu(subMenuItem, StringMatcher.substring(subMenuItem));
     }
     if (menuItem == null) {
-      InternalAssert.fail("There is no menu item matching '" + subMenuItem + "' - actual elements: " +
+      AssertAdapter.fail("There is no menu item matching '" + subMenuItem + "' - actual elements: " +
                           ArrayUtils.toString(getSubElementNames()));
     }
     return menuItem;
@@ -133,7 +133,7 @@ public class MenuItem extends AbstractUIComponent {
                                     boolean firstMatchFound) {
     if (menuMatcher.matches(name)) {
       if (firstMatchFound) {
-        InternalAssert.fail("Could not retrieve subMenu item : There are more than one component matching '" + toFind + "'");
+        AssertAdapter.fail("Could not retrieve subMenu item : There are more than one component matching '" + toFind + "'");
       }
       return true;
     }
@@ -162,7 +162,7 @@ public class MenuItem extends AbstractUIComponent {
     }
 
     public void click() {
-      InternalAssert.assertTrue("The menu item is not enabled, it cannot be activated",
+      AssertAdapter.assertTrue("The menu item is not enabled, it cannot be activated",
                                 menuItem.isEnabled());
       AbstractButton.doClick(menuItem);
     }
@@ -210,7 +210,7 @@ public class MenuItem extends AbstractUIComponent {
     }
 
     public void click() {
-      InternalAssert.fail("This operation is not supported. You must first select a sub menu among: "
+      AssertAdapter.fail("This operation is not supported. You must first select a sub menu among: "
                           + ArrayUtils.toString(getSubElementNames()));
     }
 
@@ -227,7 +227,7 @@ public class MenuItem extends AbstractUIComponent {
           }
         }
         else {
-          InternalAssert.fail("Unexpected menu item of class: " + component.getClass());
+          AssertAdapter.fail("Unexpected menu item of class: " + component.getClass());
         }
       }
       return elements.toArray(new MenuWrapper[elements.size()]);

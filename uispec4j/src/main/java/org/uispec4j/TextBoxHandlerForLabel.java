@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
@@ -41,7 +41,7 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
   public Assertion textIsEmpty() {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertTrue("Text should be empty but contains: " + jLabel.getText(),
+        AssertAdapter.assertTrue("Text should be empty but contains: " + jLabel.getText(),
                                   jLabel.getText().length() == 0);
       }
     };
@@ -50,7 +50,7 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
   public Assertion textEquals(final String text) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(text, jLabel.getText());
+        AssertAdapter.assertEquals(text, jLabel.getText());
       }
     };
   }
@@ -58,7 +58,7 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
   public Assertion htmlEquals(String html) {
     return new Assertion() {
       public void check() {
-        InternalAssert.fail("This component does not support html.");
+        AssertAdapter.fail("This component does not support html.");
       }
     };
   }
@@ -67,7 +67,7 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
     return new Assertion() {
       public void check() {
         String actualText = jLabel.getText();
-        InternalAssert.assertTrue("The component text does not contain '" + text +
+        AssertAdapter.assertTrue("The component text does not contain '" + text +
                                   "' - actual content is: " + actualText,
                                   actualText.indexOf(text) >= 0);
       }
@@ -78,7 +78,7 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
     return new Assertion() {
       public void check() {
         String actualText = jLabel.getText();
-        InternalAssert.assertTrue("The component text should not contain '" + text +
+        AssertAdapter.assertTrue("The component text should not contain '" + text +
                                   "' - actual content is: " + actualText,
                                   actualText.indexOf(text) < 0);
       }
@@ -88,19 +88,19 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
   public Assertion isEditable() {
     return new Assertion() {
       public void check() {
-        InternalAssert.fail("Text is not editable");
+        AssertAdapter.fail("Text is not editable");
       }
     };
   }
 
   public void clickOnHyperlink(String link) {
-    InternalAssert.fail("This component does not support hyperlinks.");
+    AssertAdapter.fail("This component does not support hyperlinks.");
   }
 
   public Assertion iconEquals(final Icon icon) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals("Unexpected icon", icon, jLabel.getIcon());
+        AssertAdapter.assertEquals("Unexpected icon", icon, jLabel.getIcon());
       }
     };
   }
@@ -110,6 +110,6 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
   }
 
   private void throwNotEditableError() {
-    InternalAssert.fail("The text box is not editable");
+    AssertAdapter.fail("The text box is not editable");
   }
 }

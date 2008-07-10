@@ -1,6 +1,6 @@
 package org.uispec4j.utils;
 
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -39,7 +39,7 @@ public final class ColorUtils {
                         + "expected:<" + getColorDescription(expected)
                         + "> but was:<" + getColorDescription(actual)
                         + ">";
-      InternalAssert.fail(errorMsg);
+      AssertAdapter.fail(errorMsg);
     }
   }
 

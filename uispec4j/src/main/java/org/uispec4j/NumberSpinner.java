@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 
@@ -26,7 +26,7 @@ public class NumberSpinner extends Spinner {
   public Assertion minEquals(final int expectedMin) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(new Integer(expectedMin), model.getMinimum());
+        AssertAdapter.assertEquals(new Integer(expectedMin), model.getMinimum());
       }
     };
   }
@@ -37,7 +37,7 @@ public class NumberSpinner extends Spinner {
   public Assertion maxEquals(final int expectedMax) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(new Integer(expectedMax), model.getMaximum());
+        AssertAdapter.assertEquals(new Integer(expectedMax), model.getMaximum());
       }
     };
   }
@@ -48,7 +48,7 @@ public class NumberSpinner extends Spinner {
   public Assertion stepSizeEquals(final int expectedStepSize) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertEquals(new Integer(expectedStepSize), model.getStepSize());
+        AssertAdapter.assertEquals(new Integer(expectedStepSize), model.getStepSize());
       }
     };
   }

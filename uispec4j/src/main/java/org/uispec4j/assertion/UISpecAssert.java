@@ -1,7 +1,7 @@
 package org.uispec4j.assertion;
 
 import org.uispec4j.UISpec4J;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.Utils;
 
 /**
@@ -124,9 +124,10 @@ public class UISpecAssert {
           throw new FailureNotDetectedError();
         }
         catch (FailureNotDetectedError e) {
-          InternalAssert.fail(null);
+          AssertAdapter.fail(null);
         }
         catch (Throwable e) {
+          // OK
         }
       }
     };
@@ -138,8 +139,8 @@ public class UISpecAssert {
   public static Assertion and(final Assertion... assertions) {
     return new Assertion() {
       public void check() throws Exception {
-        for (int i = 0; i < assertions.length; i++) {
-          assertions[i].check();
+        for (Assertion assertion : assertions) {
+          assertion.check();
         }
       }
     };
@@ -158,7 +159,7 @@ public class UISpecAssert {
           }
           catch (Throwable e) {
             if (i == assertions.length - 1) {
-              InternalAssert.fail(e.getMessage());
+              AssertAdapter.fail(e.getMessage());
             }
           }
         }
@@ -190,6 +191,7 @@ public class UISpecAssert {
         return;
       }
       catch (Throwable e) {
+        // OK
       }
     }
     try {
@@ -199,7 +201,7 @@ public class UISpecAssert {
       if (message == null) {
         throw e;
       }
-      InternalAssert.fail(message);
+      AssertAdapter.fail(message);
     }
     catch (Exception e) {
       if (message != null) {

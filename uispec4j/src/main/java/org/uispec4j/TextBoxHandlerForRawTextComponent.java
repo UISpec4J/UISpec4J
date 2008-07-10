@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.text.JTextComponent;
 
@@ -14,7 +14,7 @@ class TextBoxHandlerForRawTextComponent extends AbstractTextBoxHandlerForTextCom
     return new Assertion() {
       public void check() {
         String actualText = jTextComponent.getText();
-        InternalAssert.assertTrue("Text should be empty but contains: " + actualText,
+        AssertAdapter.assertTrue("Text should be empty but contains: " + actualText,
                                   actualText.length() == 0);
       }
     };
@@ -24,19 +24,19 @@ class TextBoxHandlerForRawTextComponent extends AbstractTextBoxHandlerForTextCom
     return "".equals(text) ? textIsEmpty() :
            new Assertion() {
              public void check() {
-               InternalAssert.assertEquals(text, jTextComponent.getText());
+               AssertAdapter.assertEquals(text, jTextComponent.getText());
              }
            };
   }
 
   public void clickOnHyperlink(String link) {
-    InternalAssert.fail("This component does not support hyperlinks.");
+    AssertAdapter.fail("This component does not support hyperlinks.");
   }
 
   public Assertion htmlEquals(String html) {
     return new Assertion() {
       public void check() {
-        InternalAssert.fail("This component does not support html.");
+        AssertAdapter.fail("This component does not support html.");
       }
     };
   }

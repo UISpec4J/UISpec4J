@@ -1,6 +1,6 @@
 package org.uispec4j.utils;
 
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import java.util.Date;
 
@@ -17,7 +17,7 @@ public class Chrono {
 
   public void assertElapsedTimeLessThan(long max) {
     long elapsed = getElapsedTime();
-    InternalAssert.assertTrue("Maximum elapsed time reached: " + elapsed + " >= " + max,
+    AssertAdapter.assertTrue("Maximum elapsed time reached: " + elapsed + " >= " + max,
                               elapsed < max);
   }
 

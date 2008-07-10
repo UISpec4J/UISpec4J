@@ -2,7 +2,7 @@ package org.uispec4j;
 
 import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.ComponentFinder;
 import org.uispec4j.finder.ComponentMatcher;
 import static org.uispec4j.finder.ComponentMatchers.*;
@@ -442,7 +442,7 @@ public class Panel extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         UIComponent[] uiComponents = getUIComponents(uicomponentClass);
-        InternalAssert.assertTrue(uiComponents.length > 0);
+        AssertAdapter.assertTrue(uiComponents.length > 0);
       }
     };
   }
@@ -451,7 +451,7 @@ public class Panel extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         Component[] swingComponents = getSwingComponents(swingComponentClass);
-        InternalAssert.assertTrue(swingComponents.length > 0);
+        AssertAdapter.assertTrue(swingComponents.length > 0);
       }
     };
   }
@@ -460,7 +460,7 @@ public class Panel extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         UIComponent[] uiComponents = getUIComponents(uiComponentClass, name);
-        InternalAssert.assertTrue(uiComponents.length > 0);
+        AssertAdapter.assertTrue(uiComponents.length > 0);
       }
     };
   }
@@ -469,7 +469,7 @@ public class Panel extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         Component[] swingComponents = getSwingComponents(swingComponentClass, name);
-        InternalAssert.assertTrue(swingComponents.length > 0);
+        AssertAdapter.assertTrue(swingComponents.length > 0);
       }
     };
   }
@@ -477,7 +477,7 @@ public class Panel extends AbstractUIComponent {
   public Assertion containsComponent(final ComponentMatcher matcher) {
     return new Assertion() {
       public void check() throws Exception {
-        InternalAssert.assertTrue(getSwingComponents(matcher).length > 0);
+        AssertAdapter.assertTrue(getSwingComponents(matcher).length > 0);
       }
     };
   }

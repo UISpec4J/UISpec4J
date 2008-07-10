@@ -1,7 +1,7 @@
 package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
-import org.uispec4j.assertion.dependency.InternalAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 
@@ -39,16 +39,16 @@ public class ProgressBar extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         if (expectedValue == -1) {
-          InternalAssert.assertTrue("The progress bar status is not undeterminate",
+          AssertAdapter.assertTrue("The progress bar status is not undeterminate",
                                     jProgressBar.isIndeterminate());
           return;
         }
         if ((expectedValue < 0) || (expectedValue > 100)) {
-          InternalAssert.fail("Expected value should be in range [0,100]");
+          AssertAdapter.fail("Expected value should be in range [0,100]");
         }
         int actualValue = getActualValue();
         if (!isRoughlyEqual(actualValue, expectedValue)) {
-          InternalAssert.assertEquals("Unexpected completion rate -", expectedValue, actualValue);
+          AssertAdapter.assertEquals("Unexpected completion rate -", expectedValue, actualValue);
         }
       }
     };
@@ -64,7 +64,7 @@ public class ProgressBar extends AbstractUIComponent {
   public Assertion displayedValueEquals(final String expectedProgressString) {
     return new Assertion() {
       public void check() {
-        InternalAssert.assertEquals(expectedProgressString, jProgressBar.getString());
+        AssertAdapter.assertEquals(expectedProgressString, jProgressBar.getString());
       }
     };
   }
@@ -96,7 +96,7 @@ public class ProgressBar extends AbstractUIComponent {
   private int checkRange() {
     int range = jProgressBar.getMaximum() - jProgressBar.getMinimum();
     if (range <= 0) {
-      InternalAssert.fail("Invalid range [" + jProgressBar.getMinimum() + "," +
+      AssertAdapter.fail("Invalid range [" + jProgressBar.getMinimum() + "," +
                           jProgressBar.getMaximum() + "]");
     }
     return range;
