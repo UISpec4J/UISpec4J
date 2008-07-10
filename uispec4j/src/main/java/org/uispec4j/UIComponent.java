@@ -39,9 +39,4 @@ public interface UIComponent {
    * if no name was set by the developers.
    */
   String getName();
-
-  /**
-   * Returns the first container named parentName or null if not found
-   */
-  Panel getContainer(String parentName);
 }

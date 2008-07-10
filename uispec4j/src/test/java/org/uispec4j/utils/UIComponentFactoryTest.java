@@ -149,10 +149,6 @@ public class UIComponentFactoryTest extends UnitTestCase {
       return null;
     }
 
-    public org.uispec4j.Panel getContainer(String parentName) {
-      return null;
-    }
-
     public String getLabel() {
       return null;
     }

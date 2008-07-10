@@ -358,11 +358,11 @@ public final class Empty {
 
   static class DummyGraphicsConfiguration extends GraphicsConfiguration {
     public BufferedImage createCompatibleImage(int width, int height) {
-      return new BufferedImage(width, height, 0);
+      return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
     public BufferedImage createCompatibleImage(int width, int height, int transparency) {
-      return new BufferedImage(width, height, 0);
+      return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
     public VolatileImage createCompatibleVolatileImage(int width, int height) {
