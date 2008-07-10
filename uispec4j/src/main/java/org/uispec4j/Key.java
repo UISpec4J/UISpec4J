@@ -57,6 +57,7 @@ public class Key {
   public static final Key RIGHT = new Key(KeyEvent.VK_RIGHT, false);
   public static final Key PAGE_DOWN = new Key(KeyEvent.VK_PAGE_DOWN, false);
   public static final Key PAGE_UP = new Key(KeyEvent.VK_PAGE_UP, false);
+  public static final Key ESCAPE = new Key(KeyEvent.VK_ESCAPE, false);
   public static final Key CONTROL = new Key(KeyEvent.VK_CONTROL, false);
   public static final Key SHIFT = new Key(KeyEvent.VK_SHIFT, false);
   public static final Key ALT = new Key(KeyEvent.VK_ALT, false);
