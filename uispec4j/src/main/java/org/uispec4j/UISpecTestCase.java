@@ -55,6 +55,7 @@ public abstract class UISpecTestCase extends TestCase {
    * Checks whether an unexpected exception had occurred, and releases the test resources.
    */
   protected void tearDown() throws Exception {
+    adapter = null;
     UISpecDisplay.instance().rethrowIfNeeded();
     UISpecDisplay.instance().reset();
     super.tearDown();
@@ -98,7 +99,7 @@ public abstract class UISpecTestCase extends TestCase {
    * If it fails an AssertionFailedError is thrown with the given message.
    * This method is equivalent to {@link #assertThat(String,Assertion}.
    *
-   * @see UISpecAssert#assertTrue(String, Assertion)
+   * @see UISpecAssert#assertTrue(String,Assertion)
    */
   public void assertTrue(String message, Assertion assertion) {
     UISpecAssert.assertTrue(message, assertion);

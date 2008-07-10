@@ -64,6 +64,60 @@ public class Mouse {
     component.dispatchEvent(new MouseEvent(component, MouseEvent.MOUSE_CLICKED, 1, modifiers, x, y, nbClicks, false));
   }
 
+  public static void pressed(UIComponent component, int x, int y) {
+    doAction(component.getAwtComponent(), false, Modifier.NONE, x, y, MouseEvent.MOUSE_PRESSED);
+  }
+
+  public static void released(UIComponent component, int x, int y) {
+    doAction(component.getAwtComponent(), false, Modifier.NONE, x, y, MouseEvent.MOUSE_RELEASED);
+  }
+
+  public static void drag(UIComponent component, int x, int y) {
+    doAction(component.getAwtComponent(), false, Modifier.NONE, x, y, MouseEvent.MOUSE_DRAGGED);
+  }
+
+  public static void pressed(UIComponent component, boolean useRightClick, Modifier keyModifier, int x, int y) {
+    doAction(component.getAwtComponent(), useRightClick, keyModifier, x, y, MouseEvent.MOUSE_PRESSED);
+  }
+
+  public static void released(UIComponent component, boolean useRightClick, Modifier keyModifier, int x, int y) {
+    doAction(component.getAwtComponent(), useRightClick, keyModifier, x, y, MouseEvent.MOUSE_RELEASED);
+  }
+
+  public static void drag(UIComponent component, boolean useRightClick, Modifier keyModifier, int x, int y) {
+    doAction(component.getAwtComponent(), useRightClick, keyModifier, x, y, MouseEvent.MOUSE_DRAGGED);
+  }
+
+  public static void pressed(Component component, int x, int y) {
+    doAction(component, false, Modifier.NONE, x, y, MouseEvent.MOUSE_PRESSED);
+  }
+
+  public static void released(Component component, int x, int y) {
+    doAction(component, false, Modifier.NONE, x, y, MouseEvent.MOUSE_RELEASED);
+  }
+
+  public static void drag(Component component, int x, int y) {
+    doAction(component, false, Modifier.NONE, x, y, MouseEvent.MOUSE_DRAGGED);
+  }
+
+  public static void pressed(Component component, boolean useRightClick, Modifier keyModifier, int x, int y) {
+    doAction(component, useRightClick, keyModifier, x, y, MouseEvent.MOUSE_PRESSED);
+  }
+
+  public static void released(Component component, boolean useRightClick, Modifier keyModifier, int x, int y) {
+    doAction(component, useRightClick, keyModifier, x, y, MouseEvent.MOUSE_RELEASED);
+  }
+
+  public static void drag(Component component, boolean useRightClick, Modifier keyModifier, int x, int y) {
+    doAction(component, useRightClick, keyModifier, x, y, MouseEvent.MOUSE_DRAGGED);
+  }
+
+  private static void doAction(Component component, boolean useRightClick, Modifier keyModifier, int x, int y, int eventType) {
+    int modifiers = useRightClick ? MouseEvent.BUTTON3_MASK : MouseEvent.BUTTON1_MASK;
+    modifiers |= keyModifier.getCode();
+    component.dispatchEvent(new MouseEvent(component, eventType, 1, modifiers, x, y, 1, false));
+  }
+
   private static void doClick(Component component, int clickCount) {
     doClickInRectangle(component, new Rectangle(), false, Modifier.NONE, clickCount);
   }
