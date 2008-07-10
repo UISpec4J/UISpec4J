@@ -66,6 +66,7 @@ public class XmlWriter {
     public Tag end() {
       try {
         if (closed) {
+          writer.write(Utils.LINE_SEPARATOR);
           writer.write("</");
           writer.write(tagValue);
           writer.write(">");
