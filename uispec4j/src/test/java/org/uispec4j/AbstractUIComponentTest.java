@@ -44,4 +44,16 @@ public class AbstractUIComponentTest extends UnitTestCase {
 
     assertTrue(uiComponent.foregroundEquals("black"));
   }
+
+  public void testGetContainer() throws Exception {
+    JPanel rootPanel = new JPanel();
+    rootPanel.setName("rootPanel");
+    JPanel middlePanel = new JPanel();
+    rootPanel.add(middlePanel);
+    JLabel jLabel = new JLabel();
+    middlePanel.add(jLabel);
+    TextBox label = new TextBox(jLabel);
+    assertSame(rootPanel, label.getContainer("rootPanel").getAwtComponent());
+    assertNull(label.getContainer("unknown"));
+  }
 }

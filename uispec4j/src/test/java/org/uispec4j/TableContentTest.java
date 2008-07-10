@@ -611,6 +611,38 @@ public class TableContentTest extends TableTestCase {
     }));
   }
 
+  public void testRowIndex() throws Exception {
+    assertEquals(0, table.getRowIndex(0, "a"));
+    assertEquals(1, table.getRowIndex(0, "c"));
+    assertEquals(-1, table.getRowIndex(0, "d"));
+  }
+
+  public void testRowIndexWithConverter() throws Exception {
+    table.setCellValueConverter(2, new DummyTableCellValueConverter());
+    assertEquals(0, table.getRowIndex(2, "-3-"));
+    assertEquals(1, table.getRowIndex(2, "-4-"));
+    assertEquals(-1, table.getRowIndex(2, "-5-"));
+  }
+
+  public void testRowIndicesWithConverter() throws Exception {
+    int[] indices = table.getRowIndices(0, "a");
+    assertEquals(1, indices.length);
+    assertEquals(0, indices[0]);
+  }
+
+  public void testWithConverter() throws Exception {
+    table.setCellValueConverter(2, new TableCellValueConverter() {
+      public Object getValue(int row, int column, Component renderedComponent, Object modelObject) {
+        return "same";
+      }
+    });
+    int[] indices = table.getRowIndices(2, "same");
+    assertEquals(2, indices.length);
+    assertEquals(0, indices[0]);
+    assertEquals(1, indices[1]);
+
+  }
+
   private static class DummyTableCellValueConverter implements TableCellValueConverter {
     public Object getValue(int row, int column, Component renderedComponent, Object modelObject) {
       return "-" + modelObject + "-";

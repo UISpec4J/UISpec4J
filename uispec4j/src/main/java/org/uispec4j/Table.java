@@ -13,6 +13,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -179,11 +180,38 @@ public class Table extends AbstractUIComponent {
    */
   public Cell editCell(int row, int column) {
     AssertAdapter.assertTrue("Cell (" + row + "," + column + ") is not editable",
-                              jTable.isCellEditable(row, column));
+                             jTable.isCellEditable(row, column));
     Component cellEditor = getSwingEditorComponentAt(row, column);
     JPanel cellPanel = new JPanel();
     cellPanel.add(cellEditor);
     return new Cell(cellPanel);
+  }
+
+  public int getRowIndex(int column, Object value) {
+    int count = jTable.getRowCount();
+    for (int i = 0; i < count; i++) {
+      if (value.equals(getValueAt(i, column))) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  public int[] getRowIndices(int column, Object value) {
+    java.util.List<Integer> list = new ArrayList<Integer>();
+    int count = jTable.getRowCount();
+    for (int i = 0; i < count; i++) {
+      if (value.equals(getValueAt(i, column))) {
+        list.add(i);
+      }
+    }
+    int[] indices = new int[list.size()];
+    int i = 0;
+    for (Integer index : list) {
+      indices[i] = index;
+      i++;
+    }
+    return indices;
   }
 
   /**
@@ -260,7 +288,7 @@ public class Table extends AbstractUIComponent {
         try {
           int expectedLength = expected.length;
           AssertAdapter.assertEquals(lengthErrorMessage(expectedLength),
-                                      expectedLength, getRowCount());
+                                     expectedLength, getRowCount());
           for (int i = 0; i < expectedLength; i++) {
             checkRow(i, expected[i]);
           }
@@ -291,7 +319,7 @@ public class Table extends AbstractUIComponent {
           Object[] row = expected[rowIndex];
           if (columnNames.length != row.length) {
             AssertAdapter.fail("Expected array should have " + columnNames.length + " elements for each row " +
-                                "- invalid row " + rowIndex + ": " + ArrayUtils.toString(row));
+                               "- invalid row " + rowIndex + ": " + ArrayUtils.toString(row));
           }
 
           for (int columnIndex = 0; columnIndex < columnNames.length; columnIndex++) {
@@ -337,7 +365,7 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         AssertAdapter.assertEquals("Error at (" + row + "," + column + ") -",
-                                    expectedValue, getContentAt(row, column, converter));
+                                   expectedValue, getContentAt(row, column, converter));
       }
     };
   }
@@ -374,7 +402,7 @@ public class Table extends AbstractUIComponent {
         }
         if (columnNames.length != expected.length) {
           AssertAdapter.fail("Expected array should have " + columnNames.length + " elements for each row " +
-                              "- invalid row " + rowIndex + ": " + ArrayUtils.toString(expected));
+                             "- invalid row " + rowIndex + ": " + ArrayUtils.toString(expected));
         }
         Object[] actual = new Object[expected.length];
         for (int columnIndex = 0; columnIndex < columnNames.length; columnIndex++) {
@@ -657,7 +685,7 @@ public class Table extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         AssertAdapter.assertEquals(expectedWidth,
-                                    jTable.getColumnModel().getColumn(columnIndex).getPreferredWidth());
+                                   jTable.getColumnModel().getColumn(columnIndex).getPreferredWidth());
       }
     };
   }
@@ -714,7 +742,7 @@ public class Table extends AbstractUIComponent {
 
   public void selectBlock(int top, int left, int bottom, int right) {
     AssertAdapter.assertTrue("Only row-level selection is allowed on this table",
-                              jTable.getCellSelectionEnabled());
+                             jTable.getCellSelectionEnabled());
     if ((top > bottom) && (left > right)) {
       throw new IllegalArgumentException("Invalid block definition - expected top <= bottom and left <= right");
     }
@@ -991,8 +1019,8 @@ public class Table extends AbstractUIComponent {
 
   private void checkValueAt(int rowIndex, int columnIndex, Object expectedValue) {
     AssertAdapter.assertEquals("Element at (" + rowIndex + ", " + columnIndex + ") does not match",
-                                expectedValue,
-                                getValueAt(rowIndex, columnIndex));
+                               expectedValue,
+                               getValueAt(rowIndex, columnIndex));
   }
 
   private Object getValueAt(int rowIndex, int columnIndex) {
@@ -1019,7 +1047,7 @@ public class Table extends AbstractUIComponent {
                                                      jTable.getModel().getValueAt(row, col),
                                                      jTable.isCellSelected(row, col), false, row, col);
         AssertAdapter.assertEquals("Error at (" + row + ", " + col + ") -",
-                                    properties[row][col], accessor.getProperty(component));
+                                   properties[row][col], accessor.getProperty(component));
       }
     }
   }

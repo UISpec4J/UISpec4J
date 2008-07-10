@@ -22,7 +22,7 @@ public abstract class AbstractUIComponent implements UIComponent {
     Component component = getAwtComponent();
     addAttributes(component, tag);
     if (component instanceof Container) {
-      getSubDescription((Container) component, tag);
+      getSubDescription((Container)component, tag);
     }
     tag.end();
     return writer.toString();
@@ -39,16 +39,16 @@ public abstract class AbstractUIComponent implements UIComponent {
     if (!JComponent.class.isAssignableFrom(component.getClass())) {
       return;
     }
-    JComponent jComponent = (JComponent) component;
+    JComponent jComponent = (JComponent)component;
     if (showVisibleOnly && !jComponent.isVisible()) {
       return;
     }
     if (jComponent instanceof JScrollPane) {
-      getSubDescription(((JScrollPane) jComponent).getViewport(), tag);
+      getSubDescription(((JScrollPane)jComponent).getViewport(), tag);
       return;
     }
     AbstractUIComponent guiComponent =
-      (AbstractUIComponent) UIComponentFactory.createUIComponent(jComponent);
+      (AbstractUIComponent)UIComponentFactory.createUIComponent(jComponent);
     if ((guiComponent == null) || isPanelWithNoName(guiComponent)) {
       getSubDescription(jComponent, tag);
       return;
@@ -68,13 +68,13 @@ public abstract class AbstractUIComponent implements UIComponent {
       tag.addAttribute("label", label);
     }
     if (component instanceof JTextComponent) {
-      String text = ((JTextComponent) component).getText();
+      String text = ((JTextComponent)component).getText();
       if (text != null && !"".equals(text)) {
         tag.addAttribute("text", cutTextIfLong(text));
       }
     }
     if (component instanceof JLabel) {
-      String text = ((JLabel) component).getText();
+      String text = ((JLabel)component).getText();
       if (text != null && !"".equals(text)) {
         tag.addAttribute("text", cutTextIfLong(text));
       }
@@ -151,5 +151,16 @@ public abstract class AbstractUIComponent implements UIComponent {
 
   private boolean isPanelWithNoName(UIComponent component) {
     return ((component instanceof Panel) && computeComponentName(component.getAwtComponent()).equals(""));
+  }
+
+  public Panel getContainer(String parentName) {
+    Container parent = getAwtComponent().getParent();
+    while (parent != null && !parentName.equalsIgnoreCase(parent.getName())) {
+      parent = parent.getParent();
+    }
+    if (parent != null && parentName.equalsIgnoreCase(parent.getName())) {
+      return new Panel(parent);
+    }
+    return null;
   }
 }
