@@ -1,0 +1,24 @@
+<p>
+  Popup menus are managed using
+  <a href="/reports/apidocs/org/uispec4j/MenuItem.html">MenuItem</a>
+  components.
+  The
+  <a href="/reports/apidocs/org/uispec4j/interception/PopupMenuInterceptor.html">PopupMenuInterceptor</a>
+  class offers a single <code>run()</code> method which launches a given Trigger and returns the
+  displayed MenuItem.
+</p>
+
+<p>For instance:</p>
+<div class="code"><pre>
+MenuItem menu = PopupMenuInterceptor.run(table.triggerRightClick(2, 4));
+assertTrue(menu.contentEquals("Cut", "Copy", "Paste", "Delete"));
+</pre> </div>
+
+<p>You can also use a more compact formatting:</p>
+<div class="code"><pre>
+PopupMenuInterceptor
+  .run(table.triggerRightClick(2, 4))
+  .getSubMenu("Copy")
+  .click();
+</pre>
+</div>

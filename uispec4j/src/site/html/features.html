@@ -1,0 +1,79 @@
+<h2>General mechanisms</h2>
+<ul>
+  <li>
+    <strong>API designed for readability:</strong>
+    our APIs are designed to make the test
+    scripts as close as possible to human-readable text. We avoid complex language
+    construct such as casts or anonymous classes, and try to use data structures
+    well suited to the data to be checked (indented ASCII for checking the hierarchical
+    contents of a Tree, two-dimensional arrays for checking the contents of a Table, etc.).
+  </li>
+  <li>
+    <strong>Smart component search:</strong>
+    the framework makes it possible to find UI
+    components without requiring that the developers assign names to all of them. For instance,
+    it is possible to find heavyweight components such as trees or tables without specifying
+    any name, and it is possible to retrieve components such as buttons or check boxes using
+    their displayed labels.
+  </li>
+  <li>
+    <strong>Rely on displayed information only:</strong>
+    the library checks the labels
+    <i>displayed</i>
+    by components such as tables, trees or lists, instead of the string
+    representation of their internal model data. To achieve this, the UI components
+    check the values shown by the Swing component renderers.
+  </li>
+  <li>
+    <strong>Invisible execution:</strong>
+    the framework does not require that the GUI
+    be visible when the tests are being run.
+  </li>
+  <li>
+    <strong>No modifications needed in production code</strong>
+    - you do not need to
+    ship UISpec4J's JAR with your deliverable product, and GUI tests can be written
+    without needing to adapt your application design.
+  </li>
+  <li>
+    <strong>Extensibility:</strong>
+    you can add your own custom UISpec4J components
+    to the library, for instance to support third-party Swing components (see
+    <a href="extension.html">here</a>).
+  </li>
+</ul>
+
+
+<h2>Specific features</h2>
+<ul>
+  <li><strong>Smart color specification</strong>: colors are specified either with a string
+    representation (in hexadecimal format, as in HTML), or with a human-readable name
+    which is an approximation of the color - for instance, AA1100 is still "red".
+  </li>
+</ul>
+
+
+<h2>Limitations</h2>
+<ul>
+  <li>
+    <strong>Provides support for Swing components, and not older AWT ones</strong>
+  </li>
+  <li><strong>Cannot test icons</strong>, mostly because there is no simple way to test
+    icons for equality
+  </li>
+  <li>
+    <strong>Cannot test focus management</strong>
+    - the focus system does not seem
+    to work when the components are not displayed.
+  </li>
+  <li>
+    <strong>No specific support for Java2D</strong>
+  </li>
+  <li>
+    <strong>No support for pure headless modes</strong> - even though UISpec4J tests run without displaying
+    the GUI, we still need a valid graphics toolkit available on the computer.
+  </li>
+</ul>
+
+
+

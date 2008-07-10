@@ -1,0 +1,187 @@
+<p>UISpec4J provides a mechanism for detecting dialog or popups displayed by the
+  application, without requiring any change in the production code. This mechanism relies
+  on the Swing Look&amp;Feel classes, especially those evolving around the Toolkit and Peer
+  interfaces.</p>
+<p>The trick is to provide our own Toolkit implementation,
+  which instantiates Peer components that intercept calls to dialog and popup "show()"
+  methods and trigger the UISpec4J code instead of displaying them on the screen.
+</p>
+
+<h2>Setting up the interception mechanism</h2>
+<p>
+  In order to enable the interception mechanism, you will need to call the
+  <a href="/reports/apidocs/org/uispec4j/UISpec4J.html#init()">UISpec4J.init()</a>
+  method <i>before any Swing component gets instanciated</i>
+  - if init() is called too late, the Swing default toolkit will have already been
+  set up and the interception will not work.
+</p>
+<p>A typical way to achieve that is to call this method from within a static initializer in
+  your test class or any of its ancestors. For instance, you can create a superclass for
+  all your test classes where you will add the following initializer: </p>
+<div class="code"><pre>
+  public abstract class MyOwnTestCase extends TestCase {
+    static {
+        UISpec4J.init();
+    } ...
+      </pre>
+</div>
+<p>
+  You can also use the
+  <a href="/reports/apidocs/org/uispec4j/UISpecTestCase.html">UISpecTestCase</a> base class, which
+  implements this initialization.
+</p>
+
+<h2>Intercepting windows</h2>
+<p>The
+  <a href="/reports/apidocs/org/uispec4j/interception/WindowInterceptor.html">WindowInterceptor</a>
+  class is used for intercepting popped-up frames and dialogs.
+  Non-modal windows are retrieved using the following code construct:
+</p>
+<div class="code"><pre>
+  Window window = WindowInterceptor.run(new Trigger() {
+    public void run() {
+      ...trigger an action that causes the window to be shown...
+    }
+  });
+      </pre>
+</div>
+<p>
+  Most UISpec4J components provide "trigger" methods that return ready-to-use triggers, for instance:
+</p>
+<div class="code"><pre>
+  Window window = WindowInterceptor.run(panel.getButton("Show").triggerClick());
+      </pre>
+</div>
+<p>or</p>
+<div class="code"><pre>
+  Window window = WindowInterceptor.run(menuBar.getMenu("File").getSubMenu("Open").triggerClick());
+      </pre>
+</div>
+<p>
+  This mechanism is also used for intercepting the main window of your application. For instance,
+  you could simply invoke your application's main() from within the trigger:
+</p>
+<div class="code"><pre>
+  Window appWindow = WindowInterceptor.run(new Trigger() {
+    public void run() {
+      MyApplication.main(new String[0]);
+    }
+  });
+      </pre>
+</div>
+<p>
+  NB: All shown windows must be declared in the tests using WindowInterceptor calls. If the
+  application code tries to display an unexpected window from outside a WindowInterceptor call,
+  it will receive an exception raised by the toolkit and the test will fail.
+</p>
+
+
+<h2>Intercepting modal dialogs</h2>
+<p>
+  Modal dialogs are more difficult to handle than their non-modal counterparts, because
+  the application code is blocked while the dialog is being shown, waiting for a result.
+</p>
+<p>
+  To manage this, the WindowInterceptor class provides a means for registering a set of handlers
+  that will be executed within the context of the dialog:
+</p>
+<div class="code"><pre>
+    WindowInterceptor
+      .init(applyButton.triggerClick())
+      .process(new WindowHandler() {
+        public Trigger process(Window window) {
+          // ... perform some operations on the shown window ...
+
+          // return a trigger that will close it
+          return window.getButton("OK").triggerClick();
+        }
+      })
+      .run();
+        </pre>
+</div>
+<p>
+  This approach involves three steps:
+<ol>
+  <li>The interception is started with a
+    <a href="/reports/apidocs/org/uispec4j/Trigger.html">Trigger</a>.
+    As for non-modal windows, it is responsible for triggering the display of the dialog.
+  </li>
+  <li>
+    The
+    <a href="/reports/apidocs/org/uispec4j/interception/WindowHandler.html">WindowHandler</a>
+    provided to the WindowInterceptor.process() method is given the shown window in its process()
+    call. The body of this method is responsible for dealing with that window, and then
+    returning a trigger that will close it. In our example we return a trigger that will click
+    on the "OK" button displayed in the dialog.
+  </li>
+  <li>
+    The interception is actually started only when the run() method is called.
+  </li>
+</ol>
+</p>
+<p>
+  The step 2 above can be repeated to handle a sequence of dialogs. For instance, if the use case
+  being tested involves two consecutive windows, we will write something like:
+</p>
+<div class="code"><pre>
+    WindowInterceptor
+      .init(applyButton.triggerClick())
+      .process(new WindowHandler("first dialog") {
+        public Trigger process(Window window) {
+          // ... perform some operations on the first window ...
+
+          // return a trigger that will close it
+          return window.getButton("OK").triggerClick();
+        }
+      })
+      .process(new WindowHandler("second dialog") {
+        public Trigger process(Window window) {
+          // ... perform some operations on the second window ...
+
+          // return a trigger that will close it
+          return window.getButton("OK").triggerClick();
+        }
+      })
+      .run();
+        </pre>
+</div>
+
+
+<h2>Built-in window handlers</h2>
+<p>
+  The <a href="/reports/apidocs/org/uispec4j/interception/WindowInterceptor.html">WindowInterceptor</a>
+  class provides a number of utility methods for handling dialogs with a simple button click,
+  or just waiting for a transient progress window to close itself.
+  Please refer to the Javadoc of this class for more information.
+</p>
+<p>
+  Many dialogs in an application are simply confirmation or input dialogs.
+  To cover these cases, we provide a
+  <a href="/reports/apidocs/org/uispec4j/interception/BasicHandler.html">BasicHandler</a> class
+  that will let you input text and press buttons in your dialogs without needing to write
+  inner classes.
+
+  For instance, a dialog simply asking for entering your first name could be handled like this:
+
+  WindowInterceptor
+  .init(applyButton.triggerClick())
+  .process(BasicHandler.init()
+  .assertContainsText("Enter your first name:")
+  .setText("John")
+  .triggerButtonClick("OK"))
+  .run();
+
+</p>
+<p>A specific WindowHandler implementation is available for file choosers: the
+  <a href="/reports/apidocs/org/uispec4j/interception/FileChooserHandler.html">FileChooserHandler</a>
+  class. Please refer to the Javadoc of this class for more information.
+</p>
+
+
+<h2>Custom window handlers</h2>
+<p>
+  In order to keep your tests as simple as possible, we suggest that you develop your
+  own window handler classes for the most frequently used dialogs in your application.
+  This will avoid a proliferation of complex inner class definitions in your tests, and
+  keep your test code more compact.
+</p>
