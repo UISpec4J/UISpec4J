@@ -40,7 +40,8 @@ public class Table extends AbstractUIComponent {
   private JTable jTable;
   private Header header = new Header();
   private TableCellValueConverter defaultCellValueConverter = new DefaultTableCellValueConverter();
-  private Map cellValuesConvertersByColumn = new HashMap();
+  private Map<Integer, TableCellValueConverter> cellValuesConvertersByColumn =
+    new HashMap<Integer, TableCellValueConverter>();
 
   public Table(JTable table) {
     this.jTable = table;
@@ -76,7 +77,7 @@ public class Table extends AbstractUIComponent {
    * Sets a new converter for analyzing the cells of a given column.
    */
   public void setCellValueConverter(int column, TableCellValueConverter tableCellValueConverter) {
-    cellValuesConvertersByColumn.put(new Integer(column), tableCellValueConverter);
+    cellValuesConvertersByColumn.put(column, tableCellValueConverter);
   }
 
   public void click(int row, int column) {
@@ -489,7 +490,7 @@ public class Table extends AbstractUIComponent {
         for (int i = 0; i < actual.length; i++) {
           Boolean[] row = actual[i];
           for (int j = 0; j < row.length; j++) {
-            actual[i][j] = Boolean.valueOf(jTable.isCellEditable(i, j));
+            actual[i][j] = jTable.isCellEditable(i, j);
           }
         }
         ArrayUtils.assertEquals(ArrayUtils.toBooleanObjects(expected), actual);
@@ -550,7 +551,7 @@ public class Table extends AbstractUIComponent {
         if (jTable.getCellSelectionEnabled()) {
           for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
-              actual[row][column] = Boolean.valueOf(jTable.isCellSelected(row, column));
+              actual[row][column] = jTable.isCellSelected(row, column);
             }
           }
         }
@@ -558,7 +559,7 @@ public class Table extends AbstractUIComponent {
           for (int row = 0; row < rowCount; row++) {
             boolean isRowSelected = jTable.isRowSelected(row);
             for (int column = 0; column < columnCount; column++) {
-              actual[row][column] = Boolean.valueOf(isRowSelected);
+              actual[row][column] = isRowSelected;
             }
           }
         }
@@ -661,7 +662,7 @@ public class Table extends AbstractUIComponent {
     };
   }
 
-  public Assertion rowsAreSelected(final int[] rowIndexes) {
+  public Assertion rowsAreSelected(final int... rowIndexes) {
     return new Assertion() {
       public void check() {
         int[] actualSelection = jTable.getSelectedRows();
@@ -688,12 +689,11 @@ public class Table extends AbstractUIComponent {
     }
   }
 
-  public void selectRows(int[] rowIndexes) {
+  public void selectRows(int... rowIndexes) {
     jTable.getSelectionModel().setValueIsAdjusting(true);
     try {
       jTable.clearSelection();
-      for (int i = 0; i < rowIndexes.length; i++) {
-        int row = rowIndexes[i];
+      for (int row : rowIndexes) {
         jTable.addRowSelectionInterval(row, row);
       }
       if (jTable.getCellSelectionEnabled()) {
@@ -1002,7 +1002,7 @@ public class Table extends AbstractUIComponent {
   }
 
   private TableCellValueConverter getCellValueConverter(int columnIndex) {
-    TableCellValueConverter specificConverter = (TableCellValueConverter)cellValuesConvertersByColumn.get(new Integer(columnIndex));
+    TableCellValueConverter specificConverter = cellValuesConvertersByColumn.get(columnIndex);
     if (specificConverter != null) {
       return specificConverter;
     }
