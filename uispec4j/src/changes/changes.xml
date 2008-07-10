@@ -5,6 +5,9 @@
 
   <body>
     <release version="2.0" date="???">
+      <action dev="mguiot" type="add">
+        Added Panel UIComponent.getContainer(String parentName);
+      </action>
       <action dev="ppratmarty" type="add">
         Added Window.titleContains(String).
       </action>
@@ -76,7 +79,7 @@
         Enhanced 'pressKey' management on TextBox components (caret is better handled).
       </action>
       <action dev="rmedina" type="add">
-        Added Table.getContentAt(row,column,converter) and ModelTableCellValueConverter to be 
+        Added Table.getContentAt(row,column,converter) and ModelTableCellValueConverter to be
         used in cases where a direct access to the underlying model is handy.
       </action>
     </release>
