@@ -30,8 +30,8 @@ public abstract class AbstractUIComponent implements UIComponent {
 
   protected void getSubDescription(Container container, XmlWriter.Tag tag) {
     Component[] components = container.getComponents();
-    for (int i = 0; i < components.length; i++) {
-      getDescription(components[i], tag, true);
+    for (Component component : components) {
+      getDescription(component, tag, true);
     }
   }
 

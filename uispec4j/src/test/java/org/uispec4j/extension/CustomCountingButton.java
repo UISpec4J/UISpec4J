@@ -14,7 +14,7 @@ public class CustomCountingButton extends AbstractUIComponent {
     this.jButton = jButton;
   }
 
-  public Component getAwtComponent() {
+  public JCountingButton getAwtComponent() {
     return jButton;
   }
 

@@ -71,8 +71,7 @@ public class ListBox extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         List content = Arrays.asList(getContent());
-        for (int i = 0; i < items.length; i++) {
-          String item = items[i];
+        for (String item : items) {
           if (!content.contains(item)) {
             InternalAssert.fail("Item '" + item + "' not found - actual content:" + content);
           }
@@ -168,17 +167,16 @@ public class ListBox extends AbstractUIComponent {
 
   private int getIndexForString(String searchedValue) {
     StringMatcher[] matchers = FinderUtils.getMatchers(searchedValue);
-    for (int i = 0; i < matchers.length; i++) {
-      StringMatcher matcher = matchers[i];
-      List indexes = new ArrayList();
+    for (StringMatcher matcher : matchers) {
+      List<Integer> indexes = new ArrayList<Integer>();
       for (int listIndex = 0, max = jList.getModel().getSize(); listIndex < max; listIndex++) {
         String renderedValue = getRenderedValue(listIndex);
         if (matcher.matches(renderedValue)) {
-          indexes.add(new Integer(listIndex));
+          indexes.add(listIndex);
         }
       }
       if (indexes.size() == 1) {
-        return ((Integer)indexes.get(0)).intValue();
+        return indexes.get(0);
       }
       if (indexes.size() > 1) {
         String[] items = new String[indexes.size()];

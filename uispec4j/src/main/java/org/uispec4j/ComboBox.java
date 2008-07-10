@@ -64,16 +64,15 @@ public class ComboBox extends AbstractUIComponent {
   public void select(String value) {
     ListModel model = jComboBox.getModel();
     StringMatcher[] stringMatchers = FinderUtils.getMatchers(value);
-    for (int i = 0; i < stringMatchers.length; i++) {
-      StringMatcher stringMatcher = stringMatchers[i];
-      List indexes = new ArrayList();
-      for (int j = 0, max = model.getSize(); j < max; j++) {
-        if (stringMatcher.matches(getRenderedValue(j))) {
-          indexes.add(new Integer(j));
+    for (StringMatcher stringMatcher : stringMatchers) {
+      List<Integer> indexes = new ArrayList<Integer>();
+      for (int modelIndex = 0, max = model.getSize(); modelIndex < max; modelIndex++) {
+        if (stringMatcher.matches(getRenderedValue(modelIndex))) {
+          indexes.add(modelIndex);
         }
       }
       if (indexes.size() == 1) {
-        jComboBox.setSelectedIndex(((Integer)indexes.get(0)).intValue());
+        jComboBox.setSelectedIndex(indexes.get(0));
         return;
       }
       if (indexes.size() > 1) {
@@ -112,8 +111,7 @@ public class ComboBox extends AbstractUIComponent {
     return new Assertion() {
       public void check() throws Exception {
         List content = Arrays.asList(getContent());
-        for (int i = 0; i < items.length; i++) {
-          String item = items[i];
+        for (String item : items) {
           if (!content.contains(item)) {
             InternalAssert.fail("Item '" + item + "' not found - actual content:" + content);
           }

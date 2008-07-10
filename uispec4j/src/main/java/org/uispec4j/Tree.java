@@ -274,7 +274,7 @@ public class Tree extends AbstractUIComponent {
     TreePath jTreePath = getTreePath(parentPath);
     TreeModel model = jTree.getModel();
     Object node = jTreePath.getLastPathComponent();
-    List subPaths = new ArrayList();
+    List<TreePath> subPaths = new ArrayList<TreePath>();
     for (int i = 0, max = model.getChildCount(node); i < max; i++) {
       Object child = model.getChild(node, i);
       String text = getShownText(child);
@@ -286,14 +286,13 @@ public class Tree extends AbstractUIComponent {
       InternalAssert.fail("No children found");
     }
 
-    TreePath[] result = (TreePath[])subPaths.toArray(new TreePath[subPaths.size()]);
+    TreePath[] result = subPaths.toArray(new TreePath[subPaths.size()]);
     jTree.setSelectionPaths(result);
   }
 
   public void select(String[] paths) {
     jTree.clearSelection();
-    for (int i = 0; i < paths.length; i++) {
-      String path = paths[i];
+    for (String path : paths) {
       jTree.addSelectionPath(getTreePath(path));
     }
   }
@@ -551,7 +550,7 @@ public class Tree extends AbstractUIComponent {
   }
 
   private static String[] toArray(String path, String separator) {
-    List result = new ArrayList();
+    List<String> result = new ArrayList<String>();
     for (int index = 0; index < path.length();) {
       int nextSeparatorPosition = path.indexOf(separator, index);
       if (nextSeparatorPosition == -1) {
@@ -560,7 +559,7 @@ public class Tree extends AbstractUIComponent {
       result.add(path.substring(index, nextSeparatorPosition));
       index = nextSeparatorPosition + separator.length();
     }
-    return (String[])(result.toArray(new String[result.size()]));
+    return result.toArray(new String[result.size()]);
   }
 
   private void expandSubTree(TreePath path) {
@@ -643,9 +642,9 @@ public class Tree extends AbstractUIComponent {
     return ColorUtils.equals(expectedColor, ColorUtils.getColor(actualColor));
   }
 
-  private List toLines(String text) {
+  private List<String> toLines(String text) {
     StringTokenizer tokenizer = new StringTokenizer(text, "\n");
-    List result = new ArrayList();
+    List<String> result = new ArrayList<String>();
     while (tokenizer.hasMoreTokens()) {
       result.add(tokenizer.nextToken());
     }
@@ -689,13 +688,7 @@ public class Tree extends AbstractUIComponent {
   }
 
   private boolean isDefaultColor(Color color) {
-    if (Color.BLACK.equals(color)) {
-      return true;
-    }
-    if (Utils.equals(color, getDefaultForegroundColor())) {
-      return true;
-    }
-    return false;
+    return Color.BLACK.equals(color) || Utils.equals(color, getDefaultForegroundColor());
   }
 
   private Color getDefaultForegroundColor() {

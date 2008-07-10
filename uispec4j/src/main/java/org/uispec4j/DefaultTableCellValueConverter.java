@@ -20,7 +20,7 @@ public class DefaultTableCellValueConverter implements TableCellValueConverter {
       return ((JComboBox)renderedComponent).getSelectedItem().toString();
     }
     else if (renderedComponent instanceof JCheckBox) {
-      return Boolean.valueOf(((JCheckBox)renderedComponent).isSelected());
+      return ((JCheckBox)renderedComponent).isSelected();
     }
     if (modelObject != null) {
       return modelObject.toString();

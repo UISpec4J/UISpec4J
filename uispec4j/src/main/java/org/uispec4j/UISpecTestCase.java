@@ -177,24 +177,8 @@ public abstract class UISpecTestCase extends TestCase {
    *
    * @see UISpecAssert#and(Assertion[])
    */
-  public Assertion and(Assertion assertion1, Assertion assertion2) {
-    return UISpecAssert.and(new Assertion[]{assertion1, assertion2});
-  }
-
-  /**
-   * Returns the intersection of two assertions.
-   *
-   * @see UISpecAssert#and(Assertion[])
-   */
   public Assertion and(Assertion... assertions) {
     return UISpecAssert.and(assertions);
-  }
-
-  /**
-   * Returns the union of two assertions.
-   */
-  public Assertion or(Assertion assertion1, Assertion assertion2) {
-    return UISpecAssert.or(new Assertion[]{assertion1, assertion2});
   }
 
   /**

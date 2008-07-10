@@ -8,7 +8,6 @@ import org.uispec4j.assertion.dependency.InternalAssert;
 import org.uispec4j.interception.handlers.InterceptionHandler;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class BasicHandler {
 
-  private List handlers = new ArrayList();
+  private List<InterceptionHandler> handlers = new ArrayList<InterceptionHandler>();
 
   /**
    * Starts the definition of the handler.
@@ -87,8 +86,7 @@ public class BasicHandler {
   public WindowHandler triggerButtonClick(final String buttonName) {
     return new WindowHandler() {
       public Trigger process(Window window) throws Exception {
-        for (Iterator iterator = handlers.iterator(); iterator.hasNext();) {
-          InterceptionHandler handler = (InterceptionHandler)iterator.next();
+        for (InterceptionHandler handler : handlers) {
           handler.process(window);
         }
         return window.getButton(buttonName).triggerClick();

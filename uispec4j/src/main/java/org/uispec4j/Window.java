@@ -15,10 +15,10 @@ public class Window extends Panel {
 
   public static final String TYPE_NAME = "Window";
   public static final Class[] SWING_CLASSES = {JFrame.class,
-      JDialog.class,
-      JInternalFrame.class,
-      Frame.class,
-      java.awt.Window.class};
+                                               JDialog.class,
+                                               JInternalFrame.class,
+                                               Frame.class,
+                                               java.awt.Window.class};
   private final Adapter adapter;
 
   public Window(JFrame frame) {
@@ -79,14 +79,17 @@ public class Window extends Panel {
     };
   }
 
+  /** @deprecated
+   * @see #titleEquals(String) */
   public void assertTitleEquals(String expected) {
     UISpecAssert.assertTrue(titleEquals(expected));
   }
 
+  /** @deprecated
+   * @see #titleContains(String) */
   public void assertTitleContains(String expected) {
     UISpecAssert.assertTrue(titleContains(expected));
   }
-
 
   protected void getSubDescription(Container container, XmlWriter.Tag tag) {
     Container internalAwtContainer = adapter.getInternalAwtContainer();
@@ -106,6 +109,12 @@ public class Window extends Panel {
     };
   }
 
+  /** Closes the window by calling its internal <code>dispose()</code> method. This is mainly used for unit
+   * tests, when there is no "functional" way to close the window (for instance a "Close" button) */
+  public void dispose() {
+    adapter.dispose();
+  }
+
   static interface Adapter {
     JMenuBar getJMenuBar();
 
@@ -114,6 +123,8 @@ public class Window extends Panel {
     boolean isModal();
 
     Container getInternalAwtContainer();
+
+    void dispose();
   }
 
   private static class JInternalFrameAdapter implements Adapter {
@@ -137,6 +148,10 @@ public class Window extends Panel {
 
     public Container getInternalAwtContainer() {
       return frame.getContentPane();
+    }
+
+    public void dispose() {
+      frame.dispose();
     }
   }
 
@@ -162,6 +177,10 @@ public class Window extends Panel {
     public Container getInternalAwtContainer() {
       return frame.getContentPane();
     }
+
+    public void dispose() {
+      frame.dispose();
+    }
   }
 
   private static class JDialogAdapter implements Adapter {
@@ -185,6 +204,10 @@ public class Window extends Panel {
 
     public Container getInternalAwtContainer() {
       return dialog.getContentPane();
+    }
+
+    public void dispose() {
+      dialog.dispose();
     }
   }
 
@@ -211,6 +234,10 @@ public class Window extends Panel {
     public Container getInternalAwtContainer() {
       return frame;
     }
+
+    public void dispose() {
+      frame.dispose();
+    }
   }
 
   private static class WindowAdapter implements Adapter {
@@ -236,6 +263,10 @@ public class Window extends Panel {
 
     public Container getInternalAwtContainer() {
       return window;
+    }
+
+    public void dispose() {
+      window.dispose();
     }
   }
 }

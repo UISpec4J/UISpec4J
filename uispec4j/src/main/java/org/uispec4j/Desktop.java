@@ -44,8 +44,8 @@ public class Desktop extends AbstractUIComponent {
     return new Assertion() {
       public void check() {
         JInternalFrame[] allFrames = jDesktopPane.getAllFrames();
-        for (int i = 0; i < allFrames.length; i++) {
-          if (Utils.equals(title, allFrames[i].getTitle())) {
+        for (JInternalFrame allFrame : allFrames) {
+          if (Utils.equals(title, allFrame.getTitle())) {
             return;
           }
         }

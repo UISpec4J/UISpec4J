@@ -40,7 +40,7 @@ public class Slider extends AbstractUIComponent {
   public Assertion labelsEqual(final String[] expected) {
     return new Assertion() {
       public void check() throws Exception {
-        TreeMap sortedTree = getSortedTree();
+        TreeMap<Integer, String> sortedTree = getSortedTree();
         Utils.assertEquals(expected, sortedTree.values().toArray(new Object[sortedTree.values().size()]));
       }
     };
@@ -111,10 +111,10 @@ public class Slider extends AbstractUIComponent {
   private int getIndexForLabel(String label) {
     Dictionary dictionary = jSlider.getLabelTable();
     for (Enumeration indices = dictionary.keys(); indices.hasMoreElements();) {
-      Integer indice = (Integer) indices.nextElement();
-      JComponent component = (JComponent) dictionary.get(indice);
+      Integer index = (Integer) indices.nextElement();
+      JComponent component = (JComponent) dictionary.get(index);
       if (label.equals(ComponentUtils.getDisplayedName(component))) {
-        return indice.intValue();
+        return index;
       }
     }
     return -1;
@@ -124,22 +124,22 @@ public class Slider extends AbstractUIComponent {
     int value = jSlider.getValue();
     Dictionary dictionary = jSlider.getLabelTable();
     for (Enumeration indices = dictionary.keys(); indices.hasMoreElements();) {
-      Integer indice = (Integer) indices.nextElement();
-      JComponent component = (JComponent) dictionary.get(indice);
-      if (indice.intValue() == value) {
+      Integer index = (Integer) indices.nextElement();
+      JComponent component = (JComponent) dictionary.get(index);
+      if (Utils.equals(index, value)) {
         return ComponentUtils.getDisplayedName(component);
       }
     }
     return null;
   }
 
-  private TreeMap getSortedTree() {
+  private TreeMap<Integer, String> getSortedTree() {
     Dictionary dictionary = jSlider.getLabelTable();
-    TreeMap treeMap = new TreeMap();
+    TreeMap<Integer, String> treeMap = new TreeMap<Integer, String>();
     for (Enumeration indices = dictionary.keys(); indices.hasMoreElements();) {
-      Integer indice = (Integer) indices.nextElement();
-      JComponent component = (JComponent) dictionary.get(indice);
-      treeMap.put(indice, ComponentUtils.getDisplayedName(component));
+      Integer index = (Integer) indices.nextElement();
+      JComponent component = (JComponent) dictionary.get(index);
+      treeMap.put(index, ComponentUtils.getDisplayedName(component));
     }
     return treeMap;
   }

@@ -80,13 +80,12 @@ public class MenuItem extends AbstractUIComponent {
    * Separators are not represented in this list.
    */
   private String[] getSubElementNames() {
-    List actualWrappersList = new ArrayList();
+    List<String> actualWrappersList = new ArrayList<String>();
     MenuWrapper[] subMenus = wrapper.getSubElements(true);
-    for (int i = 0; i < subMenus.length; i++) {
-      MenuWrapper menuItem = subMenus[i];
+    for (MenuWrapper menuItem : subMenus) {
       actualWrappersList.add(menuItem.getText());
     }
-    return (String[])actualWrappersList.toArray(new String[actualWrappersList.size()]);
+    return actualWrappersList.toArray(new String[actualWrappersList.size()]);
   }
 
   public Assertion contentEquals(final String xmlContent) {
@@ -105,13 +104,13 @@ public class MenuItem extends AbstractUIComponent {
   }
 
   private void computeContent(XmlWriter.Tag tag, MenuWrapper[] elements) {
-    for (int i = 0; i < elements.length; i++) {
-      if (elements[i].isSeparator()) {
+    for (MenuWrapper element : elements) {
+      if (element.isSeparator()) {
         tag.start("separator").end();
       }
       else {
-        XmlWriter.Tag menuTag = tag.start("menu").addAttribute("name", elements[i].getText());
-        computeContent(menuTag, elements[i].getSubElements(false));
+        XmlWriter.Tag menuTag = tag.start("menu").addAttribute("name", element.getText());
+        computeContent(menuTag, element.getSubElements(false));
         menuTag.end();
       }
     }
@@ -120,8 +119,7 @@ public class MenuItem extends AbstractUIComponent {
   private MenuItem retrieveMatchingSubMenu(String toFind, StringMatcher menuMatcher) {
     MenuItem subMenuItem = null;
     MenuWrapper[] subMenus = wrapper.getSubElements(true);
-    for (int i = 0; i < subMenus.length; i++) {
-      MenuWrapper subMenu = subMenus[i];
+    for (MenuWrapper subMenu : subMenus) {
       if (isSubMenuMatching(subMenu.getText(), menuMatcher, toFind, subMenuItem != null)) {
         subMenuItem = subMenu.toItem();
       }
@@ -174,10 +172,9 @@ public class MenuItem extends AbstractUIComponent {
         return new MenuWrapper[0];
       }
       JMenu menu = (JMenu)menuItem;
-      List result = new ArrayList();
+      List<MenuWrapper> result = new ArrayList<MenuWrapper>();
       Component[] menuComponents = menu.getMenuComponents();
-      for (int i = 0; i < menuComponents.length; i++) {
-        Component menuComponent = menuComponents[i];
+      for (Component menuComponent : menuComponents) {
         if (menuComponent instanceof JMenuItem) {
           result.add(new JMenuItemWrapper((JMenuItem)menuComponent));
         }
@@ -185,7 +182,7 @@ public class MenuItem extends AbstractUIComponent {
           result.add(new SeparatorWrapper());
         }
       }
-      return (MenuWrapper[])result.toArray(new MenuWrapper[result.size()]);
+      return result.toArray(new MenuWrapper[result.size()]);
     }
 
     public String getText() {
@@ -219,9 +216,8 @@ public class MenuItem extends AbstractUIComponent {
 
     public MenuWrapper[] getSubElements(boolean skipSeparators) {
       Component[] components = popupMenu.getComponents();
-      List elements = new ArrayList();
-      for (int i = 0; i < components.length; i++) {
-        Component component = components[i];
+      List<MenuWrapper> elements = new ArrayList<MenuWrapper>();
+      for (Component component : components) {
         if (component instanceof JMenuItem) {
           elements.add(new JMenuItemWrapper((JMenuItem)component));
         }
@@ -234,7 +230,7 @@ public class MenuItem extends AbstractUIComponent {
           InternalAssert.fail("Unexpected menu item of class: " + component.getClass());
         }
       }
-      return (MenuWrapper[])elements.toArray(new MenuWrapper[elements.size()]);
+      return elements.toArray(new MenuWrapper[elements.size()]);
     }
 
     public String getText() {

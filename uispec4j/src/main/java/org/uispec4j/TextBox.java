@@ -98,8 +98,7 @@ public class TextBox extends AbstractUIComponent {
       public void check() {
         String actual = handler.getText();
         int index = 0;
-        for (int i = 0; i < orderedTexts.length; i++) {
-          String text = orderedTexts[i];
+        for (String text : orderedTexts) {
           index = actual.indexOf(text, index);
           if (index < 0) {
             if (actual.indexOf(text) < 0) {

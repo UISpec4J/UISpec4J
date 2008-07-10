@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class MainClassAdapterTest extends InterceptionTestCase {
   public void test() throws Exception {
-    MainClassAdapter adapter = new MainClassAdapter(MyClass.class, new String[]{"a", "b"});
+    MainClassAdapter adapter = new MainClassAdapter(MyClass.class, "a", "b");
     Window window = adapter.getMainWindow();
     TextBox textBox = window.getTextBox();
     assertTrue(textBox.textEquals("[a, b]"));
@@ -17,7 +17,7 @@ public class MainClassAdapterTest extends InterceptionTestCase {
   public void testReusesTheInterceptedWindowOnSubsequentCalls() throws Exception {
     MyClass.callCount = 0;
 
-    MainClassAdapter adapter = new MainClassAdapter(MyClass.class, new String[]{"a", "b"});
+    MainClassAdapter adapter = new MainClassAdapter(MyClass.class, "a", "b");
     Window window1 = adapter.getMainWindow();
     Window window2 = adapter.getMainWindow();
     assertSame(window1, window2);
@@ -31,7 +31,7 @@ public class MainClassAdapterTest extends InterceptionTestCase {
 
   public void testNoMain() throws Exception {
     try {
-      new MainClassAdapter(MainClassAdapterTest.class, new String[]{"a", "b"});
+      new MainClassAdapter(MainClassAdapterTest.class, "a", "b");
     }
     catch (RuntimeException e) {
       assertEquals("Class org.uispec4j.interception.MainClassAdapterTest has no method: public static void main(String[])",
@@ -39,7 +39,7 @@ public class MainClassAdapterTest extends InterceptionTestCase {
     }
   }
 
-  private static class MyClass {
+  public static class MyClass {
     public static int callCount = 0;
 
     public static void main(String[] args) {

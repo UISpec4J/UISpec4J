@@ -12,7 +12,6 @@ import org.uispec4j.utils.UIComponentFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * General container for UI components.<p>
@@ -39,8 +38,8 @@ import java.util.Arrays;
 public class Panel extends AbstractUIComponent {
   public static final String TYPE_NAME = "panel";
   public static final Class[] SWING_CLASSES = {JPanel.class, JInternalFrame.class,
-      JViewport.class, JScrollPane.class,
-      JRootPane.class};
+                                               JViewport.class, JScrollPane.class,
+                                               JRootPane.class};
 
   private Container container;
   private ComponentFinder finder;
@@ -71,7 +70,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public Button getButton(final ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (Button) getComponent(finder, getMatcherByClass(Button.class, matcher));
+    return (Button)getComponent(finder, getMatcherByClass(Button.class, matcher));
   }
 
   public ToggleButton getToggleButton(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -83,7 +82,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public ToggleButton getToggleButton(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (ToggleButton) getComponent(finder, getMatcherByClass(ToggleButton.class, matcher));
+    return (ToggleButton)getComponent(finder, getMatcherByClass(ToggleButton.class, matcher));
   }
 
   public CheckBox getCheckBox(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -95,7 +94,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public CheckBox getCheckBox(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (CheckBox) getComponent(finder, getMatcherByClass(CheckBox.class, matcher));
+    return (CheckBox)getComponent(finder, getMatcherByClass(CheckBox.class, matcher));
   }
 
   public Panel getPanel() throws ItemNotFoundException, ComponentAmbiguityException {
@@ -107,7 +106,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public Panel getPanel(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (Panel) getComponent(finder, getMatcherByClass(Panel.class, matcher));
+    return (Panel)getComponent(finder, getMatcherByClass(Panel.class, matcher));
   }
 
   public ProgressBar getProgressBar(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -119,7 +118,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public ProgressBar getProgressBar(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (ProgressBar) getComponent(finder, getMatcherByClass(ProgressBar.class, matcher));
+    return (ProgressBar)getComponent(finder, getMatcherByClass(ProgressBar.class, matcher));
   }
 
   public Desktop getDesktop(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -131,14 +130,14 @@ public class Panel extends AbstractUIComponent {
   }
 
   public Desktop getDesktop(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (Desktop) getComponent(finder, getMatcherByClass(Desktop.class, matcher));
+    return (Desktop)getComponent(finder, getMatcherByClass(Desktop.class, matcher));
   }
 
   public TextBox getTextBox(String name) throws ItemNotFoundException, ComponentAmbiguityException {
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(TextBox.class);
     String typeName = UIComponentAnalyzer.getTypeName(TextBox.class);
     Component swingComponent = finder.getComponent(name, swingClasses, typeName);
-    return (TextBox) UIComponentFactory.createUIComponent(swingComponent);
+    return (TextBox)UIComponentFactory.createUIComponent(swingComponent);
   }
 
   public TextBox getTextBox() throws ItemNotFoundException, ComponentAmbiguityException {
@@ -146,7 +145,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public TextBox getTextBox(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (TextBox) getComponent(finder, getMatcherByClass(TextBox.class, matcher));
+    return (TextBox)getComponent(finder, getMatcherByClass(TextBox.class, matcher));
   }
 
   /**
@@ -188,7 +187,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public TabGroup getTabGroup(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (TabGroup) getComponent(finder, getMatcherByClass(TabGroup.class, matcher));
+    return (TabGroup)getComponent(finder, getMatcherByClass(TabGroup.class, matcher));
   }
 
   public ComboBox getComboBox(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -200,7 +199,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public ComboBox getComboBox(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (ComboBox) getComponent(finder, getMatcherByClass(ComboBox.class, matcher));
+    return (ComboBox)getComponent(finder, getMatcherByClass(ComboBox.class, matcher));
   }
 
   public Spinner getSpinner() throws ItemNotFoundException, ComponentAmbiguityException {
@@ -212,46 +211,46 @@ public class Panel extends AbstractUIComponent {
   }
 
   public Spinner getSpinner(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (Spinner) getComponent(finder, getMatcherByClass(Spinner.class, matcher));
+    return (Spinner)getComponent(finder, getMatcherByClass(Spinner.class, matcher));
   }
 
   public DateSpinner getDateSpinner() throws ItemNotFoundException, ComponentAmbiguityException {
-    Spinner component = (Spinner) getComponent(finder, Spinner.getSpinnerMatcherByModel(SpinnerDateModel.class));
+    Spinner component = (Spinner)getComponent(finder, Spinner.getSpinnerMatcherByModel(SpinnerDateModel.class));
     return new DateSpinner(component.getAwtComponent());
   }
 
   public DateSpinner getDateSpinner(String componentName) {
     ComponentMatcher matcher = and(Spinner.getSpinnerMatcherByModel(SpinnerDateModel.class),
                                    getMatcherFromName(componentName));
-    Spinner component = (Spinner) getComponent(finder, matcher);
+    Spinner component = (Spinner)getComponent(finder, matcher);
     return new DateSpinner(component.getAwtComponent());
   }
 
   public DateSpinner getDateSpinner(ComponentMatcher matcher) {
     ComponentMatcher intersection = and(Spinner.getSpinnerMatcherByModel(SpinnerDateModel.class), matcher);
-    Spinner component = (Spinner) getComponent(finder, intersection);
+    Spinner component = (Spinner)getComponent(finder, intersection);
     return new DateSpinner(component.getAwtComponent());
   }
 
   public ListSpinner getListSpinner() throws ItemNotFoundException, ComponentAmbiguityException {
-    Spinner component = (Spinner) getComponent(finder, Spinner.getSpinnerMatcherByModel(SpinnerListModel.class));
+    Spinner component = (Spinner)getComponent(finder, Spinner.getSpinnerMatcherByModel(SpinnerListModel.class));
     return new ListSpinner(component.getAwtComponent());
   }
 
   public ListSpinner getListSpinner(String componentName) {
     ComponentMatcher matcher = and(Spinner.getSpinnerMatcherByModel(SpinnerListModel.class), getMatcherFromName(componentName));
-    Spinner component = (Spinner) getComponent(finder, matcher);
+    Spinner component = (Spinner)getComponent(finder, matcher);
     return new ListSpinner(component.getAwtComponent());
   }
 
   public ListSpinner getListSpinner(ComponentMatcher matcher) {
     ComponentMatcher intersection = and(Spinner.getSpinnerMatcherByModel(SpinnerListModel.class), matcher);
-    Spinner component = (Spinner) getComponent(finder, intersection);
+    Spinner component = (Spinner)getComponent(finder, intersection);
     return new ListSpinner(component.getAwtComponent());
   }
 
   public NumberSpinner getNumberSpinner() throws ItemNotFoundException, ComponentAmbiguityException {
-    Spinner component = (Spinner) getComponent(finder, Spinner.getSpinnerMatcherByModel(SpinnerNumberModel.class));
+    Spinner component = (Spinner)getComponent(finder, Spinner.getSpinnerMatcherByModel(SpinnerNumberModel.class));
     return new NumberSpinner(component.getAwtComponent());
   }
 
@@ -259,13 +258,13 @@ public class Panel extends AbstractUIComponent {
     ComponentMatcher matcher =
       and(Spinner.getSpinnerMatcherByModel(SpinnerNumberModel.class),
           getMatcherFromName(componentName));
-    Spinner component = (Spinner) getComponent(finder, matcher);
+    Spinner component = (Spinner)getComponent(finder, matcher);
     return new NumberSpinner(component.getAwtComponent());
   }
 
   public NumberSpinner getNumberSpinner(ComponentMatcher matcher) {
     ComponentMatcher intersection = and(Spinner.getSpinnerMatcherByModel(SpinnerNumberModel.class), matcher);
-    Spinner component = (Spinner) getComponent(finder, intersection);
+    Spinner component = (Spinner)getComponent(finder, intersection);
     return new NumberSpinner(component.getAwtComponent());
   }
 
@@ -290,7 +289,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public Table getTable(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (Table) getComponent(finder, getMatcherByClass(Table.class, matcher));
+    return (Table)getComponent(finder, getMatcherByClass(Table.class, matcher));
   }
 
   public Tree getTree(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -302,7 +301,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public Tree getTree(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (Tree) getComponent(finder, getMatcherByClass(Tree.class, matcher));
+    return (Tree)getComponent(finder, getMatcherByClass(Tree.class, matcher));
   }
 
   public RadioButton getRadioButton(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -314,7 +313,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public RadioButton getRadioButton(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (RadioButton) getComponent(finder, getMatcherByClass(RadioButton.class, matcher));
+    return (RadioButton)getComponent(finder, getMatcherByClass(RadioButton.class, matcher));
   }
 
   public ListBox getListBox(String name) throws ItemNotFoundException, ComponentAmbiguityException {
@@ -326,7 +325,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public ListBox getListBox(ComponentMatcher matcher) throws ItemNotFoundException, ComponentAmbiguityException {
-    return (ListBox) getComponent(finder, getMatcherByClass(ListBox.class, matcher));
+    return (ListBox)getComponent(finder, getMatcherByClass(ListBox.class, matcher));
   }
 
   public PasswordField getPasswordField() throws ItemNotFoundException, ComponentAmbiguityException {
@@ -334,7 +333,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   public PasswordField getPasswordField(ComponentMatcher matcher) {
-    return (PasswordField) getComponent(finder, getMatcherByClass(PasswordField.class, matcher));
+    return (PasswordField)getComponent(finder, getMatcherByClass(PasswordField.class, matcher));
   }
 
   public PasswordField getPasswordField(String componentName) {
@@ -407,13 +406,13 @@ public class Panel extends AbstractUIComponent {
   }
 
   private static <T extends UIComponent> T getComponent(ComponentFinder finder, Class<T> uiComponentClass, String componentName)
-      throws ComponentAmbiguityException, ItemNotFoundException {
+    throws ComponentAmbiguityException, ItemNotFoundException {
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
     return getComponent(finder, uiComponentClass, swingClasses, componentName);
   }
 
   private static <T extends UIComponent> T getComponent(ComponentFinder finder, Class<T> uiComponentClass, Class[] swingClasses, String componentName)
-      throws ComponentAmbiguityException, ItemNotFoundException {
+    throws ComponentAmbiguityException, ItemNotFoundException {
     String typeName = UIComponentAnalyzer.getTypeName(uiComponentClass);
     Component swingComponent = finder.getComponent(componentName, swingClasses, typeName);
     return (T)UIComponentFactory.createUIComponent(swingComponent);
@@ -421,7 +420,7 @@ public class Panel extends AbstractUIComponent {
 
   private static <T extends UIComponent> T findComponent(ComponentFinder finder,
                                                          Class<T> uiComponentClass, String name)
-      throws ComponentAmbiguityException {
+    throws ComponentAmbiguityException {
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
     String typeName = UIComponentAnalyzer.getTypeName(uiComponentClass);
     Component swingComponent = finder.findComponent(name, swingClasses, typeName);

@@ -15,7 +15,7 @@ public class DefaultTreeCellValueConverter implements TreeCellValueConverter {
 
   public boolean isBold(Component renderedComponent, Object modelObject) {
     Font font = getLabel(renderedComponent).getFont();
-    return (font == null) ? false : font.isBold();
+    return (font != null) && font.isBold();
   }
 
   public Color getForeground(Component renderedComponent, Object modelObject) {

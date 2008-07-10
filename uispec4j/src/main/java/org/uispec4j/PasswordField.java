@@ -19,7 +19,7 @@ public class PasswordField extends AbstractUIComponent {
     this.jPasswordField = passwordField;
   }
 
-  public Component getAwtComponent() {
+  public JPasswordField getAwtComponent() {
     return jPasswordField;
   }
 
