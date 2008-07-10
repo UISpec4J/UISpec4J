@@ -1,14 +1,12 @@
-<p><a href="http://uispec4j.dev.java.net/">UISpec4J</a> is an
+<p>UISpec4J is an
   open source functional and/or unit-testing Java library for
   Swing-based Java applications that is focused on simplicity.
   UISpec4J's APIs are designed to hide, as much as possible, the
   complexity of Swing, resulting in easy-to-write and easy-to-read
   test scripts.</p>
 <h3 id="gui-testing">GUI Testing</h3>
-<p>With the advent of <a href=
-  "http://agilemanifesto.org/">Agile</a> development processes such
-  as Extreme Programming (<a href=
-  "http://extremeprogramming.org/">XP</a>), automated testing is
+<p>With the advent of Agile development processes such
+  as Extreme Programming (XP), automated testing is
   being adopted by an increasingly larger number of development
   teams. There is, however, one area of software that has always had a
   reputation for being difficult to test: graphical user
@@ -106,8 +104,7 @@
     selected contact. The form is composed of labels and editable text
     fields.</li>
 </ol>
-<p><img src="/images/2007/05/addressbook.jpg" alt="AddressBook screenshot" width=
-  "498" height="354"/><br/>
+<p>[img_assist|nid=20|title=|desc=|link=none|align=center|width=661|height=523]<br/>
   <i>Figure 1. Address Book screen</i></p>
 <p>A list of possible interactions with the address book could
   be:</p>
@@ -125,11 +122,12 @@
   extending <code>UISpecTestCase</code>, which is itself a subclass
   of <a href="http://www.junit.org">JUnit</a>'s
   <code>TestCase</code>.</p>
-<pre>
-<code>public class AddressBookTest extends UISpecTestCase {
+
+<div class="code"><pre>public class AddressBookTest extends UISpecTestCase {
   ...
-  }</code>
-</pre>
+}</pre>
+</div>
+
 <p>We then tell this class that it needs to run the address book
   application using the <code>main()</code> found in the
   <code>AddressBook</code> class, and that it can run this
@@ -139,12 +137,12 @@
   cases, we just use the <code>MainClassAdapter</code> provided with
   the library:</p>
 <pre>
-<code>public class AddressBookTest extends UISpecTestCase {
+<div class="code">public class AddressBookTest extends UISpecTestCase {
   protected void setUp() throws Exception {
-  setAdapter(new MainClassAdapter(Main.class, new String[0]));
-  }
+    setAdapter(new MainClassAdapter(Main.class, new String[0]));
+    }
   ...
-  }</code>
+}</div>
 </pre>
 
 <p>We are now ready to create our first test.</p>
@@ -162,8 +160,8 @@
   contacts table, and the various text fields used for entering
   contact information.</p>
 <p>Here is the corresponding test:</p>
-<pre>
-<code>public void testCreatingAContact() throws Exception {
+
+<div class="code"><pre>public void testCreatingAContact() throws Exception {
   // 1. Retrieve the components
   Window window = getMainWindow();
   Table table = window.getTable();
@@ -172,7 +170,7 @@
   // 2. Check that the contacts table is empty and displays
   // the proper column names
   assertTrue(table.getHeader().contentEquals(new String[]{
-  "First name", "Last name", "E-mail", "Phone", "Mobile"
+    "First name", "Last name", "E-mail", "Phone", "Mobile"
   }));
   assertTrue(table.isEmpty());
 
@@ -180,7 +178,7 @@
   // empty row is displayed in the contacts table
   newContactButton.click();
   assertTrue(table.contentEquals(new String[][]{
-  {"", "", "", "", ""}
+    {"", "", "", "", ""}
   }));
   assertTrue(table.rowIsSelected(0));
 
@@ -192,10 +190,11 @@
   window.getTextBox("phone").setText("01.02.03.04.05");
   window.getTextBox("mobile").setText("06.07.08.09.10");
   assertTrue(table.contentEquals(new String[][]{
-  {"Home", "Simpson", "homer@simpson.com", "012345", "242424"}
+    {"Home", "Simpson", "homer@simpson.com", "012345", "242424"}
   }));
-  }</code>
+}
 </pre>
+  </div>
 
 <h3 id="finding-components">Finding Components</h3>
 <p>As you can see in the first part of the test, we use the <code>window</code>
@@ -206,13 +205,13 @@
 <p>If you know that there is only one button in the panel, then
   just ask for it!</p>
 <pre>
-<code>Button button = panel.getButton();</code>
+<div class="code">Button button = panel.getButton();</div>
 </pre>
 <p>If there are several buttons in the panel, you specify which
   button you want using its displayed label:</p>
-<pre>
-<code>Button button = panel.getButton("New contact");</code>
-</pre>
+
+<div class="code"><pre>Button button = panel.getButton("New contact");</pre></div>
+
 <p>If there are several buttons with the same displayed label, you
   can distinguish among them using an "inner name" provided in the
   production code by the application developers with the
@@ -221,18 +220,18 @@
   book window - they all look the same, so we need to rely on
   internal names that we set in the production code: <code>first</code>, <code>last</code>,
   <code>email</code>, etc. For instance:</p>
-<pre>
-<code>TextBox emailBox = panel.getTextBox("email");</code>
-</pre>
+
+<div class="code"><pre>TextBox emailBox = panel.getTextBox("email");</pre></div>
+
 <p>If none of these methods can do the job, you can still provide
   your own piece of code for matching components:</p>
-<pre>
-<code>Button button = panel.getButton(new ComponentMatcher(){
+
+<div class="code"><pre>Button button = panel.getButton(new ComponentMatcher(){
   boolean matches(Component component) {
-  return component.isEnabled();
+    return component.isEnabled();
   }
-  });</code>
-</pre>
+});</pre></div>
+
 <p>Note: for I18N purposes, we usually force the default locale to
   <code>Locale.EN</code> in our tests and use English names for
   retrieving components.</p>
@@ -242,12 +241,12 @@
   component. Most of these methods work with two-dimensional arrays
   representing what the end user is expected to see. For
   instance:</p>
-<pre>
-<code>assertTrue(table.contentEquals(new String[][]{
-  {"Homer", "Simpson", "homer@simpson.com", "012345", "2424242"},
-  {"Bart", "Simpson", "bart@simpson.com", "123456", "34343434"}
-  }));</code>
-</pre>
+
+<div class="code"><pre>assertTrue(table.contentEquals(new String[][]{
+    {"Homer", "Simpson", "homer@simpson.com", "012345", "2424242"},
+    {"Bart", "Simpson", "bart@simpson.com", "123456", "34343434"}
+}));</pre></div>
+
 
 <p>Note: the <code>Table.contentEquals()</code> method, as many
   other UISpec4J component methods, return <code>Assertion</code>
@@ -266,17 +265,17 @@
   a category in the tree should trigger the filtering of the contact
   list.</p>
 <p>Here is the code for this test:</p>
-<pre>
-<code>public void testContactsBelongToTheirOriginatedCategories()
+
+<div class="code"><pre>public void testContactsBelongToTheirOriginatedCategories()
   throws Exception {
   // 1. Create the categories structure and check the display
   createCategory("", "friends");
   createCategory("", "work");
   createCategory("work", "design-up");
   assertTrue(window.getTree().contentEquals("All\n" +
-  " friends\n" +
-  " work\n" +
-  " design-up"));
+    " friends\n" +
+    " work\n" +
+    " design-up"));
 
   // 2. Create some entries in the "friends" category
   window.getTree().select("friends");
@@ -299,27 +298,27 @@
   // 4. Check the contents of the root category (category "All")
   window.getTree().selectRoot();
   assertTrue(window.getTable().contentEquals(new String[][]{
-  {"Homer", "Simpson", "", "", ""},
-  {"Marge", "Simpson", "", "", ""},
-  {"Regis", "Medina", "", "", ""},
-  {"Pascal", "Pratmarty", "", "", ""},
+    {"Homer", "Simpson", "", "", ""},
+    {"Marge", "Simpson", "", "", ""},
+    {"Regis", "Medina", "", "", ""},
+    {"Pascal", "Pratmarty", "", "", ""},
   }));
 
   // 5. Check the contents of the "friends" category
   window.getTree().select("friends");
   assertTrue(window.getTable().contentEquals(new String[][]{
-  {"Homer", "Simpson", "", "", ""},
-  {"Marge", "Simpson", "", "", ""},
+    {"Homer", "Simpson", "", "", ""},
+    {"Marge", "Simpson", "", "", ""},
   }));
 
   // 6. Check the contents of the "work" category
   window.getTree().select("work");
   assertTrue(window.getTable().contentEquals(new String[][]{
-  {"Regis", "Medina", "", "", ""},
-  {"Pascal", "Pratmarty", "", "", ""},
+    {"Regis", "Medina", "", "", ""},
+    {"Pascal", "Pratmarty", "", "", ""},
   }));
-  }</code>
-</pre>
+}</pre></div>
+
 
 <p>Steps 1 to 3 set up the initial environment and steps 4 to 6
   check the contacts displayed for each category. For the setup part,
@@ -333,20 +332,20 @@
   below. We first click on the "New category" button, and then
   intercept a modal dialog that pops up for querying the name of the
   category to create.</p>
-<pre>
-<code>protected void createCategory(String parentCategoryPath, String categoryName) {
+
+<div class="code"><pre>protected void createCategory(String parentCategoryPath, String categoryName) {
   window.getTree().select(parentCategoryPath);
   WindowInterceptor.init(window.getButton("New Category").triggerClick())
   .process(new WindowHandler() {
-  Trigger process(Window dialog) {
-  assertTrue(dialog.titleEquals("Category name:"));
-  dialog.getInputTextBox().setText(categoryName);
-  return dialog.getButton("OK").triggerClick();
-  }
+    Trigger process(Window dialog) {
+      assertTrue(dialog.titleEquals("Category name:"));
+      dialog.getInputTextBox().setText(categoryName);
+      return dialog.getButton("OK").triggerClick();
+    }
   })
   .run();
-  } </code>
-</pre>
+}</pre> </div>
+
 <p>This method uses the <code>WindowInterceptor</code> utility
   class to catch the popped-up modal dialog. This is the main class
   of UISpec4J's window interception mechanism, and provides a means
@@ -385,11 +384,11 @@
     <p>Should you need to intercept non-modal dialogs, however, things
       are much simpler. You would retrieve the window from within
       the test with a single statement; for instance:</p>
-<pre>
-<code>Window window = WindowInterceptor.run(window.getButton("Show").triggerClick());<br/>
-  window.getTable() ...<br/>
-  window.getButton() ...</code>
-</pre>
+
+<div class="code"><pre>Window window = WindowInterceptor.run(window.getButton("Show").triggerClick());
+  window.getTable() ...
+  window.getButton() ...</pre></div>
+
   </li>
   <li>
     <p><strong><code>run</code></strong>: This is when the whole
@@ -412,13 +411,14 @@
   we also use a "graphical" representation: an indented concatenation
   of the string representations of the tree nodes separated by the
   newline (<code>\n</code>) character. In our case:</p>
-<pre>
-<code>assertTrue(window.getTree().contentEquals(
+
+<div class="code"><pre>assertTrue(window.getTree().contentEquals(
   "All\n" +
   " friends\n" +
   " work\n" +
-  " design-up"));</code>
-</pre>
+  " design-up"));</pre>
+</div>
+
 <p>You will also have noticed that tree paths are expressed with
   simple strings, usually the displayed tree node names separated
   with slashes - for instance, <code>work/design-up</code>. This policy can be
