@@ -274,7 +274,9 @@ public class ListBoxTest extends UIComponentTestCase {
 
   public void testUsingShiftToSelectMultipleElements() throws Exception {
     jList.setSelectedIndex(0);
-    listBox.pressKey(Key.shift(Key.PAGE_DOWN));
+    listBox.pressKey(Key.shift(Key.DOWN));
+    assertTrue(listBox.selectionEquals("First Item", "Second Item"));
+    listBox.pressKey(Key.shift(Key.DOWN));
     assertTrue(listBox.selectionEquals(ALL_ITEMS));
   }
 

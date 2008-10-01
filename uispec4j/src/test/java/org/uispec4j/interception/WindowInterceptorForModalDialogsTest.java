@@ -147,7 +147,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
     });
 
     window.getButton("OK").click();
-    Utils.sleep(1);
+    Utils.sleep(10);
     try {
       UISpecDisplay.instance().rethrowIfNeeded();
       fail();
