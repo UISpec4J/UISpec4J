@@ -15,6 +15,7 @@ public class TextBox extends AbstractUIComponent {
   public static final Class[] SWING_CLASSES = {JTextComponent.class, JLabel.class};
 
   private Handler handler;
+  private static final String TEXT_DISABLED_ERROR = "The text component is not enabled - text cannot be entered";
 
   public TextBox(JTextComponent textComponent) {
     this.handler = TextBoxHandlerForHtmlTextComponent.init(textComponent);
@@ -39,14 +40,18 @@ public class TextBox extends AbstractUIComponent {
    * Simulates pressing a key while the focus is in the text box.<br>
    * Warning: the default cursor position is 0.
    */
-  public void pressKey(Key key) {
+  public TextBox pressKey(Key key) {
     handler.pressKey(key);
+    return this;
   }
 
   /**
    * Replaces the text box contents and simulates pressing the Enter key.
    */
   public void setText(String text) {
+    if (!handler.getAwtComponent().isEnabled()) {
+      AssertAdapter.fail(TEXT_DISABLED_ERROR);
+    }
     handler.setText(text);
   }
 
@@ -54,6 +59,9 @@ public class TextBox extends AbstractUIComponent {
    * Inserts text at the given position without pressing Enter.
    */
   public void insertText(String text, int position) {
+    if (!handler.getAwtComponent().isEnabled()) {
+      AssertAdapter.fail(TEXT_DISABLED_ERROR);
+    }
     handler.insertText(text, position);
   }
 
@@ -61,6 +69,9 @@ public class TextBox extends AbstractUIComponent {
    * Inserts text at the given position without pressing Enter.
    */
   public void appendText(String text) {
+    if (!handler.getAwtComponent().isEnabled()) {
+      AssertAdapter.fail(TEXT_DISABLED_ERROR);
+    }
     handler.appendText(text);
   }
 
@@ -68,6 +79,9 @@ public class TextBox extends AbstractUIComponent {
    * Clears the text without validating. Use <code>setText("")</code> to achieve the same effect with validation.
    */
   public void clear() {
+    if (!handler.getAwtComponent().isEnabled()) {
+      AssertAdapter.fail(TEXT_DISABLED_ERROR);
+    }
     handler.clear();
   }
 
@@ -81,7 +95,7 @@ public class TextBox extends AbstractUIComponent {
 
   /**
    * Checks the displayed text in cases where HTML text is used. This is
-   * different from {@link #textIsEmpty()} in that whitespaces, carriage return
+   * different from {@link #textEquals(String)} in that whitespaces, carriage return
    * and other formatting adjustments are ignored.
    */
   public Assertion htmlEquals(String html) {
@@ -103,11 +117,11 @@ public class TextBox extends AbstractUIComponent {
           if (index < 0) {
             if (actual.indexOf(text) < 0) {
               AssertAdapter.fail("The component text does not contain '" + text + "' " +
-                                  "- actual content is:" + actual);
+                                 "- actual content is:" + actual);
             }
             else {
               AssertAdapter.fail("The component text does not contain '" + text + "' at the expected position " +
-                                  "- actual content is:" + actual);
+                                 "- actual content is:" + actual);
             }
           }
           else {

@@ -30,6 +30,10 @@ public class WindowForFrameTest extends WindowTestCase {
     }
   }
 
+  protected boolean supportsMenuBars() {
+    return false;
+  }
+
   protected Window createWindowWithMenu(JMenuBar jMenuBar) {
     return null;
   }

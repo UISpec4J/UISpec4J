@@ -5,7 +5,6 @@ import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.Utils;
 import org.uispec4j.xml.XmlAssert;
-import org.uispec4j.xml.XmlEscape;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -71,13 +70,8 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
   public Assertion textEquals(final String text) {
     return new Assertion() {
       public void check() {
-        String actual = jTextComponent.getText()
-          .replaceAll("<[^<>]+>", "")
-          .replaceAll("\n", "")
-          .replaceAll(Utils.LINE_SEPARATOR, "")
-          .replaceAll("[ ]+", " ")
-          .trim();
-        AssertAdapter.assertEquals(text, XmlEscape.convertXmlEntitiesToText(actual));
+        String actual = Utils.cleanupHtml(jTextComponent.getText());
+        AssertAdapter.assertEquals(text, actual);
       }
     };
   }
@@ -118,8 +112,8 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
                          href);
     JEditorPane editorPane = (JEditorPane)jTextComponent;
     HyperlinkListener[] listeners = editorPane.getHyperlinkListeners();
-    for (int i = 0; i < listeners.length; i++) {
-      listeners[i].hyperlinkUpdate(event);
+    for (HyperlinkListener listener : listeners) {
+      listener.hyperlinkUpdate(event);
     }
   }
 
@@ -157,8 +151,8 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
       String text = jTextComponent.getText();
       Matcher matcher = HYPERLINK_PATTERN.matcher(text);
       String lowerCaseLink = link.toLowerCase();
-      List exactResults = new ArrayList();
-      List approximativeResults = new ArrayList();
+      List<String> exactResults = new ArrayList<String>();
+      List<String> approximativeResults = new ArrayList<String>();
       while (matcher.find()) {
         String label = matcher.group(5)
           .replaceAll(Utils.LINE_SEPARATOR, "")
@@ -180,7 +174,7 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
       if ((exactResults.size() > 1) || (approximativeResults.size() > 1)) {
         AssertAdapter.fail("Ambiguous command - found several hyperlinks matching '" + link + "'");
       }
-      return (String)((exactResults.size() == 1) ? exactResults.get(0) : approximativeResults.get(0));
+      return (exactResults.size() == 1) ? exactResults.get(0) : approximativeResults.get(0);
     }
   }
 }

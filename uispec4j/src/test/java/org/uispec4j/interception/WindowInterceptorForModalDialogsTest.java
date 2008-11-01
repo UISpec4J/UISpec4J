@@ -52,9 +52,9 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
       });
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (Exception e) {
       assertEquals("Window 'aFrame' is non-modal, it must be intercepted with WindowInterceptor.run(Trigger)",
-                   e.getMessage());
+                   e.getCause().getMessage());
     }
   }
 
@@ -131,7 +131,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
       fail();
     }
     catch (Exception e) {
-      assertSame(exception, e);
+      assertSame(exception, e.getCause());
     }
   }
 
@@ -147,13 +147,13 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
     });
 
     window.getButton("OK").click();
-    Utils.sleep(10);
+    Utils.sleep(1);
     try {
       UISpecDisplay.instance().rethrowIfNeeded();
       fail();
     }
     catch (Exception e) {
-      assertSame(exception, e);
+      assertSame(exception, e.getCause());
     }
   }
 
@@ -161,6 +161,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
     Button button = new Button(new JButton(new ShowDialogAction(true)));
     Window window = WindowInterceptor.getModalDialog(button.triggerClick());
     window.titleEquals("MyDialog");
+    window.dispose();
   }
 
   public void testInterceptingAJDialogShownFromAnotherThread() throws Exception {
@@ -179,6 +180,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
     window.titleEquals("expected title");
     window.getButton("OK").click();
     assertFalse(window.isVisible());
+    window.dispose();
   }
 
   public void disabled_testInterceptingAModalDialogShownFromAnotherThread() throws Exception {

@@ -43,6 +43,8 @@ public class Key {
   public static final Key d7 = new Key(KeyEvent.VK_7, true);
   public static final Key d8 = new Key(KeyEvent.VK_8, true);
   public static final Key d9 = new Key(KeyEvent.VK_9, true);
+  public static final Key MINUS = new Key(KeyEvent.VK_MINUS, true);
+  public static final Key ADD = new Key(KeyEvent.VK_ADD, true);
   public static final Key SLASH = new Key(KeyEvent.VK_SLASH, true);
   public static final Key BACKSLASH = new Key(KeyEvent.VK_BACK_SLASH, true);
   public static final Key EQUALS = new Key(KeyEvent.VK_EQUALS, true);

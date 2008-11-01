@@ -54,7 +54,7 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
 
     getSwingButton().setIcon(icon);
     assertTrue(getButton().iconEquals(icon));
-    
+
     assertFalse(getButton().iconEquals(new Empty.DummyIcon()));
   }
 
@@ -103,5 +103,19 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
     assertFalse(button.isEnabled());
     UISpecAssert.waitUntil(button.isEnabled(), 30);
     assertTrue(button.isEnabled());
+  }
+
+  public void testCheckButtonIsVisible() throws Exception {
+    DummyActionListener listener = new DummyActionListener();
+    getSwingButton().addActionListener(listener);
+    getButton().getAwtComponent().setVisible(false);
+    try {
+      getButton().click();
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals("The button is not visible, it cannot be activated", e.getMessage());
+    }
+    assertEquals(0, listener.getCallCount());
   }
 }

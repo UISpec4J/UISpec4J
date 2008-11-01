@@ -2,18 +2,18 @@ package org.uispec4j.interception.handlers;
 
 import org.uispec4j.Window;
 import org.uispec4j.utils.ExceptionContainer;
+import org.uispec4j.utils.ThreadManager;
 
 public class NewThreadInterceptionHandlerDecorator extends AbstractInterceptionHandlerDecorator {
-
   private ExceptionContainer exceptionContainer = new ExceptionContainer();
-  private Thread handlerThread;
+  private ThreadManager.ThreadDelegate interuptible;
 
   public NewThreadInterceptionHandlerDecorator(InterceptionHandler innerHandler) {
     super(innerHandler);
   }
 
   public void process(final Window window) {
-    handlerThread = new Thread() {
+    interuptible = ThreadManager.getInstance().addRunnable(" [NewThreadHandler]", new Runnable() {
       public void run() {
         try {
           NewThreadInterceptionHandlerDecorator.super.process(window);
@@ -22,9 +22,7 @@ public class NewThreadInterceptionHandlerDecorator extends AbstractInterceptionH
           exceptionContainer.set(e);
         }
       }
-    };
-    handlerThread.setName(handlerThread.getName() + " [NewThreadHandler]");
-    handlerThread.start();
+    });
   }
 
   public void complete() {
@@ -33,10 +31,10 @@ public class NewThreadInterceptionHandlerDecorator extends AbstractInterceptionH
   }
 
   public void join() {
-    if (handlerThread != null) {
+    if (interuptible != null) {
       try {
-        handlerThread.join();
-        handlerThread = null;
+        interuptible.join();
+        interuptible = null;
       }
       catch (InterruptedException e) {
         throw new RuntimeException(e);

@@ -5,6 +5,28 @@
 
   <body>
     <release version="2.0" date="???">
+      <action dev="rmedina,sroussea" type="fix">
+        Migration to JDK 1.5.
+      </action>
+      <action dev="pratmarty" type="add">
+        Added a means for choosing between JUnit and TestNG as the underlying testing framework.
+      </action>
+      <action dev="pratmarty" type="add">
+        Migrated the project to Maven 2
+      </action>
+      <action dev="rmedina" type="add">
+        Added AbstractUIComponent methods foregroundNear() and backgroundNear() for approximative comparisons, and
+        added named colors darkGrey, darkRed, darkGreen and darkBlue.
+      </action>
+      <action dev="mguiot" type="add">
+        Add Key.MINUS and Key.ADD.
+      </action>
+      <action dev="mguiot" type="add">
+        Check that the button is visible before calling doClick.
+      </action>
+      <action dev="rmedina" type="add">
+        TextBox does not allow editing text when the underlying component is disabled.
+      </action>
       <action dev="mguiot" type="add">
         Added table.getRowIndex(int columnIndex, Object value) and table.getRowIndices(int columnIndex, Object value);
       </action>
@@ -21,16 +43,10 @@
         When searching components from a name, the Panel now also looks for components bound to matching JLabels.
       </action>
       <action dev="pratmarty" type="add">
-        Added a means to choose between JUnit and TestNG as the underlying testing framework.
-      </action>
-      <action dev="pratmarty" type="add">
         Added Table.containsRow (Thanks to Luke Sleeman).
       </action>
       <action dev="pratmarty" type="add">
         Added Table.startsWith and endsWith for checking part of the content (Thanks to Luke Sleeman).
-      </action>
-      <action dev="rmedina,sroussea" type="fix">
-        Migration to JDK 1.5.
       </action>
       <action dev="rmedina" type="add">
         Added assertThat() assertions to UISpecAssert and UISpecTestCase, as a more "human readable"
@@ -49,7 +65,7 @@
         Added UIComponent.isVisible (was only available on AbstractUIComponent).
       </action>
       <action dev="rmedina" type="add">
-        Added ComponentMatchers.add()/or() instead of intersection()/union() which are now deprecated.
+        Added ComponentMatchers.and()/or() instead of intersection()/union() which are now deprecated.
       </action>
       <action dev="sroussea" type="fix">
         Applied the retry strategy when selecting a tab in GroupTab. This avoids accessing a component in the selected

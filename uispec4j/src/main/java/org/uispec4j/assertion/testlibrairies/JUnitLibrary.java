@@ -27,6 +27,10 @@ class JUnitLibrary implements TestLibrary {
     Assert.assertEquals(expected, actual);
   }
 
+  public void assertEquals(String message, String expected, String actual) {
+    Assert.assertEquals(message, expected, actual);
+  }
+
   public void assertEquals(String message, Object expected, Object actual) {
     Assert.assertEquals(message, expected, actual);
   }

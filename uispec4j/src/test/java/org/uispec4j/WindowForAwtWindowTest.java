@@ -2,6 +2,7 @@ package org.uispec4j;
 
 import junit.framework.AssertionFailedError;
 import org.uispec4j.xml.XmlAssert;
+import org.uispec4j.utils.AssertionFailureNotDetectedError;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,14 @@ public class WindowForAwtWindowTest extends WindowTestCase {
   }
 
   public void testWindowManagesMenuBars() throws Exception {
-    // not supported
+    Window window = new Window(new Frame());
+    try {
+      window.getMenuBar();
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals("This component has no menu bar", e.getMessage());
+    }
   }
 
   public void testGetTitle() throws Exception {
@@ -46,6 +54,10 @@ public class WindowForAwtWindowTest extends WindowTestCase {
                                "  <textBox name='myText'/>" +
                                "</window>",
                                window.getDescription());
+  }
+
+  protected boolean supportsMenuBars() {
+    return false;
   }
 
   protected Window createWindowWithMenu(JMenuBar jMenuBar) {

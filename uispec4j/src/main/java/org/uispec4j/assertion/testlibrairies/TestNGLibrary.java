@@ -27,6 +27,10 @@ class TestNGLibrary implements TestLibrary {
     Assert.assertEquals(actual, expected);
   }
 
+  public void assertEquals(String message, String expected, String actual) {
+    Assert.assertEquals(actual, expected, message);
+  }
+
   public void assertEquals(String message, Object expected, Object actual) {
     Assert.assertEquals(actual, expected, message);
   }

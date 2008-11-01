@@ -54,6 +54,16 @@ public class Window extends Panel {
     tag.addAttribute("title", adapter.getTitle());
   }
 
+  public Assertion containsMenuBar() {
+    return new Assertion() {
+      public void check() throws Exception {
+        if (adapter.getJMenuBar() == null) {
+          AssertAdapter.fail("No menuBar available");
+        }
+      }
+    };
+  }
+
   public MenuBar getMenuBar() {
     return new MenuBar(adapter.getJMenuBar());
   }

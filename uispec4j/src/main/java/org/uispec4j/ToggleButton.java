@@ -34,4 +34,12 @@ public class ToggleButton extends AbstractButton {
       }
     };
   }
+
+  public void select() {
+    jToggleButton.setSelected(true);
+  }
+
+  public void unselect() {
+    jToggleButton.setSelected(false);
+  }
 }

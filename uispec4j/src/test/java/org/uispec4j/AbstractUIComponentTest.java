@@ -1,5 +1,6 @@
 package org.uispec4j;
 
+import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.UnitTestCase;
 import org.uispec4j.xml.XmlAssert;
 
@@ -14,14 +15,14 @@ public class AbstractUIComponentTest extends UnitTestCase {
   }
 
   private static final class DummyAwtUIComponent extends AbstractUIComponent {
-    private final Component comp = new Label();
+    private final Component component = new Label();
 
     DummyAwtUIComponent(String name) {
-      comp.setName(name);
+      component.setName(name);
     }
 
     public Component getAwtComponent() {
-      return comp;
+      return component;
     }
 
     public String getDescriptionTypeName() {
@@ -45,6 +46,36 @@ public class AbstractUIComponentTest extends UnitTestCase {
     assertTrue(uiComponent.foregroundEquals("black"));
   }
 
+  public void testForeground() throws Exception {
+    DummyAwtUIComponent uiComponent = new DummyAwtUIComponent("name");
+    uiComponent.component.setForeground(ColorUtils.getColor("2255F7"));
+
+    assertTrue(uiComponent.foregroundEquals("2255F7"));
+    assertFalse(uiComponent.foregroundEquals("2255F8"));
+
+    assertTrue(uiComponent.foregroundNear("2255F7"));
+    assertTrue(uiComponent.foregroundNear("2255F8"));
+    assertFalse(uiComponent.foregroundNear("FF5500"));
+
+    assertTrue(uiComponent.foregroundNear("blue"));
+    assertFalse(uiComponent.foregroundNear("red"));
+  }
+
+  public void testBackground() throws Exception {
+    DummyAwtUIComponent uiComponent = new DummyAwtUIComponent("name");
+    uiComponent.component.setBackground(ColorUtils.getColor("2255F7"));
+
+    assertTrue(uiComponent.backgroundEquals("2255F7"));
+    assertFalse(uiComponent.backgroundEquals("2255F8"));
+
+    assertTrue(uiComponent.backgroundNear("2255F7"));
+    assertTrue(uiComponent.backgroundNear("2255F8"));
+    assertFalse(uiComponent.backgroundNear("FF5500"));
+
+    assertTrue(uiComponent.backgroundNear("blue"));
+    assertFalse(uiComponent.backgroundNear("red"));
+  }
+
   public void testGetContainer() throws Exception {
     JPanel rootPanel = new JPanel();
     rootPanel.setName("rootPanel");
@@ -53,7 +84,12 @@ public class AbstractUIComponentTest extends UnitTestCase {
     JLabel jLabel = new JLabel();
     middlePanel.add(jLabel);
     TextBox label = new TextBox(jLabel);
+
+    assertSame(middlePanel, label.getContainer().getAwtComponent());
+
     assertSame(rootPanel, label.getContainer("rootPanel").getAwtComponent());
     assertNull(label.getContainer("unknown"));
+
+    assertNull(new Panel(rootPanel).getContainer());
   }
 }

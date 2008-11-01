@@ -43,7 +43,7 @@ public class PopupMenuInterceptorTest extends InterceptionTestCase {
   }
 
   private void checkInterceptionAfterSomeTime(boolean exceedsTimeLimit) throws Exception {
-    final int delay = 30;
+    final int delay = 20;
     final PopupDisplayTrigger trigger = getPopupTrigger();
     final Thread thread = new Thread() {
       public void run() {
@@ -57,7 +57,7 @@ public class PopupMenuInterceptorTest extends InterceptionTestCase {
       }
     };
 
-    UISpec4J.setWindowInterceptionTimeLimit((exceedsTimeLimit) ? delay / 3 : delay * 3);
+    UISpec4J.setWindowInterceptionTimeLimit((exceedsTimeLimit) ? delay / 2 : delay * 2);
     try {
       launchInterception(new Trigger() {
         public void run() throws Exception {

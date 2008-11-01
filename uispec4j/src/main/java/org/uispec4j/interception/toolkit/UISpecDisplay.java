@@ -4,12 +4,12 @@ import org.uispec4j.Window;
 import org.uispec4j.interception.handlers.InterceptionHandler;
 import org.uispec4j.utils.ComponentUtils;
 import org.uispec4j.utils.ExceptionContainer;
+import org.uispec4j.utils.ThreadManager;
 import org.uispec4j.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -24,7 +24,7 @@ public class UISpecDisplay {
   private Stack handlerStack = new Stack();
   private JPopupMenu currentPopup;
   private ExceptionContainer exceptionContainer = new ExceptionContainer();
-  private List threads = new ArrayList();
+  private List<ThreadManager.ThreadDelegate> threads = new ArrayList<ThreadManager.ThreadDelegate>();
 
   public static UISpecDisplay instance() {
     return singletonInstance;
@@ -62,17 +62,14 @@ public class UISpecDisplay {
       handlerStack.clear();
     }
     exceptionContainer.reset();
-    for (Iterator iterator = threads.iterator(); iterator.hasNext();) {
-      Thread thread = (Thread)iterator.next();
+    for (ThreadManager.ThreadDelegate thread : threads) {
       try {
         thread.join(10);
       }
       catch (InterruptedException e) {
         throw new RuntimeException(e);
       }
-      if (thread.isAlive()) {
-        thread.interrupt();
-      }
+      thread.interrupt();
     }
     threads.clear();
   }
@@ -115,9 +112,9 @@ public class UISpecDisplay {
 
     Error error =
       new Error("Unexpected window shown - this window should be handled with " +
-                               "WindowInterceptor. " + Utils.LINE_SEPARATOR +
-                               "Window contents:" + Utils.LINE_SEPARATOR +
-                               window.getDescription());
+                "WindowInterceptor. " + Utils.LINE_SEPARATOR +
+                "Window contents:" + Utils.LINE_SEPARATOR +
+                window.getDescription());
     if (interceptionInProgress()) {
       store(error);
       ComponentUtils.close(window);
@@ -149,8 +146,8 @@ public class UISpecDisplay {
   }
 
   public void runInNewThread(Runnable runnable) {
-    Thread thread = new Thread(runnable);
-    threads.add(thread);
-    thread.start();
+    ThreadManager.ThreadDelegate threadDelegate =
+      ThreadManager.getInstance().addRunnable("", runnable);
+    threads.add(threadDelegate);
   }
 }

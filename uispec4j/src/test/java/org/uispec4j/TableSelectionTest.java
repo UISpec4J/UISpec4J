@@ -238,19 +238,19 @@ public class TableSelectionTest extends TableTestCase {
     table.selectRows(new int[]{0, 1});
     checkRowSelection(true, true);
 
-    table.selectRows(0, 0);
+    table.selectRowSpan(0, 0);
     checkRowSelection(true, false);
 
-    table.selectRows(1, 1);
+    table.selectRowSpan(1, 1);
     checkRowSelection(false, true);
 
-    table.selectRows(0, 1);
+    table.selectRowSpan(0, 1);
     checkRowSelection(true, true);
   }
 
   public void testSelectRowsRequiresThatTheStartIndexBeLessThanTheEndIndex() throws Exception {
     try {
-      table.selectRows(1, 0);
+      table.selectRowSpan(1, 0);
       throw new AssertionFailureNotDetectedError();
     }
     catch (IllegalArgumentException e) {
@@ -326,7 +326,7 @@ public class TableSelectionTest extends TableTestCase {
 
     table.selectRows(new int[]{0, 1});
     logger.assertEquals("<log><valueChanged/></log>");
-    table.selectRows(0, 1);
+    table.selectRowSpan(0, 1);
     logger.assertEquals("<log><valueChanged/></log>");
   }
 

@@ -11,6 +11,9 @@ public class TriggerRunner {
     try {
       trigger.run();
     }
+    catch (RuntimeException e){
+      throw e;
+    }
     catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -45,13 +48,14 @@ public class TriggerRunner {
   }
 
   public static void runInUISpecThread(final Trigger trigger) {
+    final Exception exception = new RuntimeException();
     UISpecDisplay.instance().runInNewThread(new Runnable() {
       public void run() {
         try {
           trigger.run();
         }
         catch (Throwable e) {
-          UISpecDisplay.instance().store(e);
+          UISpecDisplay.instance().store(exception.initCause(e));
         }
       }
     });

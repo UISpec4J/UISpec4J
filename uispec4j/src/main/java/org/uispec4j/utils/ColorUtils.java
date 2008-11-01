@@ -23,7 +23,7 @@ import java.util.Map;
  * @see <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a>
  */
 public final class ColorUtils {
-  private static final Map nameToColorMap = buildNameToColorMap();
+  private static final Map<String, Color> nameToColorMap = buildNameToColorMap();
   static final String UNEXPECTED_COLOR_CLASS = "Expected color should be an instance of Color or String";
 
   private ColorUtils() {
@@ -31,6 +31,14 @@ public final class ColorUtils {
 
   public static void assertEquals(Object expected, Color actual) {
     assertEquals(null, expected, actual);
+  }
+
+  public static void assertSimilar(Object expected, Color actual) {
+    if (!equals(getColor(expected), actual, true)) {
+      AssertAdapter.fail("expected:<" + getColorDescription(expected)
+                         + "> but was:<" + getColorDescription(actual)
+                         + ">");
+    }
   }
 
   public static void assertEquals(String message, Object expected, Color actual) {
@@ -54,7 +62,7 @@ public final class ColorUtils {
   }
 
   public static boolean equals(String expectedColor, Color actual) {
-    Color foundColor = (Color)nameToColorMap.get(expectedColor.toUpperCase());
+    Color foundColor = nameToColorMap.get(expectedColor.toUpperCase());
     if (foundColor != null) {
       return equals(foundColor, actual, true);
     }
@@ -108,6 +116,21 @@ public final class ColorUtils {
     }
   }
 
+  private static Color getColor(Object input) {
+    if (input instanceof Color) {
+      return (Color)input;
+    }
+    else if (input instanceof String) {
+      Color namedColor = nameToColorMap.get(((String)input).toUpperCase());
+      if (namedColor != null) {
+        return namedColor;
+      }
+      return getColor((String)input);
+    }
+    throw new IllegalArgumentException(UNEXPECTED_COLOR_CLASS);
+
+  }
+
   private static double computeHSBDistance(Color expected, Color actual) {
     float[] expectedHSB = toHSB(expected);
     float[] actualHSB = toHSB(actual);
@@ -121,11 +144,9 @@ public final class ColorUtils {
     return Color.RGBtoHSB(aColor.getRed(), aColor.getGreen(), aColor.getBlue(), null);
   }
 
-  private static Map buildNameToColorMap() {
-    Map colorMap = new HashMap();
-    Field[] fields = Color.class.getDeclaredFields();
-    for (int i = 0; i < fields.length; i++) {
-      Field field = fields[i];
+  private static Map<String, Color> buildNameToColorMap() {
+    Map<String, Color> colorMap = new HashMap<String, Color>();
+    for (Field field : Color.class.getDeclaredFields()) {
       if (isConstantColorField(field)) {
         try {
           Color color = (Color)field.get(null);
@@ -136,6 +157,17 @@ public final class ColorUtils {
         }
       }
     }
+
+    colorMap.put("DARKGREY", getColor("555555"));
+    colorMap.put("DARKBLUE", getColor("000055"));
+    colorMap.put("DARKRED", getColor("550000"));
+    colorMap.put("DARKGREEN", getColor("005500"));
+
+    colorMap.put("DARK_GREY", getColor("555555"));
+    colorMap.put("DARK_BLUE", getColor("000055"));
+    colorMap.put("DARK_RED", getColor("550000"));
+    colorMap.put("DARK_GREEN", getColor("005500"));
+
     return colorMap;
   }
 

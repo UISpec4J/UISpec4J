@@ -12,6 +12,10 @@ public class WindowForInternalFrameTest extends WindowTestCase {
     checkIsModal(window, false);
   }
 
+  protected boolean supportsMenuBars() {
+    return true;
+  }
+
   protected Window createWindowWithMenu(JMenuBar jMenuBar) {
     JInternalFrame frame = new JInternalFrame();
     frame.setJMenuBar(jMenuBar);

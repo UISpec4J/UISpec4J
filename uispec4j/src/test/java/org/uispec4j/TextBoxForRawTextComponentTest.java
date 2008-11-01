@@ -195,6 +195,44 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
     assertEquals("text", jTextComponent.getText());
   }
 
+  public void testTextCannotBeEnteredWhenTheComponentIsDisabled() throws Exception {
+    jTextComponent.setEnabled(false);
+
+    String message = "The text component is not enabled - text cannot be entered";
+
+    try {
+      textBox.setText("aa");
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals(message, e.getMessage());
+    }
+
+    try {
+      textBox.insertText("aa", 0);
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals(message, e.getMessage());
+    }
+
+    try {
+      textBox.appendText("aa");
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals(message, e.getMessage());
+    }
+
+    try {
+      textBox.clear();
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals(message, e.getMessage());
+    }
+  }
+
   public void testGetText() throws Exception {
     jTextComponent.setText("some text");
     assertEquals("some text", textBox.getText());

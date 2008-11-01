@@ -31,6 +31,10 @@ public class InvalidLibrary implements TestLibrary {
     error();
   }
 
+  public void assertEquals(String message, String expected, String actual) {
+    error();
+  }
+
   public void assertEquals(String message, Object expected, Object actual) {
     error();
   }

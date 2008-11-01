@@ -31,7 +31,7 @@ public class ColorUtilsTest extends UnitTestCase {
 
   public void testInvalidArgumentsToAssertEquals() throws Exception {
     try {
-      ColorUtils.assertEquals(new Integer(2), Color.red);
+      ColorUtils.assertEquals(2, Color.red);
       fail();
     }
     catch (IllegalArgumentException error) {
@@ -39,7 +39,7 @@ public class ColorUtilsTest extends UnitTestCase {
     }
 
     try {
-      ColorUtils.assertEquals("Msg", new Integer(2), Color.red);
+      ColorUtils.assertEquals("Msg", 2, Color.red);
       fail();
     }
     catch (IllegalArgumentException error) {
@@ -58,6 +58,18 @@ public class ColorUtilsTest extends UnitTestCase {
 
     assertFalse(ColorUtils.equals("blue", Color.RED));
     assertTrue(ColorUtils.equals("darkGray", Color.darkGray));
+  }
+
+  public void testEqualsWithAdditionalNamedColor() throws Exception {
+    assertTrue(ColorUtils.equals("darkGrey", ColorUtils.getColor("555555")));
+    assertTrue(ColorUtils.equals("darkRed", ColorUtils.getColor("550000")));
+    assertTrue(ColorUtils.equals("darkGreen", ColorUtils.getColor("005500")));
+    assertTrue(ColorUtils.equals("darkBlue", ColorUtils.getColor("000055")));
+
+    assertTrue(ColorUtils.equals("DARK_GREY", ColorUtils.getColor("555555")));
+    assertTrue(ColorUtils.equals("DARK_RED", ColorUtils.getColor("550000")));
+    assertTrue(ColorUtils.equals("DARK_GREEN", ColorUtils.getColor("005500")));
+    assertTrue(ColorUtils.equals("DARK_BLUE", ColorUtils.getColor("000055")));
   }
 
   public void testEqualsByNameAndSimilarity() throws Exception {
@@ -84,7 +96,7 @@ public class ColorUtilsTest extends UnitTestCase {
     }
 
     try {
-      ColorUtils.equals(new Integer(2), Color.red);
+      ColorUtils.equals(2, Color.red);
       fail();
     }
     catch (IllegalArgumentException error) {

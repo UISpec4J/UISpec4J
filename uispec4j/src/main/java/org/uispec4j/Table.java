@@ -733,7 +733,7 @@ public class Table extends AbstractUIComponent {
     }
   }
 
-  public void selectRows(int start, int end) {
+  public void selectRowSpan(int start, int end) {
     if (start > end) {
       throw new IllegalArgumentException("Invalid indexes: " + start + " > " + end);
     }

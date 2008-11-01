@@ -253,7 +253,8 @@ public final class WindowInterceptor {
         }
         else {
           Trigger trigger = handler.process(window);
-          TriggerRunner.runInCurrentThread(trigger);
+//          TriggerRunner.runInCurrentThread(trigger);
+          TriggerRunner.runInSwingThread(trigger);
         }
       }
       catch (WindowNotClosedError e) {
@@ -317,7 +318,7 @@ public final class WindowInterceptor {
         TriggerRunner.runInUISpecThread(trigger);
       }
       else {
-        TriggerRunner.runInCurrentThread(trigger);
+        TriggerRunner.runInSwingThread(trigger);
       }
 
       UISpecDisplay.instance().rethrowIfNeeded();
@@ -341,7 +342,7 @@ public final class WindowInterceptor {
     NewThreadInterceptionHandlerDecorator newThreadHandler = new NewThreadInterceptionHandlerDecorator(closeDetector);
     UISpecDisplay.instance().add(newThreadHandler);
     try {
-      TriggerRunner.runInCurrentThread(triggerAccessor.getTrigger());
+      TriggerRunner.runInSwingThread(triggerAccessor.getTrigger());
       showDetector.waitWindow();
       newThreadHandler.complete();
       closeDetector.checkWindowWasClosed();

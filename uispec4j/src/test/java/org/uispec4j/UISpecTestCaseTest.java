@@ -109,7 +109,7 @@ public class UISpecTestCaseTest extends UnitTestCase {
       fail();
     }
     catch (Exception e) {
-      assertSame(exception, e);
+      assertSame(exception, e.getCause());
     }
   }
 

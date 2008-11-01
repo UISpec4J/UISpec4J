@@ -1,10 +1,12 @@
 package org.uispec4j.utils;
 
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
+import org.uispec4j.xml.XmlEscape;
 
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Utils {
   public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -99,5 +101,26 @@ public class Utils {
         }
       });
     }
+  }
+
+  public static StackTraceElement[] getStack() {
+    Exception dummyException = new Exception();
+    StackTraceElement[] trace = dummyException.getStackTrace();
+    List list = new ArrayList(Arrays.asList(trace));
+    list.remove(0);
+    list.remove(0);
+    return (StackTraceElement[])list.toArray(new StackTraceElement[list.size()]);
+  }
+
+  public static String cleanupHtml(String html) {
+    String actual = html
+      .replaceAll("<[^<>]+>", "")
+      .replaceAll("\n", "")
+      .replaceAll("&nbsp;", " ")
+      .replaceAll(LINE_SEPARATOR, "")
+      .replaceAll("[ ]+", " ")
+      .trim();
+    String label = XmlEscape.convertXmlEntitiesToText(actual);
+    return label;
   }
 }

@@ -15,6 +15,10 @@ public class WindowForDialogTest extends WindowTestCase {
     checkIsModal(window, true);
   }
 
+  protected boolean supportsMenuBars() {
+    return true;
+  }
+
   protected Window createWindowWithMenu(JMenuBar jMenuBar) {
     JDialog dialog = new JDialog();
     dialog.setJMenuBar(jMenuBar);

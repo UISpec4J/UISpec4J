@@ -18,6 +18,10 @@ public class WindowForJFrameTest extends WindowTestCase {
     }
   }
 
+  protected boolean supportsMenuBars() {
+    return true;
+  }
+
   protected Window createWindowWithMenu(JMenuBar jMenuBar) {
     JFrame frame = new JFrame();
     frame.setJMenuBar(jMenuBar);

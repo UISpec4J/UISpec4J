@@ -1,6 +1,7 @@
 package org.uispec4j;
 
 import junit.framework.AssertionFailedError;
+import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.WindowInterceptor;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
@@ -88,6 +89,16 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     );
   }
 
+  public void testContainsMenuBar() throws Exception {
+    Window windowWithoutMenuBar = createWindow();
+    UISpecAssert.assertFalse(windowWithoutMenuBar.containsMenuBar());
+
+    if (supportsMenuBars()) {
+      Window windowWithMenuBar = createWindowWithMenu(new JMenuBar());
+      UISpecAssert.assertTrue(windowWithMenuBar.containsMenuBar());
+    }
+  }
+
   public void testGetComponentTypeName() {
     assertEquals("window", createWindow().getDescriptionTypeName());
   }
@@ -114,6 +125,8 @@ public abstract class WindowTestCase extends UIComponentTestCase {
 
     assertFalse(window.isVisible());
   }
+
+  protected abstract boolean supportsMenuBars();
 
   protected abstract Window createWindowWithMenu(JMenuBar jMenuBar);
 

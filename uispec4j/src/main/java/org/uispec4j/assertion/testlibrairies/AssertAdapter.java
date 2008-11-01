@@ -31,6 +31,10 @@ public class AssertAdapter {
     ASSERT.assertEquals(expected, actual);
   }
 
+  public static void assertEquals(String message, String expected, String actual) {
+    ASSERT.assertEquals(message, expected, actual);
+  }
+
   public static void assertEquals(String message, Object expected, Object actual) {
     ASSERT.assertEquals(message, expected, actual);
   }

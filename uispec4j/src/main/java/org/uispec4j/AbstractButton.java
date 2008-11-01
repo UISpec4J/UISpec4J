@@ -2,6 +2,7 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
+import org.uispec4j.utils.TriggerRunner;
 
 import javax.swing.*;
 
@@ -17,8 +18,16 @@ public abstract class AbstractButton extends AbstractUIComponent {
 
   public void click() {
     AssertAdapter.assertTrue("The button is not enabled, it cannot be activated",
-                              abstractButton.isEnabled());
-    doClick(abstractButton);
+                             abstractButton.isEnabled());
+    AssertAdapter.assertTrue("The button is not visible, it cannot be activated",
+                             abstractButton.isVisible());
+
+    if (SwingUtilities.isEventDispatchThread()) {
+      doClick(abstractButton);
+    }
+    else {
+      TriggerRunner.runInSwingThread(triggerClick());
+    }
   }
 
   static void doClick(javax.swing.AbstractButton button) {

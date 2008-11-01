@@ -44,4 +44,22 @@ public class ToggleButtonTest extends ButtonTestCase {
     toggle.click();
     assertFalse(toggle.isSelected());
   }
+
+  public void testSelectAndUnselect() throws Exception {
+
+    toggle.select();
+    assertTrue(toggle.isSelected());
+
+    toggle.select();
+    assertTrue(toggle.isSelected());
+
+    toggle.unselect();
+    assertFalse(toggle.isSelected());
+
+    toggle.unselect();
+    assertFalse(toggle.isSelected());
+
+    toggle.select();
+    assertTrue(toggle.isSelected());
+  }
 }

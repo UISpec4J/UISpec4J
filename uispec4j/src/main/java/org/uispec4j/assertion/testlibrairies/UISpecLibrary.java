@@ -27,6 +27,10 @@ public class UISpecLibrary implements TestLibrary {
     assertEquals("", expected, actual);
   }
 
+  public void assertEquals(String message, String expected, String actual) {
+    assertTrue(message, (expected == null)? actual == null : expected.equals(actual));
+  }
+
   public void assertEquals(String message, Object expected, Object actual) {
     assertTrue(message, (expected == null)? actual == null : expected.equals(actual));
   }

@@ -13,6 +13,8 @@ interface TestLibrary {
 
   public void assertEquals(Object expected, Object actual);
 
+  public void assertEquals(String message, String expected, String actual);
+
   public void assertEquals(String message, Object expected, Object actual);
 
   public void assertSame(String message, Object expected, Object actual);

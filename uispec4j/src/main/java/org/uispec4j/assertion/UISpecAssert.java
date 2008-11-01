@@ -214,6 +214,14 @@ public class UISpecAssert {
     }
   }
 
+  public static Assertion fail(final String message) {
+    return new Assertion() {
+      public void check() throws Exception {
+        AssertAdapter.fail(message);
+      }
+    };
+  }
+
   private static class FailureNotDetectedError extends Error {
   }
 }
