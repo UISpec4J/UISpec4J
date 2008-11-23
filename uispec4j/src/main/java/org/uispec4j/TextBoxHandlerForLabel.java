@@ -5,7 +5,6 @@ import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
-import java.awt.*;
 
 class TextBoxHandlerForLabel implements TextBox.Handler {
   private JLabel jLabel;
@@ -14,7 +13,7 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
     this.jLabel = label;
   }
 
-  public Component getAwtComponent() {
+  public JComponent getAwtComponent() {
     return jLabel;
   }
 

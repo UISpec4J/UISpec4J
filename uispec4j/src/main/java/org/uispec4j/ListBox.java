@@ -22,7 +22,7 @@ import java.util.List;
  * a new {@link ListBoxCellValueConverter} implementation.
  * A {@link DefaultListBoxCellValueConverter} is set up by default.
  */
-public class ListBox extends AbstractUIComponent {
+public class ListBox extends AbstractSwingUIComponent {
   public static final String TYPE_NAME = "listBox";
   public static final Class[] SWING_CLASSES = {JList.class};
 

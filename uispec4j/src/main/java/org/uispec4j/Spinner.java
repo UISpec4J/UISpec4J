@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Wrapper for JSpinner components.
  */
-public class Spinner extends AbstractUIComponent {
+public class Spinner extends AbstractSwingUIComponent {
   public static final String TYPE_NAME = "spinner";
   public static final Class[] SWING_CLASSES = {JSpinner.class};
 

@@ -75,6 +75,10 @@
         Added TextBox.clear() and TextBox.appendText() for changing a text field content without triggering
         the action listeners.
       </action>
+      <action dev="rmedina" type="add">
+        Added TooltipComponent.tooltipEquals() and TooltipComponent.tooltipContains()
+        for checking tooltips on JComponent subclasses.
+      </action>
     </release>
 
     <release version="1.4" date="2007-05-15">

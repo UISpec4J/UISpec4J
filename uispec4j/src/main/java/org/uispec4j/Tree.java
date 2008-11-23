@@ -71,7 +71,7 @@ import java.util.regex.Pattern;
  * the tree nodes and determines the displayed value accordingly.
  * A {@link DefaultTreeCellValueConverter} is used by default by the Tree component.
  */
-public class Tree extends AbstractUIComponent {
+public class Tree extends AbstractSwingUIComponent {
 
   public static final String TYPE_NAME = "tree";
   public static final Class[] SWING_CLASSES = {JTree.class};

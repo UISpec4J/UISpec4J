@@ -5,12 +5,11 @@ import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
-import java.awt.*;
 
 /**
  * Wrapper for JTextComponent/JLabel components.
  */
-public class TextBox extends AbstractUIComponent {
+public class TextBox extends AbstractSwingUIComponent {
   public static final String TYPE_NAME = "textBox";
   public static final Class[] SWING_CLASSES = {JTextComponent.class, JLabel.class};
 
@@ -32,7 +31,7 @@ public class TextBox extends AbstractUIComponent {
     return TYPE_NAME;
   }
 
-  public Component getAwtComponent() {
+  public JComponent getAwtComponent() {
     return handler.getAwtComponent();
   }
 
@@ -179,7 +178,7 @@ public class TextBox extends AbstractUIComponent {
   }
 
   interface Handler {
-    Component getAwtComponent();
+    JComponent getAwtComponent();
 
     void setText(String text);
 

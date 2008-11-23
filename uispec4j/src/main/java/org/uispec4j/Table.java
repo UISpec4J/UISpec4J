@@ -34,7 +34,7 @@ import java.util.Map;
  * the table cells and determines the displayed value accordingly.
  * A {@link DefaultTableCellValueConverter} is used by default by the Table component.
  */
-public class Table extends AbstractUIComponent {
+public class Table extends AbstractSwingUIComponent {
   public static final String TYPE_NAME = "table";
   public static final Class[] SWING_CLASSES = {JTable.class};
 

@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
-import java.awt.*;
 
 abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler {
   protected JTextComponent jTextComponent;
@@ -18,7 +17,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
     this.jTextComponent = textComponent;
   }
 
-  public Component getAwtComponent() {
+  public JComponent getAwtComponent() {
     return jTextComponent;
   }
 
