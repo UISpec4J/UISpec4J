@@ -369,4 +369,16 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
 
   public void ungrab(Window window) {
   }
+
+  public boolean isWindowOpacityControlSupported() {
+    return false;
+  }
+
+  public boolean isWindowShapingSupported() {
+    return false;
+  }
+
+  public boolean isWindowTranslucencySupported() {
+    return false;
+  }
 }

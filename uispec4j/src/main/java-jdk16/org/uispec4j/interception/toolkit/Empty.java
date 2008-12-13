@@ -2,6 +2,7 @@ package org.uispec4j.interception.toolkit;
 
 import sun.awt.image.SunVolatileImage;
 import sun.awt.CausedFocusEvent;
+import sun.java2d.pipe.Region;
 
 import javax.swing.*;
 import java.awt.*;
@@ -305,6 +306,21 @@ public final class Empty {
     public boolean requestFocus(Component component, boolean b, boolean b1, long l, CausedFocusEvent.Cause cause) {
       return false;
     }
+
+    public void setOpacity(float opacity) {
+    }
+
+    public void setOpaque(boolean isOpaque) {
+    }
+
+    public void updateWindow(BufferedImage backBuffer) {
+    }
+
+    public void flip(int x1, int y1, int x2, int y2, BufferCapabilities.FlipContents flipAction) {
+    }
+
+    public void applyShape(Region shape) {
+    }
   }
 
   static class FramePeer extends Empty.WindowPeeer implements java.awt.peer.FramePeer {
@@ -372,6 +388,9 @@ public final class Empty {
 
     public int[] getRGBPixels(Rectangle bounds) {
       return new int[0];
+    }
+
+    public void dispose() {
     }
   }
 
@@ -734,6 +753,12 @@ public final class Empty {
     }
 
     public void show() {
+    }
+
+    public void flip(int x1, int y1, int x2, int y2, BufferCapabilities.FlipContents flipAction) {
+    }
+
+    public void applyShape(Region shape) {
     }
   }
 
