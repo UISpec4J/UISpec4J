@@ -209,7 +209,7 @@
         <jdk>1.5</jdk>
       </activation>
       <build>
-        <finalName>uispec4j-jdk15-${pom.version}</finalName>
+        <finalName>uispec4j-jdk5-${pom.version}</finalName>
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -238,7 +238,7 @@
         <jdk>1.6</jdk>
       </activation>
       <build>
-        <finalName>uispec4j-jdk16-${pom.version}</finalName>
+        <finalName>uispec4j-jdk6-${pom.version}</finalName>
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
