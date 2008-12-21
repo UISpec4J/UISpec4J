@@ -4,7 +4,7 @@
         <name></name>
     </bannerLeft>
     <bannerRight>
-        <name>UISpec</name>
+        <name>UISpec4J</name>
         <src>uispec4j.png</src>
         <href>http://uispec4j.org/</href>
     </bannerRight>

@@ -14,7 +14,7 @@
   <dependencies>
     <dependency>
       <groupId>org.uispec4j</groupId>
-      <artifactId>uispec</artifactId>
+      <artifactId>uispec4j</artifactId>
       <version>2.0-SNAPSHOT</version>
       <optional>true</optional>
     </dependency>
