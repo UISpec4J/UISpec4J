@@ -147,7 +147,7 @@ public class TableHeaderTest extends TableTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("Unexpected color at column 1 expected:<BLACK> but was:<FF0000>", e.getMessage());
+      assertEquals("Unexpected color at column 1 - expected:<BLACK> but was:<FF0000>", e.getMessage());
     }
   }
 

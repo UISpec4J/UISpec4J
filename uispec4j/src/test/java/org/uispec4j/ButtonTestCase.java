@@ -43,6 +43,11 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
     }
   }
 
+  public void testCheckTextAcceptsNullText() throws Exception {
+    getSwingButton().setText(null);
+    assertTrue(getButton().textEquals(null));
+  }
+
   public void testCheckTextTrimsTheActualButtonText() throws Exception {
     getSwingButton().setText(" text  ");
     assertTrue(getButton().textEquals("text"));

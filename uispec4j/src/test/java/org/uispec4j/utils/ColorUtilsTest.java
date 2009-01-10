@@ -14,9 +14,9 @@ public class ColorUtilsTest extends UnitTestCase {
     ColorUtils.assertEquals("Message", "red", Color.RED);
     ColorUtils.assertEquals("Message", "red", new Color(0xDD1111));
 
-    checkAssertEqualsError("Message -", "112233", new Color(0x332211),
+    checkAssertEqualsError("Message", "112233", new Color(0x332211),
                            "Message - expected:<112233> but was:<332211>");
-    checkAssertEqualsError("Message -", ColorUtils.getColor("112233"), new Color(0x332211),
+    checkAssertEqualsError("Message", ColorUtils.getColor("112233"), new Color(0x332211),
                            "Message - expected:<112233> but was:<332211>");
   }
 

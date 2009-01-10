@@ -1,6 +1,7 @@
 package org.uispec4j.finder;
 
 import org.uispec4j.utils.ComponentUtils;
+import org.uispec4j.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -139,6 +140,19 @@ public class ComponentMatchers {
     return new ComponentMatcher() {
       public boolean matches(Component component) {
         return !matcher.matches(component);
+      }
+    };
+  }
+
+  public static ComponentMatcher toolTipEquals(final String text) {
+    return new ComponentMatcher() {
+      public boolean matches(Component component) {
+        if (!(component instanceof JComponent)) {
+          return false;
+        }
+        JComponent jComponent = (JComponent)component;
+        String tooltip = jComponent.getToolTipText();
+        return text == null ? tooltip == null : text.equals(tooltip);
       }
     };
   }

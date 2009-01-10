@@ -11,7 +11,7 @@ public class TriggerRunner {
     try {
       trigger.run();
     }
-    catch (RuntimeException e){
+    catch (RuntimeException e) {
       throw e;
     }
     catch (Exception e) {
@@ -24,7 +24,7 @@ public class TriggerRunner {
       runInCurrentThread(trigger);
     }
     else {
-      final ExceptionContainer container = new ExceptionContainer();
+      final ExceptionContainer container = new ExceptionContainer(new RuntimeException());
       try {
         SwingUtilities.invokeAndWait(new Runnable() {
           public void run() {

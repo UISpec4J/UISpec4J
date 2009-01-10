@@ -444,7 +444,7 @@ public class TableContentTest extends TableTestCase {
   public void testGetContentAtWithConverter() throws Exception {
     assertEquals("-a-", table.getContentAt(0, 0, new DummyTableCellValueConverter()));
 
-    assertEquals(new Integer(3), table.getContentAt(0, 2, ModelTableCellValueConverter.INSTANCE));
+    assertEquals(3, table.getContentAt(0, 2, ModelTableCellValueConverter.INSTANCE));
   }
 
   public void testGetEditorComponentAt() throws Exception {
@@ -464,11 +464,44 @@ public class TableContentTest extends TableTestCase {
                  table.toString());
   }
 
-  public void testForegroundEquals() throws Exception {
+  public void testCellForegroundAndBackground() throws Exception {
+    jTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        if (row == 0) {
+          component.setForeground(Color.red);
+          component.setBackground(Color.pink);
+        }
+        else {
+          component.setForeground(Color.blue);
+          component.setBackground(Color.green);
+        }
+        return component;
+      }
+    });
+    
     assertTrue(table.foregroundEquals(new String[][]{
-      {"black", "black", "black"},
-      {"black", "black", "black"}
+      {"black", "red", "black"},
+      {"black", "blue", "black"}
     }));
+
+    assertTrue(table.foregroundNear(0, 0, "black"));
+    assertTrue(table.foregroundNear(0, 0, "010101"));
+    
+    assertTrue(table.backgroundNear(0, 0, "white"));
+    assertTrue(table.backgroundNear(0, 0, "FEFEFE"));
+
+    assertTrue(table.foregroundNear(0, 1, "red"));
+    assertTrue(table.foregroundNear(0, 1, "DD1111"));
+
+    assertTrue(table.backgroundNear(0, 1, "pink"));
+    assertTrue(table.backgroundNear(0, 1, "FFAEAE"));
+
+    assertFalse(table.foregroundNear(0, 1, "blue"));
+    assertFalse(table.backgroundNear(0, 1, "black"));
+  }
+
+  public void testDefaultForeground() throws Exception {
     table.foregroundEquals("black");
   }
 
@@ -603,12 +636,16 @@ public class TableContentTest extends TableTestCase {
     assertTrue(table.containsRow(new Object[]{
       "c", Boolean.FALSE, "4"
     }));
-  }
-
-  public void testContainsRowFailsBecauseOfWrongData() throws Exception {
     assertFalse(table.containsRow(new Object[]{
       "Wrong", Boolean.TRUE, "3"
     }));
+  }
+
+  public void testContainsRowWithCellContent() throws Exception {
+    assertTrue(table.containsRow(0, "a"));
+    assertTrue(table.containsRow(1, Boolean.FALSE));
+    checkAssertionFails(table.containsRow(0, Boolean.TRUE),
+                        "No row found with 'true' in column 0");
   }
 
   public void testRowIndex() throws Exception {

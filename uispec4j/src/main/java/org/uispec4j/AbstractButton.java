@@ -41,7 +41,11 @@ public abstract class AbstractButton extends AbstractSwingUIComponent {
   public Assertion textEquals(final String text) {
     return new Assertion() {
       public void check() {
-        AssertAdapter.assertEquals(text, abstractButton.getText().trim());
+        String label = abstractButton.getText();
+        if (label != null) {
+          label = label.trim();
+        }
+        AssertAdapter.assertEquals(text, label);
       }
     };
   }

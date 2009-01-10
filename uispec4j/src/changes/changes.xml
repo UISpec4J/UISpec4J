@@ -5,8 +5,18 @@
 
   <body>
     <release version="2.0" date="???">
+      <action dev="rmedina" type="add">
+        Added ComponentMatchers.toolTipEquals(String)
+      </action>
+      <action dev="rmedina" type="add">
+        Added Table.foregroundNear(row, column, color) and Table.backgroundNear(row, column, color) for
+        approximative comparisons.
+      </action>
+      <action dev="mguiot" type="fix">
+        Improved the handling of multi-threading conditions in the window interception mechanism.
+      </action>
       <action dev="rmedina,sroussea" type="fix">
-        Migration to JDK 1.5.
+        Migrated the whole API to take advantage of JDK 1.5 language features.
       </action>
       <action dev="pratmarty" type="add">
         Added a means for choosing between JUnit and TestNG as the underlying testing framework.

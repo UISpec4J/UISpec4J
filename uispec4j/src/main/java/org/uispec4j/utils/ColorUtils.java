@@ -41,9 +41,18 @@ public final class ColorUtils {
     }
   }
 
+  public static void assertSimilar(String message, Object expected, Color actual) {
+    if (!equals(getColor(expected), actual, true)) {
+      AssertAdapter.fail((message != null ? message + " - " : "")
+                        + "expected:<" + getColorDescription(expected)
+                         + "> but was:<" + getColorDescription(actual)
+                         + ">");
+    }
+  }
+
   public static void assertEquals(String message, Object expected, Color actual) {
     if (!equals(expected, actual)) {
-      String errorMsg = (message != null ? message + " " : "")
+      String errorMsg = (message != null ? message + " - " : "")
                         + "expected:<" + getColorDescription(expected)
                         + "> but was:<" + getColorDescription(actual)
                         + ">";

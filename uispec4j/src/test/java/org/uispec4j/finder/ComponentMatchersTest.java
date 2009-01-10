@@ -11,17 +11,18 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
   private JButton button1;
   private JButton button2;
   private JTextField textField;
+  private Component otherButton;
 
   protected void setUp() throws Exception {
     super.setUp();
-    button1 = (JButton)addComponent(JButton.class, "displayed1");
+    button1 = addComponent(JButton.class, "displayed1");
     button1.setName("inner1");
-    button2 = (JButton)addComponent(JButton.class, "displayed2");
+    button2 = addComponent(JButton.class, "displayed2");
     button2.setName("inner2");
-    textField = (JTextField)addComponent(JTextField.class, "displayed1");
+    textField = addComponent(JTextField.class, "displayed1");
     textField.setName("inner1");
-    Component component = addComponent(JButton.class, "other");
-    component.setName("else");
+    otherButton = addComponent(JButton.class, "other");
+    otherButton.setName("else");
   }
 
   public void testClassComponentMatcher() throws Exception {
@@ -123,10 +124,20 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
   }
 
   public void testComponentLabelFor() throws Exception {
-    JLabel labelForButton2 = (JLabel)addComponent(JLabel.class, "this is the second button");
+    JLabel labelForButton2 = addComponent(JLabel.class, "this is the second button");
     labelForButton2.setLabelFor(button2);
 
     TestUtils.assertUIComponentRefersTo(button2,
                                         panel.getButton(ComponentMatchers.componentLabelFor("second button")));
+  }
+
+  public void testSearchWithTooltip() throws Exception {
+    button1.setToolTipText("button 1");
+
+    TestUtils.assertUIComponentRefersTo(button1,
+                                        panel.getButton(ComponentMatchers.toolTipEquals("button 1")));
+
+    TestUtils.assertSwingComponentsEquals(new Component[]{button2, textField, otherButton},
+                                          panel.getSwingComponents(ComponentMatchers.toolTipEquals(null)));
   }
 }

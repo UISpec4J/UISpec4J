@@ -4,24 +4,86 @@
   <a href="/license">Common Public License</a> (version 1.0).
 </p>
 
+<h3>Current version</h3>
+<p>
+  We are in the process of releasing UISpec4J 2.0. For the moment we have made available
+  a Release Candidate 1 so that you can <a href="/contact">report</a> any problems
+  before we publish the 2.0 version.
+</p>
+<p>
+  The 2.0 version will only work with JDK 5 and above. If you are still using JDK 1.4,
+  you can use UISpec4J version 1.5.
+</p>
 
 <h2>Binaries</h2>
 <p>
   UISpec4J is available as a JAR file that depends on which JDK you use:
 </p>
-<ul>
-  <li>JDK 1.4 or 1.5: <a href="./uispec4j-2.0.jar">uispec4j-2.0.jar</a></li>
-  <li>JDK 6: <a href="tmp/uispec4j-java6.jar">uispec4j-java6.jar</a></li>
-</ul>
+
+<table id="download">
+  <thead>
+    <tr>
+      <th>JDK</th>
+      <th>UISpec4J Version</th>
+      <th>UISpec4J JAR</th>
+      <th>Sources</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>6.x</td>
+    <td>2.0-RC1</td>
+    <td>
+      <a href="/files/uispec4j-jdk6-2.0-RC1.jar">uispec4j-jdk6-2.0-RC1.jar</a>
+    </td>
+    <td>
+      <a href="/files/uispec4j-2.0-RC1-src.zip">uispec4j-2.0-RC1-src.zip</a>
+    </td>
+  </tr>
+  <tr>
+    <td>5.x</td>
+    <td>2.0-RC1</td>
+    <td>
+      <a href="/files/uispec4j-jdk5-2.0-RC1.jar">uispec4j-jdk5-2.0-RC1.jar</a>
+    </td>
+    <td>
+      <a href="/files/uispec4j-2.0-RC1-src.zip">uispec4j-2.0-RC1-src.zip</a>
+    </td>
+  </tr>
+  <tr>
+    <td>1.4.x</td>
+    <td>1.5</td>
+    <td>
+      <a href="/files/uispec4j-1.5.jar">uispec4j-1.5.jar</a>
+    </td>
+    <td>
+      <a href="/files/uispec4j-1.5-src.zip">uispec4j-1.5-src.zip</a>
+    </td>
+  </tr>
+</table>
 
 <p>We strongly encourage newcomers to download the
-  <a href="./uispec4j-addressbook.jar">Zip Archive</a>
+  <a href="/files/addressbook-src.zip">Zip Archive</a>
   that bundles UISpec4J resources with the Address Book sample application code.
 </p>
-<p>You can find more information on this release in our
-  <a href="/changes">change log</a>
-  page.
+
+<h2>Changes</h2>
+<p>You can look at the full change log <a href="/changes">here</a>. </p>
+
+
+<h2>Dependencies</h2>
+<p>
+  In order to use UISpec4J, you will need either the
+  <a href="http://www.junit.org">JUnit</a>, or the <a href="http://testng.org">TestNG</a> testing
+  library.
 </p>
+<p>
+  When using the <a href="/custom-components">extension</a> mechanism, you will need the
+    <a href="http://asm.objectweb.org">ASM 3.1</a> JARs.
+  JARs.
+</p>
+
+
+<h2>Getting help</h2>
 <p>
   Please do not hesitate to
   <a href="/contact">contact us</a>
@@ -29,43 +91,4 @@
   as easy to use and powerful as possible, and we are always glad to hear from
   our users!
 </p>
-
-
-<h2>Dependencies</h2>
-<p>UISpec4J is being developed and validated with Sun's JDK 5
-  (<a href="http://java.sun.com/j2se/1.4.2/download.html">download</a>).
-  It also works with JDK 5.0.
-</p>
-<p>
-  In order to use UISpec4J, you will need the
-  <a href="http://prdownloads.sourceforge.net/junit/junit3.8.1.zip?download">JUnit JAR</a>
-  available from
-  <a href="http://www.junit.org">http://www.junit.org</a>
-  .
-</p>
-<p>
-  When using the
-  <a href="extension.html">extension</a>
-  mechanism, you will need the ASM
-  JARs (see the
-  <a href="dependencies.html">dependencies</a>
-  page for details).
-</p>
-
-
-<h2>Sources</h2>
-<p>You can download the sources here:
-  <a href="uispec4j-2.0-src.zip">uispec4j-2.0-src.zip</a>
-  and
-  <a href="uispec4j-2.0-src.tar.gz">uispec4j-2.0-src.tar.gz</a>
-</p>
-
-
-<h2>Documentation</h2>
-<p>You can download the Javadoc API documentation here:
-  <a href="uispec4j-2.0-doc.zip">uispec4j-2.0-doc.zip</a>
-</p>
-
-
-
 
