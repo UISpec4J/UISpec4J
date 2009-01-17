@@ -1,6 +1,6 @@
 package org.uispec4j.assertion.testlibrairies;
 
-public class UISpecLibrary implements TestLibrary {
+class UISpecLibrary implements TestLibrary {
   public void fail(String message) {
     throw new RuntimeException(message);
   }

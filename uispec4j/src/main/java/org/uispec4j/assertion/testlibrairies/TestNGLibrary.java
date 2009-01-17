@@ -20,7 +20,7 @@ class TestNGLibrary implements TestLibrary {
   }
 
   public void assertEquals(String expected, String actual) {
-    Assert.assertEquals(expected, actual);
+    Assert.assertEquals(actual, expected);
   }
 
   public void assertEquals(Object expected, Object actual) {

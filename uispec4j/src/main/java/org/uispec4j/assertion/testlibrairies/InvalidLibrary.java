@@ -1,6 +1,6 @@
 package org.uispec4j.assertion.testlibrairies;
 
-public class InvalidLibrary implements TestLibrary {
+class InvalidLibrary implements TestLibrary {
   private String message;
 
   public InvalidLibrary(String message) {
