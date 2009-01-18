@@ -5,6 +5,12 @@
 
   <body>
     <release version="2.0-RC2" date="2009-01-18">
+      <action dev="mguiot" type="fix">
+        In class WindowInterceptor, revert call to TriggerRunner.runInSwingThread in call to TriggerRunner.runInCurrentThread
+      </action>
+      <action dev="mguiot" type="fix">
+        In ComboBox.selectionEquals : use the rendered value in assert if selection is null
+      </action>
       <action dev="pratmarty" type="fix">
         Fixed TestNG library adapter:  reversed expected and actual parameters in 'assertEquals(String expected, String actual)'
       </action>

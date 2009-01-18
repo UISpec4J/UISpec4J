@@ -140,7 +140,9 @@ public class ComboBox extends AbstractSwingUIComponent {
     return new Assertion() {
       public void check() {
         if (jComboBox.getSelectedItem() == null) {
-          AssertAdapter.assertNull("The combo box has no selected item", selection);
+          if (selection != null) {
+            AssertAdapter.assertEquals(selection, getRenderedValue(-1));
+          }
         }
         else {
           AssertAdapter.assertEquals(selection, getRenderedValue(jComboBox.getSelectedItem(), -1));
