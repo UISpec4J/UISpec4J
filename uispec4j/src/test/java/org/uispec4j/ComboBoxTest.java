@@ -156,8 +156,19 @@ public class ComboBoxTest extends UIComponentTestCase {
 
   public void testCheckSelectionUsesNullWhenNothingIsSelected() throws Exception {
     jComboBox.setSelectedIndex(-1);
-    comboBox.selectionEquals(null);
+    assertTrue(comboBox.selectionEquals(null));
   }
+
+  public void testCheckSelectionUsesDisplayedNullValueWhenNothingIsSelected() throws Exception {
+    jComboBox.setRenderer(new ListCellRenderer() {
+      public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        return new JLabel("null text");
+      }
+    });
+    jComboBox.setSelectedIndex(-1);
+    assertTrue(comboBox.selectionEquals("null text"));
+  }
+
 
   public void testClickSelectsTheFirstItem() throws Exception {
     jComboBox.setSelectedIndex(1);
