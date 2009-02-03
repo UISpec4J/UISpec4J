@@ -4,7 +4,12 @@
   </properties>
 
   <body>
-    <release version="2.0-RC2" date="2009-01-18">
+    <release version="2.0-RC3" date="2009-02-03">
+      <action dev="pratmarty" type="fix">
+        Changed Graphics configuration of the Peer elements returned by the UISpecToolkit (fix specific to Java 6)
+      </action>
+    </release>
+    <release version="2.0-RC2" date="2009-01-19">
       <action dev="mguiot" type="fix">
         In class WindowInterceptor, revert call to TriggerRunner.runInSwingThread in call to TriggerRunner.runInCurrentThread
       </action>
@@ -228,10 +233,7 @@
     <release version="0.16" date="2006-03-05">
       <action dev="rmedina, ppratmarty, scrego" type="update">
         Changed all "assertXxx" methods into "xxx" methods that return Assertion objects to be used
-        with UISpecAssert.assertTrue(). Please refer to the
-        <a href="/assertions.html">Using assertions</a>
-        page for further details on the new assertions
-        mechanism.
+        with UISpecAssert.assertTrue().
         The main motivation behind this evolution is that the UISpecAssert.assertTrue() method
         now performs automatic retries when the first assertion check fails, so that
         the tests are less dependent on slight delays in multithreaded applications.
