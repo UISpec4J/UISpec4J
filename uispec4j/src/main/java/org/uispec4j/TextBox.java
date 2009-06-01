@@ -106,7 +106,7 @@ public class TextBox extends AbstractSwingUIComponent {
    * This method is useful for checking key information in the displayed string,
    * without being too dependent on the actual wording.
    */
-  public Assertion textContains(final String[] orderedTexts) {
+  public Assertion textContains(final String... orderedTexts) {
     return new Assertion() {
       public void check() {
         String actual = handler.getText();

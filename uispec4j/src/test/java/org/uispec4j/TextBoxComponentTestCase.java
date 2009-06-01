@@ -20,10 +20,10 @@ public abstract class TextBoxComponentTestCase extends UIComponentTestCase {
                   "</ul>";
     createTextBox(text);
 
-    assertTrue(textBox.textContains(new String[0]));
-    assertTrue(textBox.textContains(new String[]{"item1"}));
-    assertTrue(textBox.textContains(new String[]{"item1", "item2", "item3", "ul"}));
-    assertTrue(textBox.textContains(new String[]{"item1", "item", "item"}));
+    assertTrue(textBox.textContains());
+    assertTrue(textBox.textContains("item1"));
+    assertTrue(textBox.textContains("item1", "item2", "item3", "ul"));
+    assertTrue(textBox.textContains("item1", "item", "item"));
 
     String renderedText = textBox.getText();
     checkAssertTextContainsFails(new String[]{"item2", "item1"},

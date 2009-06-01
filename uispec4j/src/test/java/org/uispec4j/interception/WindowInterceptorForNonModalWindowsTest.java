@@ -57,6 +57,37 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
                         "</log>");
   }
 
+  public void testNonModalJDialogAfterATransientDialog() throws Exception {
+    final Trigger trigger = new Trigger() {
+      public void run() {
+        logger.log("triggerRun");
+        JDialog transientDialog = new JDialog();
+        transientDialog.show();
+        Utils.sleep(20);
+        transientDialog.hide();
+
+        JDialog dialog = new JDialog();
+        dialog.setTitle("mon dialogue");
+        addLoggerButton(dialog, "Log");
+        addHideButton(dialog, "Close");
+        dialog.show();
+      }
+    };
+
+    Window window = WindowInterceptor.run(new Trigger() {
+      public void run() throws Exception {
+        WindowInterceptor.init(trigger)
+          .processTransientWindow().run();
+      }
+    });
+    assertTrue(window.titleEquals("mon dialogue"));
+    window.getButton("Log").click();
+    logger.assertEquals("<log>" +
+                        "  <triggerRun/>" +
+                        "  <click button='Log'/>" +
+                        "</log>");
+  }
+
   public void testInterceptionWithATriggerThatDisplaysNothing() throws Exception {
     try {
       WindowInterceptor.run(Trigger.DO_NOTHING);
