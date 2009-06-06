@@ -139,16 +139,25 @@ public class FileChooserHandler {
    * Clicks on "Cancel".
    */
   public WindowHandler cancelSelection() {
-    handler.add(new FileChooserInternalHandler() {
-      public void process(JFileChooser fileChooser) {
-        fileChooser.cancelSelection();
-      }
-    });
+    handler.cancelSelection();
     return handler;
   }
 
+  private static final FileChooserInternalHandler APPROVE = new FileChooserInternalHandler() {
+    public void process(JFileChooser fileChooser) {
+      fileChooser.approveSelection();
+    }
+  };
+
+  private static final FileChooserInternalHandler CANCEL = new FileChooserInternalHandler() {
+    public void process(JFileChooser fileChooser) {
+      fileChooser.cancelSelection();
+    }
+  };
+
   private static class DialogHandler extends WindowHandler {
     private List fileChooserHandlers = new ArrayList();
+    private FileChooserInternalHandler lastHandler = APPROVE;
 
     public DialogHandler() {
       super("FileChooserHandler");
@@ -156,6 +165,10 @@ public class FileChooserHandler {
 
     void add(FileChooserInternalHandler handler) {
       fileChooserHandlers.add(handler);
+    }
+
+    void cancelSelection() {
+      lastHandler = CANCEL;
     }
 
     public Trigger process(final Window window) {
@@ -169,7 +182,7 @@ public class FileChooserHandler {
         FileChooserInternalHandler handler = (FileChooserInternalHandler)iterator.next();
         handler.process(fileChooser);
       }
-      fileChooser.approveSelection();
+      lastHandler.process(fileChooser);
       return new Trigger() {
         public void run() throws Exception {
           ComponentUtils.close(window);

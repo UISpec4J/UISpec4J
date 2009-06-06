@@ -10,22 +10,23 @@ import java.io.File;
 
 public class FileChooserHandlerTest extends InterceptionTestCase {
   private JFileChooser chooser = new JFileChooser();
+  private int result= JFileChooser.ERROR_OPTION;
   private Trigger SHOW_OPEN_DIALOG_TRIGGER = new Trigger() {
     public void run() throws Exception {
       JFrame frame = new JFrame();
-      chooser.showOpenDialog(frame);
+      result = chooser.showOpenDialog(frame);
     }
   };
   private Trigger SHOW_SAVE_DIALOG_TRIGGER = new Trigger() {
     public void run() throws Exception {
       JFrame frame = new JFrame();
-      chooser.showSaveDialog(frame);
+      result = chooser.showSaveDialog(frame);
     }
   };
   private Trigger SHOW_CUSTOM_DIALOG_TRIGGER = new Trigger() {
     public void run() throws Exception {
       JFrame frame = new JFrame();
-      chooser.showDialog(frame, "OK");
+      result = chooser.showDialog(frame, "OK");
     }
   };
   private File javaHome = new File(System.getProperty("java.home"));
@@ -42,6 +43,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .process(FileChooserHandler.init().select(javaHome))
       .run();
     assertEquals(javaHome, chooser.getSelectedFile());
+    assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
   public void testSelectionOfSeveralFiles() throws Exception {
@@ -51,6 +53,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .process(FileChooserHandler.init().select(files))
       .run();
     ArrayUtils.assertEquals(files, chooser.getSelectedFiles());
+    assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
   public void testSelectionOfASingleStringifiedFile() throws Exception {
@@ -59,6 +62,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .process(FileChooserHandler.init().select(javaHome.getAbsolutePath()))
       .run();
     assertEquals(javaHome, chooser.getSelectedFile());
+    assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
   public void testSelectionOfSeveralStringifiedFile() throws Exception {
@@ -68,6 +72,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .process(FileChooserHandler.init().select(files))
       .run();
     ArrayUtils.assertEquals(new File[]{javaHome, userHome}, chooser.getSelectedFiles());
+    assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
   public void testCancelSelection() throws Exception {
@@ -76,6 +81,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .process(FileChooserHandler.init().cancelSelection())
       .run();
     assertEquals(0, chooser.getSelectedFiles().length);
+    assertEquals(JFileChooser.CANCEL_OPTION, result);
   }
 
   public void testAssertCurrentDirEquals() throws Exception {
