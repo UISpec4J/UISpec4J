@@ -6,6 +6,9 @@
   <body>
     <release version="2.0" date="???">
       <action dev="pratmarty" type="fix">
+        Fixed FileChooserHandler.titleEquals() (worked only with customized titles, not with default titles).
+      </action>
+      <action dev="pratmarty" type="fix">
         Made the JFileChooser return the CANCEL_OPTION code when FileChooserHandler.cancelSelection is getting called.
       </action>
     </release>

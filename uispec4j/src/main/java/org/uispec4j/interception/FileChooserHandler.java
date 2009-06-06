@@ -2,6 +2,7 @@ package org.uispec4j.interception;
 
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
+import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ComponentUtils;
 import org.uispec4j.utils.Utils;
@@ -59,12 +60,7 @@ public class FileChooserHandler {
   }
 
   public FileChooserHandler titleEquals(final String title) {
-    handler.add(new FileChooserInternalHandler() {
-      public void process(JFileChooser fileChooser) {
-        AssertAdapter.assertEquals("Unexpected title -",
-                                    title, fileChooser.getDialogTitle());
-      }
-    });
+    handler.expectsTitle(title);
     return this;
   }
 
@@ -158,6 +154,7 @@ public class FileChooserHandler {
   private static class DialogHandler extends WindowHandler {
     private List fileChooserHandlers = new ArrayList();
     private FileChooserInternalHandler lastHandler = APPROVE;
+    private String expectedTitle;
 
     public DialogHandler() {
       super("FileChooserHandler");
@@ -182,12 +179,23 @@ public class FileChooserHandler {
         FileChooserInternalHandler handler = (FileChooserInternalHandler)iterator.next();
         handler.process(fileChooser);
       }
+      checkTitle(window);
       lastHandler.process(fileChooser);
       return new Trigger() {
         public void run() throws Exception {
           ComponentUtils.close(window);
         }
       };
+    }
+
+    private void checkTitle(Window window) {
+      if (expectedTitle != null) {
+        UISpecAssert.assertTrue(window.titleEquals(expectedTitle));
+      }
+    }
+
+    public void expectsTitle(String title) {
+      expectedTitle = title;
     }
   }
 

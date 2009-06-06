@@ -75,7 +75,7 @@ public class Window extends Panel {
   public Assertion titleEquals(final String expected) {
     return new Assertion() {
       public void check() {
-        AssertAdapter.assertEquals(expected, getTitle());
+        AssertAdapter.assertEquals("Unexpected title -", expected, getTitle());
       }
     };
   }

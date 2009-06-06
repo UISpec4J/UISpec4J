@@ -116,7 +116,12 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
                javaHome, "Chooser is in 'custom' mode");
   }
 
-  public void testAssertTitleEquals() throws Exception {
+  public void testDefaultTitle() throws Exception {
+    checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("Open"));
+    checkOk(SHOW_SAVE_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("Save"));
+  }
+
+  public void testCustomTitle() throws Exception {
     chooser.setDialogTitle("title");
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("title"));
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("error"),

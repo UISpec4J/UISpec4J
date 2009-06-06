@@ -1,8 +1,8 @@
 package org.uispec4j;
 
 import junit.framework.AssertionFailedError;
-import org.uispec4j.xml.XmlAssert;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
+import org.uispec4j.xml.XmlAssert;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class WindowForAwtWindowTest extends WindowTestCase {
     final Window window = createWindow();
     assertTrue(window.titleEquals(""));
     checkAssertionFails(window.titleEquals("title"),
-                        "expected:<title> but was:<>");
+                        "Unexpected title - expected:<title> but was:<>");
   }
 
   public void testAssertTitleContains() throws Exception {

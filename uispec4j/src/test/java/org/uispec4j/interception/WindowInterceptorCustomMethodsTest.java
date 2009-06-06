@@ -61,7 +61,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
           }
         })
         .process("error", new ButtonTriggerHandler("Hide")),
-      "expected:<error> but was:<dialog title>");
+      "Unexpected title - expected:<error> but was:<dialog title>");
   }
 
   public void testWindowTitleErrorInASequence() throws Exception {
@@ -70,7 +70,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
         .init(getShowFirstDialogTrigger())
         .processWithButtonClick("OK")
         .process("error", new ButtonTriggerHandler("OK")),
-      "Error in handler 'error': expected:<error> but was:<second dialog>");
+      "Error in handler 'error': Unexpected title - expected:<error> but was:<second dialog>");
   }
 
   public void testProcessWithButtonClick() {
