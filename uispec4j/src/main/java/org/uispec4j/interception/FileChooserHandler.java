@@ -19,7 +19,7 @@ import java.util.List;
  * Sample usage:
  * <pre><code>
  * WindowInterceptor
- *   .run(openMenu.triggerClick())
+ *   .init(openMenu.triggerClick())
  *   .process(FileChooserHandler.init()
  *            .titleEquals("Select a template file")
  *            .assertAcceptsFilesOnly()

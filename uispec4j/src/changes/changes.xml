@@ -4,7 +4,7 @@
   </properties>
 
   <body>
-    <release version="2.0" date="???">
+    <release version="2.0" date="2009-06-07">
       <action dev="pratmarty" type="fix">
         Fixed FileChooserHandler.titleEquals() (worked only with customized titles, not with default titles).
       </action>
