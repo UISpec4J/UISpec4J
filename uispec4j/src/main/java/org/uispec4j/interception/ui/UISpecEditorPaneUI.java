@@ -23,6 +23,9 @@ public class UISpecEditorPaneUI extends BasicEditorPaneUI {
   protected void maybeUpdateLayoutState() {
   }
 
+  public void update(Graphics g, JComponent c) {
+  }
+
   public Dimension getPreferredSize(JComponent c) {
     return Empty.NULL_DIMENSION;
   }
@@ -34,4 +37,5 @@ public class UISpecEditorPaneUI extends BasicEditorPaneUI {
   public Dimension getMinimumSize(JComponent c) {
     return Empty.NULL_DIMENSION;
   }
+
 }

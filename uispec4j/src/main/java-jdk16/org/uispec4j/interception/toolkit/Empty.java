@@ -316,6 +316,9 @@ public final class Empty {
     public void updateWindow(BufferedImage backBuffer) {
     }
 
+    public void repositionSecurityWarning() {
+    }
+
     public void flip(int x1, int y1, int x2, int y2, BufferCapabilities.FlipContents flipAction) {
     }
 

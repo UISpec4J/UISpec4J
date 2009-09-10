@@ -23,6 +23,9 @@ public class UISpecFormattedTextFieldUI extends BasicFormattedTextFieldUI {
   protected void maybeUpdateLayoutState() {
   }
 
+  public void update(Graphics g, JComponent c) {
+  }
+
   public Dimension getPreferredSize(JComponent c) {
     return Empty.NULL_DIMENSION;
   }
