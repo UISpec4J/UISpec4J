@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.ComponentFinder;
@@ -492,7 +491,7 @@ public class Panel extends AbstractUIComponent {
       public void check() throws Exception {
         Component[] result = getSwingComponents(and(fromClass(JLabel.class), displayedNameSubstring(text)));
         if (result.length == 0) {
-          throw new AssertionFailedError("No label found with text '" + text + "'");
+          AssertAdapter.fail("No label found with text '" + text + "'");
         }
       }
     };
