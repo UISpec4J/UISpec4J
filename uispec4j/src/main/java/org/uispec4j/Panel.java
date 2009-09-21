@@ -412,6 +412,7 @@ public class Panel extends AbstractUIComponent {
 
   private static <T extends UIComponent> T getComponent(ComponentFinder finder, Class<T> uiComponentClass, Class[] swingClasses, String componentName)
     throws ComponentAmbiguityException, ItemNotFoundException {
+    UIComponentFactory.register(uiComponentClass);
     String typeName = UIComponentAnalyzer.getTypeName(uiComponentClass);
     Component swingComponent = finder.getComponent(componentName, swingClasses, typeName);
     return (T)UIComponentFactory.createUIComponent(swingComponent);
@@ -420,6 +421,7 @@ public class Panel extends AbstractUIComponent {
   private static <T extends UIComponent> T findComponent(ComponentFinder finder,
                                                          Class<T> uiComponentClass, String name)
     throws ComponentAmbiguityException {
+    UIComponentFactory.register(uiComponentClass);
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
     String typeName = UIComponentAnalyzer.getTypeName(uiComponentClass);
     Component swingComponent = finder.findComponent(name, swingClasses, typeName);
@@ -432,6 +434,7 @@ public class Panel extends AbstractUIComponent {
   }
 
   private static UIComponent[] getComponents(ComponentFinder finder, Class uiComponentClass, String name) {
+    UIComponentFactory.register(uiComponentClass);
     Class[] swingClasses = UIComponentAnalyzer.getSwingClasses(uiComponentClass);
     Component[] swingComponents = finder.getComponents(name, swingClasses);
     return UIComponentFactory.createUIComponents(swingComponents);

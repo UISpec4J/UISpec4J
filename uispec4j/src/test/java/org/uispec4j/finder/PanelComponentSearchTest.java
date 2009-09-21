@@ -3,6 +3,8 @@ package org.uispec4j.finder;
 import org.uispec4j.Button;
 import org.uispec4j.*;
 import org.uispec4j.Panel;
+import org.uispec4j.extension.CustomCountingButton;
+import org.uispec4j.extension.JCountingButton;
 import org.uispec4j.utils.ComponentUtils;
 import org.uispec4j.utils.UIComponentAnalyzer;
 import org.uispec4j.utils.UIComponentFactory;
@@ -35,6 +37,14 @@ public class PanelComponentSearchTest extends PanelComponentFinderTestCase {
   protected void setUp() throws Exception {
     super.setUp();
     componentAccessors = createAccessors(panel);
+  }
+
+  public void testGetCustomComponent() throws Exception {
+    String name = "hello world";
+    Component component = createComponentWithText(JCountingButton.class, name);
+    jPanel.add(component);
+
+    assertTrue(panel.findUIComponent(CustomCountingButton.class, "hello") instanceof CustomCountingButton);
   }
 
   public void testGetComponentTypeName() {

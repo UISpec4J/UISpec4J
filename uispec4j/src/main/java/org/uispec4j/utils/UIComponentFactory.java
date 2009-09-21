@@ -6,19 +6,20 @@ import org.uispec4j.MenuBar;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Panel;
 import org.uispec4j.Window;
-import org.uispec4j.Desktop;
 
 import java.awt.*;
 import java.lang.reflect.Constructor;
-import java.util.*;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Factory which creates UIComponent wrappers for Swing components.
  */
 public final class UIComponentFactory {
 
-  private static final Class[] COMPONENT_CLASSES = {
+  private static final Class[] BUILT_IN_COMPONENT_CLASSES = {
     Button.class,
     CheckBox.class,
     ComboBox.class,
@@ -40,12 +41,25 @@ public final class UIComponentFactory {
     Slider.class
   };
 
-  private static List ADDITIONAL_CLASSES;
-  private static Map SWING_TO_UISPEC_MAP;
+  private static volatile Map<Class<? extends Container>, Class<? extends UIComponent>> SWING_TO_UISPEC_MAP = new HashMap();
+  private static Set<Class<? extends UIComponent>> COMPONENT_CLASSES = new HashSet();
+
+  static {
+    register(BUILT_IN_COMPONENT_CLASSES);
+  }
 
   /* Warning : reflection call in the extension mechanism */
   public static void addUIComponentClass(Class uiComponentClass) {
-    getAdditionalClassesList().add(uiComponentClass);
+    register(uiComponentClass);
+  }
+
+  public synchronized static <T extends UIComponent> void register(Class<T>... uiSpecClasses) {
+    for (Class<T> uiSpecClass : uiSpecClasses) {
+      if (checkClass(uiSpecClass)) {
+        addUIComponentClass(uiSpecClass, SWING_TO_UISPEC_MAP);
+        COMPONENT_CLASSES.add(uiSpecClass);
+      }
+    }
   }
 
   public static UIComponent createUIComponent(Component component) {
@@ -53,7 +67,7 @@ public final class UIComponentFactory {
     if (swingClass == null) {
       return null;
     }
-    Class uiSpecClass = (Class)getSwingToUISpecMap().get(swingClass);
+    Class uiSpecClass = SWING_TO_UISPEC_MAP.get(swingClass);
     try {
       Constructor constructor = getConstructor(uiSpecClass, swingClass);
       return (UIComponent)constructor.newInstance(new Object[]{component});
@@ -69,25 +83,6 @@ public final class UIComponentFactory {
       components[i] = createUIComponent(swingComponents[i]);
     }
     return components;
-  }
-
-  static void fillSwingToUISpecMap(Map map, Class[] uiSpecClasses) {
-    for (int i = 0; i < uiSpecClasses.length; i++) {
-      Class uiSpecClass = uiSpecClasses[i];
-      addUIComponentClass(uiSpecClass, map);
-    }
-  }
-
-  static Map initUIComponentClasses(Class[] uiComponentClasses, List classes) {
-    List allClasses = new ArrayList();
-    allClasses.addAll(Arrays.asList(uiComponentClasses));
-    allClasses.addAll(classes);
-    Class[] allClassesArray = (Class[])allClasses.toArray(new Class[allClasses.size()]);
-    checkClasses(allClassesArray);
-
-    Map result = new HashMap();
-    fillSwingToUISpecMap(result, allClassesArray);
-    return result;
   }
 
   private static Constructor getConstructor(Class uiSpecClass, Class swingClass) throws NoSuchMethodException {
@@ -120,23 +115,21 @@ public final class UIComponentFactory {
     if (swingClass == null) {
       return null;
     }
-    if (getSwingToUISpecMap().containsKey(swingClass)) {
+    if (SWING_TO_UISPEC_MAP.containsKey(swingClass)) {
       return swingClass;
     }
     return getSwingClass(swingClass.getSuperclass());
   }
 
-  private static void checkClasses(Class[] classes) {
-    for (int i = 0; i < classes.length; i++) {
-      checkClass(classes[i]);
-      checkTypeNameField(classes[i]);
+  private static boolean checkClass(Class uiComponentClass) {
+    if (COMPONENT_CLASSES.contains(uiComponentClass)) {
+      return false;
     }
-  }
-
-  private static void checkClass(Class uiComponentClass) {
     if (!UIComponent.class.isAssignableFrom(uiComponentClass)) {
       throw new RuntimeException("Class '" + uiComponentClass + "' should implement " + UIComponent.class);
     }
+    checkTypeNameField(uiComponentClass);
+    return true;
   }
 
   private static void checkTypeNameField(Class uiComponentClass) {
@@ -163,20 +156,5 @@ public final class UIComponentFactory {
                                  uiComponentClass +
                                  " should be of type String");
     }
-  }
-
-  private static Map getSwingToUISpecMap() {
-    if (SWING_TO_UISPEC_MAP == null) {
-      SWING_TO_UISPEC_MAP = new HashMap();
-      SWING_TO_UISPEC_MAP = initUIComponentClasses(COMPONENT_CLASSES, getAdditionalClassesList());
-    }
-    return SWING_TO_UISPEC_MAP;
-  }
-
-  private static List getAdditionalClassesList() {
-    if (ADDITIONAL_CLASSES == null) {
-      ADDITIONAL_CLASSES = new ArrayList();
-    }
-    return ADDITIONAL_CLASSES;
   }
 }

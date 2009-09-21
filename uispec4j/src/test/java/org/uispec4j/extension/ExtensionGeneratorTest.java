@@ -82,10 +82,7 @@ public class ExtensionGeneratorTest extends UnitTestCase {
   }
 
   public String cleanUpOutputForMacOSX(String input) {
-    input = input.replaceAll(".*CFMessagePort.*[\n]?", "");
-    input = input.replaceAll(".*bootstrap_defs.*[\n]?", "");
-    input = input.replaceAll(".*Can't open input server.*[\n]?", "");
-    return input;
+    return input.replaceAll(".*MagicCam.*[\n]?", "");
   }
 
   public File findTargetDirectory() {
