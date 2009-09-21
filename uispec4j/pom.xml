@@ -1,18 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <!-- POM's layout - http://www.javaworld.com/javaworld/jw-05-2006/jw-0529-maven.html -->
-  <!--http://maven.apache.org/plugins/maven-release-plugin/-->
-  <!--http://maven.apache.org/guides/index.html-->
+
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- POM Relationships -->
-  <parent>
-    <groupId>org.uispec4j</groupId>
-    <artifactId>uispec4j-root</artifactId>
-    <version>2.0-SNAPSHOT</version>
-  </parent>
   <groupId>org.uispec4j</groupId>
   <artifactId>uispec4j</artifactId>
+  <version>2.1-SNAPSHOT</version>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -95,12 +89,10 @@
     </developer>
   </developers>
 
-  <repositories>
-    <repository>
-      <id>codehaus</id>
-      <url>http://repository.codehaus.org/</url>
-    </repository>
-  </repositories>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <!-- Build Settings -->
   <build>
     <plugins>
@@ -110,6 +102,9 @@
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
+          <encoding>UTF-8</encoding>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
         </configuration>
       </plugin>
       <plugin>
@@ -128,10 +123,7 @@
       </plugin>
     </plugins>
   </build>
-  <!--
-      <packaging>...</packaging>
-      <properties>...</properties>
-  -->
+
   <reporting>
     <plugins>
       <plugin>
@@ -157,46 +149,6 @@
       </plugin>
     </plugins>
   </reporting>
-  <!--
-      <packaging>...</packaging>
-      <properties>...</properties>
-      <reporting>...</reporting>
-  -->
-
-  <!-- Build Environment -->
-  <!-- Environment Information -->
-  <!--
-      <issueManagement>...</issueManagement>
-      <ciManagement>...</ciManagement>
-      <mailingLists>...</mailingLists>
-  <scm>
-      <connection>scm:svn:http://bd-subversion/development/framework/lib/agf-reflect/trunk</connection>
-      <developerConnection>scm:svn:http://bd-subversion/development/framework/lib/agf-reflect/trunk</developerConnection>
-      <url>http://bd-subversion/development/framework/lib/agf-reflect/trunk</url>
-  </scm>
-  -->
-  <!-- Maven Environment -->
-  <!--
-      <prerequisites>...</prerequisites>
-      <repositories>...</repositories>
-      <pluginRepositories>...</pluginRepositories>
-  <distributionManagement>
-      <repository>
-          <id>scp-agf-repository</id>
-          <url>scp://ad_cvs/AGFAM/DEV/SOFT_GEN1/SMB/DAT1/partage/maven/m2/inhouse</url>
-      </repository>
-      <snapshotRepository>
-          <id>scp-agf-repository</id>
-          <url>scp://ad_cvs/AGFAM/DEV/SOFT_GEN1/SMB/DAT1/partage/maven/m2/inhouse-snapshot</url>
-      </snapshotRepository>
-      <site>
-          <id>webdav-agf-documentation</id>
-          <name>Serveur de documentation</name>
-          <url>dav:http://wp-documentation:8080/sites</url>
-      </site>
-  </distributionManagement>
-      <profiles>...</profiles>
-  -->
 
   <profiles>
     <profile>
@@ -205,8 +157,13 @@
         <jdk>1.5</jdk>
       </activation>
       <build>
-        <finalName>uispec4j-jdk5-${pom.version}</finalName>
         <plugins>
+          <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <classifier>jdk15</classifier>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
@@ -234,8 +191,13 @@
         <jdk>1.6</jdk>
       </activation>
       <build>
-        <finalName>uispec4j-jdk6-${pom.version}</finalName>
         <plugins>
+          <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <classifier>jdk16</classifier>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
@@ -258,5 +220,4 @@
       </build>
     </profile>
   </profiles>
-
 </project>
