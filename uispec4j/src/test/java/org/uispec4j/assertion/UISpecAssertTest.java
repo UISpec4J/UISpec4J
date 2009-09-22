@@ -78,8 +78,7 @@ public class UISpecAssertTest extends UnitTestCase {
 
     checkAssertionFailedError(new Functor() {
       public void run() throws Exception {
-        assertion.setError(null);
-        assertion.setException(new Exception("exception message"));
+        assertion.setError("exception message");
         UISpecAssert.assertTrue("assertTrue message", assertion);
       }
     }, "assertTrue message");

@@ -6,6 +6,9 @@
   <body>
     <release version="2.0" date="2009-06-07">
       <action dev="pratmarty" type="add">
+        Added BasicHandler.titleEquals() and titleContains().
+      </action>
+      <action dev="pratmarty" type="add">
         Made the method Panel.findUIComponent() work for customized components without running the ExtensionGenerator.
       </action>
     </release>

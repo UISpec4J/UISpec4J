@@ -140,7 +140,7 @@ public class UIComponentFactoryTest extends UnitTestCase {
 
     public Assertion isVisible() {
       return new Assertion() {
-        public void check() throws Exception {
+        public void check() {
         }
       };
     }

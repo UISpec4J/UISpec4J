@@ -138,7 +138,7 @@ public class UISpecAssert {
    */
   public static Assertion and(final Assertion... assertions) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         for (Assertion assertion : assertions) {
           assertion.check();
         }
@@ -216,7 +216,7 @@ public class UISpecAssert {
 
   public static Assertion fail(final String message) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.fail(message);
       }
     };

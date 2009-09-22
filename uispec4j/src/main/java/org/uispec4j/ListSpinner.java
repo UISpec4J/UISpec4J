@@ -26,7 +26,7 @@ public class ListSpinner extends Spinner {
    */
   public Assertion contentEquals(final Object... expectedContents) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         List list = model.getList();
         Utils.assertEquals(expectedContents, list.toArray(new Object[list.size()]));
       }

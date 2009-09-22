@@ -5,6 +5,8 @@ import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.DateUtils;
 
 import javax.swing.*;
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Wrapper for JSpinner components implementing a SpinnerDateModel.
@@ -28,8 +30,8 @@ public class DateSpinner extends Spinner {
    */
   public Assertion startDateEquals(final String expectedStartDate) {
     return new Assertion() {
-      public void check() throws Exception {
-        AssertAdapter.assertEquals(DateUtils.getDate(expectedStartDate), model.getStart());
+      public void check() {
+        AssertAdapter.assertEquals(extractDate(expectedStartDate), model.getStart());
       }
     };
   }
@@ -41,8 +43,8 @@ public class DateSpinner extends Spinner {
    */
   public Assertion endDateEquals(final String expectedEndDate) {
     return new Assertion() {
-      public void check() throws Exception {
-        AssertAdapter.assertEquals(DateUtils.getDate(expectedEndDate), model.getEnd());
+      public void check() {
+        AssertAdapter.assertEquals(extractDate(expectedEndDate), model.getEnd());
       }
     };
   }
@@ -53,9 +55,21 @@ public class DateSpinner extends Spinner {
    */
   public Assertion calendarFieldsEquals(final int expectedCalendarFields) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals(expectedCalendarFields, model.getCalendarField());
       }
     };
   }
+
+  private Date extractDate(String expectedStartDate) {
+    Date date = null;
+    try {
+      date = DateUtils.getDate(expectedStartDate);
+    }
+    catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+    return date;
+  }
+
 }

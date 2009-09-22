@@ -28,7 +28,7 @@ public class PasswordField extends AbstractUIComponent {
 
   public Assertion passwordEquals(final String hiddenPassword) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals(hiddenPassword, new String(jPasswordField.getPassword()));
       }
     };

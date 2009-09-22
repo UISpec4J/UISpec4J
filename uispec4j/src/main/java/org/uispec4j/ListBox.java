@@ -69,7 +69,7 @@ public class ListBox extends AbstractSwingUIComponent {
 
   public Assertion contains(final String... items) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         List content = Arrays.asList(getContent());
         for (String item : items) {
           if (!content.contains(item)) {

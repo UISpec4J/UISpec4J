@@ -56,7 +56,7 @@ public class Window extends Panel {
 
   public Assertion containsMenuBar() {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         if (adapter.getJMenuBar() == null) {
           AssertAdapter.fail("No menuBar available");
         }

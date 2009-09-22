@@ -22,5 +22,5 @@ public abstract class Assertion {
   /**
    * Throws an exception if the condition is not true.
    */
-  public abstract void check() throws Exception;
+  public abstract void check();
 }

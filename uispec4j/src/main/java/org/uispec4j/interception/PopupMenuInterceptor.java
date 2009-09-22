@@ -3,6 +3,7 @@ package org.uispec4j.interception;
 import org.uispec4j.*;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
+import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.interception.handlers.InterceptionHandler;
 import org.uispec4j.interception.toolkit.UISpecDisplay;
 import org.uispec4j.utils.TriggerRunner;
@@ -40,9 +41,9 @@ public class PopupMenuInterceptor {
       TriggerRunner.runInSwingThread(trigger);
       UISpecAssert.waitUntil("No popup was shown",
                              new Assertion() {
-                               public void check() throws Exception {
+                               public void check() {
                                  if (display.getCurrentPopup() == null) {
-                                   throw new Exception("No popup shown");
+                                   AssertAdapter.fail("No popup shown");
                                  }
                                  ;
                                }

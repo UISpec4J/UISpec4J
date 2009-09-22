@@ -11,6 +11,8 @@ public class BasicHandlerTest extends InterceptionTestCase {
     WindowInterceptor
       .init(triggerShowDialog())
       .process(BasicHandler.init()
+        .assertTitleEquals("Dialog title")
+        .assertTitleContains("title")
         .assertContainsText("some text")
         .clickButton("OK")
         .triggerButtonClick("Hide"))
@@ -19,6 +21,28 @@ public class BasicHandlerTest extends InterceptionTestCase {
                         "  <click button='OK'/>" +
                         "  <click button='Hide'/>" +
                         "</log>");
+  }
+
+  public void testTitleEqualsError() throws Exception {
+    checkAssertionFailedError(
+      WindowInterceptor
+        .init(triggerShowDialog())
+        .process(BasicHandler
+        .init()
+        .assertTitleEquals("Error")
+        .triggerButtonClick("Hide")),
+      "Unexpected title - expected:<Error> but was:<Dialog title>");
+  }
+
+  public void testTitleContainsError() throws Exception {
+    checkAssertionFailedError(
+      WindowInterceptor
+        .init(triggerShowDialog())
+        .process(BasicHandler
+        .init()
+        .assertTitleContains("Error")
+        .triggerButtonClick("Hide")),
+      "expected to contain:<Error> but was:<Dialog title>");
   }
 
   public void testAssertContainsTextError() throws Exception {

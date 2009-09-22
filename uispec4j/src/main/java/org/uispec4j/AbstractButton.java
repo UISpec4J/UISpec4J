@@ -58,7 +58,7 @@ public abstract class AbstractButton extends AbstractSwingUIComponent {
    */
   public Assertion iconEquals(final Icon expected) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         Icon actual = abstractButton.getIcon();
         if (expected != null) {
           AssertAdapter.assertNotNull("The component contains no icon.", actual);

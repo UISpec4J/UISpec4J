@@ -33,7 +33,7 @@ public class Spinner extends AbstractSwingUIComponent {
    */
   public Assertion valueEquals(final Object expectedValue) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals(expectedValue, jSpinner.getValue());
       }
     };
@@ -44,7 +44,7 @@ public class Spinner extends AbstractSwingUIComponent {
    */
   public Assertion previousValueEquals(final Object expectedPreviousValue) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         Object previousValue = jSpinner.getPreviousValue();
         if (previousValue == null) {
           AssertAdapter.fail("No previous value from the start");
@@ -59,7 +59,7 @@ public class Spinner extends AbstractSwingUIComponent {
    */
   public Assertion nextValueEquals(final Object expectedNextValue) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         Object nextValue = jSpinner.getNextValue();
         if (nextValue == null) {
           AssertAdapter.fail("No previous value from the end");

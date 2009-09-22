@@ -143,7 +143,7 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
       return href;
     }
 
-    public void check() throws Exception {
+    public void check() {
       href = getHyperLink(link);
     }
 

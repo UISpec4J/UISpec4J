@@ -44,7 +44,7 @@ public class TabGroup extends AbstractUIComponent {
     AssertAdapter.assertTrue(tabNotFound(tabLabel), index >= 0);
     jTabbedPane.setSelectedIndex(index);
     UISpecAssert.assertTrue(new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertTrue(jTabbedPane.getSelectedIndex() == index);
       }
     });

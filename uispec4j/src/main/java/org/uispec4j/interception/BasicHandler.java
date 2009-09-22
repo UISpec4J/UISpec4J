@@ -55,6 +55,31 @@ public class BasicHandler {
     return this;
   }
 
+
+  /**
+   * Checks the displayed title is the same as the given text.
+   */
+  public BasicHandler assertTitleEquals(final String expectedTitle) {
+    handlers.add(new InterceptionHandler() {
+      public void process(Window window) {
+        window.titleEquals(expectedTitle).check();
+      }
+    });
+    return this;
+  }
+
+  /**
+   * Checks the displayed title contains the given text.
+   */
+  public BasicHandler assertTitleContains(final String expectedTitle) {
+    handlers.add(new InterceptionHandler() {
+      public void process(Window window) {
+        window.titleContains(expectedTitle).check();
+      }
+    });
+    return this;
+  }
+
   /**
    * Clicks on a button given its displayed label. This method will throw an exception if
    * no button with this text is found.

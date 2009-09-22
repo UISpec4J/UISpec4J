@@ -130,7 +130,7 @@ public class Table extends AbstractSwingUIComponent {
 
   public Assertion rowCountEquals(final int count) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals("Unexpected number of rows -", count, getRowCount());
       }
     };
@@ -142,7 +142,7 @@ public class Table extends AbstractSwingUIComponent {
 
   public Assertion columnCountEquals(final int count) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals("Unexpected number of columns -", count, getColumnCount());
       }
     };
@@ -308,7 +308,7 @@ public class Table extends AbstractSwingUIComponent {
    */
   public Assertion contentEquals(final String[] columnNames, final Object[][] expected) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         int rowCount = jTable.getRowCount();
         if (expected.length != rowCount) {
           throwError("Expected " + expected.length + " rows but found " + rowCount,
@@ -363,7 +363,7 @@ public class Table extends AbstractSwingUIComponent {
                               final Object expectedValue,
                               final TableCellValueConverter converter) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals("Error at (" + row + "," + column + ") -",
                                    expectedValue, getContentAt(row, column, converter));
       }
@@ -393,7 +393,7 @@ public class Table extends AbstractSwingUIComponent {
 
   public Assertion rowEquals(final int rowIndex, final String[] columnNames, final Object[] expected) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         if (rowIndex < 0) {
           AssertAdapter.fail("Row index should be positive");
         }
@@ -467,7 +467,7 @@ public class Table extends AbstractSwingUIComponent {
 
   public Assertion foregroundNear(final int row, final int column, final Object expected) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         final Component component = getSwingRendererComponentAt(row, column);
         ColorUtils.assertSimilar("Error at (" + row + ", " + column + ")",
                                  expected, component.getForeground());
@@ -477,7 +477,7 @@ public class Table extends AbstractSwingUIComponent {
 
   public Assertion backgroundNear(final int row, final int column, final Object expected) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         final Component component = getSwingRendererComponentAt(row, column);
         ColorUtils.assertSimilar("Error at (" + row + ", " + column + ")",
                                  expected, component.getBackground());
@@ -793,7 +793,7 @@ public class Table extends AbstractSwingUIComponent {
    */
   public Assertion startsWith(final Object[][] expectedFirstRows) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         int expectedLength = expectedFirstRows.length;
         checkLengthGreaterThan(expectedLength);
         for (int i = 0; i < expectedLength; i++) {
@@ -810,7 +810,7 @@ public class Table extends AbstractSwingUIComponent {
    */
   public Assertion endsWith(final Object[][] expectedEndRows) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         int expectedLength = expectedEndRows.length;
         checkLengthGreaterThan(expectedLength);
         for (int i = 0; i < expectedLength; i++) {
@@ -825,7 +825,7 @@ public class Table extends AbstractSwingUIComponent {
    */
   public Assertion containsRow(final Object[] expectedRow) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         for (int i = 0; i < getRowCount(); i++) {
           if (rowEquals(i, expectedRow).isTrue()) {
             return;
@@ -841,7 +841,7 @@ public class Table extends AbstractSwingUIComponent {
    */
   public Assertion containsRow(final int columnIndex, final Object cellContent) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         int index = getRowIndex(columnIndex, cellContent);
         if (index < 0) {
           AssertAdapter.fail("No row found with '" + cellContent + "' in column " + columnIndex);

@@ -8,7 +8,6 @@ public class DummyAssertion extends Assertion {
   public static final String DEFAULT_ERROR_MSG = "custom error";
 
   private Error error = null;
-  private Exception exception = null;
 
   public DummyAssertion() {
   }
@@ -27,16 +26,9 @@ public class DummyAssertion extends Assertion {
     this.error = new AssertionFailedError(errorMessage);
   }
 
-  public void setException(Exception exception) {
-    this.exception = exception;
-  }
-
-  public void check() throws Exception {
+  public void check() {
     if (error != null) {
       throw error;
-    }
-    if (exception != null) {
-      throw exception;
     }
   }
 }

@@ -39,7 +39,7 @@ public class Slider extends AbstractUIComponent {
    */
   public Assertion labelsEqual(final String[] expected) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         TreeMap<Integer, String> sortedTree = getSortedTree();
         Utils.assertEquals(expected, sortedTree.values().toArray(new Object[sortedTree.values().size()]));
       }
@@ -62,7 +62,7 @@ public class Slider extends AbstractUIComponent {
    */
   public Assertion positionEquals(final String expectedLabel) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         AssertAdapter.assertEquals(expectedLabel, getCurrentLabel());
       }
     };
@@ -77,7 +77,7 @@ public class Slider extends AbstractUIComponent {
    */
   public Assertion relativePositionEquals(final int expectedValue) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         int relativePosition = getRelativePosition();
         AssertAdapter.assertTrue("Expected " + expectedValue + " but was " + relativePosition,
                                   isRoughlyEqual(expectedValue, relativePosition));

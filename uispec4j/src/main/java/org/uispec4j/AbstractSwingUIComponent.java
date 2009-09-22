@@ -14,7 +14,7 @@ public abstract class AbstractSwingUIComponent extends AbstractUIComponent imple
 
   public Assertion tooltipEquals(final String text) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         String actualText = getAwtComponent().getToolTipText();
         AssertAdapter.assertEquals(actualText, text);
       }
@@ -23,7 +23,7 @@ public abstract class AbstractSwingUIComponent extends AbstractUIComponent imple
 
   public Assertion tooltipContains(final String text) {
     return new Assertion() {
-      public void check() throws Exception {
+      public void check() {
         String actualText = getAwtComponent().getToolTipText();
         AssertAdapter.assertNotNull("No tooltip set", actualText);
         AssertAdapter.assertTrue("Actual tooltip", actualText.contains(text));

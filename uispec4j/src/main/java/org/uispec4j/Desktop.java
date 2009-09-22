@@ -75,7 +75,7 @@ public class Desktop extends AbstractUIComponent {
       this.windowTitle = windowTitle;
     }
 
-    public void check() throws Exception {
+    public void check() {
       Window[] windows = getWindows();
       for (int i = 0; i < windows.length; i++) {
         Window window = windows[i];
