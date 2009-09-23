@@ -2,6 +2,7 @@ package org.uispec4j.utils;
 
 import org.uispec4j.Button;
 import org.uispec4j.*;
+import org.uispec4j.Desktop;
 import org.uispec4j.MenuBar;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Panel;
