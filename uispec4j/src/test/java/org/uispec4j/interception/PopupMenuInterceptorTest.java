@@ -65,14 +65,14 @@ public class PopupMenuInterceptorTest extends InterceptionTestCase {
         }
       });
     }
-    catch (Exception e) {
+    catch (Throwable e) {
       if (exceedsTimeLimit) {
         UISpec4J.setWindowInterceptionTimeLimit(delay);
         launchInterception(Trigger.DO_NOTHING);
         assertEquals("No popup was shown", e.getMessage());
       }
       else {
-        throw e;
+        throw new Exception(e);
       }
     }
     finally {
