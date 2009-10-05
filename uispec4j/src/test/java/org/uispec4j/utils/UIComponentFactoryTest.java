@@ -1,5 +1,6 @@
 package org.uispec4j.utils;
 
+import org.uispec4j.Key;
 import org.uispec4j.UIComponent;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.extension.JCountingButton;
@@ -155,6 +156,9 @@ public class UIComponentFactoryTest extends UnitTestCase {
 
     public String getLabel() {
       return null;
+    }
+
+    public void typeKey(Key key) {
     }
   }
 }

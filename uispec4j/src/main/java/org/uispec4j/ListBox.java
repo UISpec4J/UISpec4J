@@ -133,6 +133,10 @@ public class ListBox extends AbstractSwingUIComponent {
     };
   }
 
+  /**
+   * @deprecated use {@link org.uispec4j.UIComponent#typeKey(Key)} or
+   *             the low-level API {@link org.uispec4j.utils.KeyUtils#pressKey(java.awt.Component, Key)}
+   */
   public void pressKey(Key key) {
     KeyUtils.pressKey(jList, key);
   }

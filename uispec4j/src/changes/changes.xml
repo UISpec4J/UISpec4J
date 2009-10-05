@@ -4,7 +4,13 @@
   </properties>
 
   <body>
-    <release version="2.0" date="2009-06-07">
+    <release version="2.1" date="2009-10-10">
+      <action dev="pratmarty" type="add">
+        Added UIComponent.typeKey(Key) to simulate key typing with the focus on the component.
+      </action>
+      <action dev="pratmarty" type="fix">
+        Improved Key low-level management through Key and KeyUtils classes. (Thanks to Michael Muthukrishna)
+      </action>
       <action dev="pratmarty" type="add">
         Added BasicHandler.titleEquals() and titleContains().
       </action>

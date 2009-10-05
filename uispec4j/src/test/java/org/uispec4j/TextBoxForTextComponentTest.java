@@ -373,24 +373,6 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }, "This component does not support hyperlinks.");
   }
 
-  public void testPressingPrintableKeyAddsItToText() throws Exception {
-    JTextField textField = new JTextField();
-    TextBox textBox = new TextBox(textField);
-    textBox.pressKey(Key.A);
-    assertTrue(textBox.textEquals("A"));
-    textBox.pressKey(Key.B);
-    assertTrue(textBox.textEquals("AB"));
-    textBox.pressKey(Key.C);
-    assertTrue(textBox.textEquals("ABC"));
-  }
-
-  public void testPressingPrintableKeyInANonEmptyTextBoxStartsAtPosition0() throws Exception {
-    JTextField textField = new JTextField("text");
-    TextBox textBox = new TextBox(textField);
-    textBox.pressKey(Key.A);
-    assertTrue(textBox.textEquals("Atext"));
-  }
-
   private JTextPane createTextPane(String html) {
     JTextPane textPane = new JTextPane();
     textPane.setContentType("text/html; charset=EUC-JP");

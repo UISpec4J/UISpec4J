@@ -3,6 +3,7 @@ package org.uispec4j;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ColorUtils;
+import org.uispec4j.utils.KeyUtils;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlWriter;
 
@@ -206,5 +207,9 @@ public abstract class AbstractUIComponent implements UIComponent {
       return new Panel(parent);
     }
     return null;
+  }
+
+  public void typeKey(Key key) {
+    KeyUtils.enterKeys(getAwtComponent(), key);
   }
 }

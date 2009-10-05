@@ -2,7 +2,6 @@ package org.uispec4j;
 
 import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
-import org.uispec4j.utils.Counter;
 import org.uispec4j.xml.EventLogger;
 import org.uispec4j.xml.XmlAssert;
 
@@ -12,6 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class ListBoxTest extends UIComponentTestCase {
   private static final String[] ALL_ITEMS = {"First Item", "Second Item", "Third Item"};
@@ -281,22 +281,12 @@ public class ListBoxTest extends UIComponentTestCase {
   }
 
   public void testPressingKeyNotifiesCustomKeyListeners() throws Exception {
-    final Counter counter = new Counter();
-    jList.addKeyListener(new KeyListener() {
-      public void keyPressed(KeyEvent event) {
-        counter.increment();
-      }
-
-      public void keyReleased(KeyEvent event) {
-      }
-
-      public void keyTyped(KeyEvent event) {
-      }
-    });
+    DummyKeyListener keyListener = new DummyKeyListener();
+    jList.addKeyListener(keyListener);
     jList.setSelectedIndex(0);
     assertTrue(listBox.selectionEquals("First Item"));
     listBox.pressKey(Key.DOWN);
-    assertEquals(1, counter.getCount());
+    keyListener.checkEvents("keyPressed");
     assertTrue(listBox.selectionEquals("Second Item"));
   }
 
@@ -409,5 +399,25 @@ public class ListBoxTest extends UIComponentTestCase {
     listBox.select(names[2]);
     assertTrue(listBox.selectionEquals("Third Item"));
     assertEquals(2, jList.getSelectedIndex());
+  }
+
+  private static class DummyKeyListener implements KeyListener {
+    private final java.util.List<String> events = new ArrayList<String>();
+
+    public void keyPressed(KeyEvent event) {
+      events.add("keyPressed");
+    }
+
+    public void keyReleased(KeyEvent event) {
+      events.add("keyReleased");
+    }
+
+    public void keyTyped(KeyEvent event) {
+      events.add("keyTyped");
+    }
+
+    public void checkEvents(String... expectedEvents) {
+      TestUtils.assertEquals(expectedEvents, events);
+    }
   }
 }

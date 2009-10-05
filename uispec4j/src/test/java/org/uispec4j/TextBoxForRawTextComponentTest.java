@@ -266,18 +266,18 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
     JTextField textField = new JTextField();
     TextBox textBox = new TextBox(textField);
     textBox.pressKey(Key.A);
-    assertTrue(textBox.textEquals("A"));
-    textBox.pressKey(Key.B);
-    assertTrue(textBox.textEquals("AB"));
+    assertTrue(textBox.textEquals("a"));
+    textBox.pressKey(Key.shift(Key.B));
+    assertTrue(textBox.textEquals("aB"));
     textBox.pressKey(Key.C);
-    assertTrue(textBox.textEquals("ABC"));
+    assertTrue(textBox.textEquals("aBc"));
   }
 
   public void testPressingPrintableKeyRejectedByTextField() throws Exception {
     JTextField textField = new JTextField();
     ((AbstractDocument)textField.getDocument()).setDocumentFilter(new DocumentFilter() {
       public void insertString(FilterBypass bypass, int i, String string, AttributeSet set) throws BadLocationException {
-        if (!string.equals("A")) {
+        if (!string.equals("a")) {
           super.insertString(bypass, i, string, set);
         }
       }
@@ -286,17 +286,17 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
     textBox.pressKey(Key.A);
     assertTrue(textBox.textEquals(""));
     textBox.pressKey(Key.B);
-    assertTrue(textBox.textEquals("B"));
+    assertTrue(textBox.textEquals("b"));
     textBox.pressKey(Key.A);
-    assertTrue(textBox.textEquals("B"));
-    textBox.pressKey(Key.C);
-    assertTrue(textBox.textEquals("BC"));
+    assertTrue(textBox.textEquals("b"));
+    textBox.pressKey(Key.shift(Key.A));
+    assertTrue(textBox.textEquals("bA"));
   }
 
   public void testPressingPrintableKeyInANonEmptyTextBoxStartsAtPosition0() throws Exception {
     JTextField textField = new JTextField("text");
     TextBox textBox = new TextBox(textField);
     textBox.pressKey(Key.A);
-    assertTrue(textBox.textEquals("Atext"));
+    assertTrue(textBox.textEquals("atext"));
   }
 }

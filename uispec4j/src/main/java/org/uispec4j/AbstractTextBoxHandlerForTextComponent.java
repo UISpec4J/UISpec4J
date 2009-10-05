@@ -3,7 +3,6 @@ package org.uispec4j;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
-import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -86,24 +85,6 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
         AssertAdapter.assertTrue("The text box is not editable", jTextComponent.isEditable());
       }
     };
-  }
-
-  public void pressKey(Key key) {
-    KeyUtils.pressKey(jTextComponent, key);
-    if (jTextComponent.isEditable() && key.isPrintable()) {
-      Document document = jTextComponent.getDocument();
-      try {
-        int position = jTextComponent.getCaretPosition();
-        document.insertString(position,
-                              new Character((char)key.getCode()).toString(),
-                              document.getDefaultRootElement().getAttributes());
-        jTextComponent.moveCaretPosition(document.getEndPosition().getOffset() - 1);
-//        jTextComponent.moveCaretPosition(position + 1);
-      }
-      catch (BadLocationException e) {
-        AssertAdapter.fail(e.getMessage());
-      }
-    }
   }
 
   public Assertion iconEquals(Icon icon) {

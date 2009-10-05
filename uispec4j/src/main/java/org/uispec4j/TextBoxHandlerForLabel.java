@@ -2,7 +2,6 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
-import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
 
@@ -102,10 +101,6 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
         AssertAdapter.assertEquals("Unexpected icon", icon, jLabel.getIcon());
       }
     };
-  }
-
-  public void pressKey(Key key) {
-    KeyUtils.pressKey(jLabel, key);
   }
 
   private void throwNotEditableError() {
