@@ -1,11 +1,13 @@
 package org.uispec4j;
 
+import static org.uispec4j.DummySpinner.listModel;
+
 import javax.swing.*;
 
 public class SpinnerTest extends SpinnerTestCase {
 
-  protected SpinnerModel createSpinnerModel() {
-    return new SpinnerListModel(new String[]{"1", "2", "3"});
+  protected SpinnerModel createSpinnerModel() throws Exception {
+    return listModel("1", "2", "3");
   }
 
   protected Spinner createSpinner(JSpinner jSpinner) {

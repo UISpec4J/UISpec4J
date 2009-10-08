@@ -134,7 +134,7 @@ public class ComponentFinder {
       return true;
     }
     for (Class expectedClass : swingClasses) {
-      if (expectedClass.isAssignableFrom(component.getClass())) {
+      if (expectedClass.isInstance(component)) {
         return true;
       }
     }

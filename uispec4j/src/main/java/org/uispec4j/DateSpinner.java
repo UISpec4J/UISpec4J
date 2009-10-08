@@ -17,7 +17,7 @@ public class DateSpinner extends Spinner {
   public DateSpinner(JSpinner jSpinner) throws ItemNotFoundException {
     super(jSpinner);
     SpinnerModel model = jSpinner.getModel();
-    if (!(model instanceof SpinnerDateModel)) {
+    if (!SpinnerDateModel.class.isInstance(model)) {
       throw new ItemNotFoundException("Expected JSpinner using a SpinnerDateModel");
     }
     this.model = (SpinnerDateModel)model;

@@ -511,7 +511,7 @@ public class Table extends AbstractSwingUIComponent {
       public void check() {
         assertCellPropertyEquals(borders, new ComponentPropertyAccessor() {
           public Object getProperty(Component component) {
-            if (!JComponent.class.isAssignableFrom(component.getClass())) {
+            if (!JComponent.class.isInstance(component)) {
               throw new RuntimeException("Component '" + component.getClass() + "' does not support borders");
             }
             return ((JComponent)component).getBorder();

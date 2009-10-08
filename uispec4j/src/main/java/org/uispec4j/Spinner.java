@@ -111,7 +111,7 @@ public class Spinner extends AbstractSwingUIComponent {
       public boolean matches(Component component) {
         if (component instanceof JSpinner) {
           JSpinner jSpinner = (JSpinner)component;
-          return jSpinner.getModel().getClass().isAssignableFrom(spinnerModelClass);
+          return spinnerModelClass.isInstance(jSpinner.getModel());
         }
         return false;
       }

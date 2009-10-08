@@ -37,7 +37,7 @@ public abstract class AbstractUIComponent implements UIComponent {
   }
 
   protected void getDescription(Component component, XmlWriter.Tag tag, boolean showVisibleOnly) {
-    if (!JComponent.class.isAssignableFrom(component.getClass())) {
+    if (!JComponent.class.isInstance(component)) {
       return;
     }
     JComponent jComponent = (JComponent)component;

@@ -1,5 +1,7 @@
 package org.uispec4j;
 
+import static org.uispec4j.DummySpinner.listModel;
+
 import javax.swing.*;
 
 public class NumberSpinnerTest extends SpinnerTestCase {
@@ -15,7 +17,7 @@ public class NumberSpinnerTest extends SpinnerTestCase {
   }
 
   protected SpinnerModel createSpinnerModel() throws Exception {
-    return new SpinnerNumberModel(10, 0, 20, 2);
+    return DummySpinner.numberModel(10, 0, 20, 2);
   }
 
   protected Spinner createSpinner(JSpinner jSpinner) {
@@ -37,7 +39,7 @@ public class NumberSpinnerTest extends SpinnerTestCase {
 
   public void testUsingNumberSpinnerWithOtherModelThanSpinnerNumberModelThrowsAnException() throws Exception {
     try {
-      new NumberSpinner(new JSpinner(new SpinnerListModel()));
+      new NumberSpinner(new JSpinner(listModel()));
       fail();
     }
     catch (ItemNotFoundException e) {

@@ -15,7 +15,7 @@ public class ListSpinnerTest extends SpinnerTestCase {
   }
 
   protected SpinnerModel createSpinnerModel() throws Exception {
-    return new SpinnerListModel(new String[] {"1", "2", "3"});
+    return DummySpinner.listModel("1", "2", "3");
   }
 
   protected Spinner createSpinner(JSpinner jSpinner) {

@@ -1,5 +1,6 @@
 package org.uispec4j;
 
+import static org.uispec4j.DummySpinner.*;
 import org.uispec4j.finder.ComponentMatcher;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
@@ -51,17 +52,17 @@ public class PanelTest extends UIComponentTestCase {
   }
 
   public void testGetSpinnerThroughModel() throws Exception {
-    checkGetSpinnerByModel(new SpinnerDateModel(), new Getter() {
+    checkGetSpinnerByModel(dateModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getDateSpinner();
       }
     });
-    checkGetSpinnerByModel(new SpinnerListModel(), new Getter() {
+    checkGetSpinnerByModel(listModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getListSpinner();
       }
     });
-    checkGetSpinnerByModel(new SpinnerNumberModel(), new Getter() {
+    checkGetSpinnerByModel(numberModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getNumberSpinner();
       }
@@ -69,17 +70,17 @@ public class PanelTest extends UIComponentTestCase {
   }
 
   public void testGetSpinnerThroughModelAndComponentName() throws Exception {
-    checkGetSpinnerByModel(new SpinnerDateModel(), new Getter() {
+    checkGetSpinnerByModel(dateModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getDateSpinner("spinner1");
       }
     });
-    checkGetSpinnerByModel(new SpinnerListModel(), new Getter() {
+    checkGetSpinnerByModel(listModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getListSpinner("spinner1");
       }
     });
-    checkGetSpinnerByModel(new SpinnerNumberModel(), new Getter() {
+    checkGetSpinnerByModel(numberModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getNumberSpinner("spinner1");
       }
@@ -87,17 +88,17 @@ public class PanelTest extends UIComponentTestCase {
   }
 
   public void testGetSpinnerThroughModelAndMatcher() throws Exception {
-    checkGetSpinnerByModel(new SpinnerDateModel(), new Getter() {
+    checkGetSpinnerByModel(dateModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getDateSpinner(ComponentMatcher.ALL);
       }
     });
-    checkGetSpinnerByModel(new SpinnerListModel(), new Getter() {
+    checkGetSpinnerByModel(listModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getListSpinner(ComponentMatcher.ALL);
       }
     });
-    checkGetSpinnerByModel(new SpinnerNumberModel(), new Getter() {
+    checkGetSpinnerByModel(numberModel(), new Getter() {
       public UIComponent get(Panel panel) {
         return panel.getNumberSpinner(ComponentMatcher.ALL);
       }

@@ -14,7 +14,7 @@ public class NumberSpinner extends Spinner {
   public NumberSpinner(JSpinner jSpinner) {
     super(jSpinner);
     SpinnerModel model = jSpinner.getModel();
-    if (!model.getClass().isAssignableFrom(SpinnerNumberModel.class)) {
+    if (!SpinnerNumberModel.class.isInstance(model)) {
       throw new ItemNotFoundException("Expected JSpinner using a SpinnerNumberModel");
     }
     this.model = (SpinnerNumberModel)model;

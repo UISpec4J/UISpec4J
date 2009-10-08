@@ -1,17 +1,17 @@
 package org.uispec4j;
 
-import org.uispec4j.utils.DateUtils;
+import static org.uispec4j.DummySpinner.*;
 
 import javax.swing.*;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DateSpinnerTest extends SpinnerTestCase {
   private DateSpinner dateSpinner;
-  private Date currentDate;
-  private static final String START_DATE = "1964.11.23 19:55";
-  private static final String END_DATE = "1984.11.23 19:55";
-  private static final String OTHER_DATE = "1964.11.23 19:56";
+  private SpinnerDateModel model;
+
+  public DateSpinnerTest() throws Exception {
+    model = DummySpinner.dateModel();
+  }
 
   protected void setUp() throws Exception {
     super.setUp();
@@ -20,12 +20,11 @@ public class DateSpinnerTest extends SpinnerTestCase {
 
   public String getText() {
     return ((JSpinner.DateEditor)dateSpinner.getAwtComponent().getEditor())
-      .getFormat().format(currentDate);
+      .getFormat().format(model.getDate());
   }
 
   protected SpinnerModel createSpinnerModel() throws Exception {
-    currentDate = DateUtils.getDate("1974.11.23 19:55");
-    return new DummySpinnerDateModel(currentDate);
+    return model;
   }
 
   protected Spinner createSpinner(JSpinner jSpinner) {
@@ -52,15 +51,6 @@ public class DateSpinnerTest extends SpinnerTestCase {
     }
     catch (ItemNotFoundException e) {
       assertEquals("Expected JSpinner using a SpinnerDateModel", e.getMessage());
-    }
-  }
-
-  private static class DummySpinnerDateModel extends SpinnerDateModel {
-    private DummySpinnerDateModel(Date currentDate) throws Exception {
-      super(currentDate,
-            DateUtils.getDate(START_DATE),
-            DateUtils.getDate(END_DATE),
-            Calendar.MONTH);
     }
   }
 }

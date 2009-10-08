@@ -15,7 +15,7 @@ public class ListSpinner extends Spinner {
   public ListSpinner(JSpinner jSpinner) {
     super(jSpinner);
     SpinnerModel model = jSpinner.getModel();
-    if (!model.getClass().isAssignableFrom(SpinnerListModel.class)) {
+    if (!SpinnerListModel.class.isInstance(model)) {
       throw new ItemNotFoundException("Expected JSpinner using a SpinnerListModel");
     }
     this.model = (SpinnerListModel)model;

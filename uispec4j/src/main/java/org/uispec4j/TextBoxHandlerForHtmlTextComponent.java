@@ -124,7 +124,7 @@ class TextBoxHandlerForHtmlTextComponent extends AbstractTextBoxHandlerForTextCo
   }
 
   private static boolean accept(JTextComponent jTextComponent) {
-    if (!JEditorPane.class.isAssignableFrom(jTextComponent.getClass())) {
+    if (!JEditorPane.class.isInstance(jTextComponent)) {
       return false;
     }
     JEditorPane editorPane = (JEditorPane)jTextComponent;

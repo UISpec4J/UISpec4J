@@ -16,13 +16,13 @@ public class ComponentUtils {
   }
 
   public static String getDisplayedName(Component component) {
-    if (AbstractButton.class.isAssignableFrom(component.getClass())) {
+    if (AbstractButton.class.isInstance(component)) {
       return ((AbstractButton)component).getText();
     }
-    else if (JLabel.class.isAssignableFrom(component.getClass())) {
+    else if (JLabel.class.isInstance(component)) {
       return ((JLabel)component).getText();
     }
-    else if (JTextComponent.class.isAssignableFrom(component.getClass())) {
+    else if (JTextComponent.class.isInstance(component)) {
       return ((JTextComponent)component).getText();
     }
     return null;

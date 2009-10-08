@@ -6,7 +6,8 @@
   <body>
     <release version="2.1" date="2009-10-10">
       <action dev="pratmarty" type="fix">
-        Made DateSpinner accept a subclass instance of SpinnerDateModel as the model of the wrapped JSpinner component.
+        Made DateSpinner, NumberSpinner and ListSpinner accept a subclass instance of, respectively,
+        SpinnerDateModel, SpinnerNumberModel and SpinnerListModel as the model of the wrapped JSpinner component.
       </action>
       <action dev="pratmarty" type="add">
         Added UIComponent.typeKey(Key), pressKey(Key) and releaseKey(Key) to simulate key typing with the focus on the component.
