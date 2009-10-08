@@ -43,7 +43,7 @@ public class PopupMenuInterceptorTest extends InterceptionTestCase {
   }
 
   private void checkInterceptionAfterSomeTime(boolean exceedsTimeLimit) throws Exception {
-    final int delay = 20;
+    final int delay = 100;
     final PopupDisplayTrigger trigger = getPopupTrigger();
     final Thread thread = new Thread() {
       public void run() {
