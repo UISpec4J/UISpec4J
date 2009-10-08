@@ -2,7 +2,6 @@ package org.uispec4j;
 
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
-import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -34,18 +33,6 @@ public class TextBox extends AbstractSwingUIComponent {
 
   public JComponent getAwtComponent() {
     return handler.getAwtComponent();
-  }
-
-  /**
-   * Simulates pressing a key while the focus is in the text box.<br>
-   * Warning: the default cursor position is 0.<br>
-   *
-   * @deprecated use {@link org.uispec4j.UIComponent#typeKey(Key)} or
-   *             the low-level API {@link org.uispec4j.utils.KeyUtils#pressKey(java.awt.Component, Key)}
-   */
-  public TextBox pressKey(Key key) {
-    KeyUtils.pressKey(getAwtComponent(), key);
-    return this;
   }
 
   /**

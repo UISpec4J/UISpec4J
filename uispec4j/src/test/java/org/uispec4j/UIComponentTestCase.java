@@ -4,6 +4,7 @@ import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.utils.UnitTestCase;
 
 import javax.swing.*;
+import java.awt.*;
 
 public abstract class UIComponentTestCase extends UnitTestCase {
 
@@ -19,6 +20,32 @@ public abstract class UIComponentTestCase extends UnitTestCase {
     assertEquals(null, component.getName());
     component.getAwtComponent().setName("name");
     assertEquals("name", component.getName());
+  }
+
+  public void testPressingAndReleasingNonPrintableKey() throws Exception {
+    UIComponent component = createComponent();
+    Component awtComponent = component.getAwtComponent();
+    DummyKeyListener keyListener = new DummyKeyListener();
+    awtComponent.addKeyListener(keyListener);
+    component.pressKey(Key.RIGHT);
+    keyListener.checkEvents("keyPressed");
+    component.releaseKey(Key.RIGHT);
+    keyListener.checkEvents("keyReleased");
+    component.typeKey(Key.RIGHT);
+    keyListener.checkEvents("keyPressed", "keyReleased");
+  }
+
+  public void testPressingAndReleasingPrintableKey() throws Exception {
+    UIComponent component = createComponent();
+    Component awtComponent = component.getAwtComponent();
+    DummyKeyListener keyListener = new DummyKeyListener();
+    awtComponent.addKeyListener(keyListener);
+    component.pressKey(Key.A);
+    keyListener.checkEvents("keyPressed", "keyTyped");
+    component.releaseKey(Key.A);
+    keyListener.checkEvents("keyReleased");
+    component.typeKey(Key.A);
+    keyListener.checkEvents("keyPressed", "keyTyped", "keyReleased");
   }
 
   protected abstract UIComponent createComponent();

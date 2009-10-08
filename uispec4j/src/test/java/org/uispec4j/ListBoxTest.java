@@ -9,9 +9,6 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 public class ListBoxTest extends UIComponentTestCase {
   private static final String[] ALL_ITEMS = {"First Item", "Second Item", "Third Item"};
@@ -280,7 +277,7 @@ public class ListBoxTest extends UIComponentTestCase {
     assertTrue(listBox.selectionEquals(ALL_ITEMS));
   }
 
-  public void testPressingKeyNotifiesCustomKeyListeners() throws Exception {
+  public void testPressingDownAndUpKeysChangesTheSelection() throws Exception {
     DummyKeyListener keyListener = new DummyKeyListener();
     jList.addKeyListener(keyListener);
     jList.setSelectedIndex(0);
@@ -288,6 +285,9 @@ public class ListBoxTest extends UIComponentTestCase {
     listBox.pressKey(Key.DOWN);
     keyListener.checkEvents("keyPressed");
     assertTrue(listBox.selectionEquals("Second Item"));
+    listBox.pressKey(Key.UP);
+    keyListener.checkEvents("keyPressed");
+    assertTrue(listBox.selectionEquals("First Item"));
   }
 
   public void testUsingARenderer() throws Exception {
@@ -399,25 +399,5 @@ public class ListBoxTest extends UIComponentTestCase {
     listBox.select(names[2]);
     assertTrue(listBox.selectionEquals("Third Item"));
     assertEquals(2, jList.getSelectedIndex());
-  }
-
-  private static class DummyKeyListener implements KeyListener {
-    private final java.util.List<String> events = new ArrayList<String>();
-
-    public void keyPressed(KeyEvent event) {
-      events.add("keyPressed");
-    }
-
-    public void keyReleased(KeyEvent event) {
-      events.add("keyReleased");
-    }
-
-    public void keyTyped(KeyEvent event) {
-      events.add("keyTyped");
-    }
-
-    public void checkEvents(String... expectedEvents) {
-      TestUtils.assertEquals(expectedEvents, events);
-    }
   }
 }

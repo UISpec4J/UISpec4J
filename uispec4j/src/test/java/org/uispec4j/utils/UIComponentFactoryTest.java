@@ -160,5 +160,11 @@ public class UIComponentFactoryTest extends UnitTestCase {
 
     public void typeKey(Key key) {
     }
+
+    public void pressKey(Key key) {
+    }
+
+    public void releaseKey(Key key) {
+    }
   }
 }

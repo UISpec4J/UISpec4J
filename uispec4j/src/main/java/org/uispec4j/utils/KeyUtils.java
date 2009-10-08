@@ -17,6 +17,9 @@ import java.awt.event.KeyListener;
 public class KeyUtils {
   public static void pressKey(Component component, Key key) {
     dispatchEvent(KEY_PRESSED, key, key.getCode(), component);
+    if (key.isPrintable() && key.getChar() != KeyEvent.CHAR_UNDEFINED) {
+      dispatchEvent(KEY_TYPED, key, KeyEvent.VK_UNDEFINED, component);
+    }
     if (component instanceof RootPaneContainer && key.equals(Key.ENTER)) {
       JButton defaultButton = ((RootPaneContainer)component).getRootPane().getDefaultButton();
       if (defaultButton != null) {
@@ -37,10 +40,6 @@ public class KeyUtils {
     }
   }
 
-  public static void typeKey(Component component, Key key) {
-    dispatchEvent(KEY_TYPED, key, KeyEvent.VK_UNDEFINED, component);
-  }
-
   public static void releaseKey(Component component, Key key) {
     dispatchEvent(KEY_RELEASED, key, key.getCode(), component);
   }
@@ -48,9 +47,6 @@ public class KeyUtils {
   public static void enterKeys(Component component, Key... keys) {
     for (Key k : keys) {
       pressKey(component, k);
-      if (k.isPrintable() && k.getChar() != KeyEvent.CHAR_UNDEFINED) {
-        typeKey(component, k);
-      }
       releaseKey(component, k);
     }
   }

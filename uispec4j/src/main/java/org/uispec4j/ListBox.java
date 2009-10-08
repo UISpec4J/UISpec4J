@@ -5,7 +5,6 @@ import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.FinderUtils;
 import org.uispec4j.finder.StringMatcher;
 import org.uispec4j.utils.ArrayUtils;
-import org.uispec4j.utils.KeyUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -131,14 +130,6 @@ public class ListBox extends AbstractSwingUIComponent {
         ArrayUtils.assertEquals(items, getSelectedItemNames());
       }
     };
-  }
-
-  /**
-   * @deprecated use {@link org.uispec4j.UIComponent#typeKey(Key)} or
-   *             the low-level API {@link org.uispec4j.utils.KeyUtils#pressKey(java.awt.Component, Key)}
-   */
-  public void pressKey(Key key) {
-    KeyUtils.pressKey(jList, key);
   }
 
   private String[] getContent() {

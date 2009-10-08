@@ -95,6 +95,7 @@ public final class Key {
   public static final Key QUESTION = create(0, '?', true);
   public static final Key VERTICAL_LINE = create(0, '|', true);
   public static final Key PERCENT = create(0, '%', true);
+  public static final Key TAB = create(KeyEvent.VK_TAB, '\u0009', true);
 
   public static final Key ENTER = create(KeyEvent.VK_ENTER, '\r', false);
   public static final Key DELETE = create(KeyEvent.VK_DELETE, '\u007f', false);
@@ -110,8 +111,7 @@ public final class Key {
   public static final Key CONTROL = create(KeyEvent.VK_CONTROL, null, false);
   public static final Key SHIFT = create(KeyEvent.VK_SHIFT, null, false);
   public static final Key ALT = create(KeyEvent.VK_ALT, null, false);
-  public static final Key INSERT = create(KeyEvent.VK_INSERT, null, true);
-  public static final Key TAB = create(KeyEvent.VK_TAB, '\u0009', true);
+  public static final Key INSERT = create(KeyEvent.VK_INSERT, null, false);
   public static final Key F1 = create(KeyEvent.VK_F1, null, false);
   public static final Key F2 = create(KeyEvent.VK_F2, null, false);
   public static final Key F3 = create(KeyEvent.VK_F3, null, false);

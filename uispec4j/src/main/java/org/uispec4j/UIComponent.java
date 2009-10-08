@@ -49,4 +49,14 @@ public interface UIComponent {
    * Simulates typing a key while the focus is on the component.
    */
   void typeKey(Key key);
+
+  /**
+   * Simulates pressing a key while the focus is on the component.
+   */
+  void pressKey(Key key);
+
+  /**
+   * Simulates releasing a key while the focus is on the component.
+   */
+  void releaseKey(Key key);
 }
