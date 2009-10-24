@@ -389,6 +389,43 @@ public class ListBoxTest extends UIComponentTestCase {
     }
   }
 
+  public void testCellForegroundAndBackground() throws Exception {
+    jList.setCellRenderer(new DefaultListCellRenderer() {
+      public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (index == 1) {
+          component.setForeground(Color.red);
+          component.setBackground(Color.pink);
+        }
+        return component;
+      }
+    });
+
+    assertTrue(listBox.foregroundEquals(new String[]{"black", "red", "black"}));
+
+    assertTrue(listBox.backgroundEquals(new String[]{"white", "pink", "white"}));
+
+    try {
+      assertTrue(listBox.backgroundEquals(new String[]{"white", "blue", "white"}));
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals("Error at index 1 - expected:<BLUE> but was:<FFAFAF>", e.getMessage());
+    }
+
+    assertTrue(listBox.foregroundNear(0, "black"));
+    assertTrue(listBox.foregroundNear(0, "010101"));
+
+    assertTrue(listBox.backgroundNear(0, "white"));
+    assertTrue(listBox.backgroundNear(0, "FEFEFE"));
+
+    assertTrue(listBox.foregroundNear(1, "red"));
+    assertTrue(listBox.foregroundNear(1, "DD1111"));
+
+    assertTrue(listBox.backgroundNear(1, "pink"));
+    assertTrue(listBox.backgroundNear(1, "FFAEAE"));
+  }
+
   private void checkSelectionByName(String... names) {
     listBox.select(names[0]);
     assertTrue(listBox.selectionEquals("First Item"));

@@ -5,6 +5,8 @@ import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.FinderUtils;
 import org.uispec4j.finder.StringMatcher;
 import org.uispec4j.utils.ArrayUtils;
+import org.uispec4j.utils.ColorUtils;
+import org.uispec4j.utils.ComponentColorChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,7 +97,7 @@ public class ListBox extends AbstractSwingUIComponent {
       indices[i] = getIndexForString(values[i]);
       if (indices[i] == -1) {
         AssertAdapter.fail("Item '" + values[i] + "' not found in " +
-                            ArrayUtils.toString(getContent()));
+                           ArrayUtils.toString(getContent()));
       }
     }
     selectIndices(indices);
@@ -130,6 +132,68 @@ public class ListBox extends AbstractSwingUIComponent {
         ArrayUtils.assertEquals(items, getSelectedItemNames());
       }
     };
+  }
+
+  /**
+   * Checks the foreground color of the table cells using either Color or String objects
+   *
+   * @see <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a>
+   */
+  public Assertion foregroundEquals(final Object[] colors) {
+    return new Assertion() {
+      public void check() {
+        checkColors(colors, ComponentColorChecker.FOREGROUND);
+      }
+    };
+  }
+
+  public Assertion foregroundNear(final int index, final Object expected) {
+    return new Assertion() {
+      public void check() {
+        final Component component = getSwingRendererComponentAt(index);
+        ColorUtils.assertSimilar("Error at (" + index + ")",
+                                 expected, component.getForeground());
+      }
+    };
+  }
+
+  public Assertion backgroundNear(final int index, final Object expected) {
+    return new Assertion() {
+      public void check() {
+        final Component component = getSwingRendererComponentAt(index);
+        ColorUtils.assertSimilar("Error at (" + index + ")",
+                                 expected, component.getBackground());
+      }
+    };
+  }
+
+  /**
+   * Checks the background color of the List cells using either Color or String objects
+   *
+   * @see <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a>
+   */
+  public Assertion backgroundEquals(final Object[] colors) {
+    return new Assertion() {
+      public void check() {
+        checkColors(colors, ComponentColorChecker.BACKGROUND);
+      }
+    };
+  }
+
+  public Component getSwingRendererComponentAt(int index) {
+    ListCellRenderer cellRenderer = jList.getCellRenderer();
+    return cellRenderer.getListCellRendererComponent(jList,
+                                                     jList.getModel().getElementAt(index),
+                                                     index,
+                                                     jList.isSelectedIndex(index),
+                                                     false);
+  }
+
+  private void checkColors(Object[] colors, ComponentColorChecker colorChecker) {
+    AssertAdapter.assertEquals(colors.length, jList.getModel().getSize());
+    for (int index = 0; index < colors.length; index++) {
+      colorChecker.check("Error at index " + index, colors[index], getSwingRendererComponentAt(index));
+    }
   }
 
   private String[] getContent() {

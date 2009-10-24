@@ -4,6 +4,7 @@ import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.ColorUtils;
+import org.uispec4j.utils.ComponentColorChecker;
 import org.uispec4j.utils.Utils;
 
 import javax.swing.*;
@@ -456,11 +457,7 @@ public class Table extends AbstractSwingUIComponent {
   public Assertion foregroundEquals(final Object[][] colors) {
     return new Assertion() {
       public void check() {
-        checkColors(colors, new ComponentColorAccessor() {
-          public Color getColor(Component component) {
-            return component.getForeground();
-          }
-        });
+        checkColors(colors, ComponentColorChecker.FOREGROUND);
       }
     };
   }
@@ -493,11 +490,7 @@ public class Table extends AbstractSwingUIComponent {
   public Assertion backgroundEquals(final Object[][] colors) {
     return new Assertion() {
       public void check() {
-        checkColors(colors, new ComponentColorAccessor() {
-          public Color getColor(Component component) {
-            return component.getBackground();
-          }
-        });
+        checkColors(colors, ComponentColorChecker.BACKGROUND);
       }
     };
   }
@@ -573,10 +566,6 @@ public class Table extends AbstractSwingUIComponent {
 
   public Assertion columnIsEditable(final String columnName, final boolean shouldBeEditable) {
     return columnIsEditable(findColumnIndex(columnName), shouldBeEditable);
-  }
-
-  private static interface ComponentColorAccessor {
-    Color getColor(Component component);
   }
 
   public Assertion selectionIsEmpty() {
@@ -983,18 +972,12 @@ public class Table extends AbstractSwingUIComponent {
     }
   }
 
-  private void checkColors(Object[][] colors, ComponentColorAccessor accessor) {
+  private void checkColors(Object[][] colors, ComponentColorChecker colorChecker) {
     AssertAdapter.assertEquals(colors.length, jTable.getRowCount());
     for (int row = 0; row < colors.length; row++) {
       for (int col = 0; col < colors[row].length; col++) {
-        TableCellRenderer cellRenderer = jTable.getCellRenderer(row, col);
-        Component component =
-          cellRenderer.getTableCellRendererComponent(jTable,
-                                                     jTable.getModel().getValueAt(row, col),
-                                                     jTable.isCellSelected(row, col),
-                                                     false, row, col);
-        ColorUtils.assertEquals("Error at (" + row + ", " + col + ")",
-                                colors[row][col], accessor.getColor(component));
+        colorChecker.check("Error at (" + row + ", " + col + ")", colors[row][col],
+                           getSwingRendererComponentAt(row,  col));
       }
     }
   }
