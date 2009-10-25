@@ -1,6 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<!--
+ ~ Creating an ibiblio upload bundle:
+ ~
+ ~  Main instructions here: http://maven.apache.org/guides/mini/guide-ibiblio-upload.html
+ ~
+ - mvn clean install
+ ~ mvn source:jar javadoc:jar repository:bundle-create -Dmaven.test.skip=true
+ ~ mv target/uispec4j-<version>-bundle.jar target/uispec4j-<version>-<jdk15/jdk16>-bundle.jar (this step is weird, but necessary)
+ ~
+ ~ When you are all done, open a JIRA upload request as was done here: http://jira.codehaus.org/browse/MAVENUPLOAD-1260
+-->
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.uispec4j</groupId>
@@ -89,6 +99,11 @@
     </developer>
   </developers>
 
+  <scm>
+    <connection>scm:cvs:cvs.dev.java.net:/cvs/uispec4j</connection>
+    <url>https://uispec4j.dev.java.net/source/browse/uispec4j/</url>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -160,9 +175,16 @@
         <plugins>
           <plugin>
             <artifactId>maven-jar-plugin</artifactId>
-            <configuration>
-              <classifier>jdk15</classifier>
-            </configuration>
+            <executions>
+              <execution>
+                <configuration>
+                  <classifier>jdk15</classifier>
+                </configuration>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -194,9 +216,16 @@
         <plugins>
           <plugin>
             <artifactId>maven-jar-plugin</artifactId>
-            <configuration>
-              <classifier>jdk16</classifier>
-            </configuration>
+            <executions>
+              <execution>
+                <configuration>
+                  <classifier>jdk16</classifier>
+                </configuration>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
