@@ -4,7 +4,7 @@
   </properties>
 
   <body>
-    <release version="2.1" date="2009-10-10">
+    <release version="2.1" date="2009-10-31">
       <action dev="pratmarty" type="add">
         Added methods on ListBox for checking individual cell colors (background and foreground ).
       </action>
