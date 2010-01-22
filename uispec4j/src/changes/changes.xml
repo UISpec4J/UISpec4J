@@ -4,9 +4,14 @@
   </properties>
 
   <body>
+    <release version="2.2" date="?">
+      <action dev="pratmarty" type="add">
+        Added methods on ListBox for double-clicking and right-clicking on individual rows.
+      </action>
+    </release>
     <release version="2.1" date="2009-10-31">
       <action dev="pratmarty" type="add">
-        Added methods on ListBox for checking individual cell colors (background and foreground ).
+        Added methods on ListBox for checking individual cell colors (background and foreground).
       </action>
       <action dev="pratmarty" type="fix">
         Made DateSpinner, NumberSpinner and ListSpinner accept a subclass instance of, respectively,

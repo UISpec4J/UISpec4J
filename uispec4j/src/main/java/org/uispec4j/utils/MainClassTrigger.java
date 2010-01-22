@@ -8,7 +8,7 @@ public class MainClassTrigger implements Trigger {
   private Method main;
   private String[] args;
 
-  public MainClassTrigger(Class mainClass, String[] args) {
+  public MainClassTrigger(Class mainClass, String... args) {
     this.args = args;
     try {
       main = mainClass.getMethod("main", args.getClass());

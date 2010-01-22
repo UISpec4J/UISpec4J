@@ -115,6 +115,49 @@ public class ListBox extends AbstractSwingUIComponent {
     Mouse.doubleClick(this);
   }
 
+  public void click(int row) {
+    click(row, Key.Modifier.NONE);
+  }
+
+  public void click(int row, Key.Modifier modifier) {
+    Rectangle rect = jList.getCellBounds(row, row);
+    Mouse.doClickInRectangle(this, rect, false, modifier);
+  }
+
+  public void rightClick(int row) {
+    Rectangle rect = jList.getCellBounds(row, row);
+    Mouse.doClickInRectangle(this, rect, true, Key.Modifier.NONE);
+  }
+
+  public void doubleClick(int row) {
+    Rectangle rect = jList.getCellBounds(row, row);
+    Mouse.doDoubleClickInRectangle(jList, rect);
+  }
+
+  public Trigger triggerClick(final int row, final Key.Modifier modifier) {
+    return new Trigger() {
+      public void run() throws Exception {
+        click(row, modifier);
+      }
+    };
+  }
+
+  public Trigger triggerRightClick(final int row) {
+    return new Trigger() {
+      public void run() throws Exception {
+        rightClick(row);
+      }
+    };
+  }
+
+  public Trigger triggerDoubleClick(final int row) {
+    return new Trigger() {
+      public void run() throws Exception {
+        doubleClick(row);
+      }
+    };
+  }
+
   public Assertion selectionIsEmpty() {
     return new Assertion() {
       public void check() {

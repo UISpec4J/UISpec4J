@@ -9,7 +9,7 @@
  ~ mvn source:jar javadoc:jar repository:bundle-create -Dmaven.test.skip=true
  ~ mv target/uispec4j-<version>-bundle.jar target/uispec4j-<version>-<jdk15/jdk16>-bundle.jar (this step is weird, but necessary)
  ~
- ~ When you are all done, open a JIRA upload request as was done here: http://jira.codehaus.org/browse/MAVENUPLOAD-1260
+ ~ When you are all done, open a JIRA upload request as was done here: http://jira.codehaus.org/browse/MAVENUPLOAD-2647
 -->
   <modelVersion>4.0.0</modelVersion>
 

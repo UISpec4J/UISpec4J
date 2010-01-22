@@ -9,6 +9,9 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class ListBoxTest extends UIComponentTestCase {
   private static final String[] ALL_ITEMS = {"First Item", "Second Item", "Third Item"};
@@ -18,7 +21,7 @@ public class ListBoxTest extends UIComponentTestCase {
 
   protected void setUp() throws Exception {
     super.setUp();
-    init(new JList(new Object[]{"First Item", "Second Item", "Third Item"}));
+    init(new JList(ALL_ITEMS));
   }
 
   private void init(JList list) {
@@ -436,5 +439,54 @@ public class ListBoxTest extends UIComponentTestCase {
     listBox.select(names[2]);
     assertTrue(listBox.selectionEquals("Third Item"));
     assertEquals(2, jList.getSelectedIndex());
+  }
+
+  public void testItemClicks() throws Exception {
+    DummySelectionListener listener = new DummySelectionListener();
+    installSelection(listener);
+
+    listBox.doubleClick(0);
+    listBox.click(1);
+    listBox.rightClick(1);
+
+    listener.checkEvents("First Item doubleClicked", "Second Item clicked", "Second Item rightClicked");
+
+  }
+
+  private void installSelection(DummySelectionListener listener) {
+    jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    jList.getSelectionModel().addListSelectionListener(listener);
+    jList.addMouseListener(listener);
+  }
+
+  private class DummySelectionListener extends MouseAdapter implements ListSelectionListener {
+    private final java.util.List<String> events = new ArrayList<String>();
+    private Object selectedValue;
+
+    public void valueChanged(ListSelectionEvent e) {
+      selectedValue = jList.getSelectedValue();
+    }
+
+    public void checkEvents(String... expectedEvents) {
+      TestUtils.assertEquals(expectedEvents, events);
+      events.clear();
+    }
+
+    public void mouseClicked(MouseEvent e) {
+      int clickCount = e.getClickCount();
+      int button = e.getButton();
+      if (button == MouseEvent.BUTTON3 && clickCount == 1) {
+        events.add(selectedValue + " rightClicked");
+      }
+      else if (button == MouseEvent.BUTTON1 && clickCount == 1) {
+        events.add(selectedValue + " clicked");
+      }
+      else if (button == MouseEvent.BUTTON1 && clickCount == 2) {
+        events.add(selectedValue + " doubleClicked");
+      }
+      else {
+        events.add(selectedValue + " unexpected event: " + e);
+      }
+    }
   }
 }
