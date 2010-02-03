@@ -186,7 +186,7 @@ public class Tree extends AbstractSwingUIComponent {
       public void check() {
         String trimmedExpected = expectedContents.trim();
         AssertAdapter.assertTrue("Expected tree description should not be empty",
-                                  (trimmedExpected != null) && (trimmedExpected.length() > 0));
+                                 (trimmedExpected != null) && (trimmedExpected.length() > 0));
         checkContents(trimmedExpected);
       }
     };
@@ -301,18 +301,19 @@ public class Tree extends AbstractSwingUIComponent {
    * Simulates a user left-click on a given node.
    */
   public void click(String path) {
-    TreePath jTreePath = getTreePath(path);
-    jTree.setSelectionPath(jTreePath);
-    clickOnTreePath(getTreePath(path), false, Key.Modifier.NONE);
+    clickOnPath(getTreePath(path), false);
   }
 
   /**
    * Simulates a user right-click on a given node.
    */
   public void rightClick(String path) {
-    TreePath jTreePath = getTreePath(path);
-    jTree.setSelectionPath(jTreePath);
-    clickOnTreePath(jTreePath, true, Key.Modifier.NONE);
+    jTree.clearSelection();
+    clickOnPath(getTreePath(path), true);
+  }
+
+  public void doubleClick(String path) {
+    doubleClickOnTreePath(path);
   }
 
   /**
@@ -321,7 +322,7 @@ public class Tree extends AbstractSwingUIComponent {
   public void rightClickInSelection() {
     TreePath selectionPath = jTree.getSelectionPath();
     AssertAdapter.assertNotNull("There is no current selection", selectionPath);
-    clickOnTreePath(selectionPath, true, Key.Modifier.NONE);
+    clickOnPath(selectionPath, true);
   }
 
   public Trigger triggerClick(final String path) {
@@ -344,6 +345,14 @@ public class Tree extends AbstractSwingUIComponent {
     return new Trigger() {
       public void run() throws Exception {
         rightClickInSelection();
+      }
+    };
+  }
+
+  public Trigger triggerDoubleClick(final String path) {
+    return new Trigger() {
+      public void run() throws Exception {
+        doubleClick(path);
       }
     };
   }
@@ -464,14 +473,30 @@ public class Tree extends AbstractSwingUIComponent {
     return jTreePath.pathByAddingChild(child);
   }
 
-  private void clickOnTreePath(TreePath path,
-                               boolean useRightClick,
-                               Key.Modifier keyModifier) {
-    jTree.expandPath(path.getParentPath());
-    Rectangle rect = jTree.getRowBounds(jTree.getRowForPath(path));
+  private void doubleClickOnTreePath(String path) {
+    Rectangle rect = setVisible(getTreePath(path));
     if (rect != null) {
-      Mouse.doClickInRectangle(jTree, rect, useRightClick, keyModifier);
+      Mouse.doDoubleClickInRectangle(jTree, rect);
     }
+  }
+
+  private void clickOnPath(TreePath treePath, boolean useRightClick) {
+    Rectangle rect = setVisible(treePath);
+    if (rect != null) {
+      Mouse.doClickInRectangle(jTree, rect, useRightClick, Key.Modifier.NONE);
+    }
+  }
+
+  private Rectangle setVisible(TreePath treePath) {
+    jTree.expandPath(treePath.getParentPath());
+    if (!jTree.isPathSelected(treePath)) {
+      jTree.setSelectionPath(treePath);
+    }
+    return getRectangle(treePath);
+  }
+
+  private Rectangle getRectangle(TreePath treePath) {
+    return jTree.getRowBounds(jTree.getRowForPath(treePath));
   }
 
   private String getShownText(Object object) {
@@ -516,8 +541,8 @@ public class Tree extends AbstractSwingUIComponent {
         if (pathArray[i].equals(shownText)) {
           if (exactMatch != null) {
             AssertAdapter.fail("Naming ambiguity: there are several '" +
-                                pathArray[i] + "' under '" +
-                                getShownText(node) + "'");
+                               pathArray[i] + "' under '" +
+                               getShownText(node) + "'");
           }
           exactMatch = child;
         }
@@ -534,8 +559,8 @@ public class Tree extends AbstractSwingUIComponent {
       }
       else if (substringAmbiguity) {
         AssertAdapter.fail("Naming ambiguity: there are several '" +
-                                       pathArray[i] + "' under '" +
-                                       getShownText(node) + "'");
+                           pathArray[i] + "' under '" +
+                           getShownText(node) + "'");
       }
       else {
         result = substringMatch;

@@ -6,6 +6,9 @@
   <body>
     <release version="2.2" date="?">
       <action dev="pratmarty" type="add">
+        Added Tree.doubleClick().
+      </action>
+      <action dev="pratmarty" type="add">
         Added methods on ListBox for double-clicking and right-clicking on individual rows.
       </action>
     </release>

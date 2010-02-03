@@ -109,12 +109,40 @@ public class TreeClickingTest extends TreeTestCase {
     }
   }
 
+  public void testDoubleClickBehaviour() throws Exception {
+    checkDoubleClickBehaviour(new DirectClicker());
+    checkDoubleClickBehaviour(new TriggerClicker());
+  }
+
+  private void checkDoubleClickBehaviour(Clicker clicker) throws Exception {
+    final Counter counter = new Counter();
+    jTree.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) {
+        counter.increment();
+        assertEquals(2, e.getClickCount());
+        int modifiers = e.getModifiers();
+        assertTrue((modifiers & MouseEvent.BUTTON1_MASK) != 0);
+      }
+    });
+    tree.select("child1");
+    tree.addToSelection("child2");
+    clicker.doubleClick("child1");
+    assertTrue(tree.selectionEquals(new String[]{"child1"}));
+    assertEquals(1, counter.getCount());
+
+    clicker.doubleClick("child1/child1_1");
+    assertTrue(tree.selectionEquals("child1/child1_1"));
+    assertEquals(2, counter.getCount());
+  }
+
   private interface Clicker {
     public void click(String path) throws Exception;
 
     public void rightClick(String path) throws Exception;
 
     public void rightClickInSelection() throws Exception;
+
+    void doubleClick(String path) throws Exception;
   }
 
   private class DirectClicker implements Clicker {
@@ -129,6 +157,10 @@ public class TreeClickingTest extends TreeTestCase {
     public void rightClickInSelection() throws Exception {
       tree.rightClickInSelection();
     }
+
+    public void doubleClick(String path) {
+      tree.doubleClick(path);
+    }
   }
 
   private class TriggerClicker implements Clicker {
@@ -142,6 +174,10 @@ public class TreeClickingTest extends TreeTestCase {
 
     public void rightClickInSelection() throws Exception {
       tree.triggerRightClickInSelection().run();
+    }
+
+    public void doubleClick(String path) throws Exception {
+      tree.triggerDoubleClick(path).run();
     }
   }
 }
