@@ -18,9 +18,7 @@ import java.awt.image.*;
 import java.awt.image.renderable.RenderableImage;
 import java.awt.peer.*;
 import java.text.AttributedCharacterIterator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Locale;
+import java.util.*;
 import java.net.URI;
 import java.io.IOException;
 import java.io.File;
@@ -74,6 +72,9 @@ public final class Empty {
 
   static class WindowPeeer implements WindowPeer {
     public void toBack() {
+    }
+
+    public void updateWindow() {
     }
 
     public void setAlwaysOnTop(boolean b) {
@@ -359,6 +360,9 @@ public final class Empty {
 
   static class DialogPeer extends Empty.WindowPeeer implements java.awt.peer.DialogPeer {
     public void setResizable(boolean resizeable) {
+    }
+
+    public void blockWindows(java.util.List<Window> windows) {
     }
 
     public void setTitle(String title) {

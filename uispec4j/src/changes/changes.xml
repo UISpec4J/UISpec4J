@@ -4,7 +4,7 @@
   </properties>
 
   <body>
-    <release version="2.2" date="?">
+    <release version="2.2" date="2010-02-13">
       <action dev="pratmarty" type="add">
         Added Tree.doubleClick().
       </action>
