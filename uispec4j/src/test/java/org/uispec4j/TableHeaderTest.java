@@ -33,6 +33,16 @@ public class TableHeaderTest extends TableTestCase {
     }
   }
 
+  public void testPartialContent() throws Exception {
+    assertTrue(table.getHeader().contentEquals(2, "0", "1"));
+    try {
+      assertTrue(table.getHeader().contentEquals(2, "0", "2"));
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+    }
+  }
+
   public void testClickOnHeader() throws Exception {
     MouseLogger mouseLogger = new MouseLogger(jTable.getTableHeader());
     table.getHeader().click(0);

@@ -209,15 +209,18 @@ public abstract class AbstractUIComponent implements UIComponent {
     return null;
   }
 
-  public void typeKey(Key key) {
+  public AbstractUIComponent typeKey(Key key) {
     KeyUtils.enterKeys(getAwtComponent(), key);
+    return this;
   }
 
-  public void pressKey(Key key) {
+  public AbstractUIComponent pressKey(Key key) {
     KeyUtils.pressKey(getAwtComponent(), key);
+    return this;
   }
 
-  public void releaseKey(Key key) {
+  public AbstractUIComponent releaseKey(Key key) {
     KeyUtils.releaseKey(getAwtComponent(), key);
+    return this;
   }
 }

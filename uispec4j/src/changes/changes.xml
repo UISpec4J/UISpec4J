@@ -6,6 +6,9 @@
   <body>
     <release version="???">
       <action dev="mguiot" type="add">
+        Added Table.Header.contentEquals(int countHeaderToCheck, String... expectedHeaders)
+      </action>
+      <action dev="mguiot" type="add">
         Added Table.blockEquals(int fromRowIndex, int fromColumnIndex, int columnCount, int rowCount, Object[][] expected)
         Added Table.rowEquals(int rowIndex, int fromColumnIndex, int columnCount, Object[] expectedRow)
       </action>

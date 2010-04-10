@@ -158,13 +158,16 @@ public class UIComponentFactoryTest extends UnitTestCase {
       return null;
     }
 
-    public void typeKey(Key key) {
+    public DummyUIComponent typeKey(Key key) {
+      return this;
     }
 
-    public void pressKey(Key key) {
+    public DummyUIComponent pressKey(Key key) {
+      return this;
     }
 
-    public void releaseKey(Key key) {
+    public DummyUIComponent releaseKey(Key key) {
+      return this;
     }
   }
 }

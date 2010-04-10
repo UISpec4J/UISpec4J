@@ -965,6 +965,24 @@ public class Table extends AbstractSwingUIComponent {
       };
     }
 
+    public Assertion contentEquals(final int countHeaderToCheck, final String... expectedHeaders) {
+      return new Assertion() {
+        public void check() {
+          checkHeader();
+          try {
+            AssertAdapter.assertTrue(countHeaderToCheck <= jTable.getColumnCount());
+            for (int i = 0; i < expectedHeaders.length; i++) {
+              AssertAdapter.assertEquals(expectedHeaders[i], jTable.getColumnName(i));
+            }
+          }
+          catch (Error e) {
+            AssertAdapter.assertEquals(ArrayUtils.toString(expectedHeaders), ArrayUtils.toString(getColumnNames()));
+            throw e;
+          }
+        }
+      };
+    }
+
     /**
      * Returns a string description of the default background color.
      */
