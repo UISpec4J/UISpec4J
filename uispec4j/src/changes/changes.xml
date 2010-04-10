@@ -5,6 +5,9 @@
 
   <body>
     <release version="???">
+      <action dev="mguiot" type="add">
+        WindowInterceptor : the trigger is launch in swing thread
+      </action>
       <action dev="rmedina" type="add">
         Added Table.selectRowsWithText(int column, String... labels).
       </action>

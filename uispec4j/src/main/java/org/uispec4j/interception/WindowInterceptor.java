@@ -343,7 +343,7 @@ public final class WindowInterceptor {
     NewThreadInterceptionHandlerDecorator newThreadHandler = new NewThreadInterceptionHandlerDecorator(closeDetector);
     UISpecDisplay.instance().add(newThreadHandler);
     try {
-      TriggerRunner.runInCurrentThread(triggerAccessor.getTrigger());
+      TriggerRunner.runInSwingThread(triggerAccessor.getTrigger());
       showDetector.waitWindow();
       newThreadHandler.complete();
       closeDetector.checkWindowWasClosed();
