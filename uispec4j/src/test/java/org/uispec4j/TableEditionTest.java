@@ -143,7 +143,7 @@ public class TableEditionTest extends TableTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("Column 'unknown' not found", e.getMessage());
+      assertEquals("Column 'unknown' not found - actual names: [0, 1, 2]", e.getMessage());
     }
   }
 

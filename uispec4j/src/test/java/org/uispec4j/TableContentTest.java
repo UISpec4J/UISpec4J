@@ -238,7 +238,7 @@ public class TableContentTest extends TableTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("Column 'unknown' not found", e.getMessage());
+      assertEquals("Column 'unknown' not found - actual names: [0, 1, 2]", e.getMessage());
     }
   }
 
@@ -346,7 +346,7 @@ public class TableContentTest extends TableTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("Column 'unknown' not found", e.getMessage());
+      assertEquals("Column 'unknown' not found - actual names: [0, 1, 2]", e.getMessage());
     }
   }
 
@@ -661,13 +661,13 @@ public class TableContentTest extends TableTestCase {
     assertEquals(-1, table.getRowIndex(2, "-5-"));
   }
 
-  public void testRowIndicesWithConverter() throws Exception {
+  public void testRowIndicesWithoutConverter() throws Exception {
     int[] indices = table.getRowIndices(0, "a");
     assertEquals(1, indices.length);
     assertEquals(0, indices[0]);
   }
 
-  public void testWithConverter() throws Exception {
+  public void testRowIndicesWithConverter() throws Exception {
     table.setCellValueConverter(2, new TableCellValueConverter() {
       public Object getValue(int row, int column, Component renderedComponent, Object modelObject) {
         return "same";
@@ -677,7 +677,18 @@ public class TableContentTest extends TableTestCase {
     assertEquals(2, indices.length);
     assertEquals(0, indices[0]);
     assertEquals(1, indices[1]);
+  }
 
+  public void testFindColumnIndex() throws Exception {
+    assertEquals(1, table.getColumnIndex("1"));
+
+    try {
+      table.getColumnIndex("unknown");
+      fail();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals("Column 'unknown' not found - actual names: [0, 1, 2]", e.getMessage());
+    }
   }
 
   private static class DummyTableCellValueConverter implements TableCellValueConverter {
