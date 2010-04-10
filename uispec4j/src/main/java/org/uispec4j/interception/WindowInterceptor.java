@@ -55,7 +55,7 @@ import java.util.List;
  * that windows appear within a given time limit, and that modal windows are closed before the
  * end of the interception.
  *
- * @see <a href="http://www.uispec4j.org/interception.html">Intercepting windows</a>
+ * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public final class WindowInterceptor {
 

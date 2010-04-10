@@ -33,6 +33,8 @@ import java.util.ArrayList;
  * considered.
  *
  * @noinspection ReturnOfNull
+ *
+ * @see <a href="http://www.uispec4j.org/findingcomponents">Finding Components</a>
  */
 public class Panel extends AbstractUIComponent {
   public static final String TYPE_NAME = "panel";

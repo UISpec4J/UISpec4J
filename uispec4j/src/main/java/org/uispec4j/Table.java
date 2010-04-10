@@ -452,7 +452,7 @@ public class Table extends AbstractSwingUIComponent {
   /**
    * Checks the foreground color of the table cells using either Color or String objects
    *
-   * @see <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a>
+   * @see <a href="http://www.uispec4j.org/colors">Using colors</a>
    */
   public Assertion foregroundEquals(final Object[][] colors) {
     return new Assertion() {
@@ -485,7 +485,7 @@ public class Table extends AbstractSwingUIComponent {
   /**
    * Checks the background color of the table cells using either Color or String objects
    *
-   * @see <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a>
+   * @see <a href="http://www.uispec4j.org/colors">Using colors</a>
    */
   public Assertion backgroundEquals(final Object[][] colors) {
     return new Assertion() {

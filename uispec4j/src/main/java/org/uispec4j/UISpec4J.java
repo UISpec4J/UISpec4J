@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 /**
  * Facade for the initialization of the library, mainly used for the interception mechanism.
  *
- * @see <a href="http://www.uispec4j.org/interception.html">Intercepting windows</a>
+ * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public class UISpec4J {
   private static long windowInterceptionTimeLimit = 10000;

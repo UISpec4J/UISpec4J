@@ -11,7 +11,7 @@ import java.awt.peer.*;
  * Mock toolkit used for intercepting displayed frames and dialogs.<p>
  * You can set it up by calling the {@link #setUp()} method.
  *
- * @see <a href="http://www.uispec4j.org/interception.html">Intercepting windows</a>
+ * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public class UISpecToolkit extends ToolkitDelegate {
   static final String SYSTEM_PROPERTY = "awt.toolkit";

@@ -7,7 +7,7 @@ import org.uispec4j.Window;
  * Interface used for defining modal dialog handlers.
  *
  * @see WindowInterceptor
- * @see <a href="http://www.uispec4j.org/interception.html">Intercepting windows</a>
+ * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public abstract class WindowHandler {
   private String name;

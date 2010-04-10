@@ -20,7 +20,7 @@ import java.util.Map;
  * </ul>
  * </p>
  *
- * @see <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a>
+ * @see <a href="http://www.uispec4j.org/colors">Using colors</a>
  */
 public final class ColorUtils {
   private static final Map<String, Color> nameToColorMap = buildNameToColorMap();

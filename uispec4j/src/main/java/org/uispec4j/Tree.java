@@ -176,7 +176,7 @@ public class Tree extends AbstractSwingUIComponent {
    * <ul>
    * <li>The "bold" property must be present if and only if the node text is bold</li>
    * <li>The "color" property value can be numeric ("0000ee") or approximative ("blue")
-   * (see the <a href="http://www.uispec4j.org/usingcolors.html">Using colors</a> page
+   * (see the <a href="http://www.uispec4j.org/colors">Using colors</a> page
    * for more information)</li>
    * <li>The "bold" property, if present, must be placed before the "color" property</li>
    * </ul>

@@ -27,7 +27,7 @@ import java.util.List;
  *   .run();
  * </code></pre>
  *
- * @see <a href="http://www.uispec4j.org/interception.html">Intercepting windows</a>
+ * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public class FileChooserHandler {
   private DialogHandler handler = new DialogHandler();

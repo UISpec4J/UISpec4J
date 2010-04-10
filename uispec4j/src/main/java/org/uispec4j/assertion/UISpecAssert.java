@@ -6,6 +6,8 @@ import org.uispec4j.utils.Utils;
 
 /**
  * Checks the validity of Assertion objects.
+ *
+ * @see <a href="http://www.uispec4j.org/assertions">Using Assertions</a>
  */
 public class UISpecAssert {
 

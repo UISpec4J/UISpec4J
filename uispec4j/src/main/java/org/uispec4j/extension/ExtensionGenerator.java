@@ -37,10 +37,6 @@ import java.util.zip.ZipOutputStream;
  * <pre><code>
  * java -cp ...  org.uispec4j.extension.ExtensionGenerator lib/uispec_ext.jar Calendar:com.xxx.Calendar
  * </code></pre>
- * Note: When runnning this class, the UISpec4J and ASM JARs must be included in the classpath
- * (please refer to the
- * <a href="http://www.uispec4j.org/dependencies.html">dependencies</a> page for a list of specific JARs to be
- * used).
  * <p/>
  * The component class and the associated Swing class must adhere to certain conventions:
  * <ul>
@@ -63,7 +59,7 @@ import java.util.zip.ZipOutputStream;
  * }
  * </pre></code>
  *
- * @see <a href="http://www.uispec4j.org/extension.html">Extending UISpec4J</a>
+ * @see <a href="http://www.uispec4j.org/custom-components">Adding Custom Components</a>
  */
 public class ExtensionGenerator {
 

@@ -41,14 +41,17 @@
 
 
 <h2>How it works</h2>
-<p>The extension mechanisms works at the bytecode level, using the
-  <a href="http://asm.objectweb.org">ASM</a>
-  library (please refer to the
-  <a href="dependencies.html">dependencies</a>
-  page for a list of specific JARs to be
-  used). It parses the Panel class loaded from
-  the classpath, and generates the bytecode in the proper section for the two methods.
+<p>
+  The extension mechanisms works at the bytecode level, using the <a href="http://asm.objectweb.org">ASM</a> library.
+  It parses the Panel class loaded from the classpath, and generates the bytecode in the proper section for
+  the two methods.
 </p>
 
+<h2>Dependencies</h2>
+<p>
+  For the extension mechanism to work, you will need
+  <a href="http://repo1.maven.org/maven2/asm/asm/3.1/asm-3.1.jar">asm-3.1.jar</a>
+  and <a href="http://repo1.maven.org/maven2/asm/asm-util/3.1/asm-util-3.1.jar">asm-util-3.1.jar</a>
+  in your classpath.</p>
 
 
