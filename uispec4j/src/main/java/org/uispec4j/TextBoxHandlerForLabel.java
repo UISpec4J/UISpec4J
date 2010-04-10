@@ -4,6 +4,8 @@ import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 
 class TextBoxHandlerForLabel implements TextBox.Handler {
   private JLabel jLabel;
@@ -101,6 +103,12 @@ class TextBoxHandlerForLabel implements TextBox.Handler {
         AssertAdapter.assertEquals("Unexpected icon", icon, jLabel.getIcon());
       }
     };
+  }
+
+  public void focusLost() {
+    for (FocusListener listener : jLabel.getFocusListeners()) {
+      listener.focusLost(new FocusEvent(jLabel, 0));
+    }
   }
 
   private void throwNotEditableError() {

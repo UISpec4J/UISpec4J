@@ -6,6 +6,12 @@
   <body>
     <release version="???">
       <action dev="rmedina" type="add">
+        Added TextBox.setText(String, boolean) to select whether Enter is simulated or not.
+      </action>
+      <action dev="rmedina" type="add">
+        Added TextBox.focusLost().
+      </action>
+      <action dev="rmedina" type="add">
         Added Clipboard.getContentAsText().
       </action>
       <action dev="rmedina" type="add">

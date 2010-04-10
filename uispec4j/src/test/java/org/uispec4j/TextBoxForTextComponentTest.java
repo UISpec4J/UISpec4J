@@ -6,11 +6,14 @@ import org.uispec4j.utils.DummyActionListener;
 import org.uispec4j.utils.Functor;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
+import org.uispec4j.assertion.UISpecAssert;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.JTextComponent;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 
 public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
   private JTextComponent jTextComponent;
@@ -281,6 +284,17 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     DummyActionListener actionListener = initWithTextFieldAndActionListener();
     textBox.insertText("text", 0);
     assertEquals(0, actionListener.getCallCount());
+  }
+
+  public void testSetTextCanNotifyActionListeners() throws Exception {
+    DummyActionListener actionListener = initWithTextFieldAndActionListener();
+    textBox.setText("text", false);
+    assertEquals(0, actionListener.getCallCount());
+    UISpecAssert.assertTrue(textBox.textEquals("text"));
+    
+    textBox.setText("another text", true);
+    assertEquals(1, actionListener.getCallCount());
+    UISpecAssert.assertTrue(textBox.textEquals("another text"));
   }
 
   public void testInsertTextChecksThatTheComponentIsEditable() throws Exception {

@@ -5,6 +5,8 @@ import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyActionListener;
 
 import javax.swing.*;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
 
 public abstract class TextBoxComponentTestCase extends UIComponentTestCase {
   TextBox textBox;
@@ -35,6 +37,25 @@ public abstract class TextBoxComponentTestCase extends UIComponentTestCase {
     checkAssertTextContainsFails(new String[]{"item2", "toto"},
                                  "The component text does not contain 'toto'" +
                                  " - actual content is:" + renderedText);
+  }
+
+  public void testFocusLost() throws Exception {
+
+    createTextBox("text");
+
+    final StringBuilder log = new StringBuilder();
+    textBox.getAwtComponent().addFocusListener(new FocusListener() {
+      public void focusGained(FocusEvent e) {
+        log.append("focusGained");
+      }
+
+      public void focusLost(FocusEvent e) {
+        log.append("focusLost");
+      }
+    });
+
+    textBox.focusLost();
+    assertEquals("focusLost", log.toString());
   }
 
   private void checkAssertTextContainsFails(String[] texts, String error) {

@@ -46,6 +46,21 @@ public class TextBox extends AbstractSwingUIComponent {
   }
 
   /**
+   * Replaces the text box contents and simulates pressing Enter if pressEnter is set to true.
+   */
+  public void setText(String text, boolean pressEnter) {
+    if (!handler.getAwtComponent().isEnabled()) {
+      AssertAdapter.fail(TEXT_DISABLED_ERROR);
+    }
+    if (pressEnter)
+      handler.setText(text);
+    else {
+      handler.clear();
+      handler.appendText(text);
+    }
+  }
+
+  /**
    * Inserts text at the given position without pressing Enter.
    */
   public void insertText(String text, int position) {
@@ -168,6 +183,12 @@ public class TextBox extends AbstractSwingUIComponent {
     };
   }
 
+  /** Simulates losing the focus., by calling directly the focus listeners of the component
+   * without going through the focus mechanim. */
+  public void focusLost() {
+    handler.focusLost();
+  }
+
   interface Handler {
     JComponent getAwtComponent();
 
@@ -196,5 +217,7 @@ public class TextBox extends AbstractSwingUIComponent {
     Assertion iconEquals(Icon icon);
 
     Assertion htmlEquals(String html);
+
+    void focusLost();
   }
 }

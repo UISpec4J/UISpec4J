@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler {
   protected JTextComponent jTextComponent;
@@ -63,7 +65,7 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
       public void check() {
         String actual = jTextComponent.getText().replaceAll("\n    ", "").replaceAll("\n  </body>", "</body>");
         AssertAdapter.assertTrue("The component text does not contain '" + text + "' - actual content is:" + actual,
-                                  actual.indexOf(text.trim()) >= 0);
+                                 actual.indexOf(text.trim()) >= 0);
       }
     };
   }
@@ -73,8 +75,8 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
       public void check() {
         String actual = jTextComponent.getText();
         AssertAdapter.assertTrue("The component text should not contain '" + text +
-                                  "' - actual content is:" + actual,
-                                  actual.indexOf(text) < 0);
+                                 "' - actual content is:" + actual,
+                                 actual.indexOf(text) < 0);
       }
     };
   }
@@ -89,5 +91,11 @@ abstract class AbstractTextBoxHandlerForTextComponent implements TextBox.Handler
 
   public Assertion iconEquals(Icon icon) {
     throw new UnsupportedOperationException("assertIconEquals is not supported for JTextComponent components");
+  }
+
+  public void focusLost() {
+    for (FocusListener listener : jTextComponent.getFocusListeners()) {
+      listener.focusLost(new FocusEvent(jTextComponent, 0));
+    }
   }
 }
