@@ -301,6 +301,26 @@ public class Table extends AbstractSwingUIComponent {
     };
   }
 
+  public Assertion blockEquals(final int fromRowIndex, final int fromColumnIndex,
+                               final int columnCount, final int rowCount, final Object[][] expected) {
+    return new Assertion() {
+      public void check() {
+        try {
+          AssertAdapter.assertTrue(lengthErrorMessage(fromRowIndex),
+                                     fromColumnIndex + rowCount <= getRowCount());
+          for (int i = fromColumnIndex; i < fromColumnIndex + rowCount; i++) {
+            checkRow(i, fromRowIndex, columnCount, expected[i - fromColumnIndex]);
+          }
+        }
+        catch (Error e) {
+          e.printStackTrace();
+          AssertAdapter.assertEquals(ArrayUtils.toString(expected), getContent());
+          throw e;
+        }
+      }
+    };
+  }
+
   /**
    * Checks the values displayed in the table for a given set of columns.
    *
@@ -381,6 +401,27 @@ public class Table extends AbstractSwingUIComponent {
         }
         try {
           checkRow(rowIndex, expectedRow);
+        }
+        catch (Error e) {
+          StringBuffer buffer = new StringBuffer();
+          dumpRow(jTable, rowIndex, buffer, ",");
+          AssertAdapter.assertEquals(ArrayUtils.toString(expectedRow), buffer);
+        }
+      }
+    };
+  }
+
+  public Assertion rowEquals(final int rowIndex, final int fromColumnIndex, final int columnCount, final Object[] expectedRow) {
+    return new Assertion() {
+      public void check() {
+        if (rowIndex < 0) {
+          AssertAdapter.fail("Row index should be positive");
+        }
+        if (rowIndex >= jTable.getRowCount()) {
+          AssertAdapter.fail("Table contains only " + jTable.getRowCount() + " rows, unable to access row " + rowIndex);
+        }
+        try {
+          checkRow(rowIndex, fromColumnIndex, columnCount, expectedRow);
         }
         catch (Error e) {
           StringBuffer buffer = new StringBuffer();
@@ -1059,6 +1100,13 @@ public class Table extends AbstractSwingUIComponent {
     AssertAdapter.assertEquals(expectedRow.length, jTable.getColumnCount());
     for (int columnIndex = 0; columnIndex < expectedRow.length; columnIndex++) {
       checkValueAt(rowIndex, columnIndex, expectedRow[columnIndex]);
+    }
+  }
+
+  private void checkRow(int rowIndex, int fromColumnIndex, int columnCount, Object[] expectedRow) {
+    AssertAdapter.assertTrue(fromColumnIndex + columnCount <= jTable.getColumnCount());
+    for (int columnIndex = fromColumnIndex; columnIndex < fromColumnIndex + columnCount; columnIndex++) {
+      checkValueAt(rowIndex, columnIndex, expectedRow[columnIndex - fromColumnIndex]);
     }
   }
 

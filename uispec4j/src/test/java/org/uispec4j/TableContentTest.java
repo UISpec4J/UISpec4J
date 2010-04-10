@@ -37,6 +37,37 @@ public class TableContentTest extends TableTestCase {
     }
   }
 
+  public void testBlockEqual() throws Exception {
+    assertTrue(table.blockEquals(1, 1, 2, 1, new Object[][]{
+      {Boolean.FALSE, "4"}
+    }));
+  }
+
+  public void testBlockEqualFailure() throws Exception {
+    try {
+      assertTrue(table.blockEquals(1, 1, 2, 1, new Object[][]{
+        {"c", Boolean.FALSE, "4"}
+      }));
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+    }
+  }
+
+  public void testPartialRowEqual() throws Exception {
+    assertTrue(table.rowEquals(1, 1, 2, new Object[]{Boolean.FALSE, "4"}));
+  }
+
+  public void testPartialRowEqualailure() throws Exception {
+    try {
+      assertTrue(table.rowEquals(1, 0, 2, new Object[]{Boolean.FALSE, "4"}));
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+    }
+  }
+
+
   public void testContentEqualsUsesTheModelWhenAnUnknownRendererComponentIsUsed() throws Exception {
     installJPanelRenderer();
     assertTrue(table.contentEquals(new Object[][]{
