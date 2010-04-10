@@ -37,7 +37,7 @@ public class Slider extends AbstractUIComponent {
   /**
    * Checks the slider labels in order.
    */
-  public Assertion labelsEqual(final String[] expected) {
+  public Assertion labelsEqual(final String... expected) {
     return new Assertion() {
       public void check() {
         TreeMap<Integer, String> sortedTree = getSortedTree();
@@ -70,7 +70,7 @@ public class Slider extends AbstractUIComponent {
 
   /**
    * Checks the knob position as a percentage (0-100) of the available range.
-   * The actual completion must be equal to the given value plus or minus the slider precision.
+   * The actual position must be equal to the given value plus or minus the slider precision.
    *
    * @param expectedValue an int between 0 and 100, or -1 if the status is undeterminate
    * @see #setPrecision(int)
@@ -80,9 +80,24 @@ public class Slider extends AbstractUIComponent {
       public void check() {
         int relativePosition = getRelativePosition();
         AssertAdapter.assertTrue("Expected " + expectedValue + " but was " + relativePosition,
-                                  isRoughlyEqual(expectedValue, relativePosition));
+                                 isRoughlyEqual(expectedValue, relativePosition));
       }
     };
+  }
+
+  /**
+   * Sets the knob position as a percentage (0-100) of the available range.
+   *
+   * @param percentage an int between 0 and 100
+   */
+  public void setRelativePosition(int percentage) {
+    if (percentage < 0 || percentage > 100) {
+      AssertAdapter.fail("Value must be within [0..100]");
+    }
+    int max = jSlider.getMaximum();
+    int min = jSlider.getMinimum();
+    int value = min + (percentage * (max - min)) / 100;
+    jSlider.setValue(value);
   }
 
   /**
@@ -111,8 +126,8 @@ public class Slider extends AbstractUIComponent {
   private int getIndexForLabel(String label) {
     Dictionary dictionary = jSlider.getLabelTable();
     for (Enumeration indices = dictionary.keys(); indices.hasMoreElements();) {
-      Integer index = (Integer) indices.nextElement();
-      JComponent component = (JComponent) dictionary.get(index);
+      Integer index = (Integer)indices.nextElement();
+      JComponent component = (JComponent)dictionary.get(index);
       if (label.equals(ComponentUtils.getDisplayedName(component))) {
         return index;
       }
@@ -124,8 +139,8 @@ public class Slider extends AbstractUIComponent {
     int value = jSlider.getValue();
     Dictionary dictionary = jSlider.getLabelTable();
     for (Enumeration indices = dictionary.keys(); indices.hasMoreElements();) {
-      Integer index = (Integer) indices.nextElement();
-      JComponent component = (JComponent) dictionary.get(index);
+      Integer index = (Integer)indices.nextElement();
+      JComponent component = (JComponent)dictionary.get(index);
       if (Utils.equals(index, value)) {
         return ComponentUtils.getDisplayedName(component);
       }
@@ -137,8 +152,8 @@ public class Slider extends AbstractUIComponent {
     Dictionary dictionary = jSlider.getLabelTable();
     TreeMap<Integer, String> treeMap = new TreeMap<Integer, String>();
     for (Enumeration indices = dictionary.keys(); indices.hasMoreElements();) {
-      Integer index = (Integer) indices.nextElement();
-      JComponent component = (JComponent) dictionary.get(index);
+      Integer index = (Integer)indices.nextElement();
+      JComponent component = (JComponent)dictionary.get(index);
       treeMap.put(index, ComponentUtils.getDisplayedName(component));
     }
     return treeMap;

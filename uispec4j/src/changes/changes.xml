@@ -5,6 +5,9 @@
 
   <body>
     <release version="???">
+      <action dev="rmedina" type="add">
+        Added Slider.setRelativePosition(percentage)
+      </action>
       <action dev="mguiot" type="add">
         WindowInterceptor : the trigger is launch in swing thread
       </action>
