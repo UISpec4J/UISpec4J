@@ -4,6 +4,13 @@
   </properties>
 
   <body>
+    <release version="???">
+      <action dev="rmedina" type="update">
+        Made UISpecAssert.fail() fail immediately instead of returning an Assertion, and introduced UISpecAssert.failure
+        to return an Assertion that always fails.
+      </action>
+    </release>
+    
     <release version="2.2" date="2010-02-13">
       <action dev="pratmarty" type="add">
         Added Tree.doubleClick().

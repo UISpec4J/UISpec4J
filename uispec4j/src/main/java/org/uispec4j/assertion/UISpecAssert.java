@@ -214,7 +214,16 @@ public class UISpecAssert {
     }
   }
 
-  public static Assertion fail(final String message) {
+  public static void fail() {
+     fail("");
+   }
+
+   public static void fail(final String message) {
+     AssertAdapter.fail(message);
+   }
+
+
+  public static Assertion failure(final String message) {
     return new Assertion() {
       public void check() {
         AssertAdapter.fail(message);
