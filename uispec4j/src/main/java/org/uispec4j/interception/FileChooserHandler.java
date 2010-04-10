@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -53,7 +52,18 @@ public class FileChooserHandler {
     handler.add(new FileChooserInternalHandler() {
       public void process(JFileChooser fileChooser) {
         AssertAdapter.assertEquals("Unexpected current directory -",
-                                    currentDir, fileChooser.getCurrentDirectory());
+                                   currentDir, fileChooser.getCurrentDirectory());
+      }
+    });
+    return this;
+  }
+
+  public FileChooserHandler assertCurrentFileNameEquals(final String fileName) {
+    handler.add(new FileChooserInternalHandler() {
+      public void process(JFileChooser fileChooser) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String actual = selectedFile != null ? selectedFile.getName() : "";
+        AssertAdapter.assertEquals("Unexpected file name -", fileName, actual);
       }
     });
     return this;
@@ -68,7 +78,7 @@ public class FileChooserHandler {
     handler.add(new FileChooserInternalHandler() {
       public void process(JFileChooser fileChooser) {
         AssertAdapter.assertEquals("Unexpected apply button text -",
-                                    text, fileChooser.getApproveButtonText());
+                                   text, fileChooser.getApproveButtonText());
       }
     });
     return this;
@@ -152,7 +162,7 @@ public class FileChooserHandler {
   };
 
   private static class DialogHandler extends WindowHandler {
-    private List fileChooserHandlers = new ArrayList();
+    private List<FileChooserInternalHandler> fileChooserHandlers = new ArrayList<FileChooserInternalHandler>();
     private FileChooserInternalHandler lastHandler = APPROVE;
     private String expectedTitle;
 
@@ -172,11 +182,10 @@ public class FileChooserHandler {
       Component[] components = window.getSwingComponents(JFileChooser.class);
       if (components.length != 1) {
         AssertAdapter.fail("The shown window is not a file chooser - window content:" +
-                            Utils.LINE_SEPARATOR + window.getDescription());
+                           Utils.LINE_SEPARATOR + window.getDescription());
       }
       JFileChooser fileChooser = (JFileChooser)components[0];
-      for (Iterator iterator = fileChooserHandlers.iterator(); iterator.hasNext();) {
-        FileChooserInternalHandler handler = (FileChooserInternalHandler)iterator.next();
+      for (FileChooserInternalHandler handler : fileChooserHandlers) {
         handler.process(fileChooser);
       }
       checkTitle(window);

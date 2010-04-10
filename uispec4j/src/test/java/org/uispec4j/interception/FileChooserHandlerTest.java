@@ -101,6 +101,31 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
                          + userHome + "> but was:<" + javaHome + ">");
   }
 
+  public void testAssertCurrentFileNameEquals() throws Exception {
+    chooser.setSelectedFile(new File(javaHome, "aFile.txt"));
+    WindowInterceptor
+      .init(SHOW_OPEN_DIALOG_TRIGGER)
+      .process(FileChooserHandler.init()
+        .assertCurrentFileNameEquals("aFile.txt")
+        .select(javaHome))
+      .run();
+  }
+
+  public void testAssertCurrentFileNameEqualsError() throws Exception {
+    chooser.setSelectedFile(new File(javaHome, "aFile.txt"));
+    checkError(SHOW_OPEN_DIALOG_TRIGGER, 
+               FileChooserHandler.init().assertCurrentFileNameEquals("toto.exe"),
+               new File(javaHome, "aFile.txt"),
+               "Unexpected file name - expected:<toto.exe> but was:<aFile.txt>");
+  }
+
+  public void testAssertCurrentFileNameEqualsWithNoSelection() throws Exception {
+    checkError(SHOW_OPEN_DIALOG_TRIGGER,
+               FileChooserHandler.init().assertCurrentFileNameEquals("toto.dat"),
+               new File(javaHome, "aFile.txt"),
+               "Unexpected file name - expected:<toto.dat> but was:<>");
+  }
+
   public void testAssertIsOpenSaveDialog() throws Exception {
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertIsOpenDialog());
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertIsSaveDialog(),

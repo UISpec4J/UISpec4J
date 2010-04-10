@@ -6,6 +6,9 @@
   <body>
     <release version="???">
       <action dev="rmedina" type="add">
+        Added FileChooserHandler.assertCurrentDirEquals()
+      </action>
+      <action dev="rmedina" type="add">
         If Tab.selectTab(tabName) fail it now give the existing tabs in the message
       </action>
       <action dev="rmedina" type="add">
