@@ -77,7 +77,7 @@ public class TabGroupTest extends UIComponentTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals(TabGroup.tabNotFound("unknown"), e.getMessage());
+      assertEquals("There is no tab labelled 'unknown' - existing tab names: [1, 2, 3]", e.getMessage());
     }
   }
 

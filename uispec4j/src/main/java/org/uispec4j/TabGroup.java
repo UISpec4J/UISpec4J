@@ -9,6 +9,7 @@ import org.uispec4j.xml.XmlWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Wrapper for JTabbedPane components.
@@ -115,7 +116,15 @@ public class TabGroup extends AbstractUIComponent {
     return -1;
   }
 
-  static String tabNotFound(String name) {
-    return "There is no tab labelled '" + name + "'";
+  private String tabNotFound(String name) {
+    return "There is no tab labelled '" + name + "' - existing tab names: " + getTabNames();
+  }
+
+  private java.util.List<String> getTabNames() {
+    java.util.List<String> result = new ArrayList<String>();
+    for (int i = 0; i < jTabbedPane.getTabCount(); i++) {
+      result.add(jTabbedPane.getTitleAt(i));
+    }
+    return result;
   }
 }
