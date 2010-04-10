@@ -5,6 +5,17 @@
 
   <body>
     <release version="???">
+      <action dev="rmedina" type="add">
+        Added Clipboard.getContentAsText().
+      </action>
+      <action dev="rmedina" type="add">
+        Added Key.platformSpecificCtrl(), which returns META-Key on MacOS X
+        and CTRL-Key on other platforms.
+      </action>
+      <action dev="rmedina" type="add">
+        Added Table.selectAllRows().
+      </action>
+
       <action dev="rmedina" type="update">
         Made UISpecAssert.fail() fail immediately instead of returning an Assertion, and introduced UISpecAssert.failure
         to return an Assertion that always fails.

@@ -719,6 +719,14 @@ public class Table extends AbstractSwingUIComponent {
     jTable.setColumnSelectionInterval(column, column);
   }
 
+  public void selectAllRows() {
+    final int rowCount = getRowCount();
+    if (rowCount == 0) {
+      return;
+    }
+    selectRowSpan(0, rowCount - 1);
+  }
+
   public void selectRow(int row) {
     jTable.setRowSelectionInterval(row, row);
     if (jTable.getCellSelectionEnabled()) {

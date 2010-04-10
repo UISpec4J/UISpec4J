@@ -95,8 +95,7 @@ public class ClipboardTest extends UnitTestCase {
 
   private void checkSimplePutText(String data) throws Exception {
     Clipboard.putText(data);
-    String actual = (String)getSystemClipboard().getContents(this).getTransferData(DataFlavor.stringFlavor);
-    assertEquals(data, actual);
+    assertEquals(data, Clipboard.getContentAsText());
   }
 
   private java.awt.datatransfer.Clipboard getSystemClipboard() {

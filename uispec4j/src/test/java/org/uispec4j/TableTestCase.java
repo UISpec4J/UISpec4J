@@ -21,18 +21,18 @@ public abstract class TableTestCase extends UnitTestCase {
     jTable = table;
     jTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     jTable.setName("myTable");
-    jTable.setDefaultEditor(Integer.class, new DefaultCellEditor(new JComboBox(new Object[]{new Integer(3), new Integer(4), new Integer(5)})));
+    jTable.setDefaultEditor(Integer.class, new DefaultCellEditor(new JComboBox(new Object[]{3, 4, 5})));
     this.table = (Table)UIComponentFactory.createUIComponent(jTable);
   }
 
   protected class MyModel extends AbstractTableModel {
     String[] columnNames = new String[]{"0", "1", "2"};
-    Object[][] rowData = new Object[][]{{"a", Boolean.TRUE, new Integer(3)},
-                                        {"c", Boolean.FALSE, new Integer(4)}};
+    Object[][] rowData = new Object[][]{{"a", Boolean.TRUE, 3},
+                                        {"c", Boolean.FALSE, 4}};
     Class[] columnClasses = new Class[]{String.class, Boolean.class, Integer.class};
 
     public String getColumnName(int column) {
-      return columnNames[column].toString();
+      return columnNames[column];
     }
 
     public int getRowCount() {

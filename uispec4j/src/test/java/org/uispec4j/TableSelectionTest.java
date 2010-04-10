@@ -4,9 +4,11 @@ import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Counter;
 import org.uispec4j.xml.EventLogger;
+import org.uispec4j.assertion.UISpecAssert;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -85,14 +87,14 @@ public class TableSelectionTest extends TableTestCase {
     assertTrue(table.rowsAreSelected(new int[]{}));
 
     table.click(0, 1);
-    assertTrue(table.rowsAreSelected(new int[]{0}));
+    assertTrue(table.rowsAreSelected(0));
 
     table.click(1, 1);
-    assertTrue(table.rowsAreSelected(new int[]{1}));
+    assertTrue(table.rowsAreSelected(1));
 
     table.click(0, 1, Key.Modifier.SHIFT);
-    assertTrue(table.rowsAreSelected(new int[]{0, 1}));
-    assertTrue(table.rowsAreSelected(new int[]{1, 0}));
+    assertTrue(table.rowsAreSelected(0, 1));
+    assertTrue(table.rowsAreSelected(1, 0));
 
     try {
       assertTrue(table.rowsAreSelected(new int[]{0}));
@@ -231,13 +233,13 @@ public class TableSelectionTest extends TableTestCase {
 
   private void checkSelectRows(boolean cellSelectionEnabled) {
     jTable.setCellSelectionEnabled(cellSelectionEnabled);
-    table.selectRows(new int[]{0});
+    table.selectRows(0);
     checkRowSelection(true, false);
 
-    table.selectRows(new int[]{1});
+    table.selectRows(1);
     checkRowSelection(false, true);
 
-    table.selectRows(new int[]{0, 1});
+    table.selectRows(0, 1);
     checkRowSelection(true, true);
 
     table.selectRowSpan(0, 0);
@@ -248,6 +250,15 @@ public class TableSelectionTest extends TableTestCase {
 
     table.selectRowSpan(0, 1);
     checkRowSelection(true, true);
+    
+    table.selectAllRows();
+    checkRowSelection(true, true);
+  }
+
+  public void testSelectRowsWithEmptyTable() throws Exception {
+    jTable.setModel(new DefaultTableModel());
+    table.selectAllRows();
+    UISpecAssert.assertThat(table.selectionIsEmpty());
   }
 
   public void testSelectRowsRequiresThatTheStartIndexBeLessThanTheEndIndex() throws Exception {

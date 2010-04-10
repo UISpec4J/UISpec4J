@@ -44,6 +44,13 @@ public class Clipboard {
     getSystemClipboard().setContents(transferable, transferable);
   }
 
+  /**
+   * Returns the clipboard content as a string.
+   */
+  public static String getContentAsText() throws UnsupportedFlavorException, IOException {
+    return (String)getSystemClipboard().getContents("").getTransferData(DataFlavor.stringFlavor);
+  }
+
   private static java.awt.datatransfer.Clipboard getSystemClipboard() {
     return Toolkit.getDefaultToolkit().getSystemClipboard();
   }

@@ -1,6 +1,7 @@
 package org.uispec4j.utils;
 
 import org.uispec4j.Key;
+import org.uispec4j.UIComponent;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
@@ -15,6 +16,12 @@ import static java.awt.event.KeyEvent.*;
 import java.awt.event.KeyListener;
 
 public class KeyUtils {
+
+
+  public static void pressKey(UIComponent component, Key key) {
+    pressKey(component.getAwtComponent(), key);
+  }
+
   public static void pressKey(Component component, Key key) {
     dispatchEvent(KEY_PRESSED, key, key.getCode(), component);
     if (key.isPrintable() && key.getChar() != KeyEvent.CHAR_UNDEFINED) {

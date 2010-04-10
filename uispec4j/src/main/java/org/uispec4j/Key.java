@@ -1,9 +1,12 @@
 package org.uispec4j;
 
+import sun.security.action.GetPropertyAction;
+
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.security.AccessController;
 
 /**
  * Contants class defining keyboard keys.
@@ -73,7 +76,7 @@ public final class Key {
   public static final Key AT = create(KeyEvent.VK_AT, '@', true);
   public static final Key AMPERSAND = create(KeyEvent.VK_AMPERSAND, '&', true);
   public static final Key QUOTE = create(KeyEvent.VK_QUOTE, '`', true);
-  public static final Key BACKQUOTE = create(KeyEvent.VK_BACK_QUOTE, '´', true);
+  public static final Key BACKQUOTE = create(KeyEvent.VK_BACK_QUOTE, 'ï¿½', true);
   public static final Key DOUBLE_QUOTE = create(KeyEvent.VK_QUOTEDBL, '"', true);
   public static final Key LEFT_BRACE = create(KeyEvent.VK_BRACELEFT, '{', true);
   public static final Key RIGHT_BRACE = create(KeyEvent.VK_BRACERIGHT, '}', true);
@@ -168,12 +171,25 @@ public final class Key {
     return new Key(key.getCode(), key.getChar(), Modifier.CONTROL, false);
   }
 
+  public static Key meta(Key key) {
+    return new Key(key.getCode(), key.getChar(), Modifier.META, false);
+  }
+
   public static Key alt(Key key) {
     return new Key(key.getCode(), key.getChar(), Modifier.ALT, false);
   }
 
   public static Key shift(Key key) {
     return new Key(key.getCode(), Character.toUpperCase(key.getChar()), Modifier.SHIFT, key.isPrintable());
+  }
+
+  /**
+   * Returns META-Key on MacOS X, and CTRL-Key on other platforms.
+   */
+  public static Key plaformSpecificCtrl(Key key) {
+    String os = (String)AccessController.doPrivileged(new GetPropertyAction("os.name"));
+    boolean isMacOSX = os.contains("Mac OS X");
+    return isMacOSX ? meta(key) : control(key);
   }
 
   public int getCode() {
