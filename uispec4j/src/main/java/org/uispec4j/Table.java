@@ -14,10 +14,9 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * Wrapper for JTable components.<p/>
@@ -668,6 +667,19 @@ public class Table extends AbstractSwingUIComponent {
     return buffer.toString();
   }
 
+  private String getColumnContent(int column) {
+    StringBuilder builder = new StringBuilder();
+    builder.append("[");
+    for (int row = 0; row < jTable.getRowCount(); row++) {
+      builder.append(getContentAt(row, column));
+      if (row < jTable.getRowCount() - 1) {
+        builder.append(", ");
+      }
+    }
+    builder.append("]");
+    return builder.toString();
+  }
+
   public Component getSwingEditorComponentAt(int row, int column) {
     jTable.editCellAt(row, column);
     return jTable.getEditorComponent();
@@ -753,6 +765,28 @@ public class Table extends AbstractSwingUIComponent {
     finally {
       jTable.getSelectionModel().setValueIsAdjusting(false);
     }
+  }
+
+  /**
+   * Selects all rows where the content of the given column is one of the given labels.
+   */
+  public void selectRowsWithText(int column, String... labels) {
+    Set<Integer> rows = new HashSet<Integer>();
+    for (String label : labels) {
+      int[] indices = getRowIndices(column, label);
+      if (indices.length == 0) {
+        throw new AssertionFailedError("Text '" + label + "' not found in column " + column + " - actual content: " + getColumnContent(column));
+      }
+      for (int index : indices) {
+        rows.add(index);
+      }
+    }
+    int[] selection = new int[rows.size()];
+    int i = 0;
+    for (Integer row : rows) {
+      selection[i++] = row;
+    }
+    selectRows(selection);
   }
 
   public void selectRowSpan(int start, int end) {

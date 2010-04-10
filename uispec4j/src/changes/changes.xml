@@ -6,6 +6,9 @@
   <body>
     <release version="???">
       <action dev="rmedina" type="add">
+        Added Table.selectRowsWithText(int column, String... labels).
+      </action>
+      <action dev="rmedina" type="add">
         Added Table.getColumnIndex(String columnName).
       </action>
       <action dev="rmedina" type="add">

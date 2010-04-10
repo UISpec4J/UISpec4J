@@ -1,10 +1,11 @@
 package org.uispec4j;
 
 import junit.framework.AssertionFailedError;
+import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Counter;
+import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.xml.EventLogger;
-import org.uispec4j.assertion.UISpecAssert;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -84,7 +85,7 @@ public class TableSelectionTest extends TableTestCase {
   private void checkAssertRowsSelected(boolean cellSelectionEnabled) {
     jTable.setCellSelectionEnabled(cellSelectionEnabled);
     jTable.clearSelection();
-    assertTrue(table.rowsAreSelected(new int[]{}));
+    assertTrue(table.rowsAreSelected());
 
     table.click(0, 1);
     assertTrue(table.rowsAreSelected(0));
@@ -97,7 +98,7 @@ public class TableSelectionTest extends TableTestCase {
     assertTrue(table.rowsAreSelected(1, 0));
 
     try {
-      assertTrue(table.rowsAreSelected(new int[]{0}));
+      assertTrue(table.rowsAreSelected(0));
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
@@ -250,7 +251,7 @@ public class TableSelectionTest extends TableTestCase {
 
     table.selectRowSpan(0, 1);
     checkRowSelection(true, true);
-    
+
     table.selectAllRows();
     checkRowSelection(true, true);
   }
@@ -268,6 +269,44 @@ public class TableSelectionTest extends TableTestCase {
     }
     catch (IllegalArgumentException e) {
       assertEquals("Invalid indexes: 1 > 0", e.getMessage());
+    }
+  }
+
+  public void testSelectRowsWithText() throws Exception {
+    jTable.setModel(new DefaultTableModel(new Object[][]{
+      {"yellow", "blue", "green"},
+      {"apple", "lemon", "orange"},
+      {"big", "huge", "green"},
+    }, new String[]{"a", "b", "c"}));
+    table = new Table(jTable);
+
+    table.selectRowsWithText(0, "yellow", "big");
+    ArrayUtils.assertEquals(new int[]{0,2}, jTable.getSelectedRows());
+
+    table.selectRowsWithText(1, "lemon");
+    ArrayUtils.assertEquals(new int[]{1}, jTable.getSelectedRows());
+
+    table.selectRowsWithText(2, "green");
+    ArrayUtils.assertEquals(new int[]{0,2}, jTable.getSelectedRows());
+
+    table.selectRowsWithText(1);
+    ArrayUtils.assertEquals(new int[]{}, jTable.getSelectedRows());
+  }
+
+  public void testSelectRowsWithTextDoesNotAcceptUnknownLabels() throws Exception {
+    jTable.setModel(new DefaultTableModel(new Object[][]{
+      {"yellow", "blue", "green"},
+      {"apple", "lemon", "orange"},
+      {"big", "huge", "green"},
+    }, new String[]{"a", "b", "c"}));
+    table = new Table(jTable);
+
+    try {
+      table.selectRowsWithText(0, "yellow", "unknown");
+      throw new AssertionFailureNotDetectedError();
+    }
+    catch (AssertionFailedError e) {
+      assertEquals("Text 'unknown' not found in column 0 - actual content: [yellow, apple, big]", e.getMessage());
     }
   }
 
@@ -337,7 +376,7 @@ public class TableSelectionTest extends TableTestCase {
       }
     });
 
-    table.selectRows(new int[]{0, 1});
+    table.selectRows(0, 1);
     logger.assertEquals("<log><valueChanged/></log>");
     table.selectRowSpan(0, 1);
     logger.assertEquals("<log><valueChanged/></log>");
