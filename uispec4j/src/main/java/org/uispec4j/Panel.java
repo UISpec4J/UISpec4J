@@ -4,13 +4,14 @@ import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 import org.uispec4j.finder.ComponentFinder;
 import org.uispec4j.finder.ComponentMatcher;
-import static org.uispec4j.finder.ComponentMatchers.*;
 import org.uispec4j.utils.UIComponentAnalyzer;
 import org.uispec4j.utils.UIComponentFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+
+import static org.uispec4j.finder.ComponentMatchers.*;
 
 /**
  * General container for UI components.<p>

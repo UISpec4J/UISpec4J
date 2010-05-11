@@ -2,7 +2,6 @@ package org.uispec4j.utils;
 
 import org.uispec4j.Button;
 import org.uispec4j.*;
-import org.uispec4j.Desktop;
 import org.uispec4j.MenuBar;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Panel;
@@ -44,10 +43,7 @@ public final class UIComponentFactory {
 
   private static volatile Map<Class<? extends Container>, Class<? extends UIComponent>> SWING_TO_UISPEC_MAP = new HashMap();
   private static Set<Class<? extends UIComponent>> COMPONENT_CLASSES = new HashSet();
-
-  static {
-    register(BUILT_IN_COMPONENT_CLASSES);
-  }
+  private static boolean initialized;
 
   /* Warning : reflection call in the extension mechanism */
   public static void addUIComponentClass(Class uiComponentClass) {
@@ -56,7 +52,7 @@ public final class UIComponentFactory {
 
   public synchronized static <T extends UIComponent> void register(Class<T>... uiSpecClasses) {
     for (Class<T> uiSpecClass : uiSpecClasses) {
-      if (checkClass(uiSpecClass)) {
+      if (readyToAdd(uiSpecClass)) {
         addUIComponentClass(uiSpecClass, SWING_TO_UISPEC_MAP);
         COMPONENT_CLASSES.add(uiSpecClass);
       }
@@ -68,7 +64,7 @@ public final class UIComponentFactory {
     if (swingClass == null) {
       return null;
     }
-    Class uiSpecClass = SWING_TO_UISPEC_MAP.get(swingClass);
+    Class uiSpecClass = getComponentMap().get(swingClass);
     try {
       Constructor constructor = getConstructor(uiSpecClass, swingClass);
       return (UIComponent)constructor.newInstance(new Object[]{component});
@@ -116,13 +112,13 @@ public final class UIComponentFactory {
     if (swingClass == null) {
       return null;
     }
-    if (SWING_TO_UISPEC_MAP.containsKey(swingClass)) {
+    if (getComponentMap().containsKey(swingClass)) {
       return swingClass;
     }
     return getSwingClass(swingClass.getSuperclass());
   }
 
-  private static boolean checkClass(Class uiComponentClass) {
+  private static boolean readyToAdd(Class uiComponentClass) {
     if (COMPONENT_CLASSES.contains(uiComponentClass)) {
       return false;
     }
@@ -158,4 +154,13 @@ public final class UIComponentFactory {
                                  " should be of type String");
     }
   }
+
+  private synchronized static Map<Class<? extends Container>, Class<? extends UIComponent>> getComponentMap() {
+    if (!initialized) {
+      register(BUILT_IN_COMPONENT_CLASSES);
+      initialized = true;
+    }
+    return SWING_TO_UISPEC_MAP;
+  }
+
 }
