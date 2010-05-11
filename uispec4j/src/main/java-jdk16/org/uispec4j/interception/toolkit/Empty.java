@@ -1,27 +1,29 @@
 package org.uispec4j.interception.toolkit;
 
-import sun.awt.image.SunVolatileImage;
 import sun.awt.CausedFocusEvent;
+import sun.awt.image.SunVolatileImage;
 import sun.java2d.pipe.Region;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.im.spi.InputMethodDescriptor;
-import java.awt.im.spi.InputMethod;
-import java.awt.im.spi.InputMethodContext;
 import java.awt.event.PaintEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.im.spi.InputMethod;
+import java.awt.im.spi.InputMethodContext;
+import java.awt.im.spi.InputMethodDescriptor;
 import java.awt.image.*;
 import java.awt.image.renderable.RenderableImage;
 import java.awt.peer.*;
-import java.text.AttributedCharacterIterator;
-import java.util.*;
-import java.net.URI;
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.text.AttributedCharacterIterator;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Contains a set of empty peer class designed to keep the UISpec peer implementation clean.
@@ -62,6 +64,7 @@ public final class Empty {
 
   public static final InputMethodDescriptor NULL_INPUT_METHOD_DESCRIPTOR = new DummyInputMethodDescriptor();
   public static final InputMethod NULL_INPUT_METHOD = new DummyInputMethod();
+  public static final MouseInfoPeer NULL_MOUSE_INFO = new DummyMouseInfoPeer();
 
   static {
     NULL_FONT_METRICS = new DummyFontMetrics(NULL_FONT);
@@ -1239,5 +1242,15 @@ public final class Empty {
     }
 
 
+  }
+
+  private static class DummyMouseInfoPeer implements MouseInfoPeer {
+    public int fillPointWithCoords(Point point) {
+      return 0;
+    }
+
+    public boolean isWindowUnderMouse(Window window) {
+      return false;
+    }
   }
 }

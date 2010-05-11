@@ -2,16 +2,12 @@ package org.uispec4j.interception.toolkit;
 
 import sun.awt.image.SunVolatileImage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.PaintEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.*;
 import java.awt.image.renderable.RenderableImage;
-import java.awt.peer.*;
 import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +44,7 @@ public final class Empty {
   public static final DummyLightweightPeer NULL_LIGHTWEIGHT_PEER = new DummyLightweightPeer();
   public static final DummyPanelPeer NULL_PANEL_PEER = new DummyPanelPeer();
   public static final DummyCanvasPeer NULL_CANVAS_PEER = new DummyCanvasPeer();
+  public static final MouseInfoPeer NULL_MOUSE_INFO = new DummyMouseInfoPeer();
 
   static {
     NULL_FONT_METRICS = new DummyFontMetrics(NULL_FONT);
@@ -1058,6 +1055,16 @@ public final class Empty {
 
     public int getIconHeight() {
       return 0;
+    }
+  }
+
+  private static class DummyMouseInfoPeer implements MouseInfoPeer {
+    public int fillPointWithCoords(Point point) {
+      return 0;
+    }
+
+    public boolean isWindowUnderMouse(Window w) {
+      return false;
     }
   }
 }

@@ -6,6 +6,9 @@
   <body>
     <release version="???">
       <action dev="pratmarty" type="fix">
+         Prevented Component.getMousePosition() from crashing the JVM (Introduced Empty mouse peer).
+      </action>
+      <action dev="pratmarty" type="fix">
          Fixed initialization error when relying on the extension mechanism.
       </action>
       <action dev="mguiot" type="add">

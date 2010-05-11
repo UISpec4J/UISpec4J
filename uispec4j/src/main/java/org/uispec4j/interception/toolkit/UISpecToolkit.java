@@ -99,6 +99,10 @@ public class UISpecToolkit extends ToolkitDelegate {
     return 0;
   }
 
+  protected MouseInfoPeer getMouseInfoPeer() {
+    return Empty.NULL_MOUSE_INFO;
+  }
+
   private static void fail(String msg) {
     throw new InterceptionInternalError(msg);
   }
