@@ -2,12 +2,16 @@ package org.uispec4j.interception.toolkit;
 
 import sun.awt.image.SunVolatileImage;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.PaintEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.*;
 import java.awt.image.renderable.RenderableImage;
+import java.awt.peer.*;
 import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 import java.util.Map;
