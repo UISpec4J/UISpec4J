@@ -4,12 +4,12 @@
   </properties>
 
   <body>
-    <release version="???">
+    <release version="2.3" date="2010-05-12">
       <action dev="pratmarty" type="fix">
-         Prevented Component.getMousePosition() from crashing the JVM (Introduced Empty mouse peer).
+         Prevented Component.getMousePosition() from causing a program failure (introduced a dummy MouseInfoPeer).
       </action>
       <action dev="pratmarty" type="fix">
-         Fixed initialization error when relying on the extension mechanism.
+         Fixed initialization error at test startup when relying on the extension mechanism.
       </action>
       <action dev="mguiot" type="add">
         Added Table.Header.contentEquals(int countHeaderToCheck, String... expectedHeaders)
@@ -52,7 +52,6 @@
       <action dev="rmedina" type="add">
         Added Table.selectAllRows().
       </action>
-
       <action dev="rmedina" type="update">
         Made UISpecAssert.fail() fail immediately instead of returning an Assertion, and introduced UISpecAssert.failure
         to return an Assertion that always fails.
