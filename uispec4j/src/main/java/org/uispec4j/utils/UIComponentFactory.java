@@ -6,8 +6,9 @@ import org.uispec4j.MenuBar;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Panel;
 import org.uispec4j.Window;
-
-import java.awt.*;
+  
+import java.awt.Container;
+import java.awt.Component;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.HashSet;
