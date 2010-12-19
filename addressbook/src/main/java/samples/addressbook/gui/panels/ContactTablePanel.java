@@ -63,6 +63,10 @@ public class ContactTablePanel {
     });
   }
 
+  public JButton getCreateNewContactButton() {
+    return createNewContactButton;
+  }
+
   private void maybePopupMenu(MouseEvent e) {
     if (e.isPopupTrigger()) {
       tablePopupMenu.show(e.getComponent(), e.getX(), e.getY());

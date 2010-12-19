@@ -6,7 +6,7 @@
     <!-- POM Relationships -->
     <groupId>org.uispec4j</groupId>
     <artifactId>uispec4j-root</artifactId>
-    <version>2.3-SNAPSHOT</version>
+    <version>2.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>uispec4j</module>

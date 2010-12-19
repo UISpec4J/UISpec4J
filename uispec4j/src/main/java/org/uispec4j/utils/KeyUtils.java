@@ -2,21 +2,16 @@ package org.uispec4j.utils;
 
 import org.uispec4j.Key;
 import org.uispec4j.UIComponent;
-import org.uispec4j.assertion.testlibrairies.AssertAdapter;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 import java.awt.event.KeyListener;
 
 public class KeyUtils {
-
 
   public static void pressKey(UIComponent component, Key key) {
     pressKey(component.getAwtComponent(), key);
@@ -27,23 +22,8 @@ public class KeyUtils {
     if (key.isPrintable() && key.getChar() != KeyEvent.CHAR_UNDEFINED) {
       dispatchEvent(KEY_TYPED, key, KeyEvent.VK_UNDEFINED, component);
     }
-    if (component instanceof RootPaneContainer && key.equals(Key.ENTER)) {
-      JButton defaultButton = ((RootPaneContainer)component).getRootPane().getDefaultButton();
-      if (defaultButton != null) {
-        defaultButton.doClick(20);
-      }
-    }
-
-    if (JComponent.class.isInstance(component)) {
-      KeyStroke keyStroke = KeyStroke.getKeyStroke(key.getCode(), key.getModifier().getCode());
-      final ActionListener actionForKeyStroke = ((JComponent)component).getActionForKeyStroke(keyStroke);
-      if (actionForKeyStroke != null) {
-        actionForKeyStroke.actionPerformed(new ActionEvent(component, KeyEvent.KEY_PRESSED, ""));
-      }
-    }
-
     if (JTextComponent.class.isInstance(component) && key.isPrintable()) {
-      insertKeyText(key, (JTextComponent)component);
+      moveCaretToEndOfDocument((JTextComponent)component);
     }
   }
 
@@ -75,21 +55,13 @@ public class KeyUtils {
           break;
       }
     }
+    SwingUtilities.processKeyBindings(event);
   }
 
-  private static void insertKeyText(Key key, JTextComponent jTextComponent) {
+  private static void moveCaretToEndOfDocument(JTextComponent jTextComponent) {
     if (jTextComponent.isEditable()) {
       Document document = jTextComponent.getDocument();
-      try {
-        int position = jTextComponent.getCaretPosition();
-        document.insertString(position,
-                              key.getChar().toString(),
-                              document.getDefaultRootElement().getAttributes());
-        jTextComponent.moveCaretPosition(document.getEndPosition().getOffset() - 1);
-      }
-      catch (BadLocationException e) {
-        AssertAdapter.fail(e.getMessage());
-      }
+      jTextComponent.setCaretPosition(document.getEndPosition().getOffset() - 1);
     }
   }
 }

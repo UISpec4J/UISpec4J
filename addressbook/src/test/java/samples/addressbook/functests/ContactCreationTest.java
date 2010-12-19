@@ -1,6 +1,7 @@
 package samples.addressbook.functests;
 
 import org.uispec4j.DefaultTableCellValueConverter;
+import org.uispec4j.Key;
 import org.uispec4j.utils.ColorUtils;
 
 import java.awt.*;
@@ -27,6 +28,14 @@ public class ContactCreationTest extends AddressBookTestCase {
                  "01.02.03.04.05", "06.07.08.09.10");
     assertThat(contactTable.contentEquals(new String[][]{
       {"John", "Smith", "john.smith@uispec4j.org", "01.02.03.04.05", "06.07.08.09.10"}
+    }));
+  }
+
+  public void testCreatingAContactIsDefaultAction() throws Exception {
+    getMainWindow().typeKey(Key.ENTER);
+
+    assertThat(contactTable.contentEquals(new String[][]{
+      {"", "", "", "", ""}
     }));
   }
 

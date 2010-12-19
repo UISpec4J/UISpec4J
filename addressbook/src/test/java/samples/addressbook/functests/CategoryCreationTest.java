@@ -1,5 +1,6 @@
 package samples.addressbook.functests;
 
+import org.uispec4j.Key;
 import org.uispec4j.Trigger;
 import org.uispec4j.interception.BasicHandler;
 import org.uispec4j.interception.WindowInterceptor;
@@ -36,6 +37,18 @@ public class CategoryCreationTest extends AddressBookTestCase {
                                           "    Homer\n" +
                                           "  work"));
     assertThat(categoryTree.pathIsExpanded("friends"));
+  }
+
+  public void testCreatingACategoryThroughKeyStroke() throws Exception {
+    assertThat(categoryTree.contentEquals("All"));
+
+    createCategory("", "friends", new Trigger() {
+      public void run() throws Exception {
+        getMainWindow().typeKey(Key.control(Key.N));
+      }
+    });
+    assertThat(categoryTree.contentEquals("All\n" +
+                                          "  friends"));
   }
 
   public void testCreatingACategoryThatAlreadyExists() throws Exception {

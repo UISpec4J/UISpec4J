@@ -55,9 +55,14 @@ public abstract class AddressBookTestCase extends UISpecTestCase {
   }
 
   protected void createCategory(String parentCategoryPath, String categoryName) {
+    Trigger trigger = newCategoryButton.triggerClick();
+    createCategory(parentCategoryPath, categoryName, trigger);
+  }
+
+  protected void createCategory(String parentCategoryPath, String categoryName, Trigger trigger) {
     categoryTree.select(parentCategoryPath);
     WindowInterceptor
-      .init(newCategoryButton.triggerClick())
+      .init(trigger)
       .process(BasicHandler.init()
         .assertContainsText("Category name:")
         .setText(categoryName)

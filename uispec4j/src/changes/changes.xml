@@ -4,18 +4,24 @@
   </properties>
 
   <body>
+    <release version="2.4" date="2010-??-??">
+      <action dev="pratmarty" type="fix">
+        Added support for KeyStrokes when action code is activated through InputMap and ActionMap.
+      </action>
+    </release>
     <release version="2.3" date="2010-05-12">
       <action dev="pratmarty" type="fix">
-         Prevented Component.getMousePosition() from causing a program failure (introduced a dummy MouseInfoPeer).
+        Prevented Component.getMousePosition() from causing a program failure (introduced a dummy MouseInfoPeer).
       </action>
       <action dev="pratmarty" type="fix">
-         Fixed initialization error at test startup when relying on the extension mechanism.
+        Fixed initialization error at test startup when relying on the extension mechanism.
       </action>
       <action dev="mguiot" type="add">
         Added Table.Header.contentEquals(int countHeaderToCheck, String... expectedHeaders)
       </action>
       <action dev="mguiot" type="add">
-        Added Table.blockEquals(int fromRowIndex, int fromColumnIndex, int columnCount, int rowCount, Object[][] expected)
+        Added Table.blockEquals(int fromRowIndex, int fromColumnIndex, int columnCount, int rowCount, Object[][]
+        expected)
         Added Table.rowEquals(int rowIndex, int fromColumnIndex, int columnCount, Object[] expectedRow)
       </action>
       <action dev="rmedina" type="add">
@@ -57,7 +63,7 @@
         to return an Assertion that always fails.
       </action>
     </release>
-    
+
     <release version="2.2" date="2010-02-13">
       <action dev="pratmarty" type="add">
         Added Tree.doubleClick().
@@ -75,7 +81,8 @@
         SpinnerDateModel, SpinnerNumberModel and SpinnerListModel as the model of the wrapped JSpinner component.
       </action>
       <action dev="pratmarty" type="add">
-        Added UIComponent.typeKey(Key), pressKey(Key) and releaseKey(Key) to simulate key typing with the focus on the component.
+        Added UIComponent.typeKey(Key), pressKey(Key) and releaseKey(Key) to simulate key typing with the focus on the
+        component.
       </action>
       <action dev="pratmarty" type="fix">
         Improved Key low-level management through Key and KeyUtils classes. (Thanks to Michael Muthukrishna)
@@ -102,13 +109,15 @@
     </release>
     <release version="2.0-RC2" date="2009-01-19">
       <action dev="mguiot" type="fix">
-        In class WindowInterceptor, revert call to TriggerRunner.runInSwingThread in call to TriggerRunner.runInCurrentThread
+        In class WindowInterceptor, revert call to TriggerRunner.runInSwingThread in call to
+        TriggerRunner.runInCurrentThread
       </action>
       <action dev="mguiot" type="fix">
         In ComboBox.selectionEquals : use the rendered value in assert if selection is null
       </action>
       <action dev="pratmarty" type="fix">
-        Fixed TestNG library adapter:  reversed expected and actual parameters in 'assertEquals(String expected, String actual)'
+        Fixed TestNG library adapter: reversed expected and actual parameters in 'assertEquals(String expected, String
+        actual)'
       </action>
       <action dev="rmedina" type="add">
         Added ComponentMatchers.toolTipEquals(String)
@@ -118,7 +127,7 @@
         approximative comparisons.
       </action>
       <action dev="mguiot" type="fix">
-       Improved the handling of multi-threading conditions in the window interception mechanism.
+        Improved the handling of multi-threading conditions in the window interception mechanism.
       </action>
     </release>
     <release version="2.0-RC1" date="2008-12-25">

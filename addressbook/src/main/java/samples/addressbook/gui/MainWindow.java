@@ -28,6 +28,7 @@ public class MainWindow {
     frame = new JFrame();
     frame.setTitle("Address Book");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.getRootPane().setDefaultButton(contactTablePanel.getCreateNewContactButton());
     Container contentPane = frame.getContentPane();
     contentPane.add(verticalSplit, BorderLayout.CENTER);
   }

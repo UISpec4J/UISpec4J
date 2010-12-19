@@ -16,6 +16,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.Enumeration;
 
 public class CategoryTreePanel implements CategoryCreationListener {
@@ -32,6 +34,13 @@ public class CategoryTreePanel implements CategoryCreationListener {
     this.createNewCategoryButton = new JButton(new CreateCategoryAction(book, handler));
     createTree();
     book.getEventHandler().addCategoryCreationListener(this);
+  }
+
+  private void addKeyBindingForNewCategory(JPanel panel, CreateCategoryAction createCategoryAction) {
+    InputMap inMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+    KeyStroke ctrlN = KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK, true);
+    inMap.put(ctrlN, "ctrl-n");
+    panel.getActionMap().put("ctrl-n", createCategoryAction);
   }
 
   private void createTree() {
@@ -75,6 +84,7 @@ public class CategoryTreePanel implements CategoryCreationListener {
                 GridBagConstraints.BOTH,
                 GridBagConstraints.CENTER,
                 new Insets(0, 0, 0, 0));
+    addKeyBindingForNewCategory(panel, new CreateCategoryAction(book, selectionHandler));
     return panel;
   }
 

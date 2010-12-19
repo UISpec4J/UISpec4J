@@ -276,9 +276,9 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
   public void testPressingPrintableKeyRejectedByTextField() throws Exception {
     JTextField textField = new JTextField();
     ((AbstractDocument)textField.getDocument()).setDocumentFilter(new DocumentFilter() {
-      public void insertString(FilterBypass bypass, int i, String string, AttributeSet set) throws BadLocationException {
-        if (!string.equals("a")) {
-          super.insertString(bypass, i, string, set);
+      public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+        if (!text.equals("a")) {
+          fb.replace(offset, length, text, attrs);
         }
       }
     });
