@@ -7,15 +7,18 @@
  ~
  - mvn clean install
  ~ mvn source:jar javadoc:jar repository:bundle-create -Dmaven.test.skip=true
- ~ mv target/uispec4j-<version>-bundle.jar target/uispec4j-<version>-<jdk15/jdk16>-bundle.jar (this step is weird, but necessary)
+ ~ mv target/uispec4j-<version>-bundle.jar target/uispec4j-<version>-<jdk5/jdk6>-bundle.jar (this step is weird, but necessary)
  ~
  ~ When you are all done, open a JIRA upload request as was done here: http://jira.codehaus.org/browse/MAVENUPLOAD-2647
 -->
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.uispec4j</groupId>
+  <parent>
+    <groupId>org.uispec4j</groupId>
+    <artifactId>uispec4j-root</artifactId>
+    <version>2.5-SNAPSHOT</version>
+  </parent>
   <artifactId>uispec4j</artifactId>
-  <version>2.4-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
@@ -179,7 +182,7 @@
 
   <profiles>
     <profile>
-      <id>jdk15</id>
+      <id>jdk5</id>
       <activation>
         <jdk>1.5</jdk>
       </activation>
@@ -190,7 +193,7 @@
             <executions>
               <execution>
                 <configuration>
-                  <classifier>jdk15</classifier>
+                  <classifier>jdk5</classifier>
                 </configuration>
                 <goals>
                   <goal>jar</goal>
@@ -210,7 +213,7 @@
                 </goals>
                 <configuration>
                   <sources>
-                    <source>${basedir}/src/main/java-jdk15</source>
+                    <source>${basedir}/src/main/java-jdk5</source>
                   </sources>
                 </configuration>
               </execution>
@@ -220,7 +223,7 @@
       </build>
     </profile>
     <profile>
-      <id>jdk16</id>
+      <id>jdk6</id>
       <activation>
         <jdk>1.6</jdk>
       </activation>
@@ -231,7 +234,7 @@
             <executions>
               <execution>
                 <configuration>
-                  <classifier>jdk16</classifier>
+                  <classifier>jdk6</classifier>
                 </configuration>
                 <goals>
                   <goal>jar</goal>
@@ -251,7 +254,7 @@
                 </goals>
                 <configuration>
                   <sources>
-                    <source>${basedir}/src/main/java-jdk16</source>
+                    <source>${basedir}/src/main/java-jdk6</source>
                   </sources>
                 </configuration>
               </execution>
