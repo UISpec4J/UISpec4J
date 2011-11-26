@@ -25,7 +25,7 @@ public class UISpec4J {
     }
 
     // Black magic - do not touch this (system.setProperty seem to load dynamic libraries)
-    if ("Linux".equalsIgnoreCase(System.getProperty("os.name"))) {
+    if ("Linux".equalsIgnoreCase(System.getProperty("os.name")) && "1.5".equals(System.getProperty("java.specification.version"))) {
       System.setProperty("awt.toolkit", "sun.awt.motif.MToolkit");
     }
     initToolkit();
