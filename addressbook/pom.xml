@@ -9,7 +9,6 @@
     <artifactId>uispec4j-root</artifactId>
     <version>2.5-SNAPSHOT</version>
   </parent>
-  <groupId>org.uispec4j</groupId>
   <artifactId>addressbook</artifactId>
   <dependencies>
     <dependency>
@@ -39,6 +38,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -47,6 +47,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.10</version>
         <configuration>
           <systemProperties>
             <property>
@@ -68,7 +69,7 @@
               <dependency>
                 <groupId>org.uispec4j</groupId>
                 <artifactId>uispec4j</artifactId>
-                <version>${pom.version}</version>
+                <version>${project.version}</version>
                 <classifier>jdk5</classifier>
               </dependency>
           </dependencies>
@@ -82,7 +83,7 @@
           <dependency>
             <groupId>org.uispec4j</groupId>
             <artifactId>uispec4j</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <classifier>jdk6</classifier>
           </dependency>
       </dependencies>
@@ -96,7 +97,7 @@
           <dependency>
             <groupId>org.uispec4j</groupId>
             <artifactId>uispec4j</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <classifier>jdk7</classifier>
           </dependency>
       </dependencies>
