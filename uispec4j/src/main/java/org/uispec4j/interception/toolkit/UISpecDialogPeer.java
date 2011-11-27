@@ -8,10 +8,12 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class UISpecDialogPeer extends Empty.DialogPeer {
+  private Toolkit toolkit;
   private JDialog dialog;
   private boolean listenerRegistered;
 
-  public UISpecDialogPeer(JDialog dialog) {
+  public UISpecDialogPeer(Toolkit toolkit, JDialog dialog) {
+    this.toolkit = toolkit;
     this.dialog = dialog;
   }
 
@@ -44,7 +46,7 @@ public class UISpecDialogPeer extends Empty.DialogPeer {
   }
 
   public Toolkit getToolkit() {
-    return UISpecToolkit.instance();
+    return toolkit;
   }
 }
 

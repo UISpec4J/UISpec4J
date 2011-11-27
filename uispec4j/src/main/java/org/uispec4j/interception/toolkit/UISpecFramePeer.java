@@ -3,9 +3,11 @@ package org.uispec4j.interception.toolkit;
 import java.awt.*;
 
 public class UISpecFramePeer extends Empty.FramePeer {
+  private Toolkit toolkit;
   private Frame frame;
 
-  public UISpecFramePeer(Frame frame) {
+  public UISpecFramePeer(Toolkit toolkit, Frame frame) {
+    this.toolkit = toolkit;
     this.frame = frame;
   }
 
@@ -15,6 +17,6 @@ public class UISpecFramePeer extends Empty.FramePeer {
   }
 
   public Toolkit getToolkit() {
-    return UISpecToolkit.instance();
+    return toolkit;
   }
 }

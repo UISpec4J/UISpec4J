@@ -1,10 +1,15 @@
 package org.uispec4j;
 
-import org.uispec4j.interception.toolkit.UISpecToolkit;
-import org.uispec4j.interception.ui.UISpecLF;
-
-import java.awt.*;
+import java.awt.AWTError;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.lang.reflect.Field;
+
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
+
+import org.uispec4j.interception.toolkit.ToolkitHandler;
+import org.uispec4j.interception.ui.UISpecLF;
 
 /**
  * Facade for the initialization of the library, mainly used for the interception mechanism.
@@ -12,8 +17,11 @@ import java.lang.reflect.Field;
  * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public class UISpec4J {
-  private static long windowInterceptionTimeLimit = 10000;
   public static final int DEFAULT_ASSERTION_TIME_LIMIT = 500;
+  private static final String SYSTEM_PROPERTY = "awt.toolkit";
+  private static final String UNIX_SYSTEM_DEFAULT_VALUE = "sun.awt.motif.MToolkit";
+  private static final String WINDOWS_SYSTEM_DEFAULT_VALUE = "sun.awt.windows.WToolkit";
+  private static long windowInterceptionTimeLimit = 10000;
   private static long assertionTimeLimit = DEFAULT_ASSERTION_TIME_LIMIT;
 
   /**
@@ -34,13 +42,40 @@ public class UISpec4J {
 
   private static void initToolkit() {
     try {
+      ToolkitHandler toolkitHandler = new ToolkitHandler();
+      ProxyFactory factory = new ProxyFactory();
+      factory.setSuperclass(Class.forName(resolveAwtToolkitName()));
+      factory.setFilter(toolkitHandler);
+      Toolkit awtToolkit = (Toolkit) factory.createClass().newInstance();
+      ((ProxyObject) awtToolkit).setHandler(toolkitHandler);
+
       Field toolkitField = Toolkit.class.getDeclaredField("toolkit");
       toolkitField.setAccessible(true);
-      toolkitField.set(null, new UISpecToolkit());
+      toolkitField.set(null, awtToolkit);
     }
     catch (Exception e) {
       throw new RuntimeException("Unable to initialize toolkit for interception.", e);
     }
+  }
+
+  private static String resolveAwtToolkitName() {
+    String awtToolkit = System.getProperty(SYSTEM_PROPERTY);
+    if (awtToolkit == null) {
+      try {
+        Class.forName(WINDOWS_SYSTEM_DEFAULT_VALUE);
+        awtToolkit = WINDOWS_SYSTEM_DEFAULT_VALUE;
+      }
+      catch (ClassNotFoundException e) {
+        try {
+          Class.forName(UNIX_SYSTEM_DEFAULT_VALUE);
+          awtToolkit = UNIX_SYSTEM_DEFAULT_VALUE;
+        }
+        catch (ClassNotFoundException e1) {
+          throw new AWTError("Unable to locate AWT Toolkit");
+        }
+      }
+    }
+    return awtToolkit;
   }
 
   /**

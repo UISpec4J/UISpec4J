@@ -34,6 +34,11 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.15.0-GA</version>
+    </dependency>
+    <dependency>
       <groupId>asm</groupId>
       <artifactId>asm</artifactId>
       <version>3.1</version>

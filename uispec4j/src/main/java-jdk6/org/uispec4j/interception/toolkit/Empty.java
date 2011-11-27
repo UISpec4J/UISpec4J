@@ -73,7 +73,7 @@ public final class Empty {
   private Empty() {
   }
 
-  static class WindowPeeer implements WindowPeer {
+  abstract static class WindowPeeer implements WindowPeer {
     public void toBack() {
     }
 
@@ -227,10 +227,6 @@ public final class Empty {
       return NULL_DIMENSION;
     }
 
-    public Toolkit getToolkit() {
-      return UISpecToolkit.instance();
-    }
-
     public void handleEvent(AWTEvent e) {
     }
 
@@ -330,7 +326,7 @@ public final class Empty {
     }
   }
 
-  static class FramePeer extends Empty.WindowPeeer implements java.awt.peer.FramePeer {
+  abstract static class FramePeer extends Empty.WindowPeeer implements java.awt.peer.FramePeer {
     public int getState() {
       return 0;
     }
@@ -361,7 +357,7 @@ public final class Empty {
     }
   }
 
-  static class DialogPeer extends Empty.WindowPeeer implements java.awt.peer.DialogPeer {
+  abstract static class DialogPeer extends Empty.WindowPeeer implements java.awt.peer.DialogPeer {
     public void setResizable(boolean resizeable) {
     }
 
