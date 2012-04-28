@@ -1,13 +1,14 @@
 package org.uispec4j.interception.toolkit;
 
 import org.uispec4j.Window;
+import org.uispec4j.interception.toolkit.empty.DialogPeer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-public class UISpecDialogPeer extends Empty.DialogPeer {
+public class UISpecDialogPeer extends DialogPeer {
   private Toolkit toolkit;
   private JDialog dialog;
   private boolean listenerRegistered;

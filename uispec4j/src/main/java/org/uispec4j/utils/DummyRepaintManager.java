@@ -1,6 +1,6 @@
 package org.uispec4j.utils;
 
-import org.uispec4j.interception.toolkit.Empty;
+import org.uispec4j.interception.toolkit.empty.Empty;
 
 import javax.swing.*;
 import java.awt.*;

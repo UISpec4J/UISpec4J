@@ -5,6 +5,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.lang.reflect.Field;
 
+import javassist.util.proxy.MethodFilter;
+import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 
@@ -13,7 +15,7 @@ import org.uispec4j.interception.ui.UISpecLF;
 
 /**
  * Facade for the initialization of the library, mainly used for the interception mechanism.
- *
+ * 
  * @see <a href="http://www.uispec4j.org/intercepting-windows">Intercepting windows</a>
  */
 public class UISpec4J {
@@ -34,7 +36,7 @@ public class UISpec4J {
 
     // Black magic - do not touch this (system.setProperty seem to load dynamic libraries)
     if ("Linux".equalsIgnoreCase(System.getProperty("os.name")) && "1.5".equals(System.getProperty("java.specification.version"))) {
-      System.setProperty("awt.toolkit", "sun.awt.motif.MToolkit");
+      System.setProperty(SYSTEM_PROPERTY, "sun.awt.motif.MToolkit");
     }
     initToolkit();
     UISpecLF.init();
@@ -43,39 +45,51 @@ public class UISpec4J {
   private static void initToolkit() {
     try {
       ToolkitHandler toolkitHandler = new ToolkitHandler();
-      ProxyFactory factory = new ProxyFactory();
-      factory.setSuperclass(Class.forName(resolveAwtToolkitName()));
-      factory.setFilter(toolkitHandler);
-      Toolkit awtToolkit = (Toolkit) factory.createClass().newInstance();
-      ((ProxyObject) awtToolkit).setHandler(toolkitHandler);
+      Toolkit awtToolkit = createProxy(toolkitHandler, toolkitHandler, resolveAwtToolkit());
 
       Field toolkitField = Toolkit.class.getDeclaredField("toolkit");
       toolkitField.setAccessible(true);
       toolkitField.set(null, awtToolkit);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Unable to initialize toolkit for interception.", e);
     }
   }
 
-  private static String resolveAwtToolkitName() {
+  private static <T> T createProxy(MethodFilter filter, MethodHandler handler, Class<T> klass) {
+    try {
+      ProxyFactory factory = new ProxyFactory();
+      factory.setSuperclass(klass);
+      factory.setFilter(filter);
+      ProxyObject proxy = (ProxyObject) factory.createClass().newInstance();
+      proxy.setHandler(handler);
+      return (T) proxy;
+    } catch (InstantiationException e) {
+      throw new RuntimeException("Unable to initialize toolkit for interception.", e);
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException("Unable to initialize toolkit for interception.", e);
+    }
+  }
+
+  private static Class<Toolkit> resolveAwtToolkit() {
     String awtToolkit = System.getProperty(SYSTEM_PROPERTY);
     if (awtToolkit == null) {
       try {
         Class.forName(WINDOWS_SYSTEM_DEFAULT_VALUE);
         awtToolkit = WINDOWS_SYSTEM_DEFAULT_VALUE;
-      }
-      catch (ClassNotFoundException e) {
+      } catch (ClassNotFoundException e) {
         try {
           Class.forName(UNIX_SYSTEM_DEFAULT_VALUE);
           awtToolkit = UNIX_SYSTEM_DEFAULT_VALUE;
-        }
-        catch (ClassNotFoundException e1) {
+        } catch (ClassNotFoundException e1) {
           throw new AWTError("Unable to locate AWT Toolkit");
         }
       }
     }
-    return awtToolkit;
+    try {
+      return (Class<Toolkit>) Class.forName(awtToolkit);
+    } catch (ClassNotFoundException e) {
+      throw new AWTError("Unable to load AWT Toolkit");
+    }
   }
 
   /**

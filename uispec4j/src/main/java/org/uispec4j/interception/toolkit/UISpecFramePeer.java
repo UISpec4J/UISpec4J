@@ -2,7 +2,9 @@ package org.uispec4j.interception.toolkit;
 
 import java.awt.*;
 
-public class UISpecFramePeer extends Empty.FramePeer {
+import org.uispec4j.interception.toolkit.empty.FramePeer;
+
+public class UISpecFramePeer extends FramePeer {
   private Toolkit toolkit;
   private Frame frame;
 

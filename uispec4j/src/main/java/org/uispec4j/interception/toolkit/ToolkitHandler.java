@@ -19,7 +19,8 @@ import javassist.util.proxy.MethodHandler;
 import javax.swing.JDialog;
 import javax.swing.JPopupMenu;
 
-import org.uispec4j.interception.toolkit.Empty.FramePeer;
+import org.uispec4j.interception.toolkit.empty.Empty;
+import org.uispec4j.interception.toolkit.empty.FramePeer;
 
 public class ToolkitHandler implements MethodFilter, MethodHandler {
   private static final Map<String, Object> HANDLED_METHODS;

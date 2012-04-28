@@ -2,7 +2,9 @@ package org.uispec4j.interception.toolkit;
 
 import java.awt.*;
 
-public class UISpecWindowPeer extends Empty.WindowPeeer {
+import org.uispec4j.interception.toolkit.empty.WindowPeeer;
+
+public class UISpecWindowPeer extends WindowPeeer {
   private Toolkit toolkit;
   Window window;
 

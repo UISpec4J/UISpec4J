@@ -3,7 +3,7 @@ package org.uispec4j;
 import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
-import org.uispec4j.interception.toolkit.Empty;
+import org.uispec4j.interception.toolkit.empty.DummyIcon;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Chrono;
 import org.uispec4j.utils.DummyActionListener;
@@ -54,13 +54,13 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
   }
 
   public void testIcons() throws Exception {
-    Icon icon = new Empty.DummyIcon();
+    Icon icon = new DummyIcon();
     checkAssertionFails(getButton().iconEquals(icon), "The component contains no icon.");
 
     getSwingButton().setIcon(icon);
     assertTrue(getButton().iconEquals(icon));
 
-    assertFalse(getButton().iconEquals(new Empty.DummyIcon()));
+    assertFalse(getButton().iconEquals(new DummyIcon()));
   }
 
   public void testActivateIsRejectedIfTheButtonIsDisabled() throws Exception {
