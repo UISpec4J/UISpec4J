@@ -1,5 +1,7 @@
 package org.uispec4j;
 
+import java.util.Arrays;
+
 import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.XmlAssert;
@@ -24,7 +26,7 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
 
   public final void testGetDescription() throws Exception {
     String property = System.getProperty("java.specification.version");
-    if ("".equals(property) || "1.6".equals(property)) {
+    if (Arrays.asList("", "1.6", "1.7").contains(property)) {
       XmlAssert.assertEquivalent("<spinner name='marcel'>" +
                                  "  <button name='Spinner.nextButton'/>" +
                                  "  <button name='Spinner.previousButton'/>" +
