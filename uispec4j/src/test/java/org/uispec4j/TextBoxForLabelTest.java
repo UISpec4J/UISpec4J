@@ -36,7 +36,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   public void testAssertTextEquals() throws Exception {
     assertTrue(textBox.textEquals("some text"));
     checkAssertionFails(textBox.textEquals("unknown"),
-                        "expected:<unknown> but was:<some text>");
+                        "expected:<[unknown]> but was:<[some text]>");
   }
 
   public void testAssertTextEqualsWithHtml() throws Exception {

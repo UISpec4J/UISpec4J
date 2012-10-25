@@ -32,7 +32,7 @@ public class WindowForAwtWindowTest extends WindowTestCase {
     final Window window = createWindow();
     assertTrue(window.titleEquals(""));
     checkAssertionFails(window.titleEquals("title"),
-                        "Unexpected title - expected:<title> but was:<>");
+                        "Unexpected title - expected:<[title]> but was:<[]>");
   }
 
   public void testAssertTitleContains() throws Exception {

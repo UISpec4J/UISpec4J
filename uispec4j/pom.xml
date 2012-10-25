@@ -15,19 +15,19 @@
 
   <groupId>org.uispec4j</groupId>
   <artifactId>uispec4j</artifactId>
-  <version>2.4-SNAPSHOT</version>
+  <version>2.5-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.10</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>5.0</version>
+      <version>6.8</version>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -136,6 +136,7 @@
           <forkMode>once</forkMode>
         </configuration>
       </plugin>
+	  <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
@@ -148,7 +149,9 @@
             </goals>
           </execution>
         </executions>
-      </plugin>    </plugins>
+      </plugin>    
+	  -->
+	  </plugins>
   </build>
 
   <reporting>
@@ -164,7 +167,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.5.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -201,7 +204,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.1</version>
+            <version>1.5</version>
             <executions>
               <execution>
                 <id>add-specific-source</id>
@@ -242,7 +245,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.1</version>
+            <version>1.5</version>
             <executions>
               <execution>
                 <id>add-specific-source</id>

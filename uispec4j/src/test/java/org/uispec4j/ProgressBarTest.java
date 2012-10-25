@@ -124,7 +124,7 @@ public class ProgressBarTest extends UIComponentTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("expected:<unexpected> but was:<done>", e.getMessage());
+      assertEquals("expected:<[unexpected]> but was:<[done]>", e.getMessage());
     }
   }
 
