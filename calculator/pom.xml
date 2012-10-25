@@ -7,17 +7,17 @@
   <parent>
     <groupId>org.uispec4j</groupId>
     <artifactId>uispec4j-root</artifactId>
-    <version>2.4-SNAPSHOT</version>
+    <version>2.5-SNAPSHOT</version>
   </parent>
   <groupId>org.uispec4j</groupId>
   <artifactId>calculator</artifactId>
+  
   <dependencies>
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>5.1</version>
+      <version>6.8</version>
       <scope>test</scope>
-      <classifier>jdk15</classifier>
     </dependency>
   </dependencies>
 

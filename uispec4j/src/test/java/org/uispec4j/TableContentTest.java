@@ -403,7 +403,7 @@ public class TableContentTest extends TableTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("expected:<[true,true]> but was:<true,false>", e.getMessage());
+      assertEquals("expected:<[[true,true]]> but was:<[true,false]>", e.getMessage());
     }
 
     try {

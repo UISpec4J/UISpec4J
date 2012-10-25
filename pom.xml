@@ -8,6 +8,7 @@
     <artifactId>uispec4j-root</artifactId>
     <version>2.5-SNAPSHOT</version>
     <packaging>pom</packaging>
+	
     <modules>
         <module>uispec4j</module>
         <module>addressbook</module>
@@ -33,22 +34,26 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
+					<version>2.12.4</version>
                     <configuration>
                         <argLine>-Dfile.encoding=MacRoman</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5</version>
                     <configuration>
                         <encoding>x-MacRoman</encoding>
                     </configuration>
                 </plugin>
+				<!--
                 <plugin>
                     <artifactId>maven-idea-plugin</artifactId>
                     <configuration>
                         <downloadSources>true</downloadSources>
                     </configuration>
                 </plugin>
+				-->
             </plugins>
         </pluginManagement>
     </build>
