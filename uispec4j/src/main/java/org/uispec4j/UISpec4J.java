@@ -28,8 +28,8 @@ public class UISpec4J {
     if ("Linux".equalsIgnoreCase(System.getProperty("os.name")) && "1.5".equals(System.getProperty("java.specification.version"))) {
       System.setProperty("awt.toolkit", "sun.awt.motif.MToolkit");
     }
-    initToolkit();
     UISpecLF.init();
+    initToolkit();
   }
 
   private static void initToolkit() {
