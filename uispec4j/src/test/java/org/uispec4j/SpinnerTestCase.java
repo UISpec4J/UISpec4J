@@ -24,7 +24,7 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
 
   public final void testGetDescription() throws Exception {
     String property = System.getProperty("java.specification.version");
-    if ("".equals(property) || "1.6".equals(property)) {
+      if ("".equals(property) || "1.6".equals(property) || "1.7".equals(property)) {
       XmlAssert.assertEquivalent("<spinner name='marcel'>" +
                                  "  <button name='Spinner.nextButton'/>" +
                                  "  <button name='Spinner.previousButton'/>" +
