@@ -57,7 +57,7 @@ public class UISpecLF {
     UIDefaults defaults = UIManager.getDefaults();
     Set set = new TreeSet();
     for (Enumeration dfkeys = defaults.keys(); dfkeys.hasMoreElements();) {
-      String key = (String)dfkeys.nextElement();
+      String key = dfkeys.nextElement().toString();
       if (key.endsWith("UI")) {
         set.add(key);
       }
