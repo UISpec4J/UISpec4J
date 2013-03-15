@@ -44,6 +44,15 @@ public abstract class TreeTestCase extends UnitTestCase {
     tree = new Tree(jTree);
   }
 
+    protected void assertNoSelection(JTree jTree) {
+        String property = System.getProperty("java.specification.version");
+        if ("1.7".equals(property)) {
+            assertEquals(0, jTree.getSelectionRows().length);
+            return;
+        }
+        assertNull(jTree.getSelectionRows());
+    }
+
   protected static class DummyTreeCellValueConverter extends EventLogger implements TreeCellValueConverter {
     private String boldPattern;
     private String redFontPattern;
