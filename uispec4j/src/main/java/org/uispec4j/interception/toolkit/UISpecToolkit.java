@@ -76,7 +76,7 @@ public class UISpecToolkit extends ToolkitDelegate {
   }
 
   public WindowPeer createWindow(Window target) throws HeadlessException {
-    return new UISpecWindowPeerDecorator(target);
+    return new UISpecWindowPeer(target);
   }
 
   public CanvasPeer createCanvas(Canvas target) {
