@@ -308,11 +308,11 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
   }
 
   public boolean isModalExclusionTypeSupported(Dialog.ModalExclusionType modalExclusionType) {
-    return false;
+    return true;
   }
 
   public boolean isModalityTypeSupported(Dialog.ModalityType modalityType) {
-    return false;
+    return true;
   }
 
   public DragGestureRecognizer createDragGestureRecognizer(Class abstractRecognizerClass,
