@@ -138,7 +138,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
           logger.log("confirm").add("result", result);
         }
       })
-      .processWithButtonClick("Yes")
+      .processWithButtonClick(getLocalLabel("OptionPane.yesButtonText"))
       .run();
     logger.assertEquals("<log>" +
                         "  <confirm result='0'/>" +
@@ -174,5 +174,9 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
       dialog.setVisible(true);
       thread.join();
     }
+  }
+
+  private String getLocalLabel(String resource) {
+    return (String) UIManager.get(resource);
   }
 }

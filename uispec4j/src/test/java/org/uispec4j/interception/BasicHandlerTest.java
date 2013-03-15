@@ -66,10 +66,10 @@ public class BasicHandlerTest extends InterceptionTestCase {
   }
 
   public void testJOptionPaneConfirmationReplies() throws Exception {
-    checkSelectedValue(JOptionPane.YES_OPTION, JOptionPane.YES_NO_OPTION, "Yes");
-    checkSelectedValue(JOptionPane.NO_OPTION, JOptionPane.YES_NO_OPTION, "No");
-    checkSelectedValue(JOptionPane.OK_OPTION, JOptionPane.OK_CANCEL_OPTION, "OK");
-    checkSelectedValue(JOptionPane.CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, "Cancel");
+    checkSelectedValue(JOptionPane.YES_OPTION, JOptionPane.YES_NO_OPTION, getLocalLabel("OptionPane.yesButtonText"));
+    checkSelectedValue(JOptionPane.NO_OPTION, JOptionPane.YES_NO_OPTION, getLocalLabel("OptionPane.noButtonText"));
+    checkSelectedValue(JOptionPane.OK_OPTION, JOptionPane.OK_CANCEL_OPTION, getLocalLabel("OptionPane.okButtonText"));
+    checkSelectedValue(JOptionPane.CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, getLocalLabel("OptionPane.cancelButtonText"));
   }
 
   public void testSetInputInJOptionPane() throws Exception {
@@ -174,7 +174,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
       })
       .process(BasicHandler.init()
         .assertContainsText("Confirm?")
-        .triggerButtonClick("Yes"))
+        .triggerButtonClick(getLocalLabel("OptionPane.yesButtonText")))
       .processWithButtonClick("Close")
       .run();
     logger.assertEquals("<log>" +
@@ -209,5 +209,9 @@ public class BasicHandlerTest extends InterceptionTestCase {
         dialog.setVisible(true);
       }
     };
+  }
+
+  private String getLocalLabel(String resource) {
+    return (String) UIManager.get(resource);
   }
 }
