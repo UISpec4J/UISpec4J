@@ -233,9 +233,9 @@ public final class Empty {
     }
 
     public void setVisible(boolean b) {
-        if (b) {
-            show();
-        }
+      if (b) {
+        show();
+      }
     }
 
     public void show() {
