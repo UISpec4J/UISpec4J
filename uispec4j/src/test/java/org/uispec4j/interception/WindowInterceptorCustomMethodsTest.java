@@ -175,8 +175,4 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
       thread.join();
     }
   }
-
-  private String getLocalLabel(String resource) {
-    return (String) UIManager.get(resource);
-  }
 }

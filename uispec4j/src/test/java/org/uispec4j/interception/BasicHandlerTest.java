@@ -210,8 +210,4 @@ public class BasicHandlerTest extends InterceptionTestCase {
       }
     };
   }
-
-  private String getLocalLabel(String resource) {
-    return (String) UIManager.get(resource);
-  }
 }
