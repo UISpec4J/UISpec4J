@@ -235,4 +235,8 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     checkError(SHOW_OPEN_DIALOG_TRIGGER,
                FileChooserHandler.init().assertMultiSelectionEnabled(!enabled), javaHome, message);
   }
+
+  private String getLocalLabel(String resource) {
+    return (String) UIManager.get(resource);
+  }
 }
