@@ -10,7 +10,7 @@ public class UISpecWindowPeer extends Empty.WindowPeeer {
   }
 
   public void show() {
-    if (Window.Type.POPUP.equals(window.getType())) {
+    if (Window.Type.POPUP.equals(window.getType()) && !"Mac OS X".equals(System.getProperty("os.name"))) {
       return;
     }
     UISpecDisplay.instance().showWindow(window);
