@@ -1,12 +1,15 @@
 package org.uispec4j;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Arrays;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import org.uispec4j.utils.DummyTreeCellRenderer;
 import org.uispec4j.utils.UnitTestCase;
 import org.uispec4j.xml.EventLogger;
-
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
 
 public abstract class TreeTestCase extends UnitTestCase {
   protected JTree jTree;
@@ -24,7 +27,8 @@ public abstract class TreeTestCase extends UnitTestCase {
   protected DummyTreeCellRenderer.UserObject child2 =
     new DummyTreeCellRenderer.UserObject("child2");
 
-  protected void setUp() throws Exception {
+  @Override
+protected void setUp() throws Exception {
     super.setUp();
     rootNode = new DefaultMutableTreeNode(root);
     child1Node = new DefaultMutableTreeNode(child1);
@@ -44,9 +48,9 @@ public abstract class TreeTestCase extends UnitTestCase {
     tree = new Tree(jTree);
   }
 
-  protected void assertNoSelection(JTree jTree) {
-    String property = System.getProperty("java.specification.version");
-    if ("1.7".equals(property)) {
+  protected void assertNoSelection(final JTree jTree) {
+    final String property = System.getProperty("java.specification.version");
+    if (Arrays.asList("1.7", "1.8").contains(property)) {
       assertEquals(0, jTree.getSelectionRows().length);
       return;
     }
@@ -57,18 +61,18 @@ public abstract class TreeTestCase extends UnitTestCase {
     private String boldPattern;
     private String redFontPattern;
 
-    public String getValue(Component renderedComponent, Object modelObject) {
+    public String getValue(final Component renderedComponent, final Object modelObject) {
       log("getValue")
         .add("component", renderedComponent.getClass().getName())
         .add("object", modelObject.toString());
       return '_' + modelObject.toString() + '_';
     }
 
-    public void setRedFontPattern(String redFontPattern) {
+    public void setRedFontPattern(final String redFontPattern) {
       this.redFontPattern = redFontPattern;
     }
 
-    public Color getForeground(Component renderedComponent, Object modelObject) {
+    public Color getForeground(final Component renderedComponent, final Object modelObject) {
       if ((redFontPattern != null) &&
           (modelObject.toString().indexOf(redFontPattern) >= 0)) {
         return Color.RED;
@@ -77,11 +81,11 @@ public abstract class TreeTestCase extends UnitTestCase {
       return Color.BLACK;
     }
 
-    public void setBoldPattern(String boldPattern) {
+    public void setBoldPattern(final String boldPattern) {
       this.boldPattern = boldPattern;
     }
 
-    public boolean isBold(Component renderedComponent, Object modelObject) {
+    public boolean isBold(final Component renderedComponent, final Object modelObject) {
       if (boldPattern == null) {
         return false;
       }

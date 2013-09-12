@@ -1,11 +1,35 @@
 package org.uispec4j.interception.toolkit;
 
+import java.awt.AWTError;
+import java.awt.AWTException;
+import java.awt.Canvas;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.Frame;
+import java.awt.GraphicsDevice;
+import java.awt.HeadlessException;
+import java.awt.KeyboardFocusManager;
+import java.awt.Panel;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.im.spi.InputMethodDescriptor;
+import java.awt.peer.CanvasPeer;
+import java.awt.peer.DialogPeer;
+import java.awt.peer.FramePeer;
+import java.awt.peer.KeyboardFocusManagerPeer;
+import java.awt.peer.LightweightPeer;
+import java.awt.peer.MouseInfoPeer;
+import java.awt.peer.PanelPeer;
+import java.awt.peer.RobotPeer;
+import java.awt.peer.WindowPeer;
+
+import javax.swing.JDialog;
+import javax.swing.JPopupMenu;
+
 import org.uispec4j.UISpec4J;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.im.spi.InputMethodDescriptor;
-import java.awt.peer.*;
+import sun.awt.LightweightFrame;
 
 /**
  * Mock toolkit used for intercepting displayed frames and dialogs.<p>
@@ -28,7 +52,8 @@ public class UISpecToolkit extends ToolkitDelegate {
    * @see UISpec4J#init
    * @deprecated Do not call this one directly anymore - use {@link UISpec4J#init} instead
    */
-  public static void setUp() {
+  @Deprecated
+public static void setUp() {
     if (underlyingToolkit != null) {
       return;
     }
@@ -49,25 +74,28 @@ public class UISpecToolkit extends ToolkitDelegate {
   }
 
   public static UISpecToolkit instance() {
-    Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+    final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
     if (!(defaultToolkit instanceof UISpecToolkit)) {
       fail("You must call UISpec4J.init() before using it");
     }
     return (UISpecToolkit)defaultToolkit;
   }
 
-  protected LightweightPeer createComponent(Component target) {
+  @Override
+protected LightweightPeer createComponent(final Component target) {
     if (target instanceof JPopupMenu) {
       UISpecDisplay.instance().setCurrentPopup((JPopupMenu)target);
     }
     return super.createComponent(target);
   }
 
-  public FramePeer createFrame(Frame target) {
+  @Override
+public FramePeer createFrame(final Frame target) {
     return new UISpecFramePeer(target);
   }
 
-  public DialogPeer createDialog(Dialog target) throws HeadlessException {
+  @Override
+public DialogPeer createDialog(final Dialog target) throws HeadlessException {
     if (!(target instanceof JDialog)) {
       throw new InterceptionInternalError("Dialogs of type '"
                                           + target.getClass().getName() + "' are not supported.");
@@ -75,43 +103,51 @@ public class UISpecToolkit extends ToolkitDelegate {
     return new UISpecDialogPeer((JDialog)target);
   }
 
-  public WindowPeer createWindow(Window target) throws HeadlessException {
+  @Override
+public WindowPeer createWindow(final Window target) throws HeadlessException {
     return new UISpecWindowPeer(target);
   }
 
-  public CanvasPeer createCanvas(Canvas target) {
+  @Override
+public CanvasPeer createCanvas(final Canvas target) {
     return Empty.NULL_CANVAS_PEER;
   }
 
-  public PanelPeer createPanel(Panel target) {
+  @Override
+public PanelPeer createPanel(final Panel target) {
     return Empty.NULL_PANEL_PEER;
   }
 
-  public RobotPeer createRobot(Robot robot, GraphicsDevice device) throws AWTException, HeadlessException {
+  @Override
+public RobotPeer createRobot(final Robot robot, final GraphicsDevice device) throws AWTException, HeadlessException {
     return Empty.NULL_ROBOT;
   }
 
-  public KeyboardFocusManagerPeer createKeyboardFocusManagerPeer(KeyboardFocusManager keyboardFocusManager) throws HeadlessException {
+  public KeyboardFocusManagerPeer createKeyboardFocusManagerPeer(final KeyboardFocusManager keyboardFocusManager) throws HeadlessException {
     return null;
   }
 
-  protected boolean syncNativeQueue(long l) {
+  @Override
+protected boolean syncNativeQueue(final long l) {
     return false;
   }
 
-  protected int getScreenWidth() {
+  @Override
+protected int getScreenWidth() {
     return 0;
   }
 
-  protected int getScreenHeight() {
+  @Override
+protected int getScreenHeight() {
     return 0;
   }
 
-  protected MouseInfoPeer getMouseInfoPeer() {
+  @Override
+protected MouseInfoPeer getMouseInfoPeer() {
     return Empty.NULL_MOUSE_INFO;
   }
 
-  private static void fail(String msg) {
+  private static void fail(final String msg) {
     throw new InterceptionInternalError(msg);
   }
 
@@ -120,28 +156,41 @@ public class UISpecToolkit extends ToolkitDelegate {
       Class.forName(WINDOWS_SYSTEM_DEFAULT_VALUE);
       awtToolkit = WINDOWS_SYSTEM_DEFAULT_VALUE;
     }
-    catch (ClassNotFoundException e) {
+    catch (final ClassNotFoundException e) {
       try {
         Class.forName(UNIX_SYSTEM_DEFAULT_VALUE);
         awtToolkit = UNIX_SYSTEM_DEFAULT_VALUE;
       }
-      catch (ClassNotFoundException e1) {
+      catch (final ClassNotFoundException e1) {
         throw new AWTError("Unable to locate AWT Toolkit");
       }
     }
   }
 
-  private static void buildUnderlyingToolkit(String awtToolkit) {
+  private static void buildUnderlyingToolkit(final String awtToolkit) {
     try {
       underlyingToolkit = (Toolkit)Class.forName(awtToolkit).newInstance();
     }
-    catch (Exception e) {
+    catch (final Exception e) {
       throw new AWTError("Unable to load AWT Toolkit: " + awtToolkit + " - "
                          + e.getLocalizedMessage());
     }
   }
 
-  public InputMethodDescriptor getInputMethodAdapterDescriptor() throws AWTException {
+  @Override
+public InputMethodDescriptor getInputMethodAdapterDescriptor() throws AWTException {
     return null;
   }
+  
+  @Override
+	public FramePeer createLightweightFrame(final LightweightFrame target)
+			throws HeadlessException {
+		return new UISpecFramePeer(target);
+	}
+  
+  @Override
+	public KeyboardFocusManagerPeer getKeyboardFocusManagerPeer() throws HeadlessException {
+		return null;
+	}
+  
 }

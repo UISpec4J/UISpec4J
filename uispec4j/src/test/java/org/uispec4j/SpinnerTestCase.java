@@ -2,11 +2,13 @@ package org.uispec4j;
 
 import java.util.Arrays;
 
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+
 import junit.framework.AssertionFailedError;
+
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
 
 public abstract class SpinnerTestCase extends UIComponentTestCase {
   protected JSpinner jSpinner;
@@ -16,17 +18,20 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
 
   protected abstract Spinner createSpinner(JSpinner jSpinner);
 
-  protected void setUp() throws Exception {
+  @Override
+protected void setUp() throws Exception {
     init();
   }
 
-  public final void testGetComponentTypeName() throws Exception {
+  @Override
+public final void testGetComponentTypeName() throws Exception {
     assertEquals("spinner", spinner.getDescriptionTypeName());
   }
 
-  public final void testGetDescription() throws Exception {
-    String property = System.getProperty("java.specification.version");
-    if (Arrays.asList("", "1.6", "1.7").contains(property)) {
+  @Override
+public final void testGetDescription() throws Exception {
+    final String property = System.getProperty("java.specification.version");
+    if (Arrays.asList("", "1.6", "1.7", "1.8").contains(property)) {
       XmlAssert.assertEquivalent("<spinner name='marcel'>" +
                                  "  <button name='Spinner.nextButton'/>" +
                                  "  <button name='Spinner.previousButton'/>" +
@@ -42,26 +47,27 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
     }
   }
 
-  protected final UIComponent createComponent() {
+  @Override
+protected final UIComponent createComponent() {
     return spinner;
   }
 
-  protected final void checkPreviousValueFails(String wrongPreviousValue) {
+  protected final void checkPreviousValueFails(final String wrongPreviousValue) {
     try {
       assertTrue(spinner.previousValueEquals(wrongPreviousValue));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (final AssertionFailedError e) {
       assertEquals("No previous value from the start", e.getMessage());
     }
   }
 
-  protected final void checkNextValueFails(String wrongNextValue) {
+  protected final void checkNextValueFails(final String wrongNextValue) {
     try {
       assertTrue(spinner.nextValueEquals(wrongNextValue));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (final AssertionFailedError e) {
       assertEquals("No previous value from the end", e.getMessage());
     }
   }
@@ -72,7 +78,8 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
     spinner = createSpinner(jSpinner);
   }
 
-  public void testFactory() throws Exception {
+  @Override
+public void testFactory() throws Exception {
     checkFactory(jSpinner, Spinner.class);
   }
 
