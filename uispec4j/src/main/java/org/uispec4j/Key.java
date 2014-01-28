@@ -76,7 +76,7 @@ public final class Key {
   public static final Key AT = create(KeyEvent.VK_AT, '@', true);
   public static final Key AMPERSAND = create(KeyEvent.VK_AMPERSAND, '&', true);
   public static final Key QUOTE = create(KeyEvent.VK_QUOTE, '`', true);
-  public static final Key BACKQUOTE = create(KeyEvent.VK_BACK_QUOTE, '�', true);
+  public static final Key BACKQUOTE = create(KeyEvent.VK_BACK_QUOTE, '`', true);
   public static final Key DOUBLE_QUOTE = create(KeyEvent.VK_QUOTEDBL, '"', true);
   public static final Key LEFT_BRACE = create(KeyEvent.VK_BRACELEFT, '{', true);
   public static final Key RIGHT_BRACE = create(KeyEvent.VK_BRACERIGHT, '}', true);

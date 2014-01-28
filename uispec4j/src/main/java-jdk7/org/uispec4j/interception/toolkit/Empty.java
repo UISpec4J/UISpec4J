@@ -269,6 +269,9 @@ public final class Empty {
     public boolean updateGraphicsData(GraphicsConfiguration gc) {
       return false;
     }
+
+	public void updateAlwaysOnTopState() {
+	}
   }
 
   static class FramePeer extends Empty.WindowPeeer implements java.awt.peer.FramePeer {
