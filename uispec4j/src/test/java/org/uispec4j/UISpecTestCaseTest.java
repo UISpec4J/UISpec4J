@@ -1,5 +1,6 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import org.uispec4j.interception.WindowInterceptor;
 import org.uispec4j.utils.UnitTestCase;
 import org.uispec4j.utils.Utils;
@@ -35,6 +36,7 @@ public class UISpecTestCaseTest extends UnitTestCase {
     }
   }
 
+  @Test
   public void testPropertyDefined() throws Exception {
     System.setProperty(UISpecTestCase.ADAPTER_CLASS_PROPERTY, MyAdapter.class.getName());
     MyTestCase testCase = new MyTestCase();
@@ -42,6 +44,7 @@ public class UISpecTestCaseTest extends UnitTestCase {
     assertTrue(testCase.getMainWindow().titleEquals("title"));
   }
 
+  @Test
   public void testGetMainWindowFailsIfThePropertyWasNotDefined() throws Exception {
     System.getProperties().remove(UISpecTestCase.ADAPTER_CLASS_PROPERTY);
     MyTestCase testCase = new MyTestCase();
@@ -55,6 +58,7 @@ public class UISpecTestCaseTest extends UnitTestCase {
     }
   }
 
+  @Test
   public void testGetMainWindowFailsIfThePropertyWasInitializedWithAWrongValue() throws Exception {
     System.setProperty(UISpecTestCase.ADAPTER_CLASS_PROPERTY, "unknown");
     MyTestCase testCase = new MyTestCase();
@@ -68,6 +72,7 @@ public class UISpecTestCaseTest extends UnitTestCase {
     }
   }
 
+  @Test
   public void testSettingTheAdapter() throws Exception {
     MyAdapter adapter1 = new MyAdapter();
     MyAdapter adapter2 = new MyAdapter();
@@ -95,6 +100,7 @@ public class UISpecTestCaseTest extends UnitTestCase {
                           "</log>");
   }
 
+  @Test
   public void testTriggerExceptionsAreStoredAndRethrownInTearDownWhenNotCaughtImmediately() throws Exception {
     UISpec4J.setWindowInterceptionTimeLimit(100);
     final JFrame frame = new JFrame("my frame");

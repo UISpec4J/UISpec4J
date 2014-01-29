@@ -22,12 +22,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>5.14.10</version>
@@ -105,6 +99,7 @@
   <scm>
     <connection>scm:cvs:cvs.dev.java.net:/cvs/uispec4j</connection>
     <url>https://uispec4j.dev.java.net/source/browse/uispec4j/</url>
+    <developerConnection>Charles Greiner</developerConnection>
   </scm>
 
   <properties>
@@ -143,11 +138,12 @@
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.surefire</groupId>
-            <artifactId>surefire-junit3</artifactId>
+            <artifactId>surefire-junit4</artifactId>
             <version>2.10</version>
           </dependency>
         </dependencies>
       </plugin>
+<!--  
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
@@ -162,6 +158,7 @@
           </execution>
         </executions>
       </plugin>
+-->
     </plugins>
   </build>
 
@@ -201,6 +198,14 @@
       <activation>
         <jdk>1.5</jdk>
       </activation>
+		<dependencies>
+      		<dependency>
+      			<groupId>junit</groupId>
+      			<artifactId>junit</artifactId>
+      			<version>3.8.1</version>
+      			<optional>true</optional>
+    		</dependency>
+		</dependencies>
       <build>
         <plugins>
           <plugin>
@@ -236,6 +241,28 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <systemProperties>
+            <property>
+              <name>uispec4j.test.library</name>
+              <value>junit</value>
+            </property>
+          </systemProperties>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <forkMode>once</forkMode>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit3</artifactId>
+            <version>2.10</version>
+          </dependency>
+        </dependencies>
+      </plugin>
         </plugins>
       </build>
     </profile>
@@ -244,6 +271,14 @@
       <activation>
         <jdk>1.6</jdk>
       </activation>
+      		<dependencies>
+      		<dependency>
+      			<groupId>junit</groupId>
+      			<artifactId>junit</artifactId>
+      			<version>3.8.1</version>
+      			<optional>true</optional>
+    		</dependency>
+		</dependencies>
       <build>
         <plugins>
           <plugin>
@@ -279,6 +314,28 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <systemProperties>
+            <property>
+              <name>uispec4j.test.library</name>
+              <value>junit</value>
+            </property>
+          </systemProperties>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <forkMode>once</forkMode>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit3</artifactId>
+            <version>2.10</version>
+          </dependency>
+        </dependencies>
+      </plugin>
         </plugins>
       </build>
     </profile>
@@ -287,6 +344,14 @@
       <activation>
         <jdk>1.7</jdk>
       </activation>
+      <dependencies>
+      	<dependency>
+      		<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<optional>true</optional>
+      	</dependency>
+      </dependencies>
       <build>
         <plugins>
           <plugin>
@@ -322,6 +387,28 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <systemProperties>
+            <property>
+              <name>uispec4j.test.library</name>
+              <value>junit</value>
+            </property>
+          </systemProperties>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <forkMode>once</forkMode>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit4</artifactId>
+            <version>2.10</version>
+          </dependency>
+        </dependencies>
+      </plugin>
         </plugins>
       </build>
     </profile>

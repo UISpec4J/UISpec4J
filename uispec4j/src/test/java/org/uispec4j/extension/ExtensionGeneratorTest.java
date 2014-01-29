@@ -1,5 +1,6 @@
 package org.uispec4j.extension;
 
+import org.junit.Test;
 import org.uispec4j.TestUtils;
 import org.uispec4j.utils.UnitTestCase;
 
@@ -16,14 +17,17 @@ public class ExtensionGeneratorTest extends UnitTestCase {
     output.delete();
   }
 
+  @Test
   public void testStandardGenerationUsageWithCustomClass() throws Exception {
     checkStandardGenerationUsage(CustomCountingButton.class);
   }
 
+  @Test
   public void testStandardGenerationUsageWithDerivedClass() throws Exception {
     checkStandardGenerationUsage(DerivedCountingButton.class);
   }
 
+  @Test
   public void testRunningTheGenerationOverAnExistingJarReplacesThePanelClass() throws Exception {
     checkRunningTheGenerationOverAnExistingJarReplacesThePanelClass(CustomCountingButton.class);
     checkRunningTheGenerationOverAnExistingJarReplacesThePanelClass(DerivedCountingButton.class);

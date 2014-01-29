@@ -2,6 +2,7 @@ package org.uispec4j;
 
 import static org.uispec4j.DummySpinner.*;
 
+import org.junit.Test;
 import javax.swing.*;
 import java.util.Calendar;
 
@@ -13,7 +14,8 @@ public class DateSpinnerTest extends SpinnerTestCase {
     model = DummySpinner.dateModel();
   }
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     super.setUp();
     dateSpinner = (DateSpinner)spinner;
   }
@@ -31,6 +33,7 @@ public class DateSpinnerTest extends SpinnerTestCase {
     return new DateSpinner(jSpinner);
   }
 
+  @Test
   public void testStartAndEndDate() throws Exception {
     assertTrue(dateSpinner.startDateEquals(START_DATE));
     assertTrue(dateSpinner.endDateEquals(END_DATE));
@@ -39,11 +42,13 @@ public class DateSpinnerTest extends SpinnerTestCase {
     assertFalse(dateSpinner.endDateEquals(OTHER_DATE));
   }
 
+  @Test
   public void testCalendarFielsEquals() throws Exception {
     assertTrue(dateSpinner.calendarFieldsEquals(Calendar.MONTH));
     assertFalse(dateSpinner.calendarFieldsEquals(Calendar.YEAR));
   }
 
+  @Test
   public void testUsingDateSpinnerWithOtherModelThanSpinnerDateModelThrowsAnException() throws Exception {
     try {
       new DateSpinner(new JSpinner());

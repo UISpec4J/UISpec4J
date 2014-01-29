@@ -1,13 +1,14 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JMenuBar;
+import java.awt.Frame;
+import junit.framework.AssertionFailedError;
 
 public class WindowForFrameTest extends WindowTestCase {
 
+  @Test
   public void testIsModal() throws Exception {
     Window window = new Window(new Frame());
     assertFalse(window.isModal());
@@ -19,6 +20,8 @@ public class WindowForFrameTest extends WindowTestCase {
     }
   }
 
+  @Override
+  @Test
   public void testWindowManagesMenuBars() throws Exception {
     Window window = new Window(new Frame());
     try {

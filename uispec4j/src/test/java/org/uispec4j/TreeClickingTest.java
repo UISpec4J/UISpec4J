@@ -1,16 +1,17 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Counter;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import junit.framework.AssertionFailedError;
 
 public class TreeClickingTest extends TreeTestCase {
 
+  @Test
   public void testClickOnlyChangesTheSelectionOnce() throws Exception {
     checkClickOnlyChangesTheSelectionOnce(new DirectClicker());
     checkClickOnlyChangesTheSelectionOnce(new TriggerClicker());
@@ -31,6 +32,7 @@ public class TreeClickingTest extends TreeTestCase {
     assertEquals(3, counter.getCount());
   }
 
+  @Test
   public void testClickFailsWhenAppliedOnNonExistingPath() throws Exception {
     checkClickFailsWhenAppliedOnNonExistingPath(new DirectClicker());
     checkClickFailsWhenAppliedOnNonExistingPath(new TriggerClicker());
@@ -60,6 +62,7 @@ public class TreeClickingTest extends TreeTestCase {
     assertEquals(0, counter.getCount());
   }
 
+  @Test
   public void testRightClickBehaviour() throws Exception {
     checkRightClickBehaviour(new DirectClicker());
     checkRightClickBehaviour(new TriggerClicker());
@@ -68,6 +71,7 @@ public class TreeClickingTest extends TreeTestCase {
   private void checkRightClickBehaviour(Clicker clicker) throws Exception {
     final Counter counter = new Counter();
     jTree.addMouseListener(new MouseAdapter() {
+      @Override
       public void mousePressed(MouseEvent e) {
         counter.increment();
         int modifiers = e.getModifiers();
@@ -94,6 +98,7 @@ public class TreeClickingTest extends TreeTestCase {
     assertEquals(4, counter.getCount());
   }
 
+  @Test
   public void testRightClickInSelectionNeedsASelection() throws Exception {
     checkRightClickInSelectionNeedsASelection(new DirectClicker());
     checkRightClickInSelectionNeedsASelection(new TriggerClicker());
@@ -109,6 +114,7 @@ public class TreeClickingTest extends TreeTestCase {
     }
   }
 
+  @Test
   public void testDoubleClickBehaviour() throws Exception {
     checkDoubleClickBehaviour(new DirectClicker());
     checkDoubleClickBehaviour(new TriggerClicker());
@@ -117,6 +123,7 @@ public class TreeClickingTest extends TreeTestCase {
   private void checkDoubleClickBehaviour(Clicker clicker) throws Exception {
     final Counter counter = new Counter();
     jTree.addMouseListener(new MouseAdapter() {
+      @Override
       public void mouseClicked(MouseEvent e) {
         counter.increment();
         assertEquals(2, e.getClickCount());

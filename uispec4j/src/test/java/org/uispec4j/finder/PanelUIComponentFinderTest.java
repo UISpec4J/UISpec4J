@@ -1,5 +1,6 @@
 package org.uispec4j.finder;
 
+import org.junit.Test;
 import org.uispec4j.Button;
 import org.uispec4j.*;
 
@@ -15,11 +16,12 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
     }
   };
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     button = addComponent(JButton.class, "button1");
   }
 
+  @Test
   public void testFindUIComponentByClass() throws Exception {
     assertNull(panel.findUIComponent(TextBox.class));
 
@@ -37,6 +39,7 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
     }
   }
 
+  @Test
   public void testFindUIComponentByName() throws Exception {
     assertNull(panel.findUIComponent(Button.class, "unknown"));
     assertNull(panel.findUIComponent(TextBox.class, "button"));
@@ -54,6 +57,7 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
     }
   }
 
+  @Test
   public void testFindUIComponentWithCustomComponentMatcher() throws Exception {
     assertNull(panel.findUIComponent(CUSTOM_MATCHER));
 
@@ -74,6 +78,7 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
     }
   }
 
+  @Test
   public void testGetUIComponentsByClass() throws Exception {
     JLabel label1 = addComponent(JLabel.class, "label1");
     JLabel label2 = addComponent(JLabel.class, "label2");
@@ -89,6 +94,7 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
                                           panel.getSwingComponents(JTable.class));
   }
 
+  @Test
   public void testGetUIComponentsByName() throws Exception {
     JLabel label1 = addComponent(JLabel.class, "name1");
     JLabel label2 = addComponent(JLabel.class, "name2");
@@ -107,6 +113,7 @@ public class PanelUIComponentFinderTest extends PanelComponentFinderTestCase {
                                           panel.getSwingComponents(JTable.class, "name"));
   }
 
+  @Test
   public void testGetUIComponentsWithCustomComponentMatcher() throws Exception {
     TestUtils.assertUIComponentsReferTo(new Component[0],
                                         panel.getUIComponents(CUSTOM_MATCHER));

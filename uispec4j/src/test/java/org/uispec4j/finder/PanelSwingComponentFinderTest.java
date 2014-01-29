@@ -1,5 +1,6 @@
 package org.uispec4j.finder;
 
+import org.junit.Test;
 import org.uispec4j.ComponentAmbiguityException;
 import org.uispec4j.ItemNotFoundException;
 import org.uispec4j.TestUtils;
@@ -11,13 +12,14 @@ public class PanelSwingComponentFinderTest extends PanelComponentFinderTestCase 
   private JButton button1;
   private JButton button2;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
-    button1 = (JButton)addComponent(JButton.class, "button1");
-    button2 = (JButton)addComponent(JButton.class, "button2");
+    button1 = addComponent(JButton.class, "button1");
+    button2 = addComponent(JButton.class, "button2");
     button2.setEnabled(false);
   }
 
+  @Test
   public void testGetSwingComponentWithCustomComponentMatcher() throws Exception {
     assertSame(button1, panel.findSwingComponent(new ComponentMatcher() {
       public boolean matches(Component component) {
@@ -50,6 +52,7 @@ public class PanelSwingComponentFinderTest extends PanelComponentFinderTestCase 
     }
   }
 
+  @Test
   public void testFindComponentsWithCustomComponentMatcher() throws Exception {
     TestUtils.assertSwingComponentsEquals(new JButton[]{button1},
                                           panel.getSwingComponents(new ComponentMatcher() {

@@ -1,11 +1,12 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JMenuBar;
+import javax.swing.JTextField;
+import java.awt.Frame;
+import junit.framework.AssertionFailedError;
 
 public class WindowForAwtWindowTest extends WindowTestCase {
   public void test() throws Exception {
@@ -13,6 +14,8 @@ public class WindowForAwtWindowTest extends WindowTestCase {
     assertEquals("", window.getTitle());
   }
 
+  @Override
+  @Test
   public void testWindowManagesMenuBars() throws Exception {
     Window window = new Window(new Frame());
     try {
@@ -24,24 +27,30 @@ public class WindowForAwtWindowTest extends WindowTestCase {
     }
   }
 
+  @Override
+  @Test
   public void testGetTitle() throws Exception {
     assertEquals("", createWindow().getTitle());
   }
 
+  @Override
+  @Test
   public void testAssertTitleEquals() throws Exception {
     final Window window = createWindow();
     assertTrue(window.titleEquals(""));
-    checkAssertionFails(window.titleEquals("title"),
-                        "Unexpected title - expected:<title> but was:<>");
+    checkAssertionFails(window.titleEquals("title"), "Unexpected title - expected:<[title]> but was:<[]>");
   }
 
+  @Override
+  @Test
   public void testAssertTitleContains() throws Exception {
     final Window window = createWindow();
     assertTrue(window.titleContains(""));
-    checkAssertionFails(window.titleContains("title"),
-                        "expected to contain:<title> but was:<>");
+    checkAssertionFails(window.titleContains("title"), "expected to contain:<title> but was:<>");
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     Window window = createWindow();
     window.getAwtComponent().setName("myFrame");
@@ -50,9 +59,7 @@ public class WindowForAwtWindowTest extends WindowTestCase {
     textField.setName("myText");
     addComponent(window, textField);
 
-    XmlAssert.assertEquivalent("<window title=''>" +
-                               "  <textBox name='myText'/>" +
-                               "</window>",
+    XmlAssert.assertEquivalent("<window title=''>" + "  <textBox name='myText'/>" + "</window>",
                                window.getDescription());
   }
 

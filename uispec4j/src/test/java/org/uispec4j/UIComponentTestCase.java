@@ -1,5 +1,6 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.utils.UnitTestCase;
 
@@ -14,6 +15,7 @@ public abstract class UIComponentTestCase extends UnitTestCase {
 
   public abstract void testFactory() throws Exception;
 
+  @Test
   public void testGetName() throws Exception {
     UIComponent component = createComponent();
     component.getAwtComponent().setName(null);
@@ -22,6 +24,7 @@ public abstract class UIComponentTestCase extends UnitTestCase {
     assertEquals("name", component.getName());
   }
 
+  @Test
   public void testPressingAndReleasingNonPrintableKey() throws Exception {
     UIComponent component = createComponent();
     Component awtComponent = component.getAwtComponent();
@@ -35,6 +38,7 @@ public abstract class UIComponentTestCase extends UnitTestCase {
     keyListener.checkEvents("keyPressed", "keyReleased");
   }
 
+  @Test
   public void testPressingAndReleasingPrintableKey() throws Exception {
     UIComponent component = createComponent();
     Component awtComponent = component.getAwtComponent();

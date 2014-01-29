@@ -12,7 +12,7 @@ public class CollectionComponentMatchersTest extends PanelComponentFinderTestCas
   private JButton component3;
   private JTextField component4;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     component1 = addComponent(JButton.class, "some text");
     component2 = addComponent(JButton.class, "other text");

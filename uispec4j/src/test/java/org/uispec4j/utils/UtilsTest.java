@@ -1,6 +1,9 @@
 package org.uispec4j.utils;
 
+import org.junit.Test;
+
 public class UtilsTest extends UnitTestCase {
+  @Test
   public void test() throws Exception {
     checkNormalize("text", 4, "text");
     checkNormalize("text  ", 6, "text");
@@ -10,6 +13,7 @@ public class UtilsTest extends UnitTestCase {
     checkNormalize("", -1, "text");
   }
 
+  @Test
   public void testAssertSetEquals() throws Exception {
     final Item bag = new Item("bag");
     final Item bike = new Item("bike");
@@ -34,6 +38,7 @@ public class UtilsTest extends UnitTestCase {
     Utils.assertSetEquals(new Object[]{bike, motorcycle, bag}, collection, new ItemStringifier());
   }
 
+  @Test
   public void testAssertEquals() throws Exception {
     final Item bag = new Item("bag");
     final Item bike = new Item("bike");

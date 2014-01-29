@@ -1,5 +1,6 @@
 package org.uispec4j.interception;
 
+import org.junit.Test;
 import org.uispec4j.Trigger;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.Utils;
@@ -10,7 +11,7 @@ import java.io.File;
 
 public class FileChooserHandlerTest extends InterceptionTestCase {
   private JFileChooser chooser = new JFileChooser();
-  private int result= JFileChooser.ERROR_OPTION;
+  private int result = JFileChooser.ERROR_OPTION;
   private Trigger SHOW_OPEN_DIALOG_TRIGGER = new Trigger() {
     public void run() throws Exception {
       JFrame frame = new JFrame();
@@ -32,11 +33,12 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
   private File javaHome = new File(System.getProperty("java.home"));
   private File userHome = new File(System.getProperty("user.home"));
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
   }
 
+  @Test
   public void testSelectionOfASingleFile() throws Exception {
     WindowInterceptor
       .init(SHOW_OPEN_DIALOG_TRIGGER)
@@ -46,6 +48,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
+  @Test
   public void testSelectionOfSeveralFiles() throws Exception {
     File[] files = {javaHome, userHome};
     WindowInterceptor
@@ -65,6 +68,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
+  @Test
   public void testSelectionOfSeveralStringifiedFile() throws Exception {
     String[] files = {javaHome.getAbsolutePath(), userHome.getAbsolutePath()};
     WindowInterceptor
@@ -75,6 +79,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     assertEquals(JFileChooser.APPROVE_OPTION, result);
   }
 
+  @Test
   public void testCancelSelection() throws Exception {
     WindowInterceptor
       .init(SHOW_OPEN_DIALOG_TRIGGER)
@@ -84,6 +89,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     assertEquals(JFileChooser.CANCEL_OPTION, result);
   }
 
+  @Test
   public void testAssertCurrentDirEquals() throws Exception {
     chooser.setCurrentDirectory(javaHome);
     WindowInterceptor
@@ -94,6 +100,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .run();
   }
 
+  @Test
   public void testAssertCurrentDirEqualsError() throws Exception {
     chooser.setCurrentDirectory(javaHome);
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertCurrentDirEquals(userHome),
@@ -101,6 +108,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
                          + userHome + "> but was:<" + javaHome + ">");
   }
 
+  @Test
   public void testAssertCurrentFileNameEquals() throws Exception {
     chooser.setSelectedFile(new File(javaHome, "aFile.txt"));
     WindowInterceptor
@@ -111,21 +119,24 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
       .run();
   }
 
+  @Test
   public void testAssertCurrentFileNameEqualsError() throws Exception {
     chooser.setSelectedFile(new File(javaHome, "aFile.txt"));
     checkError(SHOW_OPEN_DIALOG_TRIGGER, 
                FileChooserHandler.init().assertCurrentFileNameEquals("toto.exe"),
                new File(javaHome, "aFile.txt"),
-               "Unexpected file name - expected:<toto.exe> but was:<aFile.txt>");
+               "Unexpected file name - expected:<[toto.exe]> but was:<[aFile.txt]>");
   }
 
+  @Test
   public void testAssertCurrentFileNameEqualsWithNoSelection() throws Exception {
     checkError(SHOW_OPEN_DIALOG_TRIGGER,
                FileChooserHandler.init().assertCurrentFileNameEquals("toto.dat"),
                new File(javaHome, "aFile.txt"),
-               "Unexpected file name - expected:<toto.dat> but was:<>");
+               "Unexpected file name - expected:<[toto.dat]> but was:<[]>");
   }
 
+  @Test
   public void testAssertIsOpenSaveDialog() throws Exception {
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertIsOpenDialog());
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertIsSaveDialog(),
@@ -141,25 +152,29 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
                javaHome, "Chooser is in 'custom' mode");
   }
 
+  @Test
   public void testDefaultTitle() throws Exception {
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals(getLocalLabel("FileChooser.openDialogTitleText")));
     checkOk(SHOW_SAVE_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals(getLocalLabel("FileChooser.saveDialogTitleText")));
   }
 
+  @Test
   public void testCustomTitle() throws Exception {
     chooser.setDialogTitle("title");
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("title"));
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("error"),
-               javaHome, "Unexpected title - expected:<error> but was:<title>");
+               javaHome, "Unexpected title - expected:<[error]> but was:<[title]>");
   }
 
+  @Test
   public void testAssertApplyButtonTextEquals() throws Exception {
     chooser.setApproveButtonText("text");
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertApplyButtonTextEquals("text"));
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertApplyButtonTextEquals("other"),
-               javaHome, "Unexpected apply button text - expected:<other> but was:<text>");
+               javaHome, "Unexpected apply button text - expected:<[other]> but was:<[text]>");
   }
 
+  @Test
   public void testAssertAcceptsFilesAndDirectories() throws Exception {
     final int[] modes =
       {JFileChooser.FILES_ONLY,
@@ -186,15 +201,18 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     }
   }
 
+  @Test
   public void testAssertMultiSelectionEnabled() throws Exception {
     checkMultiSelectionEnabled(true, "Multi selection is enabled.");
     checkMultiSelectionEnabled(false, "Multi selection is not enabled.");
   }
 
+  @Test
   public void testShownDialogIsNotAFileChooserButAJFrame() throws Exception {
     checkUnexpectedWindowShown(new JFrame("title"), "title");
   }
 
+  @Test
   public void testShownDialogIsNotAFileChooserButAModalDialog() throws Exception {
     checkUnexpectedWindowShown(createModalDialog("aDialog"), "aDialog");
   }

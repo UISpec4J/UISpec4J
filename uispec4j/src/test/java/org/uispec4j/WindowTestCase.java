@@ -1,17 +1,23 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.WindowInterceptor;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.Component;
+import junit.framework.AssertionFailedError;
 
 public abstract class WindowTestCase extends UIComponentTestCase {
 
+  @Test
   public void testAssertTitleEquals() throws Exception {
     Window window = createWindowWithTitle("me");
     assertTrue(window.titleEquals("me"));
@@ -21,10 +27,11 @@ public abstract class WindowTestCase extends UIComponentTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError failure) {
-      assertEquals("Unexpected title - expected:<you> but was:<me>", failure.getMessage());
+      assertEquals("Unexpected title - expected:<[you]> but was:<[me]>", failure.getMessage());
     }
   }
 
+  @Test
   public void testAssertTitleContains() throws Exception {
     Window window = createWindowWithTitle("me and you");
     assertTrue(window.titleContains("me"));
@@ -40,10 +47,13 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testGetTitle() throws Exception {
     assertEquals("me", createWindowWithTitle("me").getTitle());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     Window window = createWindowWithTitle("my title");
     window.getAwtComponent().setName("myFrame");
@@ -62,6 +72,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     return createWindowWithTitle("title");
   }
 
+  @Test
   public void testFinder() throws Exception {
     Window window = createWindow();
 
@@ -74,6 +85,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     assertSame(textField, uiComp.getAwtComponent());
   }
 
+  @Test
   public void testWindowManagesMenuBars() throws Exception {
     JMenuBar jMenuBar = new JMenuBar();
     jMenuBar.add(new JMenu("Menu 1"));
@@ -89,6 +101,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     );
   }
 
+  @Test
   public void testContainsMenuBar() throws Exception {
     Window windowWithoutMenuBar = createWindow();
     UISpecAssert.assertFalse(windowWithoutMenuBar.containsMenuBar());
@@ -99,10 +112,14 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     }
   }
 
+  @Override
+  @Test
   public void testGetComponentTypeName() {
     assertEquals("window", createWindow().getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testFactory() {
     Component component = createWindow().getAwtComponent();
     UIComponent uiComponent = UIComponentFactory.createUIComponent(component);
@@ -110,6 +127,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
     assertTrue(Window.class.isInstance(uiComponent));
   }
 
+  @Test
   public void testWindowClosed() throws Exception {
     final Window window = createWindow();
     assertFalse(window.isVisible());

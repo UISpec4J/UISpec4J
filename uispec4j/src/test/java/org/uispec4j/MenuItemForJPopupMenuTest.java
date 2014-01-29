@@ -1,18 +1,24 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.EventLogger;
-
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
+import junit.framework.AssertionFailedError;
 
 public class MenuItemForJPopupMenuTest extends MenuItemTestCase {
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JPopupMenu(), MenuItem.class);
   }
 
+  @Test
   public void testClickFailsIfTheMenuItemIsNotEnabled() throws Exception {
     JPopupMenu menu = new JPopupMenu();
     menu.add("a");
@@ -29,6 +35,7 @@ public class MenuItemForJPopupMenuTest extends MenuItemTestCase {
     }
   }
 
+  @Override
   protected MenuItem createLoggingMenuItem(final EventLogger eventLogger) {
     final Action action = new AbstractAction("item") {
       public void actionPerformed(ActionEvent e) {

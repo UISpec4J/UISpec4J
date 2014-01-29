@@ -1,15 +1,17 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import org.uispec4j.utils.Functor;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   private JLabel jLabel;
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     super.setUp();
     jLabel = new JLabel("some text");
     jLabel.setName("myLabel");
@@ -21,24 +23,31 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     textBox = new TextBox(jLabel);
   }
 
+  @Override
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("textBox", UIComponentFactory.createUIComponent(new JLabel()).getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     XmlAssert.assertEquivalent("<textBox name='myLabel' text='some text'/>", textBox.getDescription());
   }
 
+  @Override
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JLabel(), TextBox.class);
   }
 
+  @Test
   public void testAssertTextEquals() throws Exception {
     assertTrue(textBox.textEquals("some text"));
-    checkAssertionFails(textBox.textEquals("unknown"),
-                        "expected:<unknown> but was:<some text>");
+    checkAssertionFails(textBox.textEquals("unknown"), "expected:<[unknown]> but was:<[some text]>");
   }
 
+  @Test
   public void testAssertTextEqualsWithHtml() throws Exception {
     String text = "My name is <b>Bond</b>";
     jLabel.setText(text);
@@ -46,6 +55,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     assertFalse(textBox.textEquals("My name is <b>Bond</b>, James Bond"));
   }
 
+  @Test
   public void testAssertTextContains() throws Exception {
     jLabel.setText("some text");
     assertTrue(textBox.textContains("some"));
@@ -53,6 +63,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
                         "The component text does not contain 'error' - actual content is: some text");
   }
 
+  @Test
   public void testAssertTextDoesNotContain() throws Exception {
     jLabel.setText("some text");
     assertTrue(textBox.textDoesNotContain("xxx"));
@@ -60,10 +71,12 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
                         "The component text should not contain 'some' - actual content is: some text");
   }
 
+  @Test
   public void testAssertTextIsEditable() throws Exception {
     assertFalse(textBox.isEditable());
   }
 
+  @Test
   public void testAssertEmpty() throws Exception {
     jLabel.setText("");
     assertTrue(textBox.textIsEmpty());
@@ -72,6 +85,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
                         "Text should be empty but contains: a");
   }
 
+  @Test
   public void testSetTextIsNotSupported() throws Exception {
     checkAssertionFailedError(new Functor() {
       public void run() throws Exception {
@@ -81,6 +95,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     assertEquals("some text", textBox.getText());
   }
 
+  @Test
   public void testInsertTextIsNotSupported() throws Exception {
     checkAssertionFailedError(new Functor() {
       public void run() throws Exception {
@@ -90,6 +105,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     assertEquals("some text", textBox.getText());
   }
 
+  @Test
   public void testAppendTextIsNotSupported() throws Exception {
     checkAssertionFailedError(new Functor() {
       public void run() throws Exception {
@@ -99,6 +115,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     assertEquals("some text", textBox.getText());
   }
 
+  @Test
   public void testClearIsNotSupported() throws Exception {
     checkAssertionFailedError(new Functor() {
       public void run() throws Exception {
@@ -108,12 +125,14 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     assertEquals("some text", textBox.getText());
   }
 
+  @Test
   public void testGetText() throws Exception {
     assertEquals("some text", textBox.getText());
     jLabel.setText("new text");
     assertEquals("new text", textBox.getText());
   }
 
+  @Test
   public void testClickOnHyperlinkIsNotSupported() throws Exception {
     checkAssertionFailedError(new Functor() {
       public void run() throws Exception {
@@ -127,6 +146,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     }, "This component does not support hyperlinks.");
   }
 
+  @Test
   public void testAssertIconEquals() throws Exception {
     ImageIcon icon1 = new ImageIcon();
     jLabel.setIcon(icon1);

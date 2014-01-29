@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 public abstract class InterceptionTestCase extends UnitTestCase {
   protected EventLogger logger;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     UISpecDisplay.instance().reset();
     logger = new EventLogger();

@@ -1,5 +1,6 @@
 package org.uispec4j.utils;
 
+import org.junit.Test;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,10 +15,12 @@ public class DateUtilsTest extends UnitTestCase {
     assertEquals(date.toString(), DateUtils.getDate("1974.11.23 19:55").toString());
   }
 
+  @Test
   public void testStandard() throws Exception {
     assertEquals("1974.11.23 19:55", DateUtils.getStandardDate(date));
   }
 
+  @Test
   public void testFormatted() throws Exception {
     Locale defaultLocale = Locale.getDefault();
     Locale.setDefault(new Locale("en", "us"));
@@ -25,6 +28,7 @@ public class DateUtilsTest extends UnitTestCase {
     Locale.setDefault(defaultLocale);
   }
 
+  @Test
   public void testSetDateFormat() throws Exception {
     Date date = getDate(2003, Calendar.DECEMBER, 25, 12, 0, 0);
 

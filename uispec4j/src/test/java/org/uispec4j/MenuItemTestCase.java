@@ -1,22 +1,31 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.EventLogger;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
+import junit.framework.AssertionFailedError;
 
 public abstract class MenuItemTestCase extends UIComponentTestCase {
 
+  @Override
+  @Test
   public void testGetComponentTypeName() throws Exception {
     MenuItem item = getBuilder("menuTest").getMenuItem();
     assertEquals("menu", item.getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     MenuItem item = getBuilder("menuTest").setName("myMenu").getMenuItem();
     XmlAssert.assertEquivalent("<menu name='myMenu'/>", item.getDescription());
@@ -26,6 +35,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     return getBuilder("item").getMenuItem();
   }
 
+  @Test
   public void testMenuContent() throws Exception {
     MenuBuilder rootBuilder = getBuilder("menuTest");
     rootBuilder.add("item1");
@@ -45,6 +55,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
                                   "</menu>"));
   }
 
+  @Test
   public void testCheckMenu() throws Exception {
     MenuBuilder builder = getBuilder("menuTest");
     builder.add("item1");
@@ -59,6 +70,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     assertTrue(item.contentEquals(new String[]{"item1", "item2"}));
   }
 
+  @Test
   public void testCheckMenuOnMenuItemWithNoError() throws Exception {
     MenuBuilder builder = getBuilder("root");
     builder.add("item1");
@@ -68,6 +80,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     assertTrue(item.contentEquals(new String[]{"item1"}));
   }
 
+  @Test
   public void testGetSubMenuWorksWithPartOfItsName() throws Exception {
     MenuBuilder builder = getBuilder("root");
     builder.add("one two three...");
@@ -77,6 +90,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     assertNotNull(item.getSubMenu("two"));
   }
 
+  @Test
   public void testClickFailsIfTheMenuItemIsNotEnabled() throws Exception {
     MenuItem item = getBuilder("").setEnabled(false).getMenuItem();
     try {
@@ -88,6 +102,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testCheckMenuWithOneLevel() throws Exception {
     MenuItem item =
       getBuilder("")
@@ -98,6 +113,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     assertTrue(item.contentEquals(new String[]{"item1", "item2", "item3"}));
   }
 
+  @Test
   public void testActivateSimulatesAClickOnTheMenuItem() throws Exception {
     EventLogger eventLogger = new EventLogger();
     MenuItem menuItem = createLoggingMenuItem(eventLogger);
@@ -111,6 +127,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
                              "</log>");
   }
 
+  @Test
   public void testTriggerClickWorksAsClick() throws Exception {
     EventLogger eventLogger = new EventLogger();
     MenuItem menuItem = createLoggingMenuItem(eventLogger);
@@ -120,10 +137,12 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
                              "</log>");
   }
 
+  @Test
   public void testGetSubmenuError() throws Exception {
     checkGetSubmenuError(new String[]{"One", "Two", "Three"}, "Four", "There is no menu item matching 'Four' - actual elements: [One,Two,Three]");
   }
 
+  @Test
   public void testGetAmbiguitySubMenu() throws Exception {
     checkGetSubmenuError(new String[]{"One two three...", "One two three four...", "two three"},
                          "three",
@@ -146,6 +165,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testGetSubMenuWhenSubMenuIsItselfAMenu() throws Exception {
     MenuBuilder rootBuilder = getBuilder("");
     rootBuilder.add("item1");
@@ -158,6 +178,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
                                          "</menu>"));
   }
 
+  @Test
   public void testHandlingADialogShownByAPopupMenu() throws Exception {
     final EventLogger logger = new EventLogger();
 

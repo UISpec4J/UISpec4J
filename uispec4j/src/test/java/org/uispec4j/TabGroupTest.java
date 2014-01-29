@@ -1,19 +1,26 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import java.awt.Color;
+import java.awt.Component;
+import junit.framework.AssertionFailedError;
 
 public class TabGroupTest extends UIComponentTestCase {
   private TabGroup tabGroup;
   private JTabbedPane jTabbedPane;
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     super.setUp();
     jTabbedPane = new JTabbedPane();
     jTabbedPane.setName("myTabbedPane");
@@ -23,10 +30,14 @@ public class TabGroupTest extends UIComponentTestCase {
     tabGroup = new TabGroup(jTabbedPane);
   }
 
+  @Override
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("tabGroup", UIComponentFactory.createUIComponent(new JTabbedPane()).getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     checkTabDescription("1");
     checkTabDescription("2");
@@ -37,6 +48,7 @@ public class TabGroupTest extends UIComponentTestCase {
     return tabGroup;
   }
 
+  @Test
   public void testCheckCurrentTab() throws Exception {
     assertTrue(tabGroup.selectedTabEquals("1"));
     try {
@@ -47,12 +59,14 @@ public class TabGroupTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testClickOnTabWithPartOfItsKey() throws Exception {
     addTab("GrosseTable", "table");
     tabGroup.selectTab("grosse");
     assertTrue(tabGroup.selectedTabEquals("GrosseTable"));
   }
 
+  @Test
   public void testCheckTabs() throws Exception {
     assertTrue(tabGroup.tabNamesEquals(new String[]{"1", "2", "3"}));
     try {
@@ -64,6 +78,7 @@ public class TabGroupTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testSetCurrentTab() throws Exception {
     tabGroup.selectTab("2");
     assertEquals("2", jTabbedPane.getTitleAt(jTabbedPane.getSelectedIndex()));
@@ -71,6 +86,7 @@ public class TabGroupTest extends UIComponentTestCase {
     assertEquals("3", jTabbedPane.getTitleAt(jTabbedPane.getSelectedIndex()));
   }
 
+  @Test
   public void testSetCurrentTabError() throws Exception {
     try {
       tabGroup.selectTab("unknown");
@@ -81,6 +97,7 @@ public class TabGroupTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testGetDescriptionWhenTheTabContainsAPanel() throws Exception {
     JButton button = new JButton("btn");
     JPanel panel = new JPanel();
@@ -92,15 +109,19 @@ public class TabGroupTest extends UIComponentTestCase {
                                "</tabGroup>", tabGroup.getDescription());
   }
 
+  @Override
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JTabbedPane(), TabGroup.class);
   }
 
+  @Test
   public void testTabLabelColor() throws Exception {
     jTabbedPane.setForegroundAt(0, Color.RED);
     assertTrue(tabGroup.tabColorEquals(new String[]{"RED", "BLACK", "BLACK"}));
   }
 
+  @Test
   public void testCheckColorErrors() throws Exception {
     try {
       assertTrue(tabGroup.tabColorEquals(new String[]{"BLACK", "GREEN"}));
@@ -124,6 +145,7 @@ public class TabGroupTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testSearchComponentsWhenVisibleTabIsAPanel() throws Exception {
     JButton jButton = new JButton("button");
     Component jPanel1WithButton = createPanelWithComponent(jButton);
@@ -143,6 +165,7 @@ public class TabGroupTest extends UIComponentTestCase {
     assertSame(jtable, tabGroup.getSelectedTab().getTable().getAwtComponent());
   }
 
+  @Test
   public void testSearchComponentsFailsWhenVisibleTabIsNotAPanel() throws Exception {
     jTabbedPane = new JTabbedPane();
     jTabbedPane.addTab("tree", new JTree());

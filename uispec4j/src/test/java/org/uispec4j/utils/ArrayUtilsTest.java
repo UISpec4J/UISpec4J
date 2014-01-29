@@ -1,15 +1,15 @@
 package org.uispec4j.utils;
 
-import junit.framework.AssertionFailedError;
-
+import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import junit.framework.AssertionFailedError;
 
 public class ArrayUtilsTest extends UnitTestCase {
+  @Test
   public void testToStringWithObjects() throws Exception {
-    assertEquals("[3,true,Hello]",
-                 ArrayUtils.toString(new Object[]{new Integer(3), Boolean.TRUE, "Hello"}));
+    assertEquals("[3,true,Hello]", ArrayUtils.toString(new Object[]{new Integer(3), Boolean.TRUE, "Hello"}));
   }
 
   public void testToStringForArrays() {
@@ -27,6 +27,7 @@ public class ArrayUtilsTest extends UnitTestCase {
     }));
   }
 
+  @Test
   public void testToStringForLists() throws Exception {
     List list = new ArrayList();
     assertEquals("[]", ArrayUtils.toString(list));
@@ -38,17 +39,20 @@ public class ArrayUtilsTest extends UnitTestCase {
     assertEquals("[a,b,c]", ArrayUtils.toString(new String[]{"a", "b", "c"}));
   }
 
+  @Test
   public void testToStringWithIntegers() throws Exception {
     assertEquals("[4,6,9]",
                  ArrayUtils.toString(new int[]{4, 6, 9}));
   }
 
+  @Test
   public void testToStringForTwoDimensionalArrays() throws Exception {
     assertEquals("[]", ArrayUtils.toString(new String[][]{}));
     assertEquals("[[a]]", ArrayUtils.toString(new String[][]{{"a"}}));
     assertEquals("[[a,\tb]\n [c,\td]]", ArrayUtils.toString(new String[][]{{"a", "b"}, {"c", "d"}}));
   }
 
+  @Test
   public void testAssertEmptyForAnArray() throws Exception {
     ArrayUtils.assertEmpty((String[])null);
     ArrayUtils.assertEmpty(new Object[0]);
@@ -61,6 +65,7 @@ public class ArrayUtilsTest extends UnitTestCase {
     }
   }
 
+  @Test
   public void testAssertEmpty() throws Exception {
     ArrayUtils.assertEmpty((List[])null);
     ArrayUtils.assertEmpty(Collections.EMPTY_LIST);

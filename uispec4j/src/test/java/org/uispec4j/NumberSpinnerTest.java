@@ -1,13 +1,14 @@
 package org.uispec4j;
 
-import static org.uispec4j.DummySpinner.listModel;
-
-import javax.swing.*;
+import static org.uispec4j.DummySpinner.*;
+import org.junit.Test;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 
 public class NumberSpinnerTest extends SpinnerTestCase {
   private NumberSpinner numberSpinner;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     numberSpinner = (NumberSpinner)spinner;
   }
@@ -24,6 +25,7 @@ public class NumberSpinnerTest extends SpinnerTestCase {
     return new NumberSpinner(jSpinner);
   }
 
+  @Test
   public void testMinAndMax() throws Exception {
     assertTrue(numberSpinner.minEquals(0));
     assertTrue(numberSpinner.maxEquals(20));
@@ -32,11 +34,13 @@ public class NumberSpinnerTest extends SpinnerTestCase {
     assertFalse(numberSpinner.maxEquals(2));
   }
 
+  @Test
   public void testStepSizeEquals() throws Exception {
     assertTrue(numberSpinner.stepSizeEquals(2));
     assertFalse(numberSpinner.stepSizeEquals(3));
   }
 
+  @Test
   public void testUsingNumberSpinnerWithOtherModelThanSpinnerNumberModelThrowsAnException() throws Exception {
     try {
       new NumberSpinner(new JSpinner(listModel()));

@@ -1,24 +1,26 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
+import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyActionListener;
 import org.uispec4j.utils.Functor;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
-import org.uispec4j.assertion.UISpecAssert;
-
-import javax.swing.*;
+import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.JTextComponent;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
+import junit.framework.AssertionFailedError;
 
 public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
   private JTextComponent jTextComponent;
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     super.setUp();
     init(new JTextArea());
   }
@@ -40,14 +42,20 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     init(pane);
   }
 
+  @Override
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("textBox", UIComponentFactory.createUIComponent(new JTextField()).getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     XmlAssert.assertEquivalent("<textBox name='myText'/>", textBox.getDescription());
   }
 
+  @Override
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JTextArea(), TextBox.class);
     checkFactory(new JTextPane(), TextBox.class);
@@ -55,6 +63,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     checkFactory(new JTextField(), TextBox.class);
   }
 
+  @Test
   public void testAssertTextEquals() throws Exception {
     assertTrue(textBox.textEquals(""));
     jTextComponent.setText("some text");
@@ -65,7 +74,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("expected:<error> but was:<some text>", e.getMessage());
+      assertEquals("expected:<[error]> but was:<[some text]>", e.getMessage());
     }
   }
 
@@ -86,6 +95,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertHtmlEquals() throws Exception {
     initWithHtmlTextPane();
     String text = "Universal <b>rules</b>:" +
@@ -106,6 +116,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertTextContains() throws Exception {
     jTextComponent.setText("some text");
     assertTrue(textBox.textContains("some"));
@@ -119,6 +130,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertTextContainsWithHtml() throws Exception {
     initWithHtmlTextPane();
     String text = "My name is <b>Bond</b>";
@@ -138,6 +150,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertTextEqualsWithEmptyStringIsTheSameAsAssertTextIsEmpty() throws Exception {
     initWithHtmlTextPane();
     assertTrue(textBox.textEquals(""));
@@ -146,6 +159,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertTrue(textBox.textEquals(""));
   }
 
+  @Test
   public void testAssertTextContainsHandlesHtmlLineBreaksAndFormatting() throws Exception {
     initWithHtmlTextPane();
     StringBuffer buffer = new StringBuffer();
@@ -157,6 +171,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertTrue(textBox.textContains(text));
   }
 
+  @Test
   public void testAssertTextDoesNotContain() throws Exception {
     jTextComponent.setText("some text");
     assertTrue(textBox.textDoesNotContain("xxx"));
@@ -170,6 +185,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertTextIsEditable() throws Exception {
     jTextComponent.setEditable(true);
     assertTrue(textBox.isEditable());
@@ -177,6 +193,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertFalse(textBox.isEditable());
   }
 
+  @Test
   public void testAssertEmptyWithPlainText() throws Exception {
     jTextComponent.setText("");
     assertTrue(textBox.textIsEmpty());
@@ -190,6 +207,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertEmptyWithHtml() throws Exception {
     initWithHtmlTextPane();
     assertTrue(textBox.textIsEmpty());
@@ -231,6 +249,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertTrue(textBox.textIsEmpty());
   }
 
+  @Test
   public void testAssertEmptyAfterReset() throws Exception {
     initWithHtmlTextPane();
     assertTrue(textBox.textIsEmpty());
@@ -239,11 +258,13 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertTrue(textBox.textIsEmpty());
   }
 
+  @Test
   public void testSetText() throws Exception {
     textBox.setText("new text");
     assertEquals("new text", jTextComponent.getText());
   }
 
+  @Test
   public void testSetTextChecksThatTheComponentIsEditable() throws Exception {
     textBox.setText("text");
     jTextComponent.setEditable(false);
@@ -257,6 +278,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertEquals("text", jTextComponent.getText());
   }
 
+  @Test
   public void testInsertText() throws Exception {
     jTextComponent.setEditable(true);
     textBox.insertText("text", 0);
@@ -269,6 +291,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertEquals("this is some interesting text, isn't it?", textBox.getText());
   }
 
+  @Test
   public void testInsertTextAtABadPosition() throws Exception {
     textBox.setText("text");
     try {
@@ -280,12 +303,14 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     }
   }
 
+  @Test
   public void testInsertTextDoesNotNotifyActionListeners() throws Exception {
     DummyActionListener actionListener = initWithTextFieldAndActionListener();
     textBox.insertText("text", 0);
     assertEquals(0, actionListener.getCallCount());
   }
 
+  @Test
   public void testSetTextCanNotifyActionListeners() throws Exception {
     DummyActionListener actionListener = initWithTextFieldAndActionListener();
     textBox.setText("text", false);
@@ -297,6 +322,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     UISpecAssert.assertTrue(textBox.textEquals("another text"));
   }
 
+  @Test
   public void testInsertTextChecksThatTheComponentIsEditable() throws Exception {
     textBox.setText("text");
     jTextComponent.setEditable(false);
@@ -310,6 +336,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertEquals("text", jTextComponent.getText());
   }
 
+  @Test
   public void testGetText() throws Exception {
     jTextComponent.setText("some text");
     assertEquals("some text", textBox.getText());
@@ -319,24 +346,28 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
     assertEquals("new <b>text</b>", textBox.getText());
   }
 
+  @Test
   public void testSetTextNotifiesActionListenersForJTextField() throws Exception {
     DummyActionListener actionListener = initWithTextFieldAndActionListener();
     textBox.setText("text");
     assertEquals(1, actionListener.getCallCount());
   }
 
+  @Test
   public void testClickOnHyperlink() throws Exception {
     checkClickOnHyperlink("<html>blah blah<a href=\"http://www.junit.org\">link text</a>reblah</html>",
                           "link text",
                           "http://www.junit.org");
   }
 
+  @Test
   public void testClickOnHyperlinkAcceptsSubstrings() throws Exception {
     checkClickOnHyperlink("<html>blah blah<a href=\"http://www.junit.org\">link text</a>reblah</html>",
                           "link",
                           "http://www.junit.org");
   }
 
+  @Test
   public void testClickOnHyperLinkAcceptsLineSeparators() throws Exception {
     String link = "link text is very long so it will be on two lines";
     checkClickOnHyperlink("<html>blah blah<a href=\"http://www.junit.org\">" + link + "</a>reblah</html>",
@@ -344,12 +375,14 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
                           "http://www.junit.org");
   }
 
+  @Test
   public void testClickOnHyperlinkIsCaseInsensitive() throws Exception {
     checkClickOnHyperlink("<html>blah blah<a href=\"http://www.junit.org\">link text</a>reblah</html>",
                           "liNk tEXt",
                           "http://www.junit.org");
   }
 
+  @Test
   public void testClickOnHyperlinkGivesPriorityToExactMatches() throws Exception {
     checkClickOnHyperlink("<html>blah blah<a href=\"http://www.junit.org\">a link text</a>reblah" +
                           "blah blah<a href=\"http://www.apache.org\">link text</a>reblah</html>",
@@ -357,6 +390,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
                           "http://www.apache.org");
   }
 
+  @Test
   public void testClickOnUnknownHyperlink() throws Exception {
     checkClickOnHyperlinkError("<html>blah blah<a href=\"http://www.junit.org\">a link text</a>reblah" +
                                "blah blah<a href=\"http://www.apache.org\">link text</a>reblah</html>",
@@ -364,6 +398,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
                                "Hyperlink 'unknown' not found");
   }
 
+  @Test
   public void testClickOnHyperlinkWithAmbiguity() throws Exception {
     checkClickOnHyperlinkError("<html>blah blah<a href=\"http://www.junit.org\">a link text</a>reblah" +
                                "blah blah<a href=\"http://www.apache.org\">another link text</a>reblah</html>",
@@ -371,6 +406,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
                                "Ambiguous command - found several hyperlinks matching 'link text'");
   }
 
+  @Test
   public void testClickOnHyperLinkWithABadTextComponentFails() throws Exception {
     final TextBox textBox = new TextBox(new JTextArea());
 

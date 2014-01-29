@@ -1,18 +1,19 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyActionListener;
-
-import javax.swing.*;
-import java.awt.event.FocusListener;
+import javax.swing.JTextField;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import junit.framework.AssertionFailedError;
 
 public abstract class TextBoxComponentTestCase extends UIComponentTestCase {
   TextBox textBox;
 
   protected abstract void createTextBox(String text);
 
+  @Test
   public void testAssertTextContainsWithArray() throws Exception {
     String text = "Universal <b>rules</b>:" +
                   "<ul>" +
@@ -39,6 +40,7 @@ public abstract class TextBoxComponentTestCase extends UIComponentTestCase {
                                  " - actual content is:" + renderedText);
   }
 
+  @Test
   public void testFocusLost() throws Exception {
 
     createTextBox("text");

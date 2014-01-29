@@ -1,10 +1,12 @@
 package org.uispec4j.xml;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UnitTestCase;
+import junit.framework.AssertionFailedError;
 
 public class XmlAssertTest extends UnitTestCase {
+  @Test
   public void testNoDiff() throws Exception {
     String xml = "<root>" +
                  "  <child attr='1'>" +
@@ -14,6 +16,7 @@ public class XmlAssertTest extends UnitTestCase {
     checkXml(xml, xml, true, true);
   }
 
+  @Test
   public void testDifferent() throws Exception {
     String xml1 = "<root>" +
                   "  <child attr='1'>" +
@@ -28,24 +31,28 @@ public class XmlAssertTest extends UnitTestCase {
     checkXml(xml1, xml2, false, false);
   }
 
+  @Test
   public void testChildrenInDifferentOrderAreEquivalentButNotEquals() throws Exception {
     String xml1 = "<hello><tag1/><tag2/><tag3/></hello>";
     String xml2 = "<hello><tag3/><tag1/><tag2/></hello>";
     checkXml(xml1, xml2, true, false);
   }
 
+  @Test
   public void testAttributeDifference() throws Exception {
     String xml1 = "<hello><tag1/><tag2 a=\"A\"/><tag3/></hello>";
     String xml2 = "<hello><tag3/><tag1/><tag2/></hello>";
     checkXml(xml1, xml2, false, false);
   }
 
+  @Test
   public void testAttributeInDifferentOrder() throws Exception {
     String xml1 = "<hello><tag1 a=\"A\" b=\"B\"/></hello>";
     String xml2 = "<hello><tag1 b=\"B\" a=\"A\"/></hello>";
     checkXml(xml1, xml2, true, true);
   }
 
+  @Test
   public void testAgainDifferentOrders() throws Exception {
     String xml1 =
       "<struct>" +
@@ -63,6 +70,7 @@ public class XmlAssertTest extends UnitTestCase {
     checkXml(xml1, xml2, true, false);
   }
 
+  @Test
   public void testIdenticalTagCountAreTakenIntoAccount() throws Exception {
     String xml1 =
       "<root>" +
@@ -78,12 +86,14 @@ public class XmlAssertTest extends UnitTestCase {
     checkXml(xml1, xml2, false, false);
   }
 
+  @Test
   public void testSameCharacters() throws Exception {
     String xml1 = "<hello><tag1>XYZ</tag1></hello>";
     String xml2 = "<hello><tag1>XYZ</tag1></hello>";
     checkXml(xml1, xml2, true, true);
   }
 
+  @Test
   public void testWhitespace() throws Exception {
     String xml1 =
       "<hello>" +
@@ -100,12 +110,14 @@ public class XmlAssertTest extends UnitTestCase {
     checkXml(xml2, xml1, true, true);
   }
 
+  @Test
   public void testNotSameCharacters() throws Exception {
     String xml1 = "<hello><tag1>ABC</tag1></hello>";
     String xml2 = "<hello><tag1>XYZ</tag1></hello>";
     checkXml(xml1, xml2, false, false);
   }
 
+  @Test
   public void testSame() throws Exception {
     String xml1 = "<hello></hello>";
     String xml2 = "<hello/>";

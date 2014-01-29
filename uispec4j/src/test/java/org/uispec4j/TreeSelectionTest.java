@@ -1,14 +1,14 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.EventLogger;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import junit.framework.AssertionFailedError;
 
 public class TreeSelectionTest extends TreeTestCase {
   protected SelectionListener selectionListener = new SelectionListener();
@@ -29,6 +29,7 @@ public class TreeSelectionTest extends TreeTestCase {
     selectionListener.reset();
   }
 
+  @Test
   public void testSelectRoot() throws Exception {
     assertNoSelection(jTree);
     tree.selectRoot();
@@ -38,6 +39,7 @@ public class TreeSelectionTest extends TreeTestCase {
                                    "</log>");
   }
 
+  @Test
   public void testSelectExistingPath() throws Exception {
     assertNoSelection(jTree);
     tree.select("child1");
@@ -59,6 +61,7 @@ public class TreeSelectionTest extends TreeTestCase {
                    "</log>");
   }
 
+  @Test
   public void testPathsCanUseSubstringsOfNodeNames() throws Exception {
     tree.select("d1/d1_1");
     assertTrue(tree.selectionEquals("child1/child1_1"));
@@ -68,6 +71,7 @@ public class TreeSelectionTest extends TreeTestCase {
     assertTrue(tree.selectionEquals("child1/child1_1"));
   }
 
+  @Test
   public void testPathsCanRevealNamingAmbiguitiesWhenUsingSubstrings() throws Exception {
     try {
       tree.select("child/child1_1");
@@ -78,6 +82,7 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
+  @Test
   public void testPathsCanRevealNamingAmbiguitiesWhenUsingExactNames() throws Exception {
     rootNode.add(new DefaultMutableTreeNode(child1));
     try {
@@ -89,6 +94,7 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
+  @Test
   public void testMultiSelectionOfPaths() throws Exception {
     assertNoSelection(jTree);
     assertTrue(tree.contentEquals("root\n" +
@@ -127,6 +133,7 @@ public class TreeSelectionTest extends TreeTestCase {
     assertTrue(tree.selectionIsEmpty());
   }
 
+  @Test
   public void testSelectingMultipleNodes() throws Exception {
     assertNoSelection(jTree);
     assertTrue(tree.contentEquals("root\n" +
@@ -154,6 +161,7 @@ public class TreeSelectionTest extends TreeTestCase {
                    "</log>");
   }
 
+  @Test
   public void testSelectMultiplePathsWithInvalidPath() throws Exception {
     try {
       tree.select(new String[]{"child1", "unknown"});
@@ -164,6 +172,7 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
+  @Test
   public void testSelectNonexistingPath() throws Exception {
     assertNoSelection(jTree);
     String path = "child1/unexistingElement";
@@ -177,6 +186,7 @@ public class TreeSelectionTest extends TreeTestCase {
     assertNoSelection(jTree);
   }
 
+  @Test
   public void testSelectChildIndexUnderParent() throws Exception {
     tree.select("", 0);
     checkSelection(new DefaultMutableTreeNode[]{child1Node},
@@ -205,6 +215,7 @@ public class TreeSelectionTest extends TreeTestCase {
                    "</log>");
   }
 
+  @Test
   public void testCheckSelection() throws Exception {
     tree.select("child1");
     assertTrue(tree.selectionEquals(new String[]{"child1"}));
@@ -217,12 +228,14 @@ public class TreeSelectionTest extends TreeTestCase {
     assertTrue(tree.selectionEquals(new String[]{"child2"}));
   }
 
+  @Test
   public void testCheckSelectionWhenSelectionIsNull() throws Exception {
     jTree.setSelectionPaths(null);
     assertTrue(tree.selectionEquals(new String[0]));
     tree.selectionIsEmpty();
   }
 
+  @Test
   public void testCheckSelectionWithBadPath() throws Exception {
     tree.select("child1/child1_1");
     String pathToCheck = "child1/toto";
@@ -235,12 +248,14 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
+  @Test
   public void testSelectChildrenWithSubstring() throws Exception {
     assertTrue(tree.selectionIsEmpty());
     tree.select("", "child");
     assertTrue(tree.selectionEquals(new String[]{"child1", "child2"}));
   }
 
+  @Test
   public void testSelectChildrenWithNoMatch() throws Exception {
     try {
       tree.select("", "UNKNOWN");
@@ -251,6 +266,7 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
+  @Test
   public void testSelectionWithASpecificTreeCellValueConverter() throws Exception {
     tree.setCellValueConverter(new DummyTreeCellValueConverter());
     String path1_1 = "_obj:child1_/_obj:child1_1_";

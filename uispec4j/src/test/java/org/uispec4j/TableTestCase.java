@@ -2,17 +2,21 @@ package org.uispec4j;
 
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.utils.UnitTestCase;
-
-import javax.swing.*;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
+import java.awt.Component;
 
 public abstract class TableTestCase extends UnitTestCase {
   Table table;
   JTable jTable;
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     super.setUp();
     init(new JTable(new TableSelectionTest.MyModel()));
   }

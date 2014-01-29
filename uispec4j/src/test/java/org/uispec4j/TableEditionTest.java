@@ -1,12 +1,15 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
-
-import javax.swing.*;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import junit.framework.AssertionFailedError;
 
 public class TableEditionTest extends TableTestCase {
+  @Test
   public void testEditCellForString() throws Exception {
     table.editCell(0, 0, "value", false);
     assertTrue(table.contentEquals(new Object[][]{
@@ -20,6 +23,7 @@ public class TableEditionTest extends TableTestCase {
     }));
   }
 
+  @Test
   public void testEditCellForComboBox() throws Exception {
     table.editCell(0, 2, "5", false);
     assertTrue(table.contentEquals(new Object[][]{
@@ -33,6 +37,7 @@ public class TableEditionTest extends TableTestCase {
     }));
   }
 
+  @Test
   public void testEditCellErrors() throws Exception {
     try {
       table.editCell(1, 0, "notEditable", true);
@@ -51,6 +56,7 @@ public class TableEditionTest extends TableTestCase {
     }
   }
 
+  @Test
   public void testAssertEditable() throws Exception {
     jTable.setModel(new MyModel() {
       public boolean isCellEditable(int row, int col) {
@@ -77,6 +83,7 @@ public class TableEditionTest extends TableTestCase {
     }
   }
 
+  @Test
   public void testAssertCellEditable() throws Exception {
     jTable.setModel(new MyModel() {
       public boolean isCellEditable(int row, int col) {
@@ -101,6 +108,7 @@ public class TableEditionTest extends TableTestCase {
     }
   }
 
+  @Test
   public void testAssertColumnEditableWithColumnIndex() throws Exception {
     jTable.setModel(new MyModel() {
       public boolean isCellEditable(int row, int col) {
@@ -120,6 +128,7 @@ public class TableEditionTest extends TableTestCase {
     }
   }
 
+  @Test
   public void testAssertColumnEditableWithColumnName() throws Exception {
     jTable.setModel(new MyModel() {
       public boolean isCellEditable(int row, int col) {
@@ -147,6 +156,7 @@ public class TableEditionTest extends TableTestCase {
     }
   }
 
+  @Test
   public void testEditingACellWithAComboBox() throws Exception {
     String[] choices = new String[]{"a", "b", "c"};
     jTable.setDefaultEditor(String.class, new DefaultCellEditor(new JComboBox(choices)));
@@ -163,6 +173,7 @@ public class TableEditionTest extends TableTestCase {
     }));
   }
 
+  @Test
   public void testEditingACellWithATextField() throws Exception {
     jTable.setDefaultEditor(String.class, new DefaultCellEditor(new JTextField()));
     assertTrue(table.contentEquals(new Object[][]{
@@ -176,6 +187,7 @@ public class TableEditionTest extends TableTestCase {
     }));
   }
 
+  @Test
   public void testEditCellChecksThatTheCellIsEditable() throws Exception {
     jTable.setModel(new MyModel() {
       public boolean isCellEditable(int row, int column) {

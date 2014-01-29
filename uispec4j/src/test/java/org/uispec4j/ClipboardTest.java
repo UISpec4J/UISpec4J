@@ -1,8 +1,8 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import org.uispec4j.utils.UnitTestCase;
-
-import java.awt.*;
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.DataInputStream;
@@ -14,12 +14,14 @@ import java.nio.CharBuffer;
 public class ClipboardTest extends UnitTestCase {
   private static final String CONTENT_STRING = "content";
 
+  @Test
   public void testSimplePutText() throws Exception {
     checkSimplePutText(CONTENT_STRING);
     checkSimplePutText("hello\t world\n bye!");
     checkSimplePutText("1\t34");
   }
 
+  @Test
   public void testPutTextWithHtmlUtf8MimeTypeAndAnInputStreamTransferClass() throws Exception {
     checkPutTextWithMimeType(Clipboard.HTML, Clipboard.UTF8, Clipboard.INPUT_STREAM,
                              "text/html; charset=UTF-8; class=java.io.InputStream",
@@ -34,6 +36,7 @@ public class ClipboardTest extends UnitTestCase {
                              });
   }
 
+  @Test
   public void testPutTextWithPlainAsciiMimeTypeAndACharBufferTransferClass() throws Exception {
     checkPutTextWithMimeType(Clipboard.PLAIN, Clipboard.US_ASCII, Clipboard.CHAR_BUFFER,
                              "text/plain; charset=US-ASCII; class=java.nio.CharBuffer",
@@ -45,6 +48,7 @@ public class ClipboardTest extends UnitTestCase {
                              });
   }
 
+  @Test
   public void testPutTextWithPlainUnicodeMimeTypeAndAReadaerTransferClass() throws Exception {
     checkPutTextWithMimeType(Clipboard.PLAIN, Clipboard.UNICODE, Clipboard.READER,
                              "text/plain; charset=unicode; class=java.io.Reader",
@@ -60,6 +64,7 @@ public class ClipboardTest extends UnitTestCase {
                              });
   }
 
+  @Test
   public void testPutTextWithHtmlUtf16MimeTypeAndAByteBufferTransferClass() throws Exception {
     checkPutTextWithMimeType(Clipboard.HTML, Clipboard.UTF16, Clipboard.BYTE_BUFFER,
                              "text/html; charset=UTF-16; class=java.nio.ByteBuffer",

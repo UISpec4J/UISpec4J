@@ -1,17 +1,25 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Functor;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
+import java.awt.Component;
+import junit.framework.AssertionFailedError;
 
 public class ComboBoxTest extends UIComponentTestCase {
   private ComboBox comboBox;
   private JComboBox jComboBox;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     init(new JComboBox(new String[]{"one", "two", "three"}));
   }
@@ -22,14 +30,17 @@ public class ComboBoxTest extends UIComponentTestCase {
     comboBox = new ComboBox(jComboBox);
   }
 
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("comboBox", comboBox.getDescriptionTypeName());
   }
 
+  @Test
   public void testGetDescription() throws Exception {
     assertEquals("<comboBox name=\"marcel\"/>", comboBox.getDescription());
   }
 
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JComboBox(), ComboBox.class);
   }
@@ -38,10 +49,12 @@ public class ComboBoxTest extends UIComponentTestCase {
     return comboBox;
   }
 
+  @Test
   public void testCheckContent() throws Exception {
     assertTrue(comboBox.contentEquals("one", "two", "three"));
   }
 
+  @Test
   public void testCheckContentWithErrors() throws Exception {
     try {
       assertTrue(comboBox.contentEquals("one", "two", "unknown", "three"));
@@ -51,6 +64,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testContains() throws Exception {
     assertTrue(comboBox.contains("two"));
     assertTrue(comboBox.contains("two", "one"));
@@ -74,11 +88,13 @@ public class ComboBoxTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testCheckContentWithSpecificJLabelRenderer() throws Exception {
     jComboBox.setRenderer(new DummyRenderer());
     assertTrue(comboBox.contentEquals("(one)", "(two)", "(three)"));
   }
 
+  @Test
   public void testCheckContentWithNoJLabelUsesTheModelValue() throws Exception {
     jComboBox.setRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -88,6 +104,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.contentEquals("one", "two", "three"));
   }
 
+  @Test
   public void testUsingACustomCellRenderer() throws Exception {
     jComboBox.setRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -128,12 +145,14 @@ public class ComboBoxTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertEmptyChecksTheDisplayedValue() throws Exception {
     jComboBox.setRenderer(new DummyRenderer());
     jComboBox.removeAllItems();
     assertTrue(comboBox.isEmpty("<no item>"));
   }
 
+  @Test
   public void testAssertEmptyFailures() throws Exception {
     try {
       assertTrue(comboBox.isEmpty("<no item>"));
@@ -150,15 +169,17 @@ public class ComboBoxTest extends UIComponentTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError e) {
-      assertEquals("expected:<error> but was:<<no item>>", e.getMessage());
+      assertEquals("expected:<[error]> but was:<[<no item>]>", e.getMessage());
     }
   }
 
+  @Test
   public void testCheckSelectionUsesNullWhenNothingIsSelected() throws Exception {
     jComboBox.setSelectedIndex(-1);
     assertTrue(comboBox.selectionEquals(null));
   }
 
+  @Test
   public void testCheckSelectionUsesDisplayedNullValueWhenNothingIsSelected() throws Exception {
     jComboBox.setRenderer(new ListCellRenderer() {
       public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -169,19 +190,21 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("null text"));
   }
 
-
+  @Test
   public void testClickSelectsTheFirstItem() throws Exception {
     jComboBox.setSelectedIndex(1);
     comboBox.click();
     assertEquals(0, jComboBox.getSelectedIndex());
   }
 
+  @Test
   public void testClickDoesNothingIfTheComboIsEmpty() throws Exception {
     init(new JComboBox());
     comboBox.click();
     assertEquals(-1, jComboBox.getSelectedIndex());
   }
 
+  @Test
   public void testBasicSelection() throws Exception {
     comboBox.select("two");
     assertEquals(1, jComboBox.getSelectedIndex());
@@ -191,6 +214,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("one"));
   }
 
+  @Test
   public void testBasicSelectionWithCustomModel() throws Exception {
     jComboBox.setModel(new VerySimpleComboBoxModel("one", "two", "three"));
     comboBox.select("two");
@@ -201,6 +225,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("one"));
   }
 
+  @Test
   public void testSelectionIsNotCaseSensitive() throws Exception {
     comboBox.select("TwO");
     assertEquals(1, jComboBox.getSelectedIndex());
@@ -210,6 +235,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("one"));
   }
 
+  @Test
   public void testSelectionWithSubstring() throws Exception {
     comboBox.select("tw");
     assertEquals(1, jComboBox.getSelectedIndex());
@@ -219,6 +245,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("one"));
   }
 
+  @Test
   public void testAmbiguityInSelection() throws Exception {
     try {
       comboBox.select("o");
@@ -229,6 +256,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testSelectingAnUnknownValueThrowsAnException() throws Exception {
     try {
       comboBox.select("unknown");
@@ -238,6 +266,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testCheckSelectedError() throws Exception {
     try {
       assertTrue(comboBox.selectionEquals("unknown"));
@@ -247,6 +276,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     }
   }
 
+  @Test
   public void testAssertEditable() throws Exception {
     jComboBox.setEditable(false);
     assertFalse(comboBox.isEditable());
@@ -264,6 +294,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     });
   }
 
+  @Test
   public void testSetTextIsAvailableOnlyWhenComponentIsEditable() {
     comboBox.select("two");
     assertTrue(comboBox.selectionEquals("two"));
@@ -285,6 +316,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("one"));
   }
 
+  @Test
   public void testCheckSelectionUsesTheProperRendererIndex() throws Exception {
     jComboBox.setRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -302,6 +334,7 @@ public class ComboBoxTest extends UIComponentTestCase {
     assertTrue(comboBox.selectionEquals("selected"));
   }
 
+  @Test
   public void testExceptionThrownByTheModel() throws Exception {
     jComboBox.setModel(new DefaultComboBoxModel() {
       public int getSize() {

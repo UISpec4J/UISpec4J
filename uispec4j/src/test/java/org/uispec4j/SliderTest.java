@@ -1,24 +1,30 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.utils.Functor;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
 import java.util.Hashtable;
 
 public class SliderTest extends UIComponentTestCase {
   private JSlider jSlider = createTemperatureSlider();
   private Slider slider = new Slider(jSlider);
 
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("slider", slider.getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     XmlAssert.assertEquivalent("<slider name='my thermometer'/>", slider.getDescription());
   }
 
+  @Override
+  @Test
   public void testFactory() throws Exception {
     checkFactory(createTemperatureSlider(), Slider.class);
   }
@@ -27,11 +33,10 @@ public class SliderTest extends UIComponentTestCase {
     return slider;
   }
 
+  @Test
   public void testLabels() throws Exception {
-    checkAssertionFails(slider.labelsEqual("1", "2", "3", "4"),
-                        "4 elements instead of 6\n" +
-                        "Expected: [1,2,3,4],\n" +
-                        "but was: [-10,0,10,20,30,40]");
+    checkAssertionFails(slider.labelsEqual("1", "2", "3", "4"), "4 elements instead of 6\n"
+        + "Expected: [1,2,3,4],\n" + "but was: [-10,0,10,20,30,40]");
 
     assertTrue(slider.labelsEqual("-10", "0", "10", "20", "30", "40"));
 
@@ -49,6 +54,7 @@ public class SliderTest extends UIComponentTestCase {
 
   }
 
+  @Test
   public void testPositionCheckBasedOnLabels() throws Exception {
     changeLabels();
 
@@ -69,6 +75,7 @@ public class SliderTest extends UIComponentTestCase {
     checkPosition(0, "Cold", "Hot");
   }
 
+  @Test
   public void testRelativePosition() throws Exception {
     jSlider.setValue(16);
     Assertion positionIsMiddle = slider.relativePositionEquals(50);
@@ -81,6 +88,7 @@ public class SliderTest extends UIComponentTestCase {
     assertTrue(positionIsMiddle);
   }
 
+  @Test
   public void testSettingARelativePosition() throws Exception {
     slider.setRelativePosition(50);
     assertEquals(15, jSlider.getValue());
@@ -111,7 +119,8 @@ public class SliderTest extends UIComponentTestCase {
   private void checkPosition(int intValue, String correctLabel, String wrongLabel) throws Exception {
     assertEquals(intValue, jSlider.getValue());
     assertTrue(slider.positionEquals(correctLabel));
-    checkAssertionFails(slider.positionEquals(wrongLabel), "expected:<" + wrongLabel + "> but was:<" + correctLabel + ">");
+    checkAssertionFails(slider.positionEquals(wrongLabel), "expected:<[" + wrongLabel + "]> but was:<["
+        + correctLabel + "]>");
   }
 
   private static JSlider createTemperatureSlider() {

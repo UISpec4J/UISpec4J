@@ -1,5 +1,6 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import junit.framework.TestCase;
 import org.uispec4j.assertion.UISpecAssert;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 
 public class AbstractSwingUIComponentTest extends TestCase {
 
+  @Test
   public void testTooltips() throws Exception {
     DummySwingUIComponent component = new DummySwingUIComponent("label");
     component.getAwtComponent().setToolTipText("Hello world!");

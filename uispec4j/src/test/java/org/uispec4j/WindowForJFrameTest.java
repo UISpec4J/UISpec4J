@@ -1,9 +1,9 @@
 package org.uispec4j;
 
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
-
-import javax.swing.*;
 
 public class WindowForJFrameTest extends WindowTestCase {
 

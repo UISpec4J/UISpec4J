@@ -1,12 +1,12 @@
 package org.uispec4j;
 
-import java.util.Arrays;
-
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import java.util.Arrays;
+import junit.framework.AssertionFailedError;
 
 public abstract class SpinnerTestCase extends UIComponentTestCase {
   protected JSpinner jSpinner;
@@ -16,14 +16,19 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
 
   protected abstract Spinner createSpinner(JSpinner jSpinner);
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     init();
   }
 
+  @Override
+  @Test
   public final void testGetComponentTypeName() throws Exception {
     assertEquals("spinner", spinner.getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public final void testGetDescription() throws Exception {
     String property = System.getProperty("java.specification.version");
     if (Arrays.asList("", "1.6", "1.7").contains(property)) {

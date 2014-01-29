@@ -1,18 +1,29 @@
 package org.uispec4j;
 
 import static org.uispec4j.DummySpinner.*;
+import org.junit.Test;
 import org.uispec4j.finder.ComponentMatcher;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
+import javax.swing.AbstractSpinnerModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
 
 public class PanelTest extends UIComponentTestCase {
 
+  @Override
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("panel", UIComponentFactory.createUIComponent(new JPanel()).getDescriptionTypeName());
   }
 
+  @Override
+  @Test
   public void testGetDescription() throws Exception {
     JTabbedPane tabbedPane = new JTabbedPane();
     tabbedPane.setName("myTabbedPane");
@@ -27,21 +38,22 @@ public class PanelTest extends UIComponentTestCase {
     tabbedPane.addTab("2", new JButton("myButton"));
 
     Panel panel = new Panel(jPanel);
-    XmlAssert.assertEquivalent("<panel name='myPanel'>" +
-                               "  <tabGroup name='myTabbedPane'>" +
-                               "     <textBox name='myText'/>" +
-                               "  </tabGroup>" +
-                               "</panel>", panel.getDescription());
+    XmlAssert.assertEquivalent("<panel name='myPanel'>" + "  <tabGroup name='myTabbedPane'>"
+        + "     <textBox name='myText'/>" + "  </tabGroup>" + "</panel>", panel.getDescription());
   }
 
+  @Override
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JPanel(), Panel.class);
   }
 
+  @Override
   protected UIComponent createComponent() {
     return new Panel(new JPanel());
   }
 
+  @Test
   public void testContainsLabel() throws Exception {
     JPanel jPanel = new JPanel();
     jPanel.add(new JLabel("Some text"));
@@ -51,6 +63,7 @@ public class PanelTest extends UIComponentTestCase {
     assertFalse(panel.containsLabel("unknown"));
   }
 
+  @Test
   public void testGetSpinnerThroughModel() throws Exception {
     checkGetSpinnerByModel(dateModel(), new Getter() {
       public UIComponent get(Panel panel) {
@@ -69,6 +82,7 @@ public class PanelTest extends UIComponentTestCase {
     });
   }
 
+  @Test
   public void testGetSpinnerThroughModelAndComponentName() throws Exception {
     checkGetSpinnerByModel(dateModel(), new Getter() {
       public UIComponent get(Panel panel) {
@@ -87,6 +101,7 @@ public class PanelTest extends UIComponentTestCase {
     });
   }
 
+  @Test
   public void testGetSpinnerThroughModelAndMatcher() throws Exception {
     checkGetSpinnerByModel(dateModel(), new Getter() {
       public UIComponent get(Panel panel) {

@@ -1,5 +1,6 @@
 package org.uispec4j.finder;
 
+import org.junit.Test;
 import org.uispec4j.ComponentAmbiguityException;
 import org.uispec4j.ItemNotFoundException;
 import org.uispec4j.TestUtils;
@@ -13,7 +14,7 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
   private JTextField textField;
   private Component otherButton;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     button1 = addComponent(JButton.class, "displayed1");
     button1.setName("inner1");
@@ -25,11 +26,13 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
     otherButton.setName("else");
   }
 
+  @Test
   public void testClassComponentMatcher() throws Exception {
     TestUtils.assertSwingComponentsEquals(new JTextField[]{textField},
                                           panel.getSwingComponents(ComponentMatchers.fromClass(JTextField.class)));
   }
 
+  @Test
   public void testDisplayedNameIdentity() throws Exception {
     TestUtils.assertUIComponentRefersTo(button2,
                                         panel.getButton(ComponentMatchers.displayedNameIdentity("displayed2")));
@@ -54,6 +57,7 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
                                           panel.getSwingComponents(ComponentMatchers.displayedNameIdentity("displayed1")));
   }
 
+  @Test
   public void testDisplayedNameSubstring() throws Exception {
     TestUtils.assertUIComponentRefersTo(button2,
                                         panel.getButton(ComponentMatchers.displayedNameSubstring("displayed2")));
@@ -72,6 +76,7 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
                                           panel.getSwingComponents(ComponentMatchers.displayedNameSubstring("displayed")));
   }
 
+  @Test
   public void testDisplayedNameRegexp() throws Exception {
     TestUtils.assertUIComponentRefersTo(button2,
                                         panel.getButton(ComponentMatchers.displayedNameRegexp("displaye.?2")));
@@ -96,17 +101,20 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
                                           panel.getSwingComponents(ComponentMatchers.displayedNameRegexp("dis.*")));
   }
 
+  @Test
   public void testInnerNameIdentity() throws Exception {
     TestUtils.assertUIComponentRefersTo(button2,
                                         panel.getButton(ComponentMatchers.innerNameIdentity("inner2")));
 
   }
 
+  @Test
   public void testInnerNameSubstring() throws Exception {
     TestUtils.assertSwingComponentsEquals(new Component[]{button1, button2, textField},
                                           panel.getSwingComponents(ComponentMatchers.innerNameSubstring("inner")));
   }
 
+  @Test
   public void testInnerNameRegexp() throws Exception {
     TestUtils.assertUIComponentRefersTo(button2,
                                         panel.getButton(ComponentMatchers.innerNameRegexp("inne.?2")));
@@ -123,6 +131,7 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
                                           panel.getSwingComponents(ComponentMatchers.innerNameRegexp("inn.*")));
   }
 
+  @Test
   public void testComponentLabelFor() throws Exception {
     JLabel labelForButton2 = addComponent(JLabel.class, "this is the second button");
     labelForButton2.setLabelFor(button2);
@@ -131,6 +140,7 @@ public class ComponentMatchersTest extends PanelComponentFinderTestCase {
                                         panel.getButton(ComponentMatchers.componentLabelFor("second button")));
   }
 
+  @Test
   public void testSearchWithTooltip() throws Exception {
     button1.setToolTipText("button 1");
 

@@ -1,5 +1,6 @@
 package org.uispec4j.interception;
 
+import org.junit.Test;
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 
 public class BasicHandlerTest extends InterceptionTestCase {
 
+  @Test
   public void testStandardUsage() throws Exception {
     WindowInterceptor
       .init(triggerShowDialog())
@@ -23,6 +25,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
                         "</log>");
   }
 
+  @Test
   public void testTitleEqualsError() throws Exception {
     checkAssertionFailedError(
       WindowInterceptor
@@ -31,9 +34,10 @@ public class BasicHandlerTest extends InterceptionTestCase {
         .init()
         .assertTitleEquals("Error")
         .triggerButtonClick("Hide")),
-      "Unexpected title - expected:<Error> but was:<Dialog title>");
+      "Unexpected title - expected:<[Error]> but was:<[Dialog title]>");
   }
 
+  @Test
   public void testTitleContainsError() throws Exception {
     checkAssertionFailedError(
       WindowInterceptor
@@ -45,6 +49,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
       "expected to contain:<Error> but was:<Dialog title>");
   }
 
+  @Test
   public void testAssertContainsTextError() throws Exception {
     checkAssertionFailedError(WindowInterceptor
       .init(triggerShowDialog())
@@ -55,6 +60,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
                               "Text not found: Error");
   }
 
+  @Test
   public void testClickButtonError() throws Exception {
     checkAssertionFailedError(WindowInterceptor
       .init(triggerShowDialog())
@@ -65,6 +71,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
                               "Component 'Unknown' of type 'button' not found - available names: [Hide,OK]");
   }
 
+  @Test
   public void testJOptionPaneConfirmationReplies() throws Exception {
     checkSelectedValue(JOptionPane.YES_OPTION, JOptionPane.YES_NO_OPTION, getLocalLabel("OptionPane.yesButtonText"));
     checkSelectedValue(JOptionPane.NO_OPTION, JOptionPane.YES_NO_OPTION, getLocalLabel("OptionPane.noButtonText"));
@@ -72,6 +79,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
     checkSelectedValue(JOptionPane.CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION, getLocalLabel("OptionPane.cancelButtonText"));
   }
 
+  @Test
   public void testSetInputInJOptionPane() throws Exception {
     WindowInterceptor
       .init(new Trigger() {
@@ -85,6 +93,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
       .run();
   }
 
+  @Test
   public void testSetInputWithNullValueInJOptionPane() throws Exception {
     WindowInterceptor
       .init(new Trigger() {
@@ -99,6 +108,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
   }
 
   /* This is not a feature, but a known limitation */
+  @Test
   public void testSetInputFollowedByACancelInJOptionPaneReturnsTheInputValue() throws Exception {
     WindowInterceptor
       .init(new Trigger() {
@@ -112,6 +122,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
       .run();
   }
 
+  @Test
   public void testInterceptingAJOptionPaneFromInsideATrigger() throws Exception {
     final JFrame frame = new JFrame();
     WindowInterceptor
@@ -154,6 +165,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
                         "</log>");
   }
 
+  @Test
   public void testJOptionPaneInterceptionInAWindowSequence() throws Exception {
     final JFrame frame = new JFrame();
     WindowInterceptor

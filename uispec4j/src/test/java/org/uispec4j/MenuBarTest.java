@@ -1,11 +1,12 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
+import org.junit.Test;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
-
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import junit.framework.AssertionFailedError;
 
 public class MenuBarTest extends UIComponentTestCase {
   private MenuBar menuBar;
@@ -13,7 +14,8 @@ public class MenuBarTest extends UIComponentTestCase {
   private JMenu jFileMenu;
   private JMenu jEditMenu;
 
-  protected void setUp() throws Exception {
+  @Override
+  public void setUp() throws Exception {
     super.setUp();
     jMenuBar = new JMenuBar();
     jFileMenu = new JMenu("File");
@@ -26,10 +28,13 @@ public class MenuBarTest extends UIComponentTestCase {
     menuBar = (MenuBar)UIComponentFactory.createUIComponent(jMenuBar);
   }
 
+  @Override
+  @Test
   public void testGetComponentTypeName() throws Exception {
     assertEquals("menuBar", menuBar.getDescriptionTypeName());
   }
 
+  @Test
   public void testGetDescription() throws Exception {
     XmlAssert.assertEquivalent("<menuBar name='myMenuBar'>" +
                                "  <menu name='fileMenu'/>" +
@@ -37,6 +42,7 @@ public class MenuBarTest extends UIComponentTestCase {
                                "</menuBar>", menuBar.getDescription());
   }
 
+  @Test
   public void testFactory() throws Exception {
     checkFactory(new JMenuBar(), MenuBar.class);
   }
@@ -45,10 +51,12 @@ public class MenuBarTest extends UIComponentTestCase {
     return menuBar;
   }
 
+  @Test
   public void testGetContents() throws Exception {
     assertTrue(menuBar.contentEquals("File", "Edit"));
   }
 
+  @Test
   public void testGetContentsError() throws Exception {
     try {
       assertTrue(menuBar.contentEquals("File", "Other"));

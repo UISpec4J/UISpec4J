@@ -1,14 +1,15 @@
 package org.uispec4j.utils;
 
+import org.junit.Test;
+import java.awt.Color;
 import junit.framework.AssertionFailedError;
-
-import java.awt.*;
 
 /**
  * Test class for {@link ColorUtils}
  */
 public class ColorUtilsTest extends UnitTestCase {
 
+  @Test
   public void testAssertEqualsWithPrefix() throws Exception {
     ColorUtils.assertEquals("Message", "FF0000", Color.RED);
     ColorUtils.assertEquals("Message", "red", Color.RED);
@@ -20,15 +21,16 @@ public class ColorUtilsTest extends UnitTestCase {
                            "Message - expected:<112233> but was:<332211>");
   }
 
+  @Test
   public void testAssertEquals() throws Exception {
     ColorUtils.assertEquals("FF0000", Color.RED);
     ColorUtils.assertEquals("red", Color.RED);
     ColorUtils.assertEquals("red", new Color(0xDD1111));
 
-    checkAssertEqualsError("112233", new Color(0x332211),
-                           "expected:<112233> but was:<332211>");
+    checkAssertEqualsError("112233", new Color(0x332211), "expected:<112233> but was:<332211>");
   }
 
+  @Test
   public void testInvalidArgumentsToAssertEquals() throws Exception {
     try {
       ColorUtils.assertEquals(2, Color.red);
@@ -125,9 +127,7 @@ public class ColorUtilsTest extends UnitTestCase {
     assertEquals("0000FF", ColorUtils.getColorDescription("0000ff"));
   }
 
-  private void checkAssertEqualsError(String messagePrefix,
-                                      Object expectedColor,
-                                      Color actualColor,
+  private void checkAssertEqualsError(String messagePrefix, Object expectedColor, Color actualColor,
                                       String errorMessage) {
     try {
       ColorUtils.assertEquals(messagePrefix, expectedColor, actualColor);
@@ -148,4 +148,3 @@ public class ColorUtilsTest extends UnitTestCase {
     }
   }
 }
-

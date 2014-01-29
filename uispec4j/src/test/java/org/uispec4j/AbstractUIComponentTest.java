@@ -1,5 +1,6 @@
 package org.uispec4j;
 
+import org.junit.Test;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.UnitTestCase;
 import org.uispec4j.xml.XmlAssert;
@@ -30,6 +31,7 @@ public class AbstractUIComponentTest extends UnitTestCase {
     }
   }
 
+  @Test
   public void testComponentUsesBlackAsDefaultForegroundColor() throws Exception {
     final JComponent jComponent = new JComponent() {
     };
@@ -46,6 +48,7 @@ public class AbstractUIComponentTest extends UnitTestCase {
     assertTrue(uiComponent.foregroundEquals("black"));
   }
 
+  @Test
   public void testForeground() throws Exception {
     DummyAwtUIComponent uiComponent = new DummyAwtUIComponent("name");
     uiComponent.component.setForeground(ColorUtils.getColor("2255F7"));
@@ -61,6 +64,7 @@ public class AbstractUIComponentTest extends UnitTestCase {
     assertFalse(uiComponent.foregroundNear("red"));
   }
 
+  @Test
   public void testBackground() throws Exception {
     DummyAwtUIComponent uiComponent = new DummyAwtUIComponent("name");
     uiComponent.component.setBackground(ColorUtils.getColor("2255F7"));
@@ -76,6 +80,7 @@ public class AbstractUIComponentTest extends UnitTestCase {
     assertFalse(uiComponent.backgroundNear("red"));
   }
 
+  @Test
   public void testGetContainer() throws Exception {
     JPanel rootPanel = new JPanel();
     rootPanel.setName("rootPanel");

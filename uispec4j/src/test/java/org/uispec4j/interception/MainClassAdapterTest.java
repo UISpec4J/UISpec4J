@@ -1,5 +1,6 @@
 package org.uispec4j.interception;
 
+import org.junit.Test;
 import org.uispec4j.TextBox;
 import org.uispec4j.Window;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.util.Arrays;
 
 public class MainClassAdapterTest extends InterceptionTestCase {
+  @Test
   public void test() throws Exception {
     MainClassAdapter adapter = new MainClassAdapter(MyClass.class, "a", "b");
     Window window = adapter.getMainWindow();
@@ -14,6 +16,7 @@ public class MainClassAdapterTest extends InterceptionTestCase {
     assertTrue(textBox.textEquals("[a, b]"));
   }
 
+  @Test
   public void testReusesTheInterceptedWindowOnSubsequentCalls() throws Exception {
     MyClass.callCount = 0;
 
@@ -29,6 +32,7 @@ public class MainClassAdapterTest extends InterceptionTestCase {
     assertEquals(2, MyClass.callCount);
   }
 
+  @Test
   public void testNoMain() throws Exception {
     try {
       new MainClassAdapter(MainClassAdapterTest.class, "a", "b");
