@@ -82,6 +82,9 @@ public final class Empty {
     public void setAlwaysOnTop(boolean b) {
     }
 
+    public void updateAlwaysOnTopState() {
+    }
+
     public void updateFocusableWindowState() {
     }
 

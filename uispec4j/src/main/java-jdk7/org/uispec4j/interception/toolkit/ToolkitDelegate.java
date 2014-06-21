@@ -307,6 +307,14 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return Empty.NULL_ROBOT;
   }
 
+  public KeyboardFocusManagerPeer getKeyboardFocusManagerPeer() throws HeadlessException {
+    return null;
+  }
+
+  protected boolean syncNativeQueue(long l) {
+    return true;
+  }
+
   public boolean isModalExclusionTypeSupported(Dialog.ModalExclusionType modalExclusionType) {
     return true;
   }
