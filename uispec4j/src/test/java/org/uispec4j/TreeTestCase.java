@@ -46,7 +46,7 @@ public abstract class TreeTestCase extends UnitTestCase {
 
   protected void assertNoSelection(JTree jTree) {
     String property = System.getProperty("java.specification.version");
-    if ("1.7".equals(property)) {
+    if ("1.7".equals(property) || "1.8".equals(property)) {
       assertEquals(0, jTree.getSelectionRows().length);
       return;
     }
@@ -70,7 +70,7 @@ public abstract class TreeTestCase extends UnitTestCase {
 
     public Color getForeground(Component renderedComponent, Object modelObject) {
       if ((redFontPattern != null) &&
-          (modelObject.toString().indexOf(redFontPattern) >= 0)) {
+          (modelObject.toString().contains(redFontPattern))) {
         return Color.RED;
       }
 
@@ -85,7 +85,7 @@ public abstract class TreeTestCase extends UnitTestCase {
       if (boldPattern == null) {
         return false;
       }
-      return modelObject.toString().indexOf(boldPattern) >= 0;
+      return modelObject.toString().contains(boldPattern);
     }
   }
 }
