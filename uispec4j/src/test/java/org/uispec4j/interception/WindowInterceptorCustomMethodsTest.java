@@ -138,7 +138,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
           logger.log("confirm").add("result", result);
         }
       })
-      .processWithButtonClick("Yes")
+      .processWithButtonClick(getLocalLabel("OptionPane.yesButtonText"))
       .run();
     logger.assertEquals("<log>" +
                         "  <confirm result='0'/>" +

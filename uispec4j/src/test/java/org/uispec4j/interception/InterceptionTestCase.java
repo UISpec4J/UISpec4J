@@ -8,6 +8,7 @@ import org.uispec4j.utils.UnitTestCase;
 import org.uispec4j.xml.EventLogger;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -101,5 +102,9 @@ public abstract class InterceptionTestCase extends UnitTestCase {
       }
     });
     container.getContentPane().add(button);
+  }
+
+  protected String getLocalLabel(String resource) {
+    return (String) UIManager.get(resource);
   }
 }

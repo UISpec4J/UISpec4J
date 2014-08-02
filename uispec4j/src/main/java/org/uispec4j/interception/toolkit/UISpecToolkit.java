@@ -91,6 +91,14 @@ public class UISpecToolkit extends ToolkitDelegate {
     return Empty.NULL_ROBOT;
   }
 
+  public KeyboardFocusManagerPeer createKeyboardFocusManagerPeer(KeyboardFocusManager keyboardFocusManager) throws HeadlessException {
+    return null;
+  }
+
+  protected boolean syncNativeQueue(long l) {
+    return false;
+  }
+
   protected int getScreenWidth() {
     return 0;
   }

@@ -18,6 +18,7 @@ import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
+import sun.awt.LightweightFrame;
 
 /**
  * Delegates to the underlying Toolkit.
@@ -151,7 +152,7 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
 
   public Insets getScreenInsets(GraphicsConfiguration gc)
     throws HeadlessException {
-    return getUnderlyingToolkit().getScreenInsets(gc);
+    return Empty.NULL_INSETS;
   }
 
   public DragSourceContextPeer createDragSourceContextPeer(DragGestureEvent dge)
@@ -262,6 +263,10 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return asSun().createTextField(target);
   }
 
+  public FramePeer createLightweightFrame(LightweightFrame target) {
+    return asSun().createLightweightFrame(target);
+  }
+
   public WindowPeer createWindow(Window target)
     throws HeadlessException {
     return asSun().createWindow(target);
@@ -279,9 +284,9 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     getUnderlyingToolkit().removePropertyChangeListener(name, pcl);
   }
 
-  public Map mapInputMethodHighlight(InputMethodHighlight highlight)
+  public Map<java.awt.font.TextAttribute,?> mapInputMethodHighlight(InputMethodHighlight highlight)
     throws HeadlessException {
-    return getUnderlyingToolkit().mapInputMethodHighlight(highlight);
+      return getUnderlyingToolkit().mapInputMethodHighlight(highlight);
   }
 
   public Cursor createCustomCursor(Image cursor, Point hotSpot, String name)
@@ -307,15 +312,23 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return Empty.NULL_ROBOT;
   }
 
+  public KeyboardFocusManagerPeer getKeyboardFocusManagerPeer() throws HeadlessException {
+    return null;
+  }
+
+  protected boolean syncNativeQueue(long l) {
+    return true;
+  }
+
   public boolean isModalExclusionTypeSupported(Dialog.ModalExclusionType modalExclusionType) {
-    return false;
+    return true;
   }
 
   public boolean isModalityTypeSupported(Dialog.ModalityType modalityType) {
-    return false;
+    return true;
   }
 
-  public DragGestureRecognizer createDragGestureRecognizer(Class abstractRecognizerClass,
+  public <T extends DragGestureRecognizer> T createDragGestureRecognizer(Class<T>  abstractRecognizerClass,
                                                            DragSource ds,
                                                            Component cp,
                                                            int srcActions,
@@ -363,15 +376,7 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return false;
   }
 
-  protected boolean syncNativeQueue() {
-    return false;
-  }
-
   public void ungrab(Window window) {
-  }
-
-  public boolean isWindowOpacityControlSupported() {
-    return false;
   }
 
   public boolean isWindowShapingSupported() {

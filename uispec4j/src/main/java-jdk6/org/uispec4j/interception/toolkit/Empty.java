@@ -89,6 +89,9 @@ public final class Empty {
     public void updateAlwaysOnTop() {
     }
 
+    public void updateAlwaysOnTopState() {
+    }
+
     public boolean requestWindowFocus() {
       return false;
     }

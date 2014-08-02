@@ -142,8 +142,8 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
   }
 
   public void testDefaultTitle() throws Exception {
-    checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("Open"));
-    checkOk(SHOW_SAVE_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("Save"));
+    checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals(getLocalLabel("FileChooser.openDialogTitleText")));
+    checkOk(SHOW_SAVE_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals(getLocalLabel("FileChooser.saveDialogTitleText")));
   }
 
   public void testCustomTitle() throws Exception {
