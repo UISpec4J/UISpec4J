@@ -2,6 +2,7 @@ package org.uispec4j.interception;
 
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
+
 import org.uispec4j.Trigger;
 import org.uispec4j.UISpec4J;
 import org.uispec4j.Window;
@@ -11,7 +12,11 @@ import org.uispec4j.utils.ComponentUtils;
 import org.uispec4j.utils.Utils;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class WindowInterceptorForDialogSequenceTest extends WindowInterceptorTestCase {
 
@@ -25,6 +30,47 @@ public class WindowInterceptorForDialogSequenceTest extends WindowInterceptorTes
     }
   }
 
+  public void testTimedTestNestedModalDialog() {
+	WindowInterceptor.init(new Trigger() {
+      public void run() {
+        logger.log("triggerRun");
+        final JDialog dialog = createModalDialog("aDialog");
+        addHideButton(dialog, "OK");
+		final JDialog dialog2 = new JDialog(dialog, "aDialog2", true);
+		addHideButton(dialog2, "OK");
+		final JTextField field=new JTextField();
+		field.setName("password");
+		field.setText("");
+		dialog2.add(field);
+        
+        JButton button=new JButton("button");
+        button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dialog2.show();
+			}
+        });
+        dialog.add(button);
+        
+        dialog.show();
+        
+        Assert.assertTrue("", field.getText().length()>0);
+      }
+    }).process(new WindowHandler() {
+		@Override
+		public Trigger process(Window window) throws Exception {
+			WindowInterceptor.init(window.getButton("button").triggerClick()).process(new WindowHandler() {
+				@Override
+				public Trigger process(Window window) throws Exception {
+					Thread.sleep(1000);
+					window.getTextBox("password").setText("helloWorld");
+					return window.getButton("OK").triggerClick();
+				}
+			}).run();
+			return window.getButton("OK").triggerClick();
+		}
+    }).run();
+  }
+  
   public void testStandardSequence() {
     WindowInterceptor
       .init(getShowFirstDialogTrigger())
