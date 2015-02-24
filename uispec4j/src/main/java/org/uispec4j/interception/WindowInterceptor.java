@@ -343,11 +343,15 @@ public final class WindowInterceptor {
     NewThreadInterceptionHandlerDecorator newThreadHandler = new NewThreadInterceptionHandlerDecorator(closeDetector);
     UISpecDisplay.instance().add(newThreadHandler);
     try {
-      sun.awt.AWTAutoShutdown.getInstance().notifyThreadBusy(Thread.currentThread());
+      //sun.awt.AWTAutoShutdown.getInstance().notifyThreadBusy(Thread.currentThread());
+      sun.awt.AWTAutoShutdown.notifyToolkitThreadBusy();
       TriggerRunner.runInSwingThread(triggerAccessor.getTrigger());
+      //sun.awt.AWTAutoShutdown.getInstance().notifyThreadFree(Thread.currentThread());
+      sun.awt.AWTAutoShutdown.notifyToolkitThreadFree();
       showDetector.waitWindow();
+
       newThreadHandler.complete();
-      sun.awt.AWTAutoShutdown.getInstance().notifyThreadFree(Thread.currentThread());
+
       closeDetector.checkWindowWasClosed();
     }
     finally {
