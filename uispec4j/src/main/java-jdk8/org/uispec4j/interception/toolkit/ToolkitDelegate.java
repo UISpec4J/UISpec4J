@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 import sun.awt.LightweightFrame;
+import sun.awt.datatransfer.DataTransferer;
 
 /**
  * Delegates to the underlying Toolkit.
@@ -124,6 +125,10 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
 
   public String[] getFontList() {
     return getUnderlyingToolkit().getFontList();
+  }
+
+  public DataTransferer getDataTransferer() {
+     return asSun().getDataTransferer();
   }
 
   public FontMetrics getFontMetrics(Font font) {
