@@ -66,22 +66,22 @@
         <activation>
           <jdk>1.5</jdk>
         </activation>
-          <dependencies>
-              <dependency>
-                <groupId>org.uispec4j</groupId>
-                <artifactId>uispec4j</artifactId>
-                <version>${project.version}</version>
-                <scope>test</scope>
-                <classifier>jdk5</classifier>
-              </dependency>
-          </dependencies>
+        <dependencies>
+          <dependency>
+            <groupId>org.uispec4j</groupId>
+            <artifactId>uispec4j</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <classifier>jdk5</classifier>
+          </dependency>
+        </dependencies>
       </profile>
       <profile>
         <id>jdk6</id>
         <activation>
           <jdk>1.6</jdk>
         </activation>
-      <dependencies>
+        <dependencies>
           <dependency>
             <groupId>org.uispec4j</groupId>
             <artifactId>uispec4j</artifactId>
@@ -89,14 +89,14 @@
             <scope>test</scope>
             <classifier>jdk6</classifier>
           </dependency>
-      </dependencies>
+        </dependencies>
       </profile>
       <profile>
         <id>jdk7</id>
         <activation>
           <jdk>1.7</jdk>
         </activation>
-      <dependencies>
+        <dependencies>
           <dependency>
             <groupId>org.uispec4j</groupId>
             <artifactId>uispec4j</artifactId>
@@ -104,7 +104,22 @@
             <scope>test</scope>
             <classifier>jdk7</classifier>
           </dependency>
-      </dependencies>
+        </dependencies>
+      </profile>
+      <profile>
+        <id>jdk8</id>
+        <activation>
+          <jdk>1.8</jdk>
+        </activation>
+        <dependencies>
+          <dependency>
+            <groupId>org.uispec4j</groupId>
+            <artifactId>uispec4j</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <classifier>jdk8</classifier>
+          </dependency>
+        </dependencies>
       </profile>
     </profiles>
 
