@@ -52,5 +52,32 @@
             </plugins>
         </pluginManagement>
     </build>
-
+    <profiles>
+      <profile>
+        <id>ci-headless</id>
+        <dependencies>
+          <dependency>
+            <groupId>net.java.openjdk.cacio</groupId>
+            <artifactId>cacio-tta</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+          </dependency>
+        </dependencies>
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <configuration>
+                <systemPropertyVariables>
+                  <java.awt.headless>false</java.awt.headless>
+                  <awt.toolkit>net.java.openjdk.cacio.ctc.CTCToolkit</awt.toolkit>
+                  <java.awt.graphicsenv>net.java.openjdk.cacio.ctc.CTCGraphicsEnvironment</java.awt.graphicsenv>
+                </systemPropertyVariables>
+              </configuration>
+            </plugin>
+          </plugins>
+        </build>
+      </profile>
+    </profiles>
 </project>
