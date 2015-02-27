@@ -1,8 +1,9 @@
 language: java
 jdk:
-   oraclejdk8
-   oraclejdk7
-   openjdk6
+   - oraclejdk8
+   - oraclejdk7
+   - openjdk6
 
+# Dont do anything in install
 install: true
 script: mvn -P ci-headless clean test
