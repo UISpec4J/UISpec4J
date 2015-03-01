@@ -18,6 +18,7 @@ import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
+
 import sun.awt.LightweightFrame;
 import sun.awt.datatransfer.DataTransferer;
 
@@ -390,5 +391,9 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
 
   public boolean isWindowTranslucencySupported() {
     return false;
+  }
+  
+  public DataTransferer getDataTransferer() {
+	return asSun().getDataTransferer();
   }
 }
