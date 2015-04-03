@@ -13,11 +13,8 @@
 -->
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.uispec4j</groupId>
-    <artifactId>uispec4j-root</artifactId>
-    <version>2.5-SNAPSHOT</version>
-  </parent>
+  <groupId>org.uispec4j</groupId>
+  <version>2.5-SNAPSHOT</version>
   <artifactId>uispec4j</artifactId>
 
   <dependencies>
@@ -99,6 +96,11 @@
       <name>Marc Guiot</name>
       <id>mguiot</id>
       <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Thomas Santana</name>
+      <id>nebulorum</id>
+      <timezone>-3</timezone>
     </developer>
   </developers>
 
@@ -364,6 +366,32 @@
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>ci-headless</id>
+      <dependencies>
+        <dependency>
+          <groupId>net.java.openjdk.cacio</groupId>
+          <artifactId>cacio-tta</artifactId>
+          <version>1.3</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemPropertyVariables>
+                <java.awt.headless>false</java.awt.headless>
+                <awt.toolkit>net.java.openjdk.cacio.ctc.CTCToolkit</awt.toolkit>
+                <java.awt.graphicsenv>net.java.openjdk.cacio.ctc.CTCGraphicsEnvironment</java.awt.graphicsenv>
+              </systemPropertyVariables>
+            </configuration>
           </plugin>
         </plugins>
       </build>
