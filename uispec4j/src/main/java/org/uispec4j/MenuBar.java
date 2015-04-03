@@ -7,7 +7,7 @@ import org.uispec4j.utils.ArrayUtils;
 import javax.swing.*;
 
 /**
- * Wrapper for JMenuBar components.<p/>
+ * <p>Wrapper for JMenuBar components.</p>
  * A MenuBar is a container for top-level menu items represented by {@link MenuItem} components.
  */
 public class MenuBar extends AbstractUIComponent {

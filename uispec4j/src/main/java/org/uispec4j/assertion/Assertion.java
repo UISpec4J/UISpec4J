@@ -2,7 +2,7 @@ package org.uispec4j.assertion;
 
 /**
  * Interface used for defining conditions. These assertions are meant to be used
- * essentially with the {@link UISpecAssert] "assertXxx" and "waitUntil" methods.
+ * essentially with the {@link UISpecAssert} "assertXxx" and "waitUntil" methods.
  */
 public abstract class Assertion {
 

@@ -70,9 +70,9 @@ public class ProgressBar extends AbstractUIComponent {
   }
 
   /**
-   * Sets the precision for the completion check. This precision is the greatest difference
+   * <p>Sets the precision for the completion check. This precision is the greatest difference
    * allowed between the actual and expected completion values (both are integers between 0
-   * and 100).<p/>
+   * and 100).</p>
    * The default precision is 2.
    *
    * @see #completionEquals

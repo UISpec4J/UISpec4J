@@ -86,7 +86,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks the given assertion.
-   * This method is equivalent to {@link #assertThat(Assertion}.
+   * This method is equivalent to {@link #assertThat(Assertion)}.
    *
    * @see UISpecAssert#assertTrue(Assertion)
    */
@@ -97,7 +97,7 @@ public abstract class UISpecTestCase extends TestCase {
   /**
    * Checks the given assertion.
    * If it fails an AssertionFailedError is thrown with the given message.
-   * This method is equivalent to {@link #assertThat(String,Assertion}.
+   * This method is equivalent to {@link #assertThat(String,Assertion)}.
    *
    * @see UISpecAssert#assertTrue(String,Assertion)
    */
@@ -107,7 +107,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks the given assertion.
-   * This method is equivalent to {@link #assertTrue(Assertion}.
+   * This method is equivalent to {@link #assertTrue(Assertion)}.
    *
    * @see UISpecAssert#assertThat(Assertion)
    */
@@ -118,7 +118,7 @@ public abstract class UISpecTestCase extends TestCase {
   /**
    * Checks the given assertion.
    * If it fails an AssertionFailedError is thrown with the given message.
-   * This method is equivalent to {@link #assertTrue(String,Assertion}.
+   * This method is equivalent to {@link #assertTrue(String,Assertion)}.
    *
    * @see UISpecAssert#assertTrue(String,Assertion)
    */

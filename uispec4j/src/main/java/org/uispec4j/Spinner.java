@@ -70,8 +70,8 @@ public class Spinner extends AbstractSwingUIComponent {
   }
 
   /**
-   * Changes the displayed text<p/>
-   * This method will throw an exception if the value is not allowed in the spinner.<p/>
+   * <p>Changes the displayed text</p>
+   * <p>This method will throw an exception if the value is not allowed in the spinner.</p>
    */
   public void setValue(Object value) throws ItemNotFoundException {
     try {

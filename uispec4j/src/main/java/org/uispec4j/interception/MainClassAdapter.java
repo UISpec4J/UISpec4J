@@ -6,7 +6,7 @@ import org.uispec4j.Window;
 import org.uispec4j.utils.MainClassTrigger;
 
 /**
- * Adapter that intercepts the window displayed by the main() of a given class.<p/>
+ * <p>Adapter that intercepts the window displayed by the main() of a given class.</p>
  * This adapter keeps the reference of the intercepted window, so that main() is not called on
  * subsequent calls. If you need to run main() again, you can either call {@link #reset()} or create a new
  * adapter.

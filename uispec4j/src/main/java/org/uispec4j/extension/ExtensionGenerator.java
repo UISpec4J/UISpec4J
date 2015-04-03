@@ -37,7 +37,7 @@ import java.util.zip.ZipOutputStream;
  * <pre><code>
  * java -cp ...  org.uispec4j.extension.ExtensionGenerator lib/uispec_ext.jar Calendar:com.xxx.Calendar
  * </code></pre>
- * <p/>
+ * <p>
  * The component class and the associated Swing class must adhere to certain conventions:
  * <ul>
  * <li>The Calendar class must implement {@link UIComponent} (or better yet extend
@@ -49,7 +49,7 @@ import java.util.zip.ZipOutputStream;
  * <li>The given name ("calendar") must not be already used within UISpec4J.</li>
  * </ul>
  * For instance:
- * <code><pre>
+ * <pre><code>
  * public class Calendar extends AbstractUIComponent {
  *   public static final String TYPE_NAME = "calendar";
  *   public static final Class[] SWING_CLASSES = {JCalendar.class};
@@ -57,7 +57,7 @@ import java.util.zip.ZipOutputStream;
  *     ...
  *   }
  * }
- * </pre></code>
+ * </code></pre>
  *
  * @see <a href="http://www.uispec4j.org/custom-components">Adding Custom Components</a>
  */

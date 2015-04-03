@@ -11,7 +11,7 @@ import java.util.Enumeration;
 import java.util.TreeMap;
 
 /**
- * Wrapper for JSlider components.<p/>
+ * <p>Wrapper for JSlider components.</p>
  * This class provides means for checking the contents and the current position of the knob,
  * changing the position, etc.
  */
@@ -101,9 +101,9 @@ public class Slider extends AbstractUIComponent {
   }
 
   /**
-   * Sets the precision for the relative position check. This precision is the greatest difference
+   * <p>Sets the precision for the relative position check. This precision is the greatest difference
    * allowed between the actual and expected position values (both are integers between 0
-   * and 100).<p/>
+   * and 100).</p>
    * The default precision is 2.
    *
    * @see #relativePositionEquals(int)

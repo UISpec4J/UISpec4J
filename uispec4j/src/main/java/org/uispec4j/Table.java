@@ -19,7 +19,7 @@ import java.util.*;
 import junit.framework.AssertionFailedError;
 
 /**
- * Wrapper for JTable components.<p/>
+ * <p>Wrapper for JTable components.</p>
  * The contents of the underlying table can be usually checked with String or Boolean values,
  * as in the following example:
  * <pre><code>
@@ -149,7 +149,7 @@ public class Table extends AbstractSwingUIComponent {
   }
 
   /**
-   * Returns the object (String or Boolean) displayed in a given cell.<p/>
+   * <p>Returns the object (String or Boolean) displayed in a given cell.</p>
    * The returned object is that returned by the current TableCellValueConverter
    * used by the table.
    *
@@ -170,7 +170,7 @@ public class Table extends AbstractSwingUIComponent {
   }
 
   /**
-   * Returns a {@link Cell} object for interacting with the content of an individual table cell.<p/>
+   * <p>Returns a {@link Cell} object for interacting with the content of an individual table cell.</p>
    * Sample usage:
    * <pre><code>
    * ComboBox comboBox = table.editCell(0, 0).getComboBox();
@@ -225,10 +225,10 @@ public class Table extends AbstractSwingUIComponent {
   }
 
   /**
-   * Inputs some text in a given cell.<p/>
-   * This method only works when the underlying editor is a JTextField or a JComboBox -
+   * <p>Inputs some text in a given cell.</p>
+   * <p>This method only works when the underlying editor is a JTextField or a JComboBox -
    * it will throw an exception if this is not the case, or if the cell is not editable.
-   * Please refer to {@link #editCell(int,int)} for a more flexible edition method.<p/>
+   * Please refer to {@link #editCell(int,int)} for a more flexible edition method.</p>
    */
   public void editCell(int row, int column, String value, boolean validateChange) {
     if (!jTable.isCellEditable(row, column)) {
@@ -270,7 +270,7 @@ public class Table extends AbstractSwingUIComponent {
   }
 
   /**
-   * Checks the values displayed in the table.<p/>
+   * <p>Checks the values displayed in the table.</p>
    * Sample usage:
    * <pre><code>
    * assertTrue(table.contentEquals(new Object[][]{

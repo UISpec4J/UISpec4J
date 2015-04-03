@@ -25,7 +25,7 @@ import java.util.List;
  * <pre>
  *   Window window = WindowInterceptor.run(panel.getButton("open").triggerClick());
  * </pre>
- * <p/>
+ * <p>
  * Modal dialogs cannot be intercepted this way, because the thread from which the test is run
  * will likely be blocked in the production code until the dialog is closed.
  * To intercept a sequence of popped-up windows, use the following construct:
@@ -50,7 +50,7 @@ import java.util.List;
  *    })
  *   .run();
  * </pre>
- * </ul>
+ *
  * This class uses a timeout (see {@link UISpec4J#setWindowInterceptionTimeLimit}) to make sure
  * that windows appear within a given time limit, and that modal windows are closed before the
  * end of the interception.
@@ -292,13 +292,13 @@ public final class WindowInterceptor {
   }
 
   /**
-   * Performs a "quick&dirty" interception of a modal dialog.<p>
-   * <em>Warning</em>: This method should be handled with care and especially avoided in cases
+   * <p>Performs a "quick and dirty" interception of a modal dialog.</p>
+   * <p><em>Warning</em>: This method should be handled with care and especially avoided in cases
    * where the application code is blocked while the dialog is displayed,
-   * because it could result in deadlocks. <p>
-   * Modal dialogs should rather be intercepted using {@link #init(Trigger)} <p/>
-   * This method will fail if no window was shown by the trigger under the time limit, or if it is
-   * used with a non-modal window. <p>
+   * because it could result in deadlocks. </p>
+   * <p>Modal dialogs should rather be intercepted using {@link #init(Trigger)} </p>
+   * <p>This method will fail if no window was shown by the trigger under the time limit, or if it is
+   * used with a non-modal window. </p>
    */
   public static Window getModalDialog(Trigger trigger) {
     return run(trigger, true);

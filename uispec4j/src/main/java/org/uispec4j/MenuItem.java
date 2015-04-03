@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Wrapper for menu items (commands or sub-menus) such as JMenu, JMenuItem or JPopupMenu.<p/>
+ * <p>Wrapper for menu items (commands or sub-menus) such as JMenu, JMenuItem or JPopupMenu.</p>
  * A given MenuItem can be either a command, or a sub-menu containing other MenuItem
  * components.
  */
