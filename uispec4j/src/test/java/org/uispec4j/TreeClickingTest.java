@@ -135,11 +135,11 @@ public class TreeClickingTest extends TreeTestCase {
   }
 
   private interface Clicker {
-    public void click(String path) throws Exception;
+    void click(String path) throws Exception;
 
-    public void rightClick(String path) throws Exception;
+    void rightClick(String path) throws Exception;
 
-    public void rightClickInSelection() throws Exception;
+    void rightClickInSelection() throws Exception;
 
     void doubleClick(String path) throws Exception;
   }

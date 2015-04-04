@@ -13,7 +13,7 @@ public class ArrayUtils {
   }
 
   public static String toVerticalString(Object[] array) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     for (int i = 0; i < array.length; i++) {
       buffer.append(array[i]);
       if (i < array.length - 1) {
@@ -26,7 +26,7 @@ public class ArrayUtils {
   private static Integer[] toArray(int[] actual) {
     Integer[] result = new Integer[actual.length];
     for (int i = 0; i < actual.length; i++) {
-      result[i] = new Integer(actual[i]);
+      result[i] = actual[i];
     }
     return result;
   }
@@ -65,7 +65,7 @@ public class ArrayUtils {
   }
 
   public static String toString(int[] ints) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append('[');
     for (int i = 0; i < ints.length; i++) {
       buffer.append(ints[i]);
@@ -78,7 +78,7 @@ public class ArrayUtils {
   }
 
   public static String toString(List list) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     buffer.append('[');
     for (Iterator iterator = list.iterator(); iterator.hasNext();) {
       buffer.append(iterator.next());
@@ -95,7 +95,7 @@ public class ArrayUtils {
     for (int i = 0; i < result.length; i++) {
       result[i] = new Boolean[source[i].length];
       for (int j = 0; j < result[i].length; j++) {
-        result[i][j] = Boolean.valueOf(source[i][j]);
+        result[i][j] = source[i][j];
       }
     }
     return result;
@@ -187,11 +187,11 @@ public class ArrayUtils {
     catch (IllegalAccessException e) {
       throw new RuntimeException(e);
     }
-    for (int i = 0; i < actualData.length; i++) {
-      actual.add(toString(actualData[i]));
+    for (Object[] anActualData : actualData) {
+      actual.add(toString(anActualData));
     }
-    for (int i = 0; i < expectedData.length; i++) {
-      expected.add(toString(expectedData[i]));
+    for (Object[] anExpectedData : expectedData) {
+      expected.add(toString(anExpectedData));
     }
     AssertAdapter.assertEquals(expected, actual);
   }

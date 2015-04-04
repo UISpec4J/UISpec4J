@@ -162,24 +162,24 @@ public class UISpecAssertTest extends UnitTestCase {
 
   public void testAssertionIntersectionOperator() throws Exception {
     DummyAssertion assertion = new DummyAssertion(true);
-    UISpecAssert.assertTrue(UISpecAssert.and(new Assertion[]{assertion, DummyAssertion.TRUE}));
-    UISpecAssert.assertFalse(UISpecAssert.and(new Assertion[]{assertion, DummyAssertion.FALSE}));
+    UISpecAssert.assertTrue(UISpecAssert.and(assertion, DummyAssertion.TRUE));
+    UISpecAssert.assertFalse(UISpecAssert.and(assertion, DummyAssertion.FALSE));
 
     assertion.setError("");
-    UISpecAssert.assertFalse(UISpecAssert.and(new Assertion[]{assertion, DummyAssertion.TRUE}));
-    UISpecAssert.assertFalse(UISpecAssert.and(new Assertion[]{assertion, DummyAssertion.FALSE}));
+    UISpecAssert.assertFalse(UISpecAssert.and(assertion, DummyAssertion.TRUE));
+    UISpecAssert.assertFalse(UISpecAssert.and(assertion, DummyAssertion.FALSE));
   }
 
   public void testAssertionUnionOperator() throws Exception {
     DummyAssertion assertion = new DummyAssertion(true);
-    UISpecAssert.assertTrue(UISpecAssert.or(new Assertion[]{assertion, DummyAssertion.TRUE}));
-    UISpecAssert.assertTrue(UISpecAssert.or(new Assertion[]{assertion, DummyAssertion.FALSE}));
+    UISpecAssert.assertTrue(UISpecAssert.or(assertion, DummyAssertion.TRUE));
+    UISpecAssert.assertTrue(UISpecAssert.or(assertion, DummyAssertion.FALSE));
 
     assertion.setError("");
-    UISpecAssert.assertTrue(UISpecAssert.or(new Assertion[]{assertion, DummyAssertion.TRUE}));
-    UISpecAssert.assertTrue(UISpecAssert.or(new Assertion[]{assertion, DummyAssertion.TRUE, DummyAssertion.FALSE}));
-    UISpecAssert.assertTrue(UISpecAssert.or(new Assertion[]{assertion, DummyAssertion.FALSE, DummyAssertion.TRUE}));
-    UISpecAssert.assertFalse(UISpecAssert.or(new Assertion[]{assertion, DummyAssertion.FALSE}));
+    UISpecAssert.assertTrue(UISpecAssert.or(assertion, DummyAssertion.TRUE));
+    UISpecAssert.assertTrue(UISpecAssert.or(assertion, DummyAssertion.TRUE, DummyAssertion.FALSE));
+    UISpecAssert.assertTrue(UISpecAssert.or(assertion, DummyAssertion.FALSE, DummyAssertion.TRUE));
+    UISpecAssert.assertFalse(UISpecAssert.or(assertion, DummyAssertion.FALSE));
   }
 
   private void runThreadAndCheckAssertion(int threadSleepTime, final boolean useAssertTrue) throws Exception {

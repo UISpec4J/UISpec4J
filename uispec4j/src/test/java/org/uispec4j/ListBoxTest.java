@@ -75,19 +75,19 @@ public class ListBoxTest extends UIComponentTestCase {
       assertTrue(listBox.contentEquals("another", "list", "here"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionError e) {
+    catch (AssertionError ignored) {
     }
     try {
       assertTrue(listBox.contentEquals("another", "list", "here", "with", "more", "elements"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionError e) {
+    catch (AssertionError ignored) {
     }
     try {
       assertTrue(listBox.contentEquals("one element only"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionError e) {
+    catch (AssertionError ignored) {
     }
   }
 
@@ -118,7 +118,7 @@ public class ListBoxTest extends UIComponentTestCase {
 
   public void testSelectByIndex() throws Exception {
     assertEquals(-1, jList.getSelectedIndex());
-    listBox.selectIndices(new int[]{2});
+    listBox.selectIndices(2);
     assertEquals(2, jList.getSelectedIndex());
   }
 
@@ -149,7 +149,7 @@ public class ListBoxTest extends UIComponentTestCase {
       listBox.select("unknown");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionError e) {
+    catch (AssertionError ignore) {
     }
   }
 
@@ -205,7 +205,7 @@ public class ListBoxTest extends UIComponentTestCase {
 
   public void testMultiSelectionWithNamesWhenSomeNamesDoNotMatch() throws Exception {
     try {
-      listBox.select(new String[]{"first", "third", "fourth"});
+      listBox.select("first", "third", "fourth");
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionError e) {
@@ -293,7 +293,7 @@ public class ListBoxTest extends UIComponentTestCase {
   }
 
   public void testUsingARenderer() throws Exception {
-    init(new JList(new Object[]{new Integer(3), new Integer(7), new Integer(11)}));
+    init(new JList(new Object[]{3, 7, 11}));
     jList.setCellRenderer(new DefaultListCellRenderer() {
       public Component getListCellRendererComponent(JList list,
                                                     Object value,
@@ -311,7 +311,7 @@ public class ListBoxTest extends UIComponentTestCase {
   }
 
   public void testUsingACustomCellRenderer() throws Exception {
-    init(new JList(new Object[]{new Integer(3), new Integer(7)}));
+    init(new JList(new Object[]{3, 7}));
     jList.setCellRenderer(new ListCellRenderer() {
       public Component getListCellRendererComponent(JList list,
                                                     Object value,
