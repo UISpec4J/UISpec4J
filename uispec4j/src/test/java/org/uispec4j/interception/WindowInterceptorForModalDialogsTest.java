@@ -1,6 +1,5 @@
 package org.uispec4j.interception;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.Button;
 import org.uispec4j.Trigger;
 import org.uispec4j.UISpec4J;
@@ -29,7 +28,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
         logger.log("triggerRun");
         JDialog dialog = createModalDialog("aDialog");
         addHideButton(dialog, "OK");
-        dialog.show();
+        dialog.setVisible(true);
       }
     });
     logger.assertEquals("<log>" +
@@ -47,7 +46,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
     try {
       WindowInterceptor.getModalDialog(new Trigger() {
         public void run() {
-          new JFrame("aFrame").show();
+          new JFrame("aFrame").setVisible(true);
         }
       });
       throw new AssertionFailureNotDetectedError();
@@ -64,12 +63,12 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
         public void run() {
           JDialog dialog = new JDialog();
           dialog.setTitle("aDialog");
-          dialog.show();
+          dialog.setVisible(true);
         }
       });
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Window 'aDialog' is non-modal, it must be intercepted with WindowInterceptor.run(Trigger)",
                    e.getMessage());
     }
@@ -80,7 +79,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
       WindowInterceptor.getModalDialog(Trigger.DO_NOTHING);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(ShownInterceptionDetectionHandler.NO_WINDOW_WAS_SHOWN_ERROR_MESSAGE,
                    e.getMessage());
     }
@@ -107,10 +106,10 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
       public void run() throws Exception {
         JDialog dialog = createModalDialog("dialog");
         addHideButton(dialog, "OK");
-        dialog.show();
+        dialog.setVisible(true);
         JDialog dialog2 = createModalDialog("dialog2");
         addHideButton(dialog2, "OK");
-        dialog2.show();
+        dialog2.setVisible(true);
         throw exception;
       }
     });
@@ -125,7 +124,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
         public void run() throws Exception {
           JDialog dialog3 = new JDialog();
           addHideButton(dialog3, "OK");
-          dialog3.show();
+          dialog3.setVisible(true);
         }
       });
       fail();
@@ -141,7 +140,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
       public void run() throws Exception {
         JDialog dialog = createModalDialog("dialog");
         addHideButton(dialog, "OK");
-        dialog.show();
+        dialog.setVisible(true);
         throw exception;
       }
     });
@@ -171,7 +170,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
           public void run() {
             JDialog dialog = createModalDialog("expected title");
             addHideButton(dialog, "OK");
-            dialog.show();
+            dialog.setVisible(true);
           }
         };
         thread.start();
@@ -199,7 +198,7 @@ public class WindowInterceptorForModalDialogsTest extends WindowInterceptorTestC
         thread = new Thread(new Runnable() {
           public void run() {
             Utils.sleep(waitTimeInThread);
-            dialog.show();
+            dialog.setVisible(true);
           }
         });
         thread.setName(thread.getName() + "(" + getName() + ")");

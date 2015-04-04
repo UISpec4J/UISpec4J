@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 
 import javax.swing.tree.TreePath;
@@ -27,7 +26,7 @@ public class TreeExpansionTest extends TreeTestCase {
       tree.expand("unknown", true);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(Tree.badTreePath("unknown"), e.getMessage());
     }
   }
@@ -38,7 +37,7 @@ public class TreeExpansionTest extends TreeTestCase {
       assertEquals(!expanded, tree.pathIsExpanded(path));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 }

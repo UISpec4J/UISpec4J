@@ -1,6 +1,6 @@
 package samples.utils;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import javax.swing.*;
 import java.util.Arrays;

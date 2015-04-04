@@ -5,8 +5,9 @@ import org.uispec4j.utils.UnitTestCase;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -26,7 +27,7 @@ public class ClipboardTest extends UnitTestCase {
                              new ContentChecker() {
                                public void check(Object content) throws Exception {
                                  InputStream stream = (InputStream)content;
-                                 DataInputStream data = new DataInputStream(stream);
+                                 BufferedReader data = new BufferedReader(new InputStreamReader(stream));
                                  assertEquals(CONTENT_STRING, data.readLine());
                                  assertEquals(-1, data.read());
                                  data.close();

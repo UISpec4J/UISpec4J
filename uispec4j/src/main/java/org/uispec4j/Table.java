@@ -16,8 +16,6 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.*;
 
-import junit.framework.AssertionFailedError;
-
 /**
  * <p>Wrapper for JTable components.</p>
  * The contents of the underlying table can be usually checked with String or Boolean values,
@@ -816,7 +814,7 @@ public class Table extends AbstractSwingUIComponent {
     for (String label : labels) {
       int[] indices = getRowIndices(column, label);
       if (indices.length == 0) {
-        throw new AssertionFailedError("Text '" + label + "' not found in column " + column + " - actual content: " + getColumnContent(column));
+        throw new AssertionError("Text '" + label + "' not found in column " + column + " - actual content: " + getColumnContent(column));
       }
       for (int index : indices) {
         rows.add(index);

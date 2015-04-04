@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Functor;
@@ -25,7 +24,7 @@ public class TableHeaderTest extends TableTestCase {
       assertTrue(table.getHeader().contentEquals());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       Pattern pattern = Pattern.compile("expected:<.*> but was:<.*0,1,2.*>");
       if (!pattern.matcher(e.getMessage()).matches()) {
         fail("Unexpected message: " + e.getMessage());
@@ -39,7 +38,7 @@ public class TableHeaderTest extends TableTestCase {
       assertTrue(table.getHeader().contentEquals(2, "0", "2"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -72,7 +71,7 @@ public class TableHeaderTest extends TableTestCase {
       assertTrue(table.hasHeader());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The table contains an header", e.getMessage());
     }
   }
@@ -156,7 +155,7 @@ public class TableHeaderTest extends TableTestCase {
       assertTrue(table.getHeader().backgroundEquals(new Object[]{"blue", "black", "blue"}));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Unexpected color at column 1 - expected:<BLACK> but was:<FF0000>", e.getMessage());
     }
   }
@@ -175,7 +174,7 @@ public class TableHeaderTest extends TableTestCase {
       table.getHeader().findColumnIndex("unknown");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Column 'unknown' not found - actual names: [0, 1, 2]", e.getMessage());
     }
   }
@@ -185,7 +184,7 @@ public class TableHeaderTest extends TableTestCase {
       functor.run();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The table contains no header", e.getMessage());
     }
   }

@@ -91,7 +91,7 @@ public class SliderTest extends UIComponentTestCase {
     slider.setRelativePosition(100);
     assertEquals(40, jSlider.getValue());
 
-    checkAssertionFailedError(
+    checkAssertionError(
       new Functor() {
         public void run() throws Exception {
           slider.setRelativePosition(-1);
@@ -99,7 +99,7 @@ public class SliderTest extends UIComponentTestCase {
       },
       "Value must be within [0..100]");
 
-    checkAssertionFailedError(
+    checkAssertionError(
       new Functor() {
         public void run() throws Exception {
           slider.setRelativePosition(101);

@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.XmlAssert;
@@ -54,7 +53,7 @@ public class MenuBarTest extends UIComponentTestCase {
       assertTrue(menuBar.contentEquals("File", "Other"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 

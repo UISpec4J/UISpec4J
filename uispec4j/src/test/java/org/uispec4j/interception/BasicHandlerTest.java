@@ -24,7 +24,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
   }
 
   public void testTitleEqualsError() throws Exception {
-    checkAssertionFailedError(
+    checkAssertionError(
       WindowInterceptor
         .init(triggerShowDialog())
         .process(BasicHandler
@@ -35,7 +35,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
   }
 
   public void testTitleContainsError() throws Exception {
-    checkAssertionFailedError(
+    checkAssertionError(
       WindowInterceptor
         .init(triggerShowDialog())
         .process(BasicHandler
@@ -46,7 +46,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
   }
 
   public void testAssertContainsTextError() throws Exception {
-    checkAssertionFailedError(WindowInterceptor
+    checkAssertionError(WindowInterceptor
       .init(triggerShowDialog())
       .process(BasicHandler
       .init()
@@ -56,7 +56,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
   }
 
   public void testClickButtonError() throws Exception {
-    checkAssertionFailedError(WindowInterceptor
+    checkAssertionError(WindowInterceptor
       .init(triggerShowDialog())
       .process(BasicHandler
       .init()

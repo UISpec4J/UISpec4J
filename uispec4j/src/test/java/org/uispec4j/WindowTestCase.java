@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.WindowInterceptor;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
@@ -20,7 +19,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
       assertTrue(window.titleEquals("you"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError failure) {
+    catch (AssertionError failure) {
       assertEquals("Unexpected title - expected:<[you]> but was:<[me]>", failure.getMessage());
     }
   }
@@ -35,7 +34,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
       assertTrue(window.titleContains("us"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError failure) {
+    catch (AssertionError failure) {
       assertEquals("expected to contain:<us> but was:<me and you>", failure.getMessage());
     }
   }
@@ -150,7 +149,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
       assertEquals(!modal, window.isModal());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 

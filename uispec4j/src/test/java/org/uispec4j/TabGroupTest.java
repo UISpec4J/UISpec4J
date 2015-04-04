@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.ColorUtils;
 import org.uispec4j.utils.UIComponentFactory;
@@ -43,7 +42,7 @@ public class TabGroupTest extends UIComponentTestCase {
       assertTrue(tabGroup.selectedTabEquals("2"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -59,7 +58,7 @@ public class TabGroupTest extends UIComponentTestCase {
       assertTrue(tabGroup.tabNamesEquals(new String[]{"this", "is", "wrong"}));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       // Expected
     }
   }
@@ -76,7 +75,7 @@ public class TabGroupTest extends UIComponentTestCase {
       tabGroup.selectTab("unknown");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("There is no tab labelled 'unknown' - existing tab names: [1, 2, 3]", e.getMessage());
     }
   }
@@ -106,7 +105,7 @@ public class TabGroupTest extends UIComponentTestCase {
       assertTrue(tabGroup.tabColorEquals(new String[]{"BLACK", "GREEN"}));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("You specified 2 colors but there are 3 tabs - expected:<2> but was:<3>",
                    e.getMessage());
     }
@@ -116,7 +115,7 @@ public class TabGroupTest extends UIComponentTestCase {
       assertTrue(tabGroup.tabColorEquals(new String[]{"BLACK", "BLUE", "GREEN"}));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Unexpected color for tab '2' (index 1) - " +
                    "expected " + ColorUtils.getColorDescription("BLUE") +
                    " but was " + ColorUtils.getColorDescription("000000"),
@@ -152,7 +151,7 @@ public class TabGroupTest extends UIComponentTestCase {
       tabGroup.getSelectedTab();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("tabGroup.getSelectedTab() only supports JPanel components inside a JTabbedPane", e.getMessage());
     }
   }

@@ -73,7 +73,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   }
 
   public void testSetTextIsNotSupported() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.setText("text");
       }
@@ -82,7 +82,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   }
 
   public void testInsertTextIsNotSupported() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.insertText("text", 0);
       }
@@ -91,7 +91,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   }
 
   public void testAppendTextIsNotSupported() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.appendText("text");
       }
@@ -100,7 +100,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   }
 
   public void testClearIsNotSupported() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.clear();
       }
@@ -115,12 +115,12 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
   }
 
   public void testClickOnHyperlinkIsNotSupported() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.clickOnHyperlink("text");
       }
     }, "This component does not support hyperlinks.");
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.triggerClickOnHyperlink("text").run();
       }
@@ -131,7 +131,7 @@ public class TextBoxForLabelTest extends TextBoxComponentTestCase {
     ImageIcon icon1 = new ImageIcon();
     jLabel.setIcon(icon1);
     assertTrue(textBox.iconEquals(icon1));
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         ImageIcon icon2 = new ImageIcon();
         assertTrue(textBox.iconEquals(icon2));

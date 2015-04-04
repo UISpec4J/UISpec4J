@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.toolkit.Empty;
@@ -39,7 +38,7 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
       assertTrue(getButton().textEquals("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -69,7 +68,7 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
       getButton().click();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The button is not enabled, it cannot be activated", e.getMessage());
     }
   }
@@ -118,7 +117,7 @@ public abstract class ButtonTestCase extends UIComponentTestCase {
       getButton().click();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The button is not visible, it cannot be activated", e.getMessage());
     }
     assertEquals(0, listener.getCallCount());

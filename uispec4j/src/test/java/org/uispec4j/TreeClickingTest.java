@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Counter;
 
@@ -47,14 +46,14 @@ public class TreeClickingTest extends TreeTestCase {
       clicker.click("child3");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(Tree.badTreePath("child3"), e.getMessage());
     }
     try {
       clicker.rightClick("child3");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(Tree.badTreePath("child3"), e.getMessage());
     }
     assertEquals(0, counter.getCount());
@@ -104,7 +103,7 @@ public class TreeClickingTest extends TreeTestCase {
       clicker.rightClickInSelection();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("There is no current selection", e.getMessage());
     }
   }

@@ -25,7 +25,7 @@ public class UISpecAssert {
    * Checks that the given assertion succeeds (with a retry strategy).
    * The {@link Assertion#check()} method is called until the timeout
    * specified by {@link UISpec4J#setAssertionTimeLimit(long)} is reached.
-   * If it fails an AssertionFailedError is thrown with the given message.
+   * If it fails an AssertionError is thrown with the given message.
    * This method is equivalent to {@link #assertTrue(String,Assertion)}.
    */
   public static void assertThat(String message, Assertion assertion) {
@@ -46,7 +46,7 @@ public class UISpecAssert {
    * Checks that the given assertion succeeds (with a retry strategy).
    * The {@link Assertion#check()} method is called until the timeout
    * specified by {@link UISpec4J#setAssertionTimeLimit(long)} is reached.
-   * If it fails an AssertionFailedError is thrown with the given message.
+   * If it fails an AssertionError is thrown with the given message.
    * This method is equivalent to {@link #assertThat(Assertion)}.
    */
   public static void assertTrue(String message, Assertion assertion) {
@@ -66,7 +66,7 @@ public class UISpecAssert {
    * Checks the given assertion fails (with a retry strategy).
    * The {@link Assertion#check()} method is called until the timeout
    * specified by {@link UISpec4J#setAssertionTimeLimit(long)} is reached.
-   * If it succeeds an AssertionFailedError is thrown with the given message.
+   * If it succeeds an AssertionError is thrown with the given message.
    */
   public static void assertFalse(String message, final Assertion assertion) {
     assertTrue(message, not(assertion));
@@ -85,7 +85,7 @@ public class UISpecAssert {
    * Waits until the given assertion becomes true.
    * The {@link Assertion#check()} method is called until the timeout
    * specified as parameter (in milliseconds) is reached.
-   * If it fails an AssertionFailedError is thrown with the given message.
+   * If it fails an AssertionError is thrown with the given message.
    */
   public static void waitUntil(String message, Assertion assertion, long waitTimeLimit) {
     checkAssertion(message, assertion, waitTimeLimit);
@@ -104,7 +104,7 @@ public class UISpecAssert {
    * Checks the given assertion equals the expected parameter (with a retry strategy).
    * The {@link Assertion#check()} method is called until the timeout
    * specified by {@link UISpec4J#setAssertionTimeLimit(long)} is reached.
-   * If it fails an AssertionFailedError is thrown with the given message.
+   * If it fails an AssertionError is thrown with the given message.
    */
   public static void assertEquals(String message, boolean expected, Assertion assertion) {
     if (expected) {

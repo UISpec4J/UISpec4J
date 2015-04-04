@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Counter;
@@ -40,7 +39,7 @@ public class TableSelectionTest extends TableTestCase {
       }));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("expected:<[[false,false,false], [false,false,false]]> " +
                    "but was:<[[false,true,false], [false,false,false]]>",
                    e.getMessage());
@@ -66,14 +65,14 @@ public class TableSelectionTest extends TableTestCase {
       assertTrue(table.rowIsSelected(1));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
 
     try {
       assertFalse(table.rowIsSelected(0));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -101,7 +100,7 @@ public class TableSelectionTest extends TableTestCase {
       assertTrue(table.rowsAreSelected(0));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Expected: [0]\nActual:   [0,1]", e.getMessage());
     }
   }
@@ -144,14 +143,14 @@ public class TableSelectionTest extends TableTestCase {
       assertTrue(table.cellIsSelected(1, 1));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
 
     try {
       assertFalse(table.cellIsSelected(0, 1));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -163,7 +162,7 @@ public class TableSelectionTest extends TableTestCase {
       assertTrue(table.cellIsSelected(0, 1));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Cell-level selection is not supported on this table", e.getMessage());
     }
   }
@@ -175,7 +174,7 @@ public class TableSelectionTest extends TableTestCase {
       assertTrue(table.selectionIsEmpty());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Selection is not empty", e.getMessage());
     }
     table.clearSelection();
@@ -208,7 +207,7 @@ public class TableSelectionTest extends TableTestCase {
       table.selectCell(0, 0);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Individual cell selection is not allowed on this table", e.getMessage());
     }
   }
@@ -305,7 +304,7 @@ public class TableSelectionTest extends TableTestCase {
       table.selectRowsWithText(0, "yellow", "unknown");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Text 'unknown' not found in column 0 - actual content: [yellow, apple, big]", e.getMessage());
     }
   }
@@ -346,7 +345,7 @@ public class TableSelectionTest extends TableTestCase {
       table.selectBlock(0, 0, 1, 1);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Only row-level selection is allowed on this table", e.getMessage());
     }
   }
@@ -361,7 +360,7 @@ public class TableSelectionTest extends TableTestCase {
       table.removeRowFromSelection(1);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Row 1 is not selected", e.getMessage());
     }
   }

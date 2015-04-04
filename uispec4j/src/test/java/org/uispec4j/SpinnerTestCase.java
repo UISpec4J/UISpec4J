@@ -2,7 +2,6 @@ package org.uispec4j;
 
 import java.util.Arrays;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.XmlAssert;
 
@@ -51,7 +50,7 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
       assertTrue(spinner.previousValueEquals(wrongPreviousValue));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("No previous value from the start", e.getMessage());
     }
   }
@@ -61,7 +60,7 @@ public abstract class SpinnerTestCase extends UIComponentTestCase {
       assertTrue(spinner.nextValueEquals(wrongNextValue));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("No previous value from the end", e.getMessage());
     }
   }

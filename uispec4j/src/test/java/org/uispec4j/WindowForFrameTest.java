@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ public class WindowForFrameTest extends WindowTestCase {
       assertTrue(window.isModal());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -25,7 +24,7 @@ public class WindowForFrameTest extends WindowTestCase {
       window.getMenuBar();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("This component has no menu bar", e.getMessage());
     }
   }

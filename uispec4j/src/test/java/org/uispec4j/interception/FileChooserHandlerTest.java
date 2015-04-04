@@ -200,7 +200,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
   }
 
   private void checkUnexpectedWindowShown(final Window window, String title) {
-    checkAssertionFailedError(WindowInterceptor
+    checkAssertionError(WindowInterceptor
       .init(new Trigger() {
         public void run() throws Exception {
           window.setVisible(true);
@@ -222,7 +222,7 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
                           FileChooserHandler handler,
                           File selectedFile,
                           String errorMessage) {
-    checkAssertionFailedError(WindowInterceptor
+    checkAssertionError(WindowInterceptor
       .init(trigger)
       .process(handler.select(selectedFile)),
                               errorMessage);

@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.FileTestUtils;
 import org.uispec4j.utils.Functor;
@@ -55,7 +54,7 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textEquals("Universal rules: a < b 2 > 1, seb is the best"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -83,7 +82,7 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
                                     "</ul>"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -103,7 +102,7 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
                                     "</ul>"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -116,7 +115,7 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textContains("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The component text does not contain 'error' - actual content is:<html>\n" +
                    "  <head>\n" +
                    "  </head>\n" +
@@ -155,7 +154,7 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textIsEmpty());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Text should be empty but contains: <html>\n" +
                    "  <head>\n" +
                    "    \n" +
@@ -249,11 +248,11 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
     File file1 = FileTestUtils.dumpStringToFile("file1.html", content1);
     File file2 = FileTestUtils.dumpStringToFile("file2.html", content2);
 
-    final JEditorPane textComponent = createTextPaneFromUrl(file1.toURL());
+    final JEditorPane textComponent = createTextPaneFromUrl(file1.toURI().toURL());
     checkSwitchBetweenPages(textComponent, content1, content2);
 
     File archiveFile = FileTestUtils.createZipArchive(FileTestUtils.getFile("archive.zip"), new File[]{file1, file2});
-    textComponent.setPage(new URL("jar:" + archiveFile.toURL() + "!/file1.html"));
+    textComponent.setPage(new URL("jar:" + archiveFile.toURI().toURL() + "!/file1.html"));
     checkSwitchBetweenPages(textComponent, content1, content2);
   }
 
@@ -356,13 +355,13 @@ public class TextboxForHtmlTestComponentTest extends TextBoxComponentTestCase {
 
   private void checkClickOnHyperlinkError(String html, final String link, String errorMessage) throws Exception {
     final TextBox textComponent = new TextBox(createHtmlTextPane(html));
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textComponent.clickOnHyperlink(link);
       }
     }, errorMessage);
 
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textComponent.triggerClickOnHyperlink(link).run();
       }

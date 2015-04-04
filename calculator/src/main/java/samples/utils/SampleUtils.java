@@ -16,7 +16,7 @@ public class SampleUtils {
   public static void show(Window window) throws Exception {
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     window.pack();
-    window.show();
+    window.setVisible(true);
   }
 
   public static JFrame createFrame(JComponent component) {

@@ -51,7 +51,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
   }
 
   public void testWindowTitleError() throws Exception {
-    checkAssertionFailedError(
+    checkAssertionError(
       WindowInterceptor
         .init(new Trigger() {
           public void run() throws Exception {
@@ -65,7 +65,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
   }
 
   public void testWindowTitleErrorInASequence() throws Exception {
-    checkAssertionFailedError(
+    checkAssertionError(
       WindowInterceptor
         .init(getShowFirstDialogTrigger())
         .processWithButtonClick("OK")
@@ -118,7 +118,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
   }
 
   public void testProcessWithButtonClickWithAnUnknownButtonName() throws Exception {
-    checkAssertionFailedError(WindowInterceptor
+    checkAssertionError(WindowInterceptor
       .init(getShowFirstDialogTrigger())
       .processWithButtonClick("unknown"),
                               "Component 'unknown' of type 'button' not found - available names: [Dispose,OK]");

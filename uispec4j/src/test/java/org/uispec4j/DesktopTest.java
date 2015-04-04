@@ -66,7 +66,7 @@ public class DesktopTest extends UIComponentTestCase {
   }
 
   public void testGetWindowError() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         desktop.getWindow("unknown");
       }
@@ -90,7 +90,7 @@ public class DesktopTest extends UIComponentTestCase {
   public void testGetWindowWithTitleAmbiguityError() throws Exception {
     jDesktopPane.add(new JInternalFrame("frame"));
     jDesktopPane.add(new JInternalFrame("frame"));
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         desktop.getWindow("frame");
       }

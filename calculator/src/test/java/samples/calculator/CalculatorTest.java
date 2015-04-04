@@ -1,14 +1,14 @@
 package samples.calculator;
 
 import static org.testng.Assert.*;
-import org.testng.annotations.Configuration;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import samples.utils.AssertionFailureNotDetectedError;
 
 public class CalculatorTest {
   private Calculator calculator;
 
-  @Configuration(beforeTestMethod = true)
+  @BeforeMethod
   protected void setUp() throws Exception {
     calculator = new Calculator();
   }

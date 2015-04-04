@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyActionListener;
 
@@ -63,7 +62,7 @@ public abstract class TextBoxComponentTestCase extends UIComponentTestCase {
       assertTrue(textBox.textContains(texts));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(error, e.getMessage());
     }
   }
