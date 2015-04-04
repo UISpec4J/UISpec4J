@@ -111,8 +111,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.2</version>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <encoding>UTF-8</encoding>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
@@ -167,49 +167,6 @@
   </reporting>
 
   <profiles>
-    <profile>
-      <id>jdk5</id>
-      <activation>
-        <jdk>1.5</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.5</version>
-            <executions>
-              <execution>
-                <configuration>
-                  <classifier>jdk5</classifier>
-                </configuration>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.9.1</version>
-            <executions>
-              <execution>
-                <id>add-specific-source</id>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${basedir}/src/main/java-jdk5</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>jdk6</id>
       <activation>
