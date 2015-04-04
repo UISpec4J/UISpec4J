@@ -21,7 +21,7 @@ public abstract class WindowTestCase extends UIComponentTestCase {
       throw new AssertionFailureNotDetectedError();
     }
     catch (AssertionFailedError failure) {
-      assertEquals("Unexpected title - expected:<you> but was:<me>", failure.getMessage());
+      assertEquals("Unexpected title - expected:<[you]> but was:<[me]>", failure.getMessage());
     }
   }
 

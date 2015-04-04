@@ -116,14 +116,14 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     checkError(SHOW_OPEN_DIALOG_TRIGGER, 
                FileChooserHandler.init().assertCurrentFileNameEquals("toto.exe"),
                new File(javaHome, "aFile.txt"),
-               "Unexpected file name - expected:<toto.exe> but was:<aFile.txt>");
+               "Unexpected file name - expected:<[toto.exe]> but was:<[aFile.txt]>");
   }
 
   public void testAssertCurrentFileNameEqualsWithNoSelection() throws Exception {
     checkError(SHOW_OPEN_DIALOG_TRIGGER,
                FileChooserHandler.init().assertCurrentFileNameEquals("toto.dat"),
                new File(javaHome, "aFile.txt"),
-               "Unexpected file name - expected:<toto.dat> but was:<>");
+               "Unexpected file name - expected:<[toto.dat]> but was:<[]>");
   }
 
   public void testAssertIsOpenSaveDialog() throws Exception {
@@ -150,14 +150,14 @@ public class FileChooserHandlerTest extends InterceptionTestCase {
     chooser.setDialogTitle("title");
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("title"));
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().titleEquals("error"),
-               javaHome, "Unexpected title - expected:<error> but was:<title>");
+               javaHome, "Unexpected title - expected:<[error]> but was:<[title]>");
   }
 
   public void testAssertApplyButtonTextEquals() throws Exception {
     chooser.setApproveButtonText("text");
     checkOk(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertApplyButtonTextEquals("text"));
     checkError(SHOW_OPEN_DIALOG_TRIGGER, FileChooserHandler.init().assertApplyButtonTextEquals("other"),
-               javaHome, "Unexpected apply button text - expected:<other> but was:<text>");
+               javaHome, "Unexpected apply button text - expected:<[other]> but was:<[text]>");
   }
 
   public void testAssertAcceptsFilesAndDirectories() throws Exception {
