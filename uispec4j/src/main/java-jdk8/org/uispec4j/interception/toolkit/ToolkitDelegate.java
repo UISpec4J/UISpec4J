@@ -128,7 +128,42 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
   }
 
   public DataTransferer getDataTransferer() {
-     return asSun().getDataTransferer();
+    /*
+     * The SunToolkit#getDataTransferer() method does not appear to exist in
+     * JDK8 (at least on Mac OS X 10.10.2), but there is a
+     * SunToolkit#getDataTransfererClassName() method that can be used
+     * instead.
+     */
+    SunToolkit sunToolkit = asSun();
+
+    try {
+      java.lang.reflect.Method getDataTransferer = sunToolkit.getClass()
+        .getMethod("getDataTransferer", (Class<?>[]) null);
+
+      return (DataTransferer)
+        getDataTransferer.invoke(sunToolkit, (Object[]) null);
+    } catch (NoSuchMethodException ex) {
+      /* expected on JDK8 on Mac OS X 10.10.2 (others?) */
+    } catch (ReflectiveOperationException ex) {
+      throw new UnsupportedOperationException(
+        "unable to get a DataTransferer instance from the underlying Toolkit",
+        ex);
+    }
+
+    try {
+      java.lang.reflect.Method getDataTransfererClassName =
+        sunToolkit.getClass()
+          .getMethod("getDataTransfererClassName", (Class<?>[]) null);
+      String dataTransfererClassName = (String)
+        getDataTransfererClassName.invoke(sunToolkit, (Object[]) null);
+
+      return (DataTransferer)
+        Class.forName(dataTransfererClassName).newInstance();
+    } catch (ReflectiveOperationException ex) {
+      throw new UnsupportedOperationException(
+        "unable to get a DataTransferer instance from the underlying Toolkit",
+        ex);
+    }
   }
 
   public FontMetrics getFontMetrics(Font font) {
