@@ -134,7 +134,8 @@
           <reuseForks>true</reuseForks>
           <threadCount>1</threadCount>
           <parallel>methods</parallel>
-          <rerunFailingTestsCount>3</rerunFailingTestsCount>
+          <forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
+          <rerunFailingTestsCount>1</rerunFailingTestsCount>
         </configuration>
       </plugin>
     </plugins>

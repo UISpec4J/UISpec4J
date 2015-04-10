@@ -142,7 +142,12 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
     try {
       WindowInterceptor.run(new Trigger() {
         public void run() {
-          createAndShowModalDialog("aDialog");
+          SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+              createAndShowModalDialog("aDialog");
+            }
+          });
         }
       });
       throw new AssertionFailureNotDetectedError();
