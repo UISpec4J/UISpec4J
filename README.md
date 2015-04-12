@@ -1,5 +1,7 @@
 # UISpec4J
 
+[![Join the chat at https://gitter.im/UISpec4J/UISpec4J](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/UISpec4J/UISpec4J?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 UISpec4J is an Open Source functional and/or unit testing library for Swing-based Java applications.
 
 If you are writing a Swing application, you will appreciate UISpec4J above all for its simplicity: UISpec4J's APIs are 
