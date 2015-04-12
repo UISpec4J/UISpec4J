@@ -1,6 +1,5 @@
 package org.uispec4j.xml;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UnitTestCase;
 
@@ -134,7 +133,7 @@ public class XmlAssertTest extends UnitTestCase {
       XmlAssert.assertEquivalent(xmlA, xmlB);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -143,7 +142,7 @@ public class XmlAssertTest extends UnitTestCase {
       XmlAssert.assertEquals(xmlA, xmlB);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 }

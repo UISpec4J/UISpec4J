@@ -87,7 +87,7 @@ public class PopupMenuInterceptorTest extends InterceptionTestCase {
   }
 
   public void testAnErrorIsRaisedIfTheTriggerDoesNotPopupAMenu() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         PopupMenuInterceptor.run(Trigger.DO_NOTHING);
       }

@@ -75,7 +75,7 @@ public class Clipboard {
 
     public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
       if (flavor.isRepresentationClassInputStream()) {
-        return new StringBufferInputStream(data);
+        return new ByteArrayInputStream(data.getBytes());
       }
       else if (flavor.isRepresentationClassReader()) {
         return new StringReader(data);

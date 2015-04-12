@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyActionListener;
 import org.uispec4j.utils.Functor;
@@ -53,8 +52,8 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textEquals("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
-      assertEquals("expected:<error> but was:<some text>", e.getMessage());
+    catch (AssertionError e) {
+      assertEquals("expected:<[error]> but was:<[some text]>", e.getMessage());
     }
   }
 
@@ -65,7 +64,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textContains("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The component text does not contain 'error' - actual content is:some text",
                    e.getMessage());
     }
@@ -78,7 +77,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textDoesNotContain("some"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The component text should not contain 'some' - actual content is:some text",
                    e.getMessage());
     }
@@ -99,7 +98,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textIsEmpty());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Text should be empty but contains: a", e.getMessage());
     }
   }
@@ -116,7 +115,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.setText("new text");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The text box is not editable", e.getMessage());
     }
     assertEquals("text", jTextComponent.getText());
@@ -140,7 +139,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.insertText("a", 10);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Position should be between 0 and 4", e.getMessage());
     }
   }
@@ -175,21 +174,21 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.insertText("new text", 0);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The text box is not editable", e.getMessage());
     }
     try {
       textBox.clear();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The text box is not editable", e.getMessage());
     }
     try {
       textBox.appendText("new text");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The text box is not editable", e.getMessage());
     }
     assertEquals("text", jTextComponent.getText());
@@ -204,7 +203,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.setText("aa");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(message, e.getMessage());
     }
 
@@ -212,7 +211,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.insertText("aa", 0);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(message, e.getMessage());
     }
 
@@ -220,7 +219,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.appendText("aa");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(message, e.getMessage());
     }
 
@@ -228,7 +227,7 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
       textBox.clear();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(message, e.getMessage());
     }
   }
@@ -250,12 +249,12 @@ public class TextBoxForRawTextComponentTest extends TextBoxComponentTestCase {
   }
 
   public void testClickOnHyperlinkIsNotSupported() throws Exception {
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.clickOnHyperlink("text");
       }
     }, "This component does not support hyperlinks.");
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.triggerClickOnHyperlink("text").run();
       }

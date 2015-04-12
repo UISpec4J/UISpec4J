@@ -16,14 +16,14 @@ public class UtilsTest extends UnitTestCase {
     final Item motorcycle = new Item("motorcycle");
     final Object[] collection = new Object[]{bike, motorcycle, bag};
 
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         Utils.assertSetEquals(new Object[]{bag, motorcycle}, collection, new ItemStringifier());
       }
     }, "2 elements instead of 3\n" +
         "Expected: [bag,motorcycle],\n" +
         "but was: [bike,motorcycle,bag]");
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         Utils.assertSetEquals(new Object[]{bag, motorcycle, bag}, collection, new ItemStringifier());
       }
@@ -40,21 +40,21 @@ public class UtilsTest extends UnitTestCase {
     final Item motorcycle = new Item("motorcycle");
     final Object[] collection = new Object[]{bike, motorcycle, bag};
 
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         Utils.assertEquals(new Object[]{bag, motorcycle}, collection, new ItemStringifier());
       }
     }, "2 elements instead of 3\n" +
         "Expected: [bag,motorcycle],\n" +
         "but was: [bike,motorcycle,bag]");
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         Utils.assertEquals(new Object[]{bag, motorcycle, bag}, collection, new ItemStringifier());
       }
     }, "Unexpected element 'bike'\n" +
         "Expected: [bag,motorcycle,bag],\n" +
         "but was: [bike,motorcycle,bag]");
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         Utils.assertEquals(new Object[]{bag, bike, motorcycle}, collection, new ItemStringifier());
       }

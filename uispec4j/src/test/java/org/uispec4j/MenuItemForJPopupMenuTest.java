@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
 import org.uispec4j.xml.EventLogger;
@@ -23,7 +22,7 @@ public class MenuItemForJPopupMenuTest extends MenuItemTestCase {
       item.click();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("This operation is not supported. You must first select a sub menu among: [a,b,c]",
                    e.getMessage());
     }

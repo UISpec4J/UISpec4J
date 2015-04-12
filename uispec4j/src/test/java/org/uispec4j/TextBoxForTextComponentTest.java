@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyActionListener;
 import org.uispec4j.utils.Functor;
@@ -64,8 +63,8 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textEquals("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
-      assertEquals("expected:<error> but was:<some text>", e.getMessage());
+    catch (AssertionError e) {
+      assertEquals("expected:<[error]> but was:<[some text]>", e.getMessage());
     }
   }
 
@@ -82,7 +81,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textEquals("Universal rules: a < b 2 > 1, seb is the best"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -102,7 +101,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
                                     "</ul>"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -113,7 +112,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textContains("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The component text does not contain 'error' - actual content is:some text",
                    e.getMessage());
     }
@@ -128,7 +127,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textContains("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The component text does not contain 'error' - actual content is:<html>\n" +
                    "  <head>\n" +
                    "  </head>\n" +
@@ -164,7 +163,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textDoesNotContain("some"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The component text should not contain 'some' - actual content is:some text",
                    e.getMessage());
     }
@@ -185,7 +184,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textIsEmpty());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Text should be empty but contains: a", e.getMessage());
     }
   }
@@ -200,7 +199,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       assertTrue(textBox.textIsEmpty());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Text should be empty but contains: <html>\n" +
                    "  <head>\n" +
                    "    \n" +
@@ -251,7 +250,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       textBox.setText("new text");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The text box is not editable", e.getMessage());
     }
     assertEquals("text", jTextComponent.getText());
@@ -275,7 +274,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       textBox.insertText("a", 10);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Position should be between 0 and 4", e.getMessage());
     }
   }
@@ -304,7 +303,7 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
       textBox.insertText("new text", 0);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The text box is not editable", e.getMessage());
     }
     assertEquals("text", jTextComponent.getText());
@@ -374,13 +373,13 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
   public void testClickOnHyperLinkWithABadTextComponentFails() throws Exception {
     final TextBox textBox = new TextBox(new JTextArea());
 
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.clickOnHyperlink("toto");
       }
     }, "This component does not support hyperlinks.");
 
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textBox.triggerClickOnHyperlink("toto").run();
       }
@@ -411,13 +410,13 @@ public class TextBoxForTextComponentTest extends TextBoxComponentTestCase {
 
   private void checkClickOnHyperlinkError(String html, final String link, String errorMessage) throws Exception {
     final TextBox textComponent = new TextBox(createTextPane(html));
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textComponent.clickOnHyperlink(link);
       }
     }, errorMessage);
 
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         textComponent.triggerClickOnHyperlink(link).run();
       }

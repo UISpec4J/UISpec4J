@@ -1,6 +1,5 @@
 package org.uispec4j.xml;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UnitTestCase;
 
@@ -93,7 +92,7 @@ public class EventLoggerTest extends UnitTestCase {
       eventLogger.assertEquals("");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -107,7 +106,7 @@ public class EventLoggerTest extends UnitTestCase {
       eventLogger.assertEmpty();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -127,7 +126,7 @@ public class EventLoggerTest extends UnitTestCase {
       eventLogger.assertEquals(expected);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -141,7 +140,7 @@ public class EventLoggerTest extends UnitTestCase {
       eventLogger.assertEquals(expected);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -161,7 +160,7 @@ public class EventLoggerTest extends UnitTestCase {
                                    "</log>");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -170,7 +169,7 @@ public class EventLoggerTest extends UnitTestCase {
       eventLogger.assertEquals(s);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 }

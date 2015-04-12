@@ -26,7 +26,7 @@ import javax.swing.*;
 public class PopupMenuInterceptor {
 
   /**
-   * Runs the given trigger and returns the intercepted popup menu.<p/>
+   * <p>Runs the given trigger and returns the intercepted popup menu.</p>
    * This method will wait for the popup to be shown, up to a time specified with
    * {@link UISpec4J#setWindowInterceptionTimeLimit(long)}.
    *

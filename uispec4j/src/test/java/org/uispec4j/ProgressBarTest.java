@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.UIComponentFactory;
@@ -52,7 +51,7 @@ public class ProgressBarTest extends UIComponentTestCase {
       assertTrue(progressBar.isCompleted());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Unexpected completion rate - expected:<100> but was:<50>", e.getMessage());
     }
 
@@ -61,7 +60,7 @@ public class ProgressBarTest extends UIComponentTestCase {
       assertTrue(progressBar.isCompleted());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Unexpected completion rate - expected:<100> but was:<-1>", e.getMessage());
     }
   }
@@ -77,7 +76,7 @@ public class ProgressBarTest extends UIComponentTestCase {
       assertTrue(progressBar.completionEquals(-1));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The progress bar status is not undeterminate", e.getMessage());
     }
   }
@@ -123,8 +122,8 @@ public class ProgressBarTest extends UIComponentTestCase {
       assertTrue(progressBar.displayedValueEquals("unexpected"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
-      assertEquals("expected:<unexpected> but was:<done>", e.getMessage());
+    catch (AssertionError e) {
+      assertEquals("expected:<[unexpected]> but was:<[done]>", e.getMessage());
     }
   }
 
@@ -139,7 +138,7 @@ public class ProgressBarTest extends UIComponentTestCase {
       assertTrue(progressBar.completionEquals(expectedValue));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(errorMessage, e.getMessage());
     }
   }

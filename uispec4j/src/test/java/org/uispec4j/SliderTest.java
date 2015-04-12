@@ -91,7 +91,7 @@ public class SliderTest extends UIComponentTestCase {
     slider.setRelativePosition(100);
     assertEquals(40, jSlider.getValue());
 
-    checkAssertionFailedError(
+    checkAssertionError(
       new Functor() {
         public void run() throws Exception {
           slider.setRelativePosition(-1);
@@ -99,7 +99,7 @@ public class SliderTest extends UIComponentTestCase {
       },
       "Value must be within [0..100]");
 
-    checkAssertionFailedError(
+    checkAssertionError(
       new Functor() {
         public void run() throws Exception {
           slider.setRelativePosition(101);
@@ -111,7 +111,7 @@ public class SliderTest extends UIComponentTestCase {
   private void checkPosition(int intValue, String correctLabel, String wrongLabel) throws Exception {
     assertEquals(intValue, jSlider.getValue());
     assertTrue(slider.positionEquals(correctLabel));
-    checkAssertionFails(slider.positionEquals(wrongLabel), "expected:<" + wrongLabel + "> but was:<" + correctLabel + ">");
+    checkAssertionFails(slider.positionEquals(wrongLabel), "expected:<[" + wrongLabel + "]> but was:<[" + correctLabel + "]>");
   }
 
   private static JSlider createTemperatureSlider() {

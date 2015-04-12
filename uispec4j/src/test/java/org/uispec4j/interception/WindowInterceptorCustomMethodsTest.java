@@ -31,7 +31,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
           .processTransientWindow("Expected")
           .run();
       }
-    }, "Invalid window title - expected:<Expected> but was:<Actual>");
+    }, "Invalid window title - expected:<[Expected]> but was:<[Actual]>");
   }
 
   public void testWindowTitleChecking() throws Exception {
@@ -51,7 +51,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
   }
 
   public void testWindowTitleError() throws Exception {
-    checkAssertionFailedError(
+    checkAssertionError(
       WindowInterceptor
         .init(new Trigger() {
           public void run() throws Exception {
@@ -61,16 +61,16 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
           }
         })
         .process("error", new ButtonTriggerHandler("Hide")),
-      "Unexpected title - expected:<error> but was:<dialog title>");
+      "Unexpected title - expected:<[error]> but was:<[dialog title]>");
   }
 
   public void testWindowTitleErrorInASequence() throws Exception {
-    checkAssertionFailedError(
+    checkAssertionError(
       WindowInterceptor
         .init(getShowFirstDialogTrigger())
         .processWithButtonClick("OK")
         .process("error", new ButtonTriggerHandler("OK")),
-      "Error in handler 'error': Unexpected title - expected:<error> but was:<second dialog>");
+      "Error in handler 'error': Unexpected title - expected:<[error]> but was:<[second dialog]>");
   }
 
   public void testProcessWithButtonClick() {
@@ -118,7 +118,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
   }
 
   public void testProcessWithButtonClickWithAnUnknownButtonName() throws Exception {
-    checkAssertionFailedError(WindowInterceptor
+    checkAssertionError(WindowInterceptor
       .init(getShowFirstDialogTrigger())
       .processWithButtonClick("unknown"),
                               "Component 'unknown' of type 'button' not found - available names: [Dispose,OK]");
@@ -159,7 +159,7 @@ public class WindowInterceptorCustomMethodsTest extends WindowInterceptorTestCas
           .processWithButtonClick("Expected", "OK")
           .run();
       }
-    }, "Invalid window title - expected:<Expected> but was:<Actual>");
+    }, "Invalid window title - expected:<[Expected]> but was:<[Actual]>");
   }
 
   private static class TransientWindowTrigger implements Trigger {

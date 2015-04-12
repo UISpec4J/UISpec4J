@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.XmlAssert;
 
@@ -19,7 +18,7 @@ public class WindowForAwtWindowTest extends WindowTestCase {
       window.getMenuBar();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("This component has no menu bar", e.getMessage());
     }
   }
@@ -32,7 +31,7 @@ public class WindowForAwtWindowTest extends WindowTestCase {
     final Window window = createWindow();
     assertTrue(window.titleEquals(""));
     checkAssertionFails(window.titleEquals("title"),
-                        "Unexpected title - expected:<title> but was:<>");
+                        "Unexpected title - expected:<[title]> but was:<[]>");
   }
 
   public void testAssertTitleContains() throws Exception {
@@ -61,11 +60,11 @@ public class WindowForAwtWindowTest extends WindowTestCase {
   }
 
   protected Window createWindowWithMenu(JMenuBar jMenuBar) {
-    throw new AssertionFailedError("not supported");
+    throw new AssertionError("not supported");
   }
 
   protected Window createWindowWithTitle(String title) {
-    throw new AssertionFailedError("not supported");
+    throw new AssertionError("not supported");
   }
 
   protected void close(Window window) {

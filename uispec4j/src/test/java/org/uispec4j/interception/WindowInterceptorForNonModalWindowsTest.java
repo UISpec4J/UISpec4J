@@ -1,6 +1,5 @@
 package org.uispec4j.interception;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.Button;
 import org.uispec4j.Trigger;
 import org.uispec4j.UISpec4J;
@@ -28,7 +27,7 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
         logger.log("triggerRun");
         final JFrame frame = new JFrame(WindowInterceptorForNonModalWindowsTest.this.getName());
         addLoggerButton(frame, "OK");
-        frame.show();
+        frame.setVisible(true);
       }
     });
     assertNotNull(window);
@@ -46,7 +45,7 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
         JDialog dialog = new JDialog();
         dialog.setTitle(WindowInterceptorForNonModalWindowsTest.this.getName());
         addLoggerButton(dialog, "OK");
-        dialog.show();
+        dialog.setVisible(true);
       }
     });
     assertNotNull(window);
@@ -62,15 +61,15 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
       public void run() {
         logger.log("triggerRun");
         JDialog transientDialog = new JDialog();
-        transientDialog.show();
+        transientDialog.setVisible(true);
         Utils.sleep(20);
-        transientDialog.hide();
+        transientDialog.setVisible(false);
 
         JDialog dialog = new JDialog();
         dialog.setTitle("mon dialogue");
         addLoggerButton(dialog, "Log");
         addHideButton(dialog, "Close");
-        dialog.show();
+        dialog.setVisible(true);
       }
     };
 
@@ -93,7 +92,7 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
       WindowInterceptor.run(Trigger.DO_NOTHING);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(ShownInterceptionDetectionHandler.NO_WINDOW_WAS_SHOWN_ERROR_MESSAGE,
                    e.getMessage());
     }
@@ -143,12 +142,17 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
     try {
       WindowInterceptor.run(new Trigger() {
         public void run() {
-          createAndShowModalDialog("aDialog");
+          SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+              createAndShowModalDialog("aDialog");
+            }
+          });
         }
       });
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Window 'aDialog' is modal, it must be intercepted with a WindowHandler",
                    e.getMessage());
     }
@@ -160,7 +164,7 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
         thread = new Thread() {
           public void run() {
             JFrame frame = new JFrame("expected title");
-            frame.show();
+            frame.setVisible(true);
           }
         };
         thread.start();
@@ -181,7 +185,7 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
     WindowInterceptor
       .init(new Trigger() {
         public void run() throws Exception {
-          frame.show();
+          frame.setVisible(true);
         }
       })
       .process(new WindowHandler() {
@@ -203,7 +207,7 @@ public class WindowInterceptorForNonModalWindowsTest extends WindowInterceptorTe
         thread = new Thread(new Runnable() {
           public void run() {
             Utils.sleep(waitTimeInThread);
-            dialog.show();
+            dialog.setVisible(true);
           }
         });
         thread.setName(thread.getName() + "(" + getName() + ")");

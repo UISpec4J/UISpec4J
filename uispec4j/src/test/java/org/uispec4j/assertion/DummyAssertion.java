@@ -1,7 +1,5 @@
 package org.uispec4j.assertion;
 
-import junit.framework.AssertionFailedError;
-
 public class DummyAssertion extends Assertion {
   public static final Assertion TRUE = new DummyAssertion(true);
   public static final Assertion FALSE = new DummyAssertion(false);
@@ -23,7 +21,7 @@ public class DummyAssertion extends Assertion {
   }
 
   public void setError(String errorMessage) {
-    this.error = new AssertionFailedError(errorMessage);
+    this.error = new AssertionError(errorMessage);
   }
 
   public void check() {

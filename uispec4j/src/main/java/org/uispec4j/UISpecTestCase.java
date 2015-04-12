@@ -86,7 +86,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks the given assertion.
-   * This method is equivalent to {@link #assertThat(Assertion}.
+   * This method is equivalent to {@link #assertThat(Assertion)}.
    *
    * @see UISpecAssert#assertTrue(Assertion)
    */
@@ -96,8 +96,8 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks the given assertion.
-   * If it fails an AssertionFailedError is thrown with the given message.
-   * This method is equivalent to {@link #assertThat(String,Assertion}.
+   * If it fails an AssertionError is thrown with the given message.
+   * This method is equivalent to {@link #assertThat(String,Assertion)}.
    *
    * @see UISpecAssert#assertTrue(String,Assertion)
    */
@@ -107,7 +107,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks the given assertion.
-   * This method is equivalent to {@link #assertTrue(Assertion}.
+   * This method is equivalent to {@link #assertTrue(Assertion)}.
    *
    * @see UISpecAssert#assertThat(Assertion)
    */
@@ -117,8 +117,8 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks the given assertion.
-   * If it fails an AssertionFailedError is thrown with the given message.
-   * This method is equivalent to {@link #assertTrue(String,Assertion}.
+   * If it fails an AssertionError is thrown with the given message.
+   * This method is equivalent to {@link #assertTrue(String,Assertion)}.
    *
    * @see UISpecAssert#assertTrue(String,Assertion)
    */
@@ -146,7 +146,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Waits for at most 'waitTimeLimit' ms until the assertion is true.
-   * If it fails an AssertionFailedError is thrown with the given message.
+   * If it fails an AssertionError is thrown with the given message.
    *
    * @see UISpecAssert#waitUntil(String,Assertion,long)
    */
@@ -156,7 +156,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks that the given assertion fails.
-   * If it succeeds an AssertionFailedError is thrown with the given message.
+   * If it succeeds an AssertionError is thrown with the given message.
    *
    * @see UISpecAssert#assertFalse(String,Assertion)
    */
@@ -202,7 +202,7 @@ public abstract class UISpecTestCase extends TestCase {
 
   /**
    * Checks that the given assertion equals the expected parameter.
-   * If it fails an AssertionFailedError is thrown with the given message.
+   * If it fails an AssertionError is thrown with the given message.
    *
    * @see UISpecAssert#assertEquals(String,boolean,Assertion)
    */

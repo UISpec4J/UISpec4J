@@ -18,7 +18,7 @@ import java.util.Map;
  * The authorized names are those of the predefined Color objects defined in the Java
  * <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Color.html">Color</a> class.</li>
  * </ul>
- * </p>
+ * <p>
  *
  * @see <a href="http://www.uispec4j.org/colors">Using colors</a>
  */

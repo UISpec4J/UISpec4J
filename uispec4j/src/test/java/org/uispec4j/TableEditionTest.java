@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 
@@ -69,7 +68,7 @@ public class TableEditionTest extends TableTestCase {
       }));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Error at row 0:\n" +
                    "Expected: [false,false,false]\n" +
                    "Actual:   [true,false,true]",
@@ -115,7 +114,7 @@ public class TableEditionTest extends TableTestCase {
       assertTrue(table.columnIsEditable(1, true));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Cell at row 0 is not editable", e.getMessage());
     }
   }
@@ -134,7 +133,7 @@ public class TableEditionTest extends TableTestCase {
       assertTrue(table.columnIsEditable("1", true));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Cell at row 0 is not editable", e.getMessage());
     }
 
@@ -142,7 +141,7 @@ public class TableEditionTest extends TableTestCase {
       assertTrue(table.columnIsEditable("unknown", true));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Column 'unknown' not found - actual names: [0, 1, 2]", e.getMessage());
     }
   }
@@ -186,7 +185,7 @@ public class TableEditionTest extends TableTestCase {
       table.editCell(0, 0);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Cell (0,0) is not editable", e.getMessage());
     }
   }

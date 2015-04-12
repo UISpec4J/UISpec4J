@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Wrapper for JList components.</p>
+ * <p>Wrapper for JList components.</p>
  * This class provides means for checking the contents and selection of the list,
  * changing the selection, etc. For all these methods, when using String values,
  * the means of retrieving a String representation of the displayed values can be customized

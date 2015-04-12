@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.DummyTreeCellRenderer;
 import org.uispec4j.utils.Functor;
@@ -91,7 +90,7 @@ public class TreeContentTest extends TreeTestCase {
 
   public void testCheckContentsWithColorNameError() throws Exception {
     child1_1.setColor(Color.BLUE);
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         assertTrue(tree.contentEquals("root\n" +
                                       "  child1\n" +
@@ -107,7 +106,7 @@ public class TreeContentTest extends TreeTestCase {
       assertTrue(tree.contains("child1/unknown"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Could not find element 'child1/unknown'", e.getMessage());
     }
   }
@@ -241,7 +240,7 @@ public class TreeContentTest extends TreeTestCase {
       assertTrue(tree.foregroundEquals("child1", "green"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("expected:<GREEN> but was:<FA0A0A>", e.getMessage());
     }
   }
@@ -263,7 +262,7 @@ public class TreeContentTest extends TreeTestCase {
       assertTrue(tree.contentEquals(expectedTree));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       if (message != null) {
         assertEquals(message, e.getMessage());
       }

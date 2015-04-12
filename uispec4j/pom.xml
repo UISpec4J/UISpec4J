@@ -1,48 +1,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<!--
- ~ Creating an ibiblio upload bundle:
- ~
- ~  Main instructions here: http://maven.apache.org/guides/mini/guide-ibiblio-upload.html
- ~
- - mvn clean install
- ~ mvn source:jar javadoc:jar repository:bundle-create -Dmaven.test.skip=true
- ~ mv target/uispec4j-<version>-bundle.jar target/uispec4j-<version>-<jdk5/jdk6>-bundle.jar (this step is weird, but necessary)
- ~
- ~ When you are all done, open a JIRA upload request as was done here: http://jira.codehaus.org/browse/MAVENUPLOAD-2647
--->
+
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.uispec4j</groupId>
-    <artifactId>uispec4j-root</artifactId>
-    <version>2.5-SNAPSHOT</version>
-  </parent>
+  <groupId>org.uispec4j</groupId>
+  <version>2.5-SNAPSHOT</version>
   <artifactId>uispec4j</artifactId>
 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>5.14.10</version>
+      <version>6.8.21</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>asm</groupId>
       <artifactId>asm</artifactId>
-      <version>3.1</version>
+      <version>3.3.1</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>asm</groupId>
       <artifactId>asm-util</artifactId>
-      <version>3.1</version>
+      <version>3.3.1</version>
       <optional>true</optional>
       <scope>test</scope>
     </dependency>
@@ -100,6 +87,11 @@
       <id>mguiot</id>
       <timezone>+1</timezone>
     </developer>
+    <developer>
+      <name>Thomas Santana</name>
+      <id>nebulorum</id>
+      <timezone>-3</timezone>
+    </developer>
   </developers>
 
   <scm>
@@ -117,10 +109,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.2</version>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <encoding>UTF-8</encoding>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
@@ -129,7 +121,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.10</version>
+        <version>2.18.1</version>
         <configuration>
           <systemProperties>
             <property>
@@ -138,29 +130,13 @@
             </property>
           </systemProperties>
           <redirectTestOutputToFile>true</redirectTestOutputToFile>
-          <forkMode>once</forkMode>
+          <forkCount>1</forkCount>
+          <reuseForks>true</reuseForks>
+          <threadCount>1</threadCount>
+          <parallel>methods</parallel>
+          <forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
+          <rerunFailingTestsCount>1</rerunFailingTestsCount>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.surefire</groupId>
-            <artifactId>surefire-junit3</artifactId>
-            <version>2.10</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.4</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
@@ -190,55 +166,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.5</version>
       </plugin>
     </plugins>
   </reporting>
 
   <profiles>
-    <profile>
-      <id>jdk5</id>
-      <activation>
-        <jdk>1.5</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.2</version>
-            <executions>
-              <execution>
-                <configuration>
-                  <classifier>jdk5</classifier>
-                </configuration>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.7</version>
-            <executions>
-              <execution>
-                <id>add-specific-source</id>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${basedir}/src/main/java-jdk5</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <profile>
       <id>jdk6</id>
       <activation>
@@ -249,7 +182,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.2</version>
+            <version>2.5</version>
             <executions>
               <execution>
                 <configuration>
@@ -264,7 +197,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.7</version>
+            <version>1.9.1</version>
             <executions>
               <execution>
                 <id>add-specific-source</id>
@@ -292,7 +225,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.2</version>
+            <version>2.5</version>
             <executions>
               <execution>
                 <configuration>
@@ -307,7 +240,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.7</version>
+            <version>1.9.1</version>
             <executions>
               <execution>
                 <id>add-specific-source</id>
@@ -335,7 +268,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.2</version>
+            <version>2.5</version>
             <executions>
               <execution>
                 <configuration>
@@ -350,7 +283,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.7</version>
+            <version>1.9.1</version>
             <executions>
               <execution>
                 <id>add-specific-source</id>
@@ -364,6 +297,92 @@
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>ci-headless</id>
+      <dependencies>
+        <dependency>
+          <groupId>net.java.openjdk.cacio</groupId>
+          <artifactId>cacio-tta</artifactId>
+          <version>1.3</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemPropertyVariables>
+                <java.awt.headless>false</java.awt.headless>
+                <awt.toolkit>net.java.openjdk.cacio.ctc.CTCToolkit</awt.toolkit>
+                <java.awt.graphicsenv>net.java.openjdk.cacio.ctc.CTCGraphicsEnvironment</java.awt.graphicsenv>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.1</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.5</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>false</autoReleaseAfterClose>
+              <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
+            </configuration>
           </plugin>
         </plugins>
       </build>

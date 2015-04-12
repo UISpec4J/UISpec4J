@@ -1,6 +1,5 @@
 package org.uispec4j.utils;
 
-import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import org.uispec4j.UISpec4J;
 import org.uispec4j.assertion.Assertion;
@@ -45,7 +44,7 @@ public abstract class UnitTestCase extends TestCase {
       assertTrue(assertion);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(expectedMessage, e.getMessage());
     }
   }
@@ -70,7 +69,7 @@ public abstract class UnitTestCase extends TestCase {
     }
   }
 
-  protected void checkAssertionFailedError(Functor functor, String expectedMessage) throws Exception {
+  protected void checkAssertionError(Functor functor, String expectedMessage) throws Exception {
     try {
       functor.run();
       throw new AssertionFailureNotDetectedError();
@@ -80,12 +79,12 @@ public abstract class UnitTestCase extends TestCase {
     }
   }
 
-  protected void checkAssertionFailedError(Functor functor) throws Exception {
+  protected void checkAssertionError(Functor functor) throws Exception {
     try {
       functor.run();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
     catch (InterceptionError e) {
     }

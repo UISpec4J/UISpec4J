@@ -1,6 +1,6 @@
 package org.uispec4j;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.uispec4j.utils.Utils;
 
 import java.awt.*;

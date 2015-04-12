@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 
 import javax.swing.*;
@@ -14,7 +13,7 @@ public class WindowForJFrameTest extends WindowTestCase {
       assertTrue(window.isModal());
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 

@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.EventLogger;
@@ -73,7 +72,7 @@ public class TreeSelectionTest extends TreeTestCase {
       tree.select("child/child1_1");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Naming ambiguity: there are several 'child' under 'root'", e.getMessage());
     }
   }
@@ -84,7 +83,7 @@ public class TreeSelectionTest extends TreeTestCase {
       tree.select("child1/child1_1");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Naming ambiguity: there are several 'child1' under 'root'", e.getMessage());
     }
   }
@@ -159,7 +158,7 @@ public class TreeSelectionTest extends TreeTestCase {
       tree.select(new String[]{"child1", "unknown"});
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(Tree.badTreePath("unknown"), e.getMessage());
     }
   }
@@ -171,7 +170,7 @@ public class TreeSelectionTest extends TreeTestCase {
       tree.select(path);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(Tree.badTreePath("child1/unexistingElement"), e.getMessage());
     }
     assertNoSelection(jTree);
@@ -230,7 +229,7 @@ public class TreeSelectionTest extends TreeTestCase {
       assertTrue(tree.selectionEquals(pathToCheck));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(Tree.badTreePath("child1/toto"), e.getMessage());
     }
   }
@@ -246,7 +245,7 @@ public class TreeSelectionTest extends TreeTestCase {
       tree.select("", "UNKNOWN");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("No children found", e.getMessage());
     }
   }

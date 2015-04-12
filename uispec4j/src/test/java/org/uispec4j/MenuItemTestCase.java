@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
@@ -83,7 +82,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
       item.click();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The menu item is not enabled, it cannot be activated", e.getMessage());
     }
   }
@@ -140,7 +139,7 @@ public abstract class MenuItemTestCase extends UIComponentTestCase {
       item.getSubMenu(searchedItem);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(expectedMessage,
                    e.getMessage());
     }

@@ -114,7 +114,7 @@ public abstract class AbstractUIComponent implements UIComponent {
   }
 
   /**
-   * Checks the foreground color of the component. <p/>
+   * <p>Checks the foreground color of the component. </p>
    * The color can be given in either hexadecimal ("FF45C0") or human-readable ("red") format.
    *
    * @see <a href="http://www.uispec4j.org/colors">Using colors</a>
@@ -132,7 +132,7 @@ public abstract class AbstractUIComponent implements UIComponent {
   }
 
   /**
-   * Checks that the foreground color of the component is close to the given value. <p/>
+   * <p>Checks that the foreground color of the component is close to the given value. </p>
    * The color can be given in either hexadecimal ("FF45C0") or human-readable ("red") format.
    *
    * @see <a href="http://www.uispec4j.org/colors">Using colors</a>
@@ -164,7 +164,7 @@ public abstract class AbstractUIComponent implements UIComponent {
   }
 
   /**
-   * Checks that the background color of the component is close to the given value. <p/>
+   * <p>Checks that the background color of the component is close to the given value. </p>
    * The color can be given in either hexadecimal ("FF45C0") or human-readable ("red") format.
    *
    * @see <a href="http://www.uispec4j.org/colors">Using colors</a>

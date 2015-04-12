@@ -1,6 +1,5 @@
 package org.uispec4j;
 
-import junit.framework.AssertionFailedError;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Functor;
 
@@ -47,7 +46,7 @@ public class ComboBoxTest extends UIComponentTestCase {
       assertTrue(comboBox.contentEquals("one", "two", "unknown", "three"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -61,7 +60,7 @@ public class ComboBoxTest extends UIComponentTestCase {
       assertTrue(comboBox.contains("unknown"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Item 'unknown' not found - actual content:[one, two, three]", e.getMessage());
     }
 
@@ -69,7 +68,7 @@ public class ComboBoxTest extends UIComponentTestCase {
       assertTrue(comboBox.contains("three", "unknown"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Item 'unknown' not found - actual content:[one, two, three]", e.getMessage());
     }
   }
@@ -117,13 +116,13 @@ public class ComboBoxTest extends UIComponentTestCase {
       comboBox.select("unknown");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
     try {
       assertTrue(comboBox.isEmpty("<no item>"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Unexpected content: [level one,level two,level three]", e.getMessage());
     }
   }
@@ -139,7 +138,7 @@ public class ComboBoxTest extends UIComponentTestCase {
       assertTrue(comboBox.isEmpty("<no item>"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Unexpected content: [one,two,three]", e.getMessage());
     }
 
@@ -149,8 +148,8 @@ public class ComboBoxTest extends UIComponentTestCase {
       assertTrue(comboBox.isEmpty("error"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
-      assertEquals("expected:<error> but was:<<no item>>", e.getMessage());
+    catch (AssertionError e) {
+      assertEquals("expected:<[error]> but was:<[<no item>]>", e.getMessage());
     }
   }
 
@@ -234,7 +233,7 @@ public class ComboBoxTest extends UIComponentTestCase {
       comboBox.select("unknown");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
@@ -243,21 +242,21 @@ public class ComboBoxTest extends UIComponentTestCase {
       assertTrue(comboBox.selectionEquals("unknown"));
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
     }
   }
 
   public void testAssertEditable() throws Exception {
     jComboBox.setEditable(false);
     assertFalse(comboBox.isEditable());
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         assertTrue(comboBox.isEditable());
       }
     });
     jComboBox.setEditable(true);
     assertTrue(comboBox.isEditable());
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         assertFalse(comboBox.isEditable());
       }
@@ -271,7 +270,7 @@ public class ComboBoxTest extends UIComponentTestCase {
       comboBox.setText("notInList");
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("The combo box is not editable", e.getMessage());
     }
     assertTrue(comboBox.selectionEquals("two"));
@@ -312,7 +311,7 @@ public class ComboBoxTest extends UIComponentTestCase {
         throw new NullPointerException("boum");
       }
     });
-    checkAssertionFailedError(new Functor() {
+    checkAssertionError(new Functor() {
       public void run() throws Exception {
         assertTrue(comboBox.contentEquals(new String[1]));
       }

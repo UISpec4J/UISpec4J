@@ -1,7 +1,5 @@
 package org.uispec4j.utils;
 
-import junit.framework.AssertionFailedError;
-
 import java.awt.*;
 
 /**
@@ -133,7 +131,7 @@ public class ColorUtilsTest extends UnitTestCase {
       ColorUtils.assertEquals(messagePrefix, expectedColor, actualColor);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(errorMessage, e.getMessage());
     }
   }
@@ -143,7 +141,7 @@ public class ColorUtilsTest extends UnitTestCase {
       ColorUtils.assertEquals(expected, actual);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals(errorMessage, e.getMessage());
     }
   }

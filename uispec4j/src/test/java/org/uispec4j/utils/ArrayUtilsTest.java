@@ -1,7 +1,5 @@
 package org.uispec4j.utils;
 
-import junit.framework.AssertionFailedError;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +54,7 @@ public class ArrayUtilsTest extends UnitTestCase {
       ArrayUtils.assertEmpty(new String[]{"a"});
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("Array should be empty but is [a]", e.getMessage());
     }
   }
@@ -70,7 +68,7 @@ public class ArrayUtilsTest extends UnitTestCase {
       ArrayUtils.assertEmpty(list);
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionFailedError e) {
+    catch (AssertionError e) {
       assertEquals("List should be empty but is [a]", e.getMessage());
     }
   }

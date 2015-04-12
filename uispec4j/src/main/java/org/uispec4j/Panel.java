@@ -33,8 +33,6 @@ import static org.uispec4j.finder.ComponentMatchers.*;
  * {@link #getPanel(String)} method only components of type JPanel JInternalFrame, etc. will be
  * considered.
  *
- * @noinspection ReturnOfNull
- *
  * @see <a href="http://www.uispec4j.org/findingcomponents">Finding Components</a>
  */
 public class Panel extends AbstractUIComponent {

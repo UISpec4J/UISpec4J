@@ -11,7 +11,7 @@ public abstract class WindowInterceptorTestCase extends InterceptionTestCase {
       public void run() throws Exception {
         JDialog firstDialog = createDialogs();
         logger.log("trigger");
-        firstDialog.show();
+        firstDialog.setVisible(true);
       }
     };
   }
@@ -44,7 +44,7 @@ public abstract class WindowInterceptorTestCase extends InterceptionTestCase {
       JDialog dialog = new JDialog();
       dialog.setModal(modal);
       dialog.setTitle("MyDialog");
-      dialog.show();
+      dialog.setVisible(true);
     }
   }
 }

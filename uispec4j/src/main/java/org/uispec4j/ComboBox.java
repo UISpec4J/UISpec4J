@@ -89,8 +89,8 @@ public class ComboBox extends AbstractSwingUIComponent {
   }
 
   /**
-   * Changes the displayed text, in case of an editable combo box. <p/>
-   * This method will throw an exception if the component is not editable.<p/>
+   * <p>Changes the displayed text, in case of an editable combo box. </p>
+   * <p>This method will throw an exception if the component is not editable.</p>
    */
   public void setText(String text) {
     UISpecAssert.assertTrue(isEditable());

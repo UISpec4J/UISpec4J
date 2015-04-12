@@ -1,6 +1,6 @@
 package org.uispec4j.assertion.testlibrairies;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 class JUnitLibrary implements TestLibrary {
   public void fail(String message) {

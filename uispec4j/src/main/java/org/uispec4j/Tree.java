@@ -55,21 +55,21 @@ import java.util.regex.Pattern;
  * <pre><code>
  *   other/sub
  * </code></pre>
- * <p/>
- * The contents of the tree can be checked with {@link #contentEquals(String)},
- * which is used as follows:
+ *
+ * <p>The contents of the tree can be checked with {@link #contentEquals(String)},
+ * which is used as follows:</p>
  * <pre><code>
  * assertTrue(jTree.contentEquals("root\n" +
  *                                "  child1\n" +
  *                                "    child1_1\n" +
  *                                "  child2"));
  * </code></pre>
- * <p/>
- * The conversion between the values (Strings) given in the tests and the values
+ *
+ * <p>The conversion between the values (Strings) given in the tests and the values
  * actually displayed by the JTree renderer is performed by a dedicated
  * {@link TreeCellValueConverter}, which retrieves the graphical component that draws
  * the tree nodes and determines the displayed value accordingly.
- * A {@link DefaultTreeCellValueConverter} is used by default by the Tree component.
+ * A {@link DefaultTreeCellValueConverter} is used by default by the Tree component. </p>
  */
 public class Tree extends AbstractSwingUIComponent {
 
@@ -157,21 +157,21 @@ public class Tree extends AbstractSwingUIComponent {
    * The expected contents is a newline (\n) separated string where nodes are
    * indented with two-space steps.
    * For instance:
-   * <code><pre>
+   * <pre><code>
    * assertTrue(jTree.contentEquals("root\n" +
    *                                "  child1\n" +
    *                                "    child1_1\n" +
    *                                "  child2"));
-   * </pre></code>
+   * </code></pre>
    * Text display properties such as boldness and color can be checked using a "#(...)"
    * specifier.
    * For instance:
-   * <code><pre>
+   * <pre><code>
    * assertTrue(jTree.contentEquals("root\n" +
    *                                "  child1 #(bold)\n" +
    *                                "    child1_1 #(bold,color=red)\n" +
    *                                "  child2"));
-   * </pre></code>
+   * </code></pre>
    * The properties are defined as follows:
    * <ul>
    * <li>The "bold" property must be present if and only if the node text is bold</li>
