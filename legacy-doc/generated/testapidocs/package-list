@@ -1,0 +1,7 @@
+org.uispec4j
+org.uispec4j.assertion
+org.uispec4j.extension
+org.uispec4j.finder
+org.uispec4j.interception
+org.uispec4j.utils
+org.uispec4j.xml

@@ -1,0 +1,52 @@
+  <h2>General</h2>
+  <p>
+    <b>UISpec4J does not work on my Linux box</b>
+    <br/>
+    The MToolkit implementation on Linux registers itself before the UISpecToolkit gets a chance to initialize
+    through UISpec4J.init(). To get around this, you need two things: run your tests with the JVM argument
+    <code>-Dawt.toolkit=sun.awt.motif.MToolkit</code>, and make sure that Motif is installed on your computer.
+  </p>
+
+
+  <h2>Interception</h2>
+  <p>
+    <b>Dialogs are popped-up when the tests are run</b>
+    <br/>
+    You probably tried to register UISpec4J's toolkit with UISpec4J.init(), but for some reason the Swing default
+    toolkit was registered first. To circumvent this, try to call UISpec4J.init() from static initializers in your
+    test class hierarchy.
+  </p>
+  <p>
+    <b>I get an IllegalComponentStateException exception such as "component must be showing
+      on the screen to determine its location"</b>
+    <br/>
+    Make sure that the top-level window with which you are working was actually shown and
+    intercepted with WindowInterceptor. In some cases, just wrapping a JFrame in a Panel
+    object is not enough for Swing to be able to work, you must show it to trigger
+    internal state changes in the components.
+  </p>
+  <p>
+    <b>I have interception errors and my application is heavily multi-threaded</b>
+    <br/>
+    Warning: the interception of windows in a multi-threaded environment can cause deadlocks or
+    race condition issues. Here are some troubleshooting hints, or things you will have to know
+    about Swing:
+  <ul>
+    <li>show() returns immediately without blocking when it is run from the
+      Swing event dispatching thread.</li>
+    <li>dispose() does not interrupt properly the corresponding show() in some cases. Using
+      setVisible(false) works much better.</li>
+  </ul>
+  </p>
+
+
+  <h2>TextBox</h2>
+  <p>
+    <b>My production code does not seem to detect changes made with setText()</b>
+    <br/>
+    Your production code probably uses a CaretListener to detect changes made to the
+    text component. Unfortunately, the caret listening mechanism does not seem to be
+    activated when the components are not displayed. A workaround exists: use a
+    DocumentListener rather than a CaretListener (this makes more sense if the production
+    code is only interested in changes in the text box contents)
+  </p>

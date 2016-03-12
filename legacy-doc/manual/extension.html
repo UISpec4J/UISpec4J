@@ -1,0 +1,57 @@
+<p>UISpec4J can be extended to support new kinds of UI components,
+  using the following steps:
+</p>
+<ol>
+  <li>Implement a wrapper for your component. This wrapper class must extend the
+    <a href="/reports/apidocs/org/uispec4j/UIComponent.html">UIComponent</a>
+    interface and it must
+    provide one public constructor with the custom Swing class.
+  </li>
+  <li>Run the
+    <a href="/reports/apidocs/org/uispec4j/extension/ExtensionGenerator.html">ExtensionGenerator</a>
+    class to generate an enhanced UISpec4J JAR
+  </li>
+  <li>Put the generated JAR in your classpath before the UISpec4J one, so that enhanced
+    classes are taken into account
+  </li>
+</ol>
+<p>Please refer to the
+  <a href="/reports/apidocs/org/uispec4j/extension/ExtensionGenerator.html">ExtensionGenerator</a>
+  Javadoc for more information.
+</p>
+
+<h2>Modified classes</h2>
+<p>The ExtensionGenerator class modifies only the
+  <a href="/reports/apidocs/org/uispec4j/Panel.html">Panel</a>
+  class. It adds two "get" methods to
+  this class - for instance, if you are adding a Calendar component, it will add:
+</p>
+
+<div class="code">
+<pre>
+  public Calendar getCalendar(String name) throws ComponentNotFoundException {
+    ...
+  }
+
+  public Calendar getCalendar() throws ComponentNotFoundException {
+  ...
+  }
+</pre>
+</div>
+
+
+<h2>How it works</h2>
+<p>
+  The extension mechanisms works at the bytecode level, using the <a href="http://asm.objectweb.org">ASM</a> library.
+  It parses the Panel class loaded from the classpath, and generates the bytecode in the proper section for
+  the two methods.
+</p>
+
+<h2>Dependencies</h2>
+<p>
+  For the extension mechanism to work, you will need
+  <a href="http://repo1.maven.org/maven2/asm/asm/3.1/asm-3.1.jar">asm-3.1.jar</a>
+  and <a href="http://repo1.maven.org/maven2/asm/asm-util/3.1/asm-util-3.1.jar">asm-util-3.1.jar</a>
+  in your classpath.</p>
+
+

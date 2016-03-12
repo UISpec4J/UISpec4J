@@ -1,0 +1,471 @@
+<p>UISpec4J is an
+  open source functional and/or unit-testing Java library for
+  Swing-based Java applications that is focused on simplicity.
+  UISpec4J's APIs are designed to hide, as much as possible, the
+  complexity of Swing, resulting in easy-to-write and easy-to-read
+  test scripts.</p>
+<h3 id="gui-testing">GUI Testing</h3>
+<p>With the advent of Agile development processes such
+  as Extreme Programming (XP), automated testing is
+  being adopted by an increasingly larger number of development
+  teams. There is, however, one area of software that has always had a
+  reputation for being difficult to test: graphical user
+  interfaces.</p>
+<p>In this article, we explain how we faced the same problem on an
+  XP project and came up with a solution by building our own GUI
+  testing toolkit, which is now available as a free open source
+  product. But before delving into this, let's start from the
+  beginning: how can we test GUIs?</p>
+
+<h3 id="using-event-driven-robots">Using Event-Driven Robots</h3>
+<p>When it comes to setting up automated tests for graphical user
+  interfaces, the conventional approach is to use event-driven robots
+  that record human interactions with the interface and can replay
+  these interactions at will. The interesting part of this approach
+  is that it is very simple to create new tests - you don't need a
+  developer or someone with scripting skills to do this.</p>
+<p>The trouble is, this simplicity comes with a number of
+  down sides:</p>
+<ul>
+  <li>
+    <p><strong>You need to have the interface to record the
+      tests</strong>. You thus cannot use the tests as a guide for
+      driving the development, and you make your development cycles
+      longer by preventing developers and testers from working at the
+      same time on a given feature.</p>
+  </li>
+  <li>
+    <p><strong>The test suite becomes a burden, preventing changes in
+      the GUI</strong>. Writing the first twenty tests is easy, but what
+      do you do when you have more than a thousand tests? When you want
+      to change a given screen in your application, will you be willing
+      to chase down the hundreds of impacted tests and record them all
+      again?</p>
+  </li>
+</ul>
+<p>In other words, using generated scripts is simply not always
+  compatible with an incremental, agile approach.</p>
+
+<h3 id="using-test-specific-apis">Using Test-Specific APIs</h3>
+<p>A better solution would be to manually code these tests, so that
+  they can be written before the interface is available, and use a
+  rich programming language allowing the incremental refactoring of a
+  test suite that will remain easy to modify. In the Java/Swing
+  world, there are several existing libraries for doing this, such as
+  <a href="http://abbot.sourceforge.net">Abbot</a>, <a href=
+  "http://jfcunit.sourceforge.net/">JFCUnit</a>, <a href=
+  "http://www.marathontesting.com/">Marathon</a>, and <a href=
+  "http://jemmy.netbeans.org/">Jemmy</a>.</p>
+
+<p>When we were working on a large Java/Swing application several
+  years ago, we had a look at these libraries, but in the end we didn't use them because their APIs were too close to
+  Swing and resulted
+  in tests that looked too "technical."</p>
+
+<h3 id="the-uispec4j-approach">The UISpec4J Approach</h3>
+<p>We wanted a library that would nicely fit into our XP
+  process:</p>
+<ul>
+  <li>
+    <p><strong>Test-first programming</strong>: For both panel-level
+      unit testing and application-level acceptance testing, meaning that
+      we would be able to write tests reading like user interactions
+      <em>before</em> the GUI was available.</p>
+  </li>
+  <li>
+    <p><strong>Refactoring</strong>: We would use the Java language
+      (rather than, say, Python or Ruby) to benefit from the powerful
+      refactoring tools available for that language, thus limiting
+      duplication in the test suites.</p>
+  </li>
+</ul>
+<p>We then resolved to create our own testing library - and
+  UISpec4J was born.</p>
+<p>Let's now have a look at some UISpec4J code, to see whether
+  these goals have been successfully met.</p>
+
+<h3 id="the-address-book-sample-application">The Address Book Sample Application</h3>
+<p>We obviously can't claim to have the most original sample
+  application on the planet, but be that as it may, the application
+  we will be using here is a simple address book that manages a
+  collection of contacts sorted by categories. Figure 1 shows the GUI
+  of this application.</p>
+<p>The address book GUI is split into three main areas of
+  interest:</p>
+<ol>
+  <li>On the left-hand side, a table displays a list of contacts with
+    basic details. The user can add a new entry in the table by
+    clicking on the button labeled ... "New contact." How
+    intuitive!</li>
+  <li>On the right-hand side, a tree shows available categories for
+    filtering contacts. A "New category" button is placed on top of the
+    tree for creating categories.</li>
+  <li>At the bottom of the frame, a form details the currently
+    selected contact. The form is composed of labels and editable text
+    fields.</li>
+</ol>
+<p>[img_assist|nid=20|title=|desc=|link=none|align=center|width=661|height=523]<br/>
+  <i>Figure 1. Address Book screen</i></p>
+<p>A list of possible interactions with the address book could
+  be:</p>
+<ul>
+  <li>Creating a new contact.</li>
+  <li>Switching between contacts.</li>
+  <li>Editing an existing contact.</li>
+  <li>Filtering contacts by category.</li>
+</ul>
+<p>But before playing with the components, we need to set up a test
+  class and catch our application.</p>
+
+<h3 id="creating-a-test-class">Creating a Test Class</h3>
+<p>A typical way to create a UISpec4J test is to create a class
+  extending <code>UISpecTestCase</code>, which is itself a subclass
+  of <a href="http://www.junit.org">JUnit</a>'s
+  <code>TestCase</code>.</p>
+
+<div class="code"><pre>public class AddressBookTest extends UISpecTestCase {
+  ...
+}</pre>
+</div>
+
+<p>We then tell this class that it needs to run the address book
+  application using the <code>main()</code> found in the
+  <code>AddressBook</code> class, and that it can run this
+  application with no arguments. To do this, we set up an "adapter"
+  (<code>UISpecAdapter</code>), whose role is to implement the
+  adaptation between the tests suite and the application. In most
+  cases, we just use the <code>MainClassAdapter</code> provided with
+  the library:</p>
+<pre>
+<div class="code">public class AddressBookTest extends UISpecTestCase {
+  protected void setUp() throws Exception {
+    setAdapter(new MainClassAdapter(Main.class, new String[0]));
+    }
+  ...
+}</div>
+</pre>
+
+<p>We are now ready to create our first test.</p>
+
+<h3 id="first-test-creating-a-contact">First Test: Creating a Contact</h3>
+<p>Let's write a test that creates a new contact using the "New
+  contact" button and then checks that a new row appears in the
+  contacts table.</p>
+<p>The <code>UISpecTestCase</code> class proposes a
+  <code>getMainWindow()</code> method that uses the
+  <code>UISpecAdapter</code> introduced above to return an UISpec4J
+  <code>Window</code> object representing the window displayed by the
+  application. This <code>Window</code> object can be used to fetch
+  individual UI components such as the "New contact" button, the
+  contacts table, and the various text fields used for entering
+  contact information.</p>
+<p>Here is the corresponding test:</p>
+
+<div class="code"><pre>public void testCreatingAContact() throws Exception {
+  // 1. Retrieve the components
+  Window window = getMainWindow();
+  Table table = window.getTable();
+  Button newContactButton = window.getButton("New contact");
+
+  // 2. Check that the contacts table is empty and displays
+  // the proper column names
+  assertTrue(table.getHeader().contentEquals(new String[]{
+    "First name", "Last name", "E-mail", "Phone", "Mobile"
+  }));
+  assertTrue(table.isEmpty());
+
+  // 3. Click on the "New contact" button and check that an
+  // empty row is displayed in the contacts table
+  newContactButton.click();
+  assertTrue(table.contentEquals(new String[][]{
+    {"", "", "", "", ""}
+  }));
+  assertTrue(table.rowIsSelected(0));
+
+  // 4. Change the fields of the created empty contact and check
+  // that the contacts table is updated accordingly
+  window.getTextBox("first").setText("Homer");
+  window.getTextBox("last").setText("Simpson");
+  window.getTextBox("email").setText("homer@simpson.com");
+  window.getTextBox("phone").setText("01.02.03.04.05");
+  window.getTextBox("mobile").setText("06.07.08.09.10");
+  assertTrue(table.contentEquals(new String[][]{
+    {"Home", "Simpson", "homer@simpson.com", "012345", "242424"}
+  }));
+}
+</pre>
+  </div>
+
+<h3 id="finding-components">Finding Components</h3>
+<p>As you can see in the first part of the test, we use the <code>window</code>
+  object to retrieve the components using specific methods such as
+  <code>getTree()</code>, <code>getButton()</code>, etc. For each
+  component type, there are various strategies for fetching
+  individual components.</p>
+<p>If you know that there is only one button in the panel, then
+  just ask for it!</p>
+<pre>
+<div class="code">Button button = panel.getButton();</div>
+</pre>
+<p>If there are several buttons in the panel, you specify which
+  button you want using its displayed label:</p>
+
+<div class="code"><pre>Button button = panel.getButton("New contact");</pre></div>
+
+<p>If there are several buttons with the same displayed label, you
+  can distinguish among them using an "inner name" provided in the
+  production code by the application developers with the
+  <code>JComponent.setName()</code> method. This is, for instance, what
+  we do for the text boxes displayed at the bottom of the address
+  book window - they all look the same, so we need to rely on
+  internal names that we set in the production code: <code>first</code>, <code>last</code>,
+  <code>email</code>, etc. For instance:</p>
+
+<div class="code"><pre>TextBox emailBox = panel.getTextBox("email");</pre></div>
+
+<p>If none of these methods can do the job, you can still provide
+  your own piece of code for matching components:</p>
+
+<div class="code"><pre>Button button = panel.getButton(new ComponentMatcher(){
+  boolean matches(Component component) {
+    return component.isEnabled();
+  }
+});</pre></div>
+
+<p>Note: for I18N purposes, we usually force the default locale to
+  <code>Locale.EN</code> in our tests and use English names for
+  retrieving components.</p>
+<h5 id="using-a-table-component">Using a Table Component</h5>
+<p>The <code>Table</code> class provides lots of methods for
+  checking and manipulating the underlying <code>JTable</code>
+  component. Most of these methods work with two-dimensional arrays
+  representing what the end user is expected to see. For
+  instance:</p>
+
+<div class="code"><pre>assertTrue(table.contentEquals(new String[][]{
+    {"Homer", "Simpson", "homer@simpson.com", "012345", "2424242"},
+    {"Bart", "Simpson", "bart@simpson.com", "123456", "34343434"}
+}));</pre></div>
+
+
+<p>Note: the <code>Table.contentEquals()</code> method, as many
+  other UISpec4J component methods, return <code>Assertion</code>
+  objects instead of Booleans. These <code>Assertion</code> objects
+  are used by UISpec4J to implement retry strategies, mostly for the
+  case of multithreaded GUIs where there might be slight delays
+  between actions performed in the tests and the corresponding
+  changes in the UI. This mechanism is completely transparent in the
+  tests, provided that you use <code>UISpecTestCase</code>'s
+  <code>assertXxx</code> methods, or those of the
+  <code>UISpecAssert</code> class.</p>
+
+<h3 id="second-test-dealing-with-the-categories-tree">Second Test: Dealing with the Categories Tree</h3>
+<p>Let's now move to a more complicated test: "a contact must
+  belong to the category in which it was created." Additionally, selecting
+  a category in the tree should trigger the filtering of the contact
+  list.</p>
+<p>Here is the code for this test:</p>
+
+<div class="code"><pre>public void testContactsBelongToTheirOriginatedCategories()
+  throws Exception {
+  // 1. Create the categories structure and check the display
+  createCategory("", "friends");
+  createCategory("", "work");
+  createCategory("work", "design-up");
+  assertTrue(window.getTree().contentEquals("All\n" +
+    " friends\n" +
+    " work\n" +
+    " design-up"));
+
+  // 2. Create some entries in the "friends" category
+  window.getTree().select("friends");
+  window.getButton("New contact").click();
+  window.getTextBox("first").setText("Homer");
+  window.getTextBox("last").setText("Simpson");
+  window.getButton("New contact").click();
+  window.getTextBox("first").setText("Marge");
+  window.getTextBox("last").setText("Simpson");
+
+  // 3. Create some entries in the "work/design-up" category
+  window.getTree().select("work/design-up");
+  window.getButton("New contact").click();
+  window.getTextBox("first").setText("Regis");
+  window.getTextBox("last").setText("Medina");
+  window.getButton("New contact").click();
+  window.getTextBox("first").setText("Pascal");
+  window.getTextBox("last").setText("Pratmarty");
+
+  // 4. Check the contents of the root category (category "All")
+  window.getTree().selectRoot();
+  assertTrue(window.getTable().contentEquals(new String[][]{
+    {"Homer", "Simpson", "", "", ""},
+    {"Marge", "Simpson", "", "", ""},
+    {"Regis", "Medina", "", "", ""},
+    {"Pascal", "Pratmarty", "", "", ""},
+  }));
+
+  // 5. Check the contents of the "friends" category
+  window.getTree().select("friends");
+  assertTrue(window.getTable().contentEquals(new String[][]{
+    {"Homer", "Simpson", "", "", ""},
+    {"Marge", "Simpson", "", "", ""},
+  }));
+
+  // 6. Check the contents of the "work" category
+  window.getTree().select("work");
+  assertTrue(window.getTable().contentEquals(new String[][]{
+    {"Regis", "Medina", "", "", ""},
+    {"Pascal", "Pratmarty", "", "", ""},
+  }));
+}</pre></div>
+
+
+<p>Steps 1 to 3 set up the initial environment and steps 4 to 6
+  check the contacts displayed for each category. For the setup part,
+  we use a <code>createCategory()</code> method that is described in
+  the next section. On our own projects, we usually end up creating a
+  lot of utility methods like this one, and extract a kind of
+  functional language for manipulating the GUI.</p>
+
+<h3 id="working-with-dialogs">Working with Dialogs</h3>
+<p>The code of the <code>createCategory()</code> method is shown
+  below. We first click on the "New category" button, and then
+  intercept a modal dialog that pops up for querying the name of the
+  category to create.</p>
+
+<div class="code"><pre>protected void createCategory(String parentCategoryPath, String categoryName) {
+  window.getTree().select(parentCategoryPath);
+  WindowInterceptor.init(window.getButton("New Category").triggerClick())
+  .process(new WindowHandler() {
+    Trigger process(Window dialog) {
+      assertTrue(dialog.titleEquals("Category name:"));
+      dialog.getInputTextBox().setText(categoryName);
+      return dialog.getButton("OK").triggerClick();
+    }
+  })
+  .run();
+}</pre> </div>
+
+<p>This method uses the <code>WindowInterceptor</code> utility
+  class to catch the popped-up modal dialog. This is the main class
+  of UISpec4J's window interception mechanism, and provides a means
+  for working with windows without requiring the user interface to be
+  showing on the screen and without requiring any change in the
+  production code.</p>
+<p>Here is how this works:</p>
+<ol>
+  <li>
+    <p><strong><code>init()</code></strong>: We first initialize the
+      interceptor with what we call a "trigger." A <code>Trigger</code>
+      is a piece of code that causes a dialog to be shown by the
+      application - for instance, an Open button that displays a file
+      chooser, or a Delete button that displays a confirmation window.
+      Many UISpec4J components offer ready-to-use components through
+      <code>triggerXXX()</code> methods, but you can also provide your
+      own implementation of the <code>Trigger</code> interface.</p>
+  </li>
+  <li>
+    <p><strong><code>process()</code></strong>: The window displayed by
+      the trigger is caught and given to a <code>WindowHandler</code>
+      interface. We provide a <code>WindowHandler</code> implementation
+      that first checks that the displayed window's title is "Category
+      name", then enters the value of the <code>categoryName</code>
+      variable into the displayed text field, and then closes the window
+      using its OK button.</p>
+    <p>Implementing interceptions like this can look cumbersome, and
+      one would like to be able to test the displayed window without
+      having to create inner classes. But in the case of modal dialogs
+      there is no choice: the application is waiting for the dialog to be
+      closed, which means that the main thread of the application is
+      blocked, so you need to process the dialog within a new thread. One
+      of the strengths of the interception mechanisms is that they hide
+      the multithreading issues associated with the management of modal
+      dialogs.</p>
+    <p>Should you need to intercept non-modal dialogs, however, things
+      are much simpler. You would retrieve the window from within
+      the test with a single statement; for instance:</p>
+
+<div class="code"><pre>Window window = WindowInterceptor.run(window.getButton("Show").triggerClick());
+  window.getTable() ...
+  window.getButton() ...</pre></div>
+
+  </li>
+  <li>
+    <p><strong><code>run</code></strong>: This is when the whole
+      interception gets really executed. The trigger is run, and the
+      displayed window is processed by the handler. The
+      <code>run()</code> method will throw an exception if no window is
+      shown or if the displayed modal dialog is never closed by the
+      handler.</p>
+  </li>
+</ol>
+<p>It is important to note here that the UISpec4J toolkit is
+  ultimately responsible for handling the display of every window: if
+  the application tries to show a dialog box or a window from outside a
+  <code>WindowInterceptor</code> call, the toolkit will immediately
+  raise an exception and make the current test fail.</p>
+
+<h3 id="using-tree-components">Using Tree Components</h3>
+<p>The tree content is being checked before filling the "friends"
+  and "work/design-up" categories with some contacts. As for tables,
+  we also use a "graphical" representation: an indented concatenation
+  of the string representations of the tree nodes separated by the
+  newline (<code>\n</code>) character. In our case:</p>
+
+<div class="code"><pre>assertTrue(window.getTree().contentEquals(
+  "All\n" +
+  " friends\n" +
+  " work\n" +
+  " design-up"));</pre>
+</div>
+
+<p>You will also have noticed that tree paths are expressed with
+  simple strings, usually the displayed tree node names separated
+  with slashes - for instance, <code>work/design-up</code>. This policy can be
+  overriden quite easily when using UISpec4J's <code>Tree</code>
+  component.</p>
+
+<h3 id="other-uispec4j-features">Other UISpec4J Features</h3>
+<p>UISpec4J provides other interesting features that we will only
+  present briefly here.</p>
+
+<h3 id="using-displayed-values-instead-of-internal-ones">Using Displayed Values Instead of Internal Ones</h3>
+<p>UISpec4J uses the values <em>displayed</em> by the components.
+  For complex components such as <code>JList</code>,
+  <code>JTable</code>, or <code>JTree</code>, this means relying on
+  renderers, not just the internal model of the component. For most
+  cases, these renderers use <code>JLabel</code> components, so
+  UISpec4J will simply retrieve these labels and check their
+  displayed text. In more advanced cases, you can easily customize
+  how <code>String</code> values are to be interpreted for a specific
+  complex component.</p>
+
+<h3 id="extending-uispec4j-to-handle-new-kinds-of-components">Extending UISpec4J to Handle New Kinds of Components</h3>
+<p>Even though the UISpec4J API is rich enough to handle most of
+  the situations we have had to deal with, there will always be new
+  situations to take into account. For instance, many projects will
+  want to use UISpec4J with custom-made UI components for which there
+  is no UISpec4J wrapper - for instance, a <code>Table</code> with advanced
+  sorting and filtering capabilities, or a <code>Calendar</code>
+  component, or any custom component coming along with third-party
+  libraries (e.g. JavaHelp).</p>
+<p>UISpec4J provides an extension mechanism that allows you to
+  implement your own UISpec4J component wrappers, and plug them into
+  the library by enhancing the <code>Panel</code> class so that it can be used to
+  find them in containers as for any other UISpec4J component.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+<p>This article presents only an overview of UISpe4J's philosophy
+  and capabilities. This framework aims to ease the automated testing
+  of Swing-based applications:</p>
+<ul>
+  <li>A large toolset allows for writing clear test scripts with little
+    effort.</li>
+  <li>Advanced users can extend this toolset for manipulating third-party components and checking rendered content in
+    more detail.</li>
+</ul>
+<p>Should you have any problems, questions, or suggestions, please
+  feel free to either <a href="/contact">contact us</a>
+  or <a href=
+  "http://tech.groups.yahoo.com/group/uispec4j/">join our forum</a> - we look forward to hearing from you!
+</p>

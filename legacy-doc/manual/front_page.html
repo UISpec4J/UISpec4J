@@ -1,0 +1,89 @@
+<div id="front-page">
+  <h1>UISpec4J: Java/Swing GUI testing made simple!</h1>
+  <p>
+    UISpec4J is an Open Source functional and/or unit testing library for Swing-based Java applications,
+    built on top of the
+    <a href="http://www.junit.org" class="externalLink" title="External Link">JUnit</a>
+    test harness.
+  </p>
+  <p>
+    If you are writing a Swing application, you will appreciate UISpec4J above all
+    for its simplicity: UISpec4J's APIs are designed to hide as much as possible the complexity
+    of Swing, resulting in easy to write and easy to read test scripts. This is especially true when comparing
+    UISpec4J tests with those produced using Swing or low-level, event-based testing
+    libraries.
+  </p>
+  <p>
+    Here is for example how a JTable content is tested with UISpec4J:
+  <p>
+  <table style="margin: 0">
+    <tr>
+      <td width="10%">
+        <img src="../files/images/contact_table.png" width="232" height="150" alt="JTable sample"/>
+      </td>
+      <td>
+        <div class="source"><pre>
+public void testContacts() {
+  Table contacts = getMainWindow().getTable();
+  assertTrue(contacts.contentEquals(new Object[][]{
+    {"John", "12", Boolean.FALSE},
+    {"Sylvia", "43", Boolean.TRUE},
+    {"Bill", "31", Boolean.FALSE}}));
+ }</pre>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <p>
+    This code is shorter than what would be needed using the Swing APIs, but there is more:
+    it checks the values actually
+    <i>displayed</i>
+    by the underlying JTable component, not just its
+    internal model values. Achieving this with Swing would require checking the values computed by the
+    renderers, resulting in several times as many lines of code.
+  </p>
+
+  <h3>Exploring UISpec4J</h3>
+  <p>If you are new to UISpec4J, the best thing you can do is have a look at our
+  <a href="/tutorial">tutorial</a> and a simple <a href="/example">UISpec4J example</a>. Then you can follow
+  our <a href="/getting-started">getting started</a> guide to start using it on you own.</p>
+  <p>The <a href="/documentation">documentation overview</a> page lists all the how-to guides that
+  will help you come to speed with UISpecJ.</p>
+
+  <h3>Current release</h3>
+  <p>
+    The current release is 1.5 (see <a href="changes-report.html">change log</a>).
+    You can retrieve it from our <a href="/download">download</a> page.
+  </p>
+
+  <div class="columns">
+    <div class="left-column">
+      <h3>Acknowledgements</h3>
+      <p>
+        <a href="http://www.jetbrains.com/idea/" class="externalLink" title="External Link">
+        <img src="/files/images/logos/idea.gif" width="234" height="60" border="0" align="left"
+             alt="Intellij/IDEA"/>
+      </a>
+      <BR CLEAR=ALL>
+      <p>Thanks a lot to JetBrains for providing us with licences for
+        their impressive IDE, IntelliJ/IDEA. We have been IntelliJ fans since 2002, and we still haven't
+        found anything that comes close to this piece of software.
+      </p>
+    </div>
+    <div class="right-column">
+      <h3>A java.net project</h3><p>
+      <a href="http://www.java.net" class="externalLink" title="External Link">
+        <img src="/files/images/logos/javanet.gif" width="170" height="47" border="0" align="left"
+             alt="java.net member"/>
+      </a>
+      <BR CLEAR=ALL>
+      <p>
+        UISpec4J is hosted on java.net as a full fledged project of the JavaDesktop community.
+        You can find our project page with CVS access, issue tracking, etc. at the following
+        address:
+        <a href="http://uispec4j.dev.java.net" class="externalLink" title="External Link">uispec4j.dev.java.net</a>
+      </p>
+    </div>
+  </div>
+
+</div>

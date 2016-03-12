@@ -1,0 +1,157 @@
+<h2>Overview</h2>
+<p>UISpec4J provides three different sets of components:</p>
+<ul>
+  <li>A set of GUI component wrappers (Trees, Tables, CheckBoxes, etc.)</li>
+  <li>A mechanism for intercepting dialogs and pop-ups displayed by the application</li>
+  <li>An UISpecTestCase class which extends JUnit's TestCase (this one is optional -
+    you can use UISpec4J within your own test cases)</li>
+</ul>
+There are two main usages for UISpec4J: writing unit tests for individual panels and
+dialogs, or writing functional/acceptance tests for the whole application.
+
+
+<h2>Prerequisites</h2>
+<p>
+  In this documentation, we suppose that you already have some experience with JUnit. If that is not
+  the case, we invite you to learn more about JUnit on its website:
+  <a href="http://www.junit.org">http://www.junit.org</a>.
+</p>
+<p>
+  To use UISpec4J, you will need a Java Development Kit version 1.4.2 or later.
+</p>
+
+
+<h2>Installation</h2>
+<p>
+  UISpec4J runs in the same JVM as your application (or at least the client application if you
+  are testing a distributed system). In order to run the tests, you will need to add uispec4j-xxx.jar
+  to your classpath, along with its dependencies. You can download or find these JARs
+  from our <a href="/download">downloads</a> page.
+</p>
+
+
+<h2>Initializing UISpec4J</h2>
+<p>
+  In order for UISpec4J to be fully operational, you will need to call the
+  <a href="/reports/apidocs/org/uispec4j/UISpec4J.html#init()">UISpec4J.init()</a> method before doing anything
+  with Swing (please refer to the <a href="interception.html">interception</a> documentation
+  for further details).
+</p>
+<p>
+  For your first test case, you can just call that method from the static initializer of
+  your test class:
+</p>
+<div class="code"><pre>
+public class MyOwnTest extends TestCase {
+  static {
+      UISpec4J.init();
+  }
+
+  public void testSomething() {
+    ...perform your tests here...
+  }
+  ...
+</pre>
+</div>
+<p>
+  Please note that having UISpec4J run on Linux may require some adjustements - please refer to our
+  <a href="troubleshooting.html">troubleshouting</a> page for further details.
+</p>
+
+
+<h2>Writing unit tests</h2>
+<p>In most cases, you will have classes that represent panels in the user interface. These
+  classes will typically extend or create a JPanel containing the Swing components
+  to be displayed:
+</p>
+
+<div class="code"><pre>
+public class MyOwnPanel extends JPanel {
+  ... provide your own panel contents and behaviour ...
+}
+</pre>
+</div>
+
+<p>All you need to do for unit-testing such a class is to stick the JPanel into an UISpec4J
+  <a href="/reports/apidocs/org/uispec4j/Panel.html">Panel</a>
+  wrapper, and then start retrieving and using individual components:
+</p>
+<div class="code"><pre>
+public class MyOwnPanelTest extends TestCase {
+  public void testInitialState() {
+    ... setup the context needed to instanciate MyOwnPanel ...
+    Panel panel = new Panel(new MyOwnPanel(...));
+    panel.getTable().contentEquals(...);
+    ...
+    panel.getButton("Apply").click();
+    ...
+    }
+  }
+...
+</pre>
+</div>
+
+
+<h2>Writing functional tests</h2>
+<p>
+  In the case of functional tests, we do not want to test individual GUI classes, we want to access
+  the application as a whole. To support this, we propose a specific TestCase class - UISpecTestCase -
+  which offers the following interface:</p>
+
+<div class="code"><pre>
+public void UISpecTestCase extends TestCase {
+  public Window getMainWindow();
+}
+        </pre>
+</div>
+
+<p>To write a functional test case, you simply need to subclass UISpecTestCase an start using the
+  Window component returned by getMainWindow() to retrieve its individual GUI components:</p>
+
+<div class="code"><pre>
+public void MyFunctionalTestCase extends UISpecTestCase {
+  public void test() {
+    Window mainWindow = getMainWindow();
+    mainWindow.getMenuBar().getMenu("File").getSubMenu("Open...").click();
+    ...
+    mainWindow.getTree().contentEquals(...);
+  }
+}
+</pre>
+</div>
+
+<p>In an Extreme Programming setting, these tests are written
+  <i>before</i>
+  the corresponding features
+  are made available in the application, and they are written by testers instead of developers.
+</p>
+<p>To support this, the UISpecTestCase has been designed so that the tests can be implemented
+  and compiled without depending on the application. The binding with the application is established
+  at runtime, through the UISpecAdapter interface:</p>
+
+<div class="code"><pre>
+public interface UISpecAdapter {
+  Window getMainWindow();
+}
+</pre>
+</div>
+
+<p>This interface is meant to be implemented by developers, who will certainly initialize their
+  application and return a Window component wrapping the JFrame instance corresponding to
+  the application's main window.
+  <br/>
+  The UISpecAdapter is then plugged into the tests suite by setting the uispec4j.adapter property:
+</p>
+
+<div class="code">
+  <pre>java -cp ... -Duispec4j.adapter=com.mycomp.MyUISpecAdapter ...</pre>
+</div>
+
+<p>The tool will then use Java's reflection mechanism to instanciate the adapter and initialize
+  the UISpecTestCase in its setUp() method.</p>
+<p>Another way to set up the adapter is to call the
+  <a href="/reports/apidocs/org/uispec4j/UISpecTestCase.html">UISpecTestCase.setAdapter()</a>
+  method from
+  within your test class, for instance in its setUp() method.
+</p>
+
