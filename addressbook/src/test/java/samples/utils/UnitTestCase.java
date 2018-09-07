@@ -7,12 +7,9 @@ import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.InterceptionError;
 
-import java.util.Locale;
-
 public abstract class UnitTestCase extends TestCase {
   static {
     UISpec4J.init();
-    Locale.setDefault(Locale.ENGLISH);
   }
 
   protected void setUp() throws Exception {
