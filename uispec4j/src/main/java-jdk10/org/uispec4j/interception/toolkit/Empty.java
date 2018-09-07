@@ -1,12 +1,36 @@
 package org.uispec4j.interception.toolkit;
 
-import sun.awt.CausedFocusEvent;
-import sun.awt.image.SunVolatileImage;
-import sun.java2d.pipe.Region;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.AWTEvent;
+import java.awt.AWTException;
+import java.awt.BufferCapabilities;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Composite;
+import java.awt.CompositeContext;
+import java.awt.Desktop;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.Image;
+import java.awt.ImageCapabilities;
+import java.awt.Insets;
+import java.awt.MenuBar;
+import java.awt.Paint;
+import java.awt.PaintContext;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.PaintEvent;
+import java.awt.event.FocusEvent.Cause;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
@@ -14,9 +38,27 @@ import java.awt.geom.Rectangle2D;
 import java.awt.im.spi.InputMethod;
 import java.awt.im.spi.InputMethodContext;
 import java.awt.im.spi.InputMethodDescriptor;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ColorModel;
+import java.awt.image.ImageConsumer;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.awt.image.Raster;
+import java.awt.image.RenderedImage;
+import java.awt.image.VolatileImage;
+import java.awt.image.WritableRaster;
 import java.awt.image.renderable.RenderableImage;
-import java.awt.peer.*;
+import java.awt.peer.CanvasPeer;
+import java.awt.peer.ComponentPeer;
+import java.awt.peer.ContainerPeer;
+import java.awt.peer.DesktopPeer;
+import java.awt.peer.MouseInfoPeer;
+import java.awt.peer.PanelPeer;
+import java.awt.peer.RobotPeer;
+import java.awt.peer.SystemTrayPeer;
+import java.awt.peer.TrayIconPeer;
+import java.awt.peer.WindowPeer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -24,6 +66,12 @@ import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.swing.Icon;
+import javax.swing.JLabel;
+
+import sun.awt.image.SunVolatileImage;
+import sun.java2d.pipe.Region;
 
 /**
  * Contains a set of empty peer class designed to keep the UISpec peer implementation clean.

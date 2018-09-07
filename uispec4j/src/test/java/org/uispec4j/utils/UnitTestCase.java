@@ -1,10 +1,14 @@
 package org.uispec4j.utils;
 
-import junit.framework.TestCase;
+import java.util.Arrays;
+import java.util.List;
+
 import org.uispec4j.UISpec4J;
 import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.InterceptionError;
+
+import junit.framework.TestCase;
 
 public abstract class UnitTestCase extends TestCase {
   static {
@@ -85,5 +89,11 @@ public abstract class UnitTestCase extends TestCase {
     }
     catch (InterceptionError e) {
     }
+  }
+  
+  protected boolean isJavaVersionAtLeast( String javaVersion ) {
+    String currentJavaVersion = System.getProperty("java.specification.version");
+    List<String> javaVersions = Arrays.asList("1.6", "1.7", "1.8", "9", "10");
+    return javaVersions.indexOf(javaVersion) <= javaVersions.indexOf(currentJavaVersion);
   }
 }

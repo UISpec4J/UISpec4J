@@ -45,8 +45,7 @@ public abstract class TreeTestCase extends UnitTestCase {
   }
 
   protected void assertNoSelection(JTree jTree) {
-    String property = System.getProperty("java.specification.version");
-    if ("1.7".equals(property) || "1.8".equals(property)) {
+    if (isJavaVersionAtLeast("1.7")) {
       assertEquals(0, jTree.getSelectionRows().length);
       return;
     }

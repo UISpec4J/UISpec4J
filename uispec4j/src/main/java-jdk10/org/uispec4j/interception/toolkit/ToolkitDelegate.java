@@ -346,7 +346,9 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
   }
 
   public void addPropertyChangeListener(String name, PropertyChangeListener pcl) {
-    getUnderlyingToolkit().addPropertyChangeListener(name, pcl);
+    if(!DESKTOPFONTHINTS.equals(name)){
+      getUnderlyingToolkit().addPropertyChangeListener(name, pcl);
+    }
   }
 
   public void removePropertyChangeListener(String name, PropertyChangeListener pcl) {
