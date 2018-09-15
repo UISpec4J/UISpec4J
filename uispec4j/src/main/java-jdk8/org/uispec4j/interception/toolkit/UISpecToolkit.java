@@ -4,6 +4,9 @@ import org.uispec4j.UISpec4J;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.InvalidDnDOperationException;
+import java.awt.dnd.peer.DragSourceContextPeer;
 import java.awt.im.spi.InputMethodDescriptor;
 import java.awt.peer.*;
 
@@ -142,6 +145,10 @@ public class UISpecToolkit extends ToolkitDelegate {
   }
 
   public InputMethodDescriptor getInputMethodAdapterDescriptor() throws AWTException {
+    return null;
+  }
+
+  public DragSourceContextPeer createDragSourceContextPeer(DragGestureEvent arg0) throws InvalidDnDOperationException {
     return null;
   }
 }

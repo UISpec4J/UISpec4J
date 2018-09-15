@@ -144,4 +144,9 @@ public class UISpecToolkit extends ToolkitDelegate {
   public InputMethodDescriptor getInputMethodAdapterDescriptor() throws AWTException {
     return null;
   }
+
+  @Override
+  public KeyboardFocusManagerPeer getKeyboardFocusManagerPeer() throws HeadlessException {
+    return null;
+  }
 }
