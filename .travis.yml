@@ -5,4 +5,12 @@ jdk:
 
 # Dont do anything in install
 install: true
-script: mvn -P ci-headless clean test
+
+matrix:
+  include:
+    - jdk: 'oraclejdk7'
+      env: PROFILE=jdk7
+    - jdk: 'oraclejdk8'
+      env: PROFILE=jdk8
+      
+script: mvn -P$PROFILE -Dgpg.skip=true clean test
