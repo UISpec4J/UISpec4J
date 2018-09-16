@@ -6,7 +6,5 @@ install: true
 matrix:
   include:
     - jdk: 'oraclejdk8'
-      script: 
-        - xvfb-run make test
-        - mvn -Pjdk8 -Dgpg.skip=true clean test
+      script: xvfb-run mvn -Pjdk8 -Dgpg.skip=true clean test
       
