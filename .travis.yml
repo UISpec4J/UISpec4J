@@ -9,8 +9,7 @@ install: true
 matrix:
   include:
     - jdk: 'oraclejdk7'
-      env: PROFILE=jdk7
+      script: mvn -Pci-headless,jdk7 -Dgpg.skip=true clean test
     - jdk: 'oraclejdk8'
-      env: PROFILE=jdk8
+      script: mvn -Pci-headless,jdk8 -Dgpg.skip=true clean test
       
-script: mvn -Pci-headless,$PROFILE -Dgpg.skip=true clean test
