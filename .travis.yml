@@ -1,7 +1,4 @@
 language: java
-jdk:
-   - oraclejdk8
-   - oraclejdk7
 
 # Dont do anything in install
 install: true
