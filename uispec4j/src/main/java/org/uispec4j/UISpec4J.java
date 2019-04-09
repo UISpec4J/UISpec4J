@@ -34,9 +34,11 @@ public class UISpec4J {
 
   private static void initToolkit() {
     try {
+      Toolkit underlyingToolkit = Toolkit.getDefaultToolkit();
+
       Field toolkitField = Toolkit.class.getDeclaredField("toolkit");
       toolkitField.setAccessible(true);
-      toolkitField.set(null, new UISpecToolkit());
+      toolkitField.set(null, new UISpecToolkit(underlyingToolkit));
     }
     catch (Exception e) {
       throw new RuntimeException("Unable to initialize toolkit for interception.", e);
