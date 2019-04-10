@@ -21,6 +21,11 @@ public class UISpecToolkit extends ToolkitDelegate {
   private static String awtToolkit;
 
   public UISpecToolkit() {
+    this(null);
+  }
+
+  public UISpecToolkit(Toolkit underlyingToolkit) {
+    this.underlyingToolkit = underlyingToolkit;
     setUp();
   }
 
