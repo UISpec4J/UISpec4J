@@ -41,10 +41,13 @@ public class UISpec4J {
       // and it's not a UISpecToolkit instance
       Toolkit underlyingToolkit = (Toolkit) toolkitField.get(null);
 
-      if ((underlyingToolkit == null) || (underlyingToolkit instanceof UISpecToolkit))
+      if (underlyingToolkit == null) {
           toolkitField.set(null, new UISpecToolkit());
-      else
+      } else if (underlyingToolkit instanceof UISpecToolkit) {
+         // no-op - we have already been initialized
+      } else {
           toolkitField.set(null, new UISpecToolkit(underlyingToolkit));
+      }
     }
     catch (Exception e) {
       throw new RuntimeException("Unable to initialize toolkit for interception.", e);
