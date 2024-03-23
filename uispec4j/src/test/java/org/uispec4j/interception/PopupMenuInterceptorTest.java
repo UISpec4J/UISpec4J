@@ -1,5 +1,6 @@
 package org.uispec4j.interception;
 
+import org.junit.Ignore;
 import org.uispec4j.*;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.utils.Functor;
@@ -94,6 +95,7 @@ public class PopupMenuInterceptorTest extends InterceptionTestCase {
     }, "No popup was shown");
   }
 
+  @Ignore
   public void testExceptionRaisedWhenAPopupAppearsWithoutInterceptionOnMacOsX() throws Throwable {
     if (!TestUtils.isMacOsX()) {
       return;

@@ -108,7 +108,7 @@ public class BasicHandlerTest extends InterceptionTestCase {
       })
       .process(BasicHandler.init()
         .setText("Result")
-        .triggerButtonClick("Cancel"))
+        .triggerButtonClick(getLocalLabel("OptionPane.cancelButtonText")))
       .run();
   }
 

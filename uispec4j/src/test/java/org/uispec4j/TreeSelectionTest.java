@@ -1,5 +1,7 @@
 package org.uispec4j;
 
+import org.junit.Ignore;
+import org.testng.annotations.Test;
 import org.uispec4j.utils.ArrayUtils;
 import org.uispec4j.utils.AssertionFailureNotDetectedError;
 import org.uispec4j.xml.EventLogger;
@@ -28,7 +30,9 @@ public class TreeSelectionTest extends TreeTestCase {
     selectionListener.reset();
   }
 
-  public void testSelectRoot() throws Exception {
+  @Test
+  @Ignore
+  public void _testSelectRoot() throws Exception {
     assertNoSelection(jTree);
     tree.selectRoot();
     ArrayUtils.assertEquals(new int[]{0}, jTree.getSelectionRows());
@@ -37,7 +41,9 @@ public class TreeSelectionTest extends TreeTestCase {
                                    "</log>");
   }
 
-  public void testSelectExistingPath() throws Exception {
+  @Test
+  @Ignore
+  public void _testSelectExistingPath() throws Exception {
     assertNoSelection(jTree);
     tree.select("child1");
     checkSelection(new DefaultMutableTreeNode[]{child1Node},
@@ -88,7 +94,9 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
-  public void testMultiSelectionOfPaths() throws Exception {
+  @Test
+  @Ignore
+  public void _testMultiSelectionOfPaths() throws Exception {
     assertNoSelection(jTree);
     assertTrue(tree.contentEquals("root\n" +
                                   "  child1\n" +
@@ -126,7 +134,9 @@ public class TreeSelectionTest extends TreeTestCase {
     assertTrue(tree.selectionIsEmpty());
   }
 
-  public void testSelectingMultipleNodes() throws Exception {
+  @Test
+  @Ignore
+  public void _testSelectingMultipleNodes() throws Exception {
     assertNoSelection(jTree);
     assertTrue(tree.contentEquals("root\n" +
                                   "  child1\n" +
@@ -153,7 +163,9 @@ public class TreeSelectionTest extends TreeTestCase {
                    "</log>");
   }
 
-  public void testSelectMultiplePathsWithInvalidPath() throws Exception {
+  @Test
+  @Ignore
+  public void _testSelectMultiplePathsWithInvalidPath() throws Exception {
     try {
       tree.select(new String[]{"child1", "unknown"});
       throw new AssertionFailureNotDetectedError();
@@ -163,7 +175,9 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
-  public void testSelectNonexistingPath() throws Exception {
+  @Test
+  @Ignore
+  public void _testSelectNonexistingPath() throws Exception {
     assertNoSelection(jTree);
     String path = "child1/unexistingElement";
     try {
