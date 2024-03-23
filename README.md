@@ -27,11 +27,12 @@ Recent JDK updated have been changing several internal swing implementations tha
 to keep the source up to date. Please report issues if you fail to build on a specific version. While the official 2.5 
 release is not out, you can build the project as follows:
 
-| JDK   | Command                                   |
-| ----- | ----------------------------------------- |
-| jdk6  |  mvn -Pjdk6 -Dgpg.skip=true clean install |
-| jdk7  |  mvn -Pjdk7 -Dgpg.skip=true clean install |
-| jdk8  |  mvn -Pjdk8 -Dgpg.skip=true clean install |
+| JDK   | Command                                    |
+| ----- | ------------------------------------------ |
+| jdk6  |  mvn -Pjdk6 -Dgpg.skip=true clean install  |
+| jdk7  |  mvn -Pjdk7 -Dgpg.skip=true clean install  |
+| jdk8  |  mvn -Pjdk8 -Dgpg.skip=true clean install  |
+| jdk10 |  mvn -Pjdk10 -Dgpg.skip=true clean install |
 
 ## Running JDK7 on Linux
 

@@ -21,7 +21,13 @@ public class DateUtilsTest extends UnitTestCase {
   public void testFormatted() throws Exception {
     Locale defaultLocale = Locale.getDefault();
     Locale.setDefault(new Locale("en", "us"));
-    assertEquals("November 23, 1974 7:55 PM", getFormattedDate(date));
+    
+    if( isJavaVersionAtLeast("10") ) {
+      assertEquals("November 23, 1974, 7:55 PM", getFormattedDate(date));
+    }
+    else {
+      assertEquals("November 23, 1974 7:55 PM", getFormattedDate(date));
+    }
     Locale.setDefault(defaultLocale);
   }
 

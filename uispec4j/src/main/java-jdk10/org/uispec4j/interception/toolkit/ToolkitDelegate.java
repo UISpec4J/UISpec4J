@@ -1,11 +1,52 @@
 package org.uispec4j.interception.toolkit;
 
-import sun.awt.ComponentFactory;
-import sun.awt.SunToolkit;
-
-import java.awt.*;
+import java.awt.AWTException;
+import java.awt.Button;
+import java.awt.Canvas;
+import java.awt.Checkbox;
+import java.awt.CheckboxMenuItem;
+import java.awt.Choice;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FileDialog;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.JobAttributes;
+import java.awt.Label;
+import java.awt.List;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.PageAttributes;
+import java.awt.Panel;
+import java.awt.Point;
+import java.awt.PopupMenu;
+import java.awt.PrintJob;
+import java.awt.Robot;
+import java.awt.ScrollPane;
+import java.awt.Scrollbar;
+import java.awt.SystemTray;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
-import java.awt.dnd.*;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragGestureRecognizer;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.InvalidDnDOperationException;
 import java.awt.dnd.peer.DragSourceContextPeer;
 import java.awt.event.AWTEventListener;
 import java.awt.im.InputMethodHighlight;
@@ -13,11 +54,41 @@ import java.awt.im.spi.InputMethodDescriptor;
 import java.awt.image.ColorModel;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
-import java.awt.peer.*;
+import java.awt.peer.ButtonPeer;
+import java.awt.peer.CanvasPeer;
+import java.awt.peer.CheckboxMenuItemPeer;
+import java.awt.peer.CheckboxPeer;
+import java.awt.peer.ChoicePeer;
+import java.awt.peer.DesktopPeer;
+import java.awt.peer.DialogPeer;
+import java.awt.peer.FileDialogPeer;
+import java.awt.peer.FontPeer;
+import java.awt.peer.FramePeer;
+import java.awt.peer.KeyboardFocusManagerPeer;
+import java.awt.peer.LabelPeer;
+import java.awt.peer.ListPeer;
+import java.awt.peer.MenuBarPeer;
+import java.awt.peer.MenuItemPeer;
+import java.awt.peer.MenuPeer;
+import java.awt.peer.PanelPeer;
+import java.awt.peer.PopupMenuPeer;
+import java.awt.peer.RobotPeer;
+import java.awt.peer.ScrollPanePeer;
+import java.awt.peer.ScrollbarPeer;
+import java.awt.peer.SystemTrayPeer;
+import java.awt.peer.TextAreaPeer;
+import java.awt.peer.TextFieldPeer;
+import java.awt.peer.TrayIconPeer;
+import java.awt.peer.WindowPeer;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
+
+import sun.awt.ComponentFactory;
+import sun.awt.LightweightFrame;
+import sun.awt.SunToolkit;
+import sun.awt.datatransfer.DataTransferer;
 
 /**
  * Delegates to the underlying Toolkit.
@@ -125,6 +196,10 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return getUnderlyingToolkit().getFontList();
   }
 
+  public DataTransferer getDataTransferer() {
+     return asSun().getDataTransferer();
+  }
+
   public FontMetrics getFontMetrics(Font font) {
     return getUnderlyingToolkit().getFontMetrics(font);
   }
@@ -152,11 +227,6 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
   public Insets getScreenInsets(GraphicsConfiguration gc)
     throws HeadlessException {
     return Empty.NULL_INSETS;
-  }
-
-  public DragSourceContextPeer createDragSourceContextPeer(DragGestureEvent dge)
-    throws InvalidDnDOperationException {
-    return getUnderlyingToolkit().createDragSourceContextPeer(dge);
   }
 
   public int checkImage(Image image, int width, int height, ImageObserver observer) {
@@ -262,6 +332,10 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return asSun().createTextField(target);
   }
 
+  public FramePeer createLightweightFrame(LightweightFrame target) {
+    return asSun().createLightweightFrame(target);
+  }
+
   public WindowPeer createWindow(Window target)
     throws HeadlessException {
     return asSun().createWindow(target);
@@ -272,16 +346,18 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
   }
 
   public void addPropertyChangeListener(String name, PropertyChangeListener pcl) {
-    getUnderlyingToolkit().addPropertyChangeListener(name, pcl);
+    if(!DESKTOPFONTHINTS.equals(name)){
+      getUnderlyingToolkit().addPropertyChangeListener(name, pcl);
+    }
   }
 
   public void removePropertyChangeListener(String name, PropertyChangeListener pcl) {
     getUnderlyingToolkit().removePropertyChangeListener(name, pcl);
   }
 
-  public Map mapInputMethodHighlight(InputMethodHighlight highlight)
+  public Map<java.awt.font.TextAttribute,?> mapInputMethodHighlight(InputMethodHighlight highlight)
     throws HeadlessException {
-    return getUnderlyingToolkit().mapInputMethodHighlight(highlight);
+      return getUnderlyingToolkit().mapInputMethodHighlight(highlight);
   }
 
   public Cursor createCustomCursor(Image cursor, Point hotSpot, String name)
@@ -299,12 +375,20 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
                                               pageAttributes);
   }
 
-  protected DesktopPeer createDesktopPeer(Desktop desktop) throws HeadlessException {
+  public DesktopPeer createDesktopPeer(Desktop desktop) throws HeadlessException {
     return Empty.NULL_DESKTOP_PEER;
   }
 
   public RobotPeer createRobot(Robot robot, GraphicsDevice graphicsDevice) throws AWTException, HeadlessException {
     return Empty.NULL_ROBOT;
+  }
+
+  public KeyboardFocusManagerPeer getKeyboardFocusManagerPeer() throws HeadlessException {
+    return null;
+  }
+
+  protected boolean syncNativeQueue(long l) {
+    return true;
   }
 
   public boolean isModalExclusionTypeSupported(Dialog.ModalExclusionType modalExclusionType) {
@@ -315,7 +399,7 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return true;
   }
 
-  public DragGestureRecognizer createDragGestureRecognizer(Class abstractRecognizerClass,
+  public <T extends DragGestureRecognizer> T createDragGestureRecognizer(Class<T>  abstractRecognizerClass,
                                                            DragSource ds,
                                                            Component cp,
                                                            int srcActions,
@@ -363,15 +447,7 @@ public abstract class ToolkitDelegate extends SunToolkit implements ComponentFac
     return false;
   }
 
-  protected boolean syncNativeQueue() {
-    return false;
-  }
-
   public void ungrab(Window window) {
-  }
-
-  public boolean isWindowOpacityControlSupported() {
-    return false;
   }
 
   public boolean isWindowShapingSupported() {
