@@ -56,7 +56,8 @@ public class UISpecToolkit extends ToolkitDelegate {
     return (UISpecToolkit)defaultToolkit;
   }
 
-  protected LightweightPeer createComponent(Component target) {
+  @Override
+  public LightweightPeer createComponent(Component target) {
     if (target instanceof JPopupMenu) {
       UISpecDisplay.instance().setCurrentPopup((JPopupMenu)target);
     }
@@ -99,6 +100,11 @@ public class UISpecToolkit extends ToolkitDelegate {
     return false;
   }
 
+  @Override
+  public boolean isTaskbarSupported() {
+    return false;
+  }
+
   protected int getScreenWidth() {
     return 0;
   }
@@ -107,7 +113,8 @@ public class UISpecToolkit extends ToolkitDelegate {
     return 0;
   }
 
-  protected MouseInfoPeer getMouseInfoPeer() {
+  @Override
+  public MouseInfoPeer getMouseInfoPeer() {
     return Empty.NULL_MOUSE_INFO;
   }
 

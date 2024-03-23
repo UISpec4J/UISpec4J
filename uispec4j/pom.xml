@@ -11,7 +11,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.2</version>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -90,7 +90,7 @@
     <developer>
       <name>Thomas Santana</name>
       <id>nebulorum</id>
-      <timezone>-3</timezone>
+      <timezone>+1</timezone>
     </developer>
   </developers>
 
@@ -111,8 +111,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>9</source>
+          <target>9</target>
           <encoding>UTF-8</encoding>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
@@ -292,11 +292,38 @@
                 </goals>
                 <configuration>
                   <sources>
-                    <source>${basedir}/src/main/java-jdk8</source>
+                    <source>${basedir}/src/main/java-jdk11</source>
                   </sources>
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+              <source>11</source>
+              <target>11</target>
+              <compilerArgs>
+                <arg>--add-exports</arg>
+                <arg>java.base/sun.security.action=uispec4j</arg>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/java.awt.peer=uispec4j</arg>>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/java.awt.dnd.peer=uispec4j</arg>>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/java.awt=uispec4j</arg>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/sun.java2d.pipe=uispec4j</arg>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/sun.awt=uispec4j</arg>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/sun.awt.datatransfer=uispec4j</arg>
+                <arg>--add-exports</arg>
+                <arg>java.desktop/sun.awt.image=uispec4j</arg>
+              </compilerArgs>
+            </configuration>
           </plugin>
         </plugins>
       </build>
