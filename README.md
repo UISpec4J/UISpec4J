@@ -7,7 +7,12 @@ designed to hide as much as possible the complexity of Swing, resulting in easy 
 This is especially true when comparing UISpec4J tests with those produced using Swing or low-level, event-based 
 testing libraries.
 
-Checkout the official website at [http://www.uispec4j.org](http://www.uispec4j.org) for more information.
+Checkout the [provisional website](https://rawgit.com/UISpec4J/UISpec4J/gh-pages/index.html) for more information.
+
+## Update Plans
+
+This project has been mostly abandoned since JDK8. Goal is to make it work with JDK 11 and 17 and them
+remove JDK 8 and updated JUnit. Contributors and maintainer maintainers are welcome. 
 
 ## Window Interception failures
 
@@ -27,13 +32,12 @@ Recent JDK updated have been changing several internal swing implementations tha
 to keep the source up to date. Please report issues if you fail to build on a specific version. While the official 2.5 
 release is not out, you can build the project as follows:
 
-| JDK   | Command                                   |
-| ----- | ----------------------------------------- |
-| jdk6  |  mvn -Pjdk6 -Dgpg.skip=true clean install |
-| jdk7  |  mvn -Pjdk7 -Dgpg.skip=true clean install |
-| jdk8  |  mvn -Pjdk8 -Dgpg.skip=true clean install |
+| JDK     | Command                                    |
+|---------|--------------------------------------------|
+| jdk8    | mvn -Pjdk8 -Dgpg.skip=true clean install   |
+| jdk11   | mvn -Pjdk11 -Dgpg.skip=true clean install  |
 
-## Running JDK7 on Linux
+## Running JDK7 on Linux for 2.4 and Older
 
 As of JDK 7 *MToolkit* is no long available on Linux (see 
 [Java SE 7 and JDK 7 Compatibility](http://www.oracle.com/technetwork/java/javase/compatibility-417013.html)).
