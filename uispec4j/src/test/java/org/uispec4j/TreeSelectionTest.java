@@ -30,9 +30,7 @@ public class TreeSelectionTest extends TreeTestCase {
     selectionListener.reset();
   }
 
-  @Test
-  @Ignore
-  public void _testSelectRoot() throws Exception {
+  public void testSelectRoot() throws Exception {
     assertNoSelection(jTree);
     tree.selectRoot();
     ArrayUtils.assertEquals(new int[]{0}, jTree.getSelectionRows());
@@ -41,9 +39,7 @@ public class TreeSelectionTest extends TreeTestCase {
                                    "</log>");
   }
 
-  @Test
-  @Ignore
-  public void _testSelectExistingPath() throws Exception {
+  public void testSelectExistingPath() throws Exception {
     assertNoSelection(jTree);
     tree.select("child1");
     checkSelection(new DefaultMutableTreeNode[]{child1Node},
@@ -94,9 +90,7 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
-  @Test
-  @Ignore
-  public void _testMultiSelectionOfPaths() throws Exception {
+  public void testMultiSelectionOfPaths() throws Exception {
     assertNoSelection(jTree);
     assertTrue(tree.contentEquals("root\n" +
                                   "  child1\n" +
@@ -134,9 +128,7 @@ public class TreeSelectionTest extends TreeTestCase {
     assertTrue(tree.selectionIsEmpty());
   }
 
-  @Test
-  @Ignore
-  public void _testSelectingMultipleNodes() throws Exception {
+  public void testSelectingMultipleNodes() throws Exception {
     assertNoSelection(jTree);
     assertTrue(tree.contentEquals("root\n" +
                                   "  child1\n" +
@@ -163,9 +155,7 @@ public class TreeSelectionTest extends TreeTestCase {
                    "</log>");
   }
 
-  @Test
-  @Ignore
-  public void _testSelectMultiplePathsWithInvalidPath() throws Exception {
+  public void testSelectMultiplePathsWithInvalidPath() throws Exception {
     try {
       tree.select(new String[]{"child1", "unknown"});
       throw new AssertionFailureNotDetectedError();
@@ -175,9 +165,7 @@ public class TreeSelectionTest extends TreeTestCase {
     }
   }
 
-  @Test
-  @Ignore
-  public void _testSelectNonexistingPath() throws Exception {
+  public void testSelectNonExistingPath() throws Exception {
     assertNoSelection(jTree);
     String path = "child1/unexistingElement";
     try {

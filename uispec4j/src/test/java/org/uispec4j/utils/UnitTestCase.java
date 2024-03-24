@@ -6,6 +6,8 @@ import org.uispec4j.assertion.Assertion;
 import org.uispec4j.assertion.UISpecAssert;
 import org.uispec4j.interception.InterceptionError;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public abstract class UnitTestCase extends TestCase {
@@ -84,9 +86,15 @@ public abstract class UnitTestCase extends TestCase {
       functor.run();
       throw new AssertionFailureNotDetectedError();
     }
-    catch (AssertionError e) {
+    catch (AssertionError ignored) {
     }
-    catch (InterceptionError e) {
+    catch (InterceptionError ignored) {
     }
+  }
+
+  protected boolean isJavaVersionAtLeast(String javaVersion) {
+    String currentJavaVersion = System.getProperty("java.specification.version");
+    List<String> javaVersions = Arrays.asList("1.8", "9", "10", "11");
+    return javaVersions.indexOf(javaVersion) <= javaVersions.indexOf(currentJavaVersion);
   }
 }

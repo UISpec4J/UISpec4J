@@ -56,7 +56,6 @@ public class UISpecToolkit extends ToolkitDelegate {
     return (UISpecToolkit)defaultToolkit;
   }
 
-  @Override
   public LightweightPeer createComponent(Component target) {
     if (target instanceof JPopupMenu) {
       UISpecDisplay.instance().setCurrentPopup((JPopupMenu)target);
@@ -100,7 +99,6 @@ public class UISpecToolkit extends ToolkitDelegate {
     return false;
   }
 
-  @Override
   public boolean isTaskbarSupported() {
     return false;
   }
@@ -113,7 +111,6 @@ public class UISpecToolkit extends ToolkitDelegate {
     return 0;
   }
 
-  @Override
   public MouseInfoPeer getMouseInfoPeer() {
     return Empty.NULL_MOUSE_INFO;
   }

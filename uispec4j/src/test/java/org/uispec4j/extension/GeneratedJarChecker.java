@@ -17,12 +17,12 @@ public class GeneratedJarChecker {
     JCountingButton jCountingButton = new JCountingButton("counter");
     Object newPanel = createUISpecPanel(Panel.class, jCountingButton);
 
-    checkGetCoutingButtonMethods(newPanel, jCountingButton, componentClass);
+    checkGetCountingButtonMethods(newPanel, jCountingButton, componentClass);
 
     System.out.println("OK");
   }
 
-  private static void checkGetCoutingButtonMethods(Object newPanel, JCountingButton jCountingButton, Class componentClass)
+  private static void checkGetCountingButtonMethods(Object newPanel, JCountingButton jCountingButton, Class componentClass)
     throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     Method methodWithStringArg = Panel.class.getMethod("getCountingButton", String.class);
     checkGetCountingButton(methodWithStringArg, newPanel, jCountingButton, new Object[]{"counter"}, componentClass);

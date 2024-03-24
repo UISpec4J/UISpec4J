@@ -5,11 +5,12 @@ module uispec4j {
   requires asm;
   requires testng;
 
-  exports org.uispec4j to junit;
-  exports org.uispec4j.utils to junit;
-  exports org.uispec4j.assertion to junit;
-  exports org.uispec4j.interception to junit;
-  exports org.uispec4j.xml to junit;
-  exports org.uispec4j.extension to junit;
-  exports org.uispec4j.finder to junit;
+  exports org.uispec4j;
+  exports org.uispec4j.utils;
+  exports org.uispec4j.assertion;
+  exports org.uispec4j.interception;
+  exports org.uispec4j.xml;
+  exports org.uispec4j.extension;
+  exports org.uispec4j.finder;
+  exports org.uispec4j.interception.ui;
 }
