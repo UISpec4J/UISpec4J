@@ -36,7 +36,18 @@ public class UISpec4J {
     try {
       Field toolkitField = Toolkit.class.getDeclaredField("toolkit");
       toolkitField.setAccessible(true);
-      toolkitField.set(null, new UISpecToolkit());
+      
+      // Attempt to use the current toolkit, if one has been created
+      // and it's not a UISpecToolkit instance
+      Toolkit underlyingToolkit = (Toolkit) toolkitField.get(null);
+
+      if (underlyingToolkit == null) {
+          toolkitField.set(null, new UISpecToolkit());
+      } else if (underlyingToolkit instanceof UISpecToolkit) {
+         // no-op - we have already been initialized
+      } else {
+          toolkitField.set(null, new UISpecToolkit(underlyingToolkit));
+      }
     }
     catch (Exception e) {
       throw new RuntimeException("Unable to initialize toolkit for interception.", e);
